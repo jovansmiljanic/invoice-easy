@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
+    "baseUrl": ".",
+    "rootDir": ".",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "paths": {
+      "*": ["*"]
+    },
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,10 +19,14 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "@types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/**/*.ts",
+    "pages/api/auth/[...nextauth].js"
+  ],
   "exclude": ["node_modules"]
 }
