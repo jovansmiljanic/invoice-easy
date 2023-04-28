@@ -2,7 +2,7 @@
 import type { FC } from "react";
 
 // Global components
-import { Heading } from "@components";
+import { Heading, Logo } from "@components";
 
 // Global grid components
 import { Column, Container, Row } from "@components/Grid";
@@ -16,10 +16,14 @@ const index: FC = () => {
       <Row
         justifyContent={{ md: "center" }}
         alignItems={{ md: "center" }}
-        padding={{ md: { top: 1, bottom: 1 } }}
+        padding={{
+          xs: { top: 1, bottom: 1 },
+          sm: { top: 1, bottom: 1 },
+          md: { top: 1, bottom: 1 },
+        }}
       >
         <Column responsivity={{ md: 6 }} textAlign={{ md: "right" }}>
-          Logo
+          <Logo $width="100" $height="50" $color="primary" />
         </Column>
 
         <Column responsivity={{ md: 6 }} textAlign={{ md: "left" }}>

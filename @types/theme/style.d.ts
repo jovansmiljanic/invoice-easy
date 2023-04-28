@@ -6,7 +6,8 @@ export type Colors =
   | "success"
   | "danger"
   | "textColor"
-  | "lightGray";
+  | "lightGray"
+  | "hoverGray";
 
 export type FontWeights = "light" | "regular" | "medium" | "semiBold" | "bold";
 

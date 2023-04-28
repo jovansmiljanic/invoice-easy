@@ -18,7 +18,7 @@ export const Layout: FC<Props> = ({ title, children }) => {
   return (
     <>
       <Head>
-        <title>{`${title ? title + " - " : ""}"Client"`}</title>
+        <title>{`${title ? title + " - " : ""}Invoice easy`}</title>
       </Head>
 
       <Header />

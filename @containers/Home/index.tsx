@@ -4,12 +4,10 @@ import type { FC } from "react";
 // Vendors
 import styled, { css } from "styled-components";
 
-const Home = styled.div`
-  ${({ theme: { defaults, colors, font, ...theme } }) => css``}
-`;
+const Home = styled.div``;
 
 const index: FC = () => {
-  return <Home>Heelo from home</Home>;
+  return <Home>hooome</Home>;
 };
 
 export { index as Home };

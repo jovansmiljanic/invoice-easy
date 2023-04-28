@@ -16,6 +16,7 @@ export interface Theme {
     danger: string;
     textColor: string;
     lightGray: string;
+    hoverGray: string;
   };
   font: {
     size: number;
