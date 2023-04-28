@@ -37,6 +37,17 @@ const Wrap = styled.div`
   margin-bottom: 20px;
 `;
 
+const ErrorWrap = styled.div`
+  width: 100%;
+  font-size: 10px;
+  padding: 0 12px;
+
+  ${({ theme: { colors } }) => css`
+    background-color: ${colors.danger};
+    color: ${colors.white};
+  `}
+`;
+
 interface Formvalues {
   fullName: string;
   email: string;
@@ -126,18 +137,20 @@ const index: FC = () => {
                 <Group>
                   <Label>Full Name*</Label>
                   <Field
+                    hasError={Boolean(errors.fullName && touched.fullName)}
                     type="text"
                     name="fullName"
                     placeholder="Full name"
                     onChange={handleChange}
                     onBlur={handleBlur}
                     value={values.fullName}
-                    hasError={Boolean(errors.fullName && touched.fullName)}
                   />
 
-                  {errors.fullName && touched.fullName ? (
-                    <>{errors.fullName}</>
-                  ) : null}
+                  <ErrorWrap>
+                    {errors.fullName && touched.fullName ? (
+                      <>{errors.fullName}</>
+                    ) : null}
+                  </ErrorWrap>
                 </Group>
 
                 <Group>
@@ -152,7 +165,9 @@ const index: FC = () => {
                     hasError={errors.email && touched.email ? true : false}
                   />
 
-                  {errors.email && touched.email ? <>{errors.email}</> : null}
+                  <ErrorWrap>
+                    {errors.email && touched.email ? <>{errors.email}</> : null}
+                  </ErrorWrap>
                 </Group>
 
                 <Group>
@@ -167,9 +182,11 @@ const index: FC = () => {
                     hasError={Boolean(errors.password && touched.password)}
                   />
 
-                  {errors.password && touched.password ? (
-                    <>{errors.password}</>
-                  ) : null}
+                  <ErrorWrap>
+                    {errors.password && touched.password ? (
+                      <>{errors.password}</>
+                    ) : null}
+                  </ErrorWrap>
                 </Group>
 
                 <Button
