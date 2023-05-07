@@ -7,7 +7,8 @@ export type Colors =
   | "danger"
   | "textColor"
   | "lightGray"
-  | "hoverGray";
+  | "hoverGray"
+  | "background";
 
 export type FontWeights = "light" | "regular" | "medium" | "semiBold" | "bold";
 

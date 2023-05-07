@@ -39,9 +39,10 @@ export const Field = styled.input<Field>`
   margin-bottom:0 ;
   z-index: 1;
   width: 100%;
+  border-radius: 5px;
 
   &:not([type="radio"]) {
-    ${({ halfSize, theme: { colors, font, defaults } }) => {
+    ${({ halfSize }) => {
       return css`
         ${halfSize
           ? css`
@@ -97,8 +98,9 @@ export const Field = styled.input<Field>`
       }
 
       ::placeholder {
+        font-size: 14px;
         /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: black;
+        color: ${colors.lightGray};
         opacity: 1; /* Firefox */
       }
 

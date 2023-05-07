@@ -32,6 +32,7 @@ const defaultStyle = css`
   text-transform: uppercase;
   transition: all 0.2s;
   border-radius: 5px;
+  justify-content: center;
 
   svg {
     margin-right: 7px;

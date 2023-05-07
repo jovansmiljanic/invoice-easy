@@ -20,6 +20,7 @@ const defaultTheme: ThemeType = {
     textColor: "#222930",
     lightGray: "#d4d4d4",
     hoverGray: "#4359710a",
+    background: "#f5f5f9",
   },
   font: {
     size: 16,

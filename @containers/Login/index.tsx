@@ -21,6 +21,29 @@ import { Field, Label } from "@styles/Form";
 import Link from "next/link";
 import { Column, Container, Row } from "@components/Grid";
 
+const Wrapper = styled.div`
+  padding: 40px 20px;
+
+  ${({ theme: { colors, breakpoints } }) => css`
+    background-color: ${colors.white};
+
+    @media (max-width: ${breakpoints.md}px) {
+      padding: 40px 10px;
+    }
+
+    a {
+      color: ${colors.primary};
+    }
+  `}
+`;
+
+const Wrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+`;
+
 const Group = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,24 +67,14 @@ const ErrorWrap = styled.div`
   `}
 `;
 
-const Wrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
 type Formvalues = {
   email: string;
   password: string;
 };
 
-const SignupSchema = object().shape({
-  email: string().email("Invalid email").required("Email is required"),
-  password: string()
-    .min(6, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Password is required"),
+const LoginSchema = object().shape({
+  email: string().email("Invalid email").required("Please enter email address"),
+  password: string().required("Please enter your password"),
 });
 
 const index: FC = () => {
@@ -74,125 +87,140 @@ const index: FC = () => {
   const router = useRouter();
 
   return (
-    <Container>
+    <Container backgroundColor="background" fullHeight>
       <Row
-        padding={{
-          xs: { top: 8, bottom: 8 },
-          sm: { top: 8, bottom: 8 },
-          md: { top: 10, bottom: 10 },
-        }}
         justifyContent={{ xs: "center", sm: "center", md: "center" }}
+        alignItems={{ xs: "center", sm: "center", md: "center" }}
       >
-        <Column
-          responsivity={{ md: 6 }}
-          padding={{
-            xs: { top: 8, bottom: 8 },
-            sm: { top: 8, bottom: 8 },
-            md: { top: 10, bottom: 10 },
-          }}
-        >
-          <Wrap>
-            <Logo $width="100" $height="50" $color="primary" />
-          </Wrap>
+        <Column responsivity={{ md: 4 }}>
+          <Wrapper>
+            <Wrap>
+              <Logo $width="100" $height="50" $color="primary" />
+            </Wrap>
 
-          <Formik
-            autoComplete="off"
-            initialValues={{
-              email: "",
-              password: "",
-            }}
-            validationSchema={SignupSchema}
-            onSubmit={async (
-              values: Formvalues,
-              { setSubmitting }: FormikHelpers<Formvalues>
-            ) => {
-              await signIn("credentials", {
-                email: values.email,
-                password: values.password,
-                redirect: false,
-              }).then(({ error }: any) => {
-                if (error === "Verification failed") {
-                  setErrorMessage("Failed");
-                } else {
-                  if (error) {
-                    // Alert error
-                    setErrorMessage(error);
+            <div>
+              <Heading as="h4" weight="semiBold">
+                Welcome to Invoice Easy! 👋
+              </Heading>
 
-                    // Disable submitting
-                    setTimeout(() => {
-                      setSubmitting(false);
-                    }, 500);
+              <Heading
+                as="h6"
+                padding={{
+                  xs: { top: 1, bottom: 4 },
+                  sm: { top: 1, bottom: 4 },
+                  md: { top: 1, bottom: 4 },
+                }}
+              >
+                Please sign-in to your account and start the adventure
+              </Heading>
+            </div>
+
+            <Formik
+              autoComplete="off"
+              initialValues={{
+                email: "",
+                password: "",
+              }}
+              validationSchema={LoginSchema}
+              onSubmit={async (
+                values: Formvalues,
+                { setSubmitting }: FormikHelpers<Formvalues>
+              ) => {
+                await signIn("credentials", {
+                  email: values.email,
+                  password: values.password,
+                  redirect: false,
+                }).then(({ error }: any) => {
+                  if (error === "Verification failed") {
+                    setErrorMessage("Failed");
                   } else {
-                    // Set error to false
-                    setErrorMessage("");
+                    if (error) {
+                      // Alert error
+                      setErrorMessage(error);
 
-                    // Reroute user to the dashboard
-                    router.push("/");
+                      // Disable submitting
+                      setTimeout(() => {
+                        setSubmitting(false);
+                      }, 500);
+                    } else {
+                      // Set error to false
+                      setErrorMessage("");
+
+                      // Reroute user to the dashboard
+                      router.push("/");
+                    }
                   }
-                }
-              });
-            }}
-          >
-            {({
-              values,
-              touched,
-              errors,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-              handleBlur,
-            }) => (
-              <form onSubmit={handleSubmit}>
-                <Group>
-                  <Label>Email*</Label>
-                  <Field
-                    hasError={Boolean(errors.email && touched.email)}
-                    type="text"
-                    name="email"
-                    placeholder="Email"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.email}
-                  />
+                });
+              }}
+            >
+              {({
+                values,
+                touched,
+                errors,
+                handleChange,
+                handleSubmit,
+                isSubmitting,
+                handleBlur,
+              }) => (
+                <form onSubmit={handleSubmit}>
+                  <Group>
+                    <Label>Email address</Label>
+                    <Field
+                      hasError={Boolean(errors.email && touched.email)}
+                      type="text"
+                      name="email"
+                      placeholder="Enter your email address"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.email}
+                    />
 
-                  <ErrorWrap>
-                    {errors.email && touched.email ? <>{errors.email}</> : null}
-                  </ErrorWrap>
-                </Group>
+                    <ErrorWrap>
+                      {errors.email && touched.email ? (
+                        <>{errors.email}</>
+                      ) : null}
+                    </ErrorWrap>
+                  </Group>
 
-                <Group>
-                  <Label>Password*</Label>
-                  <Field
-                    hasError={Boolean(errors.password && touched.password)}
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    value={values.password}
-                  />
+                  <Group>
+                    <Label>Password</Label>
+                    <Field
+                      hasError={Boolean(errors.password && touched.password)}
+                      type="password"
+                      name="password"
+                      placeholder="************"
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      value={values.password}
+                    />
 
-                  <ErrorWrap>
-                    {errors.password && touched.password ? (
-                      <>{errors.password}</>
-                    ) : errorMessage ? (
-                      <>{errorMessage}</>
-                    ) : null}
-                  </ErrorWrap>
-                </Group>
+                    <ErrorWrap>
+                      {errors.password && touched.password ? (
+                        <>{errors.password}</>
+                      ) : errorMessage ? (
+                        <>{errorMessage}</>
+                      ) : null}
+                    </ErrorWrap>
+                  </Group>
 
-                <ButtonWrap>
-                  <Button variant="primary" type="submit">
-                    {isSubmitting ? "Login..." : "Login"}
-                  </Button>
-                </ButtonWrap>
-              </form>
-            )}
-          </Formik>
+                  <ButtonWrap>
+                    <Button variant="primary" type="submit">
+                      {isSubmitting ? "Login..." : "Sign in"}
+                    </Button>
+                  </ButtonWrap>
+                </form>
+              )}
+            </Formik>
 
-          <Heading as="h6">
-            <Link href="/registration">Create account</Link>
-          </Heading>
+            <Heading
+              as="h6"
+              textAlign={{ xs: "center", sm: "center", md: "center" }}
+              padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
+            >
+              New on our platform?{" "}
+              <Link href="/registration">Create account</Link>
+            </Heading>
+          </Wrapper>
         </Column>
       </Row>
     </Container>

@@ -34,6 +34,7 @@ interface Props {
   backgroundColor?: Colorstype;
   color?: Colorstype;
   children: React.ReactNode;
+  fullHeight?: boolean;
 }
 
 export const Container = styled.div<Props>`
@@ -100,12 +101,20 @@ export const Container = styled.div<Props>`
 const Wrapper = styled.div<{
   backgroundColor?: Colorstype;
   textColor?: Colorstype;
+  fullHeight?: boolean;
 }>`
   width: 100%;
   height: 100%;
   position: relative;
 
-  ${({ backgroundColor, textColor, theme: { colors } }) => `
+  ${({ fullHeight, backgroundColor, textColor, theme: { colors } }) => `
+
+  ${
+    fullHeight &&
+    `
+      height: 100vh;
+    `
+  }
 
   ${
     backgroundColor
