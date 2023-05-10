@@ -108,14 +108,6 @@ const Wrapper = styled.div<{
   position: relative;
 
   ${({ fullHeight, backgroundColor, textColor, theme: { colors } }) => `
-
-  ${
-    fullHeight &&
-    `
-      height: 100vh;
-    `
-  }
-
   ${
     backgroundColor
       ? `
@@ -130,6 +122,16 @@ const Wrapper = styled.div<{
       color: ${colors[textColor as Colorstype]};
     `
       : ""
+  }
+
+  ${
+    fullHeight &&
+    `
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    `
   }
 `}
 `;

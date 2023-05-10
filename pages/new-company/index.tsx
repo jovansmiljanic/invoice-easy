@@ -1,5 +1,8 @@
 // Global containers
-import { Registration } from "@containers";
+import { NewCompany } from "@containers";
+
+// Global components
+import { Layout } from "@components";
 
 // Core
 import { GetServerSideProps } from "next";
@@ -9,10 +12,9 @@ import { getSession } from "next-auth/react";
 
 export default function Page() {
   return (
-    <>
-      <title>Registration</title>
-      <Registration />
-    </>
+    <Layout title="Create new invoice">
+      <NewCompany />
+    </Layout>
   );
 }
 
@@ -20,10 +22,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // Check session
   const session = await getSession(ctx);
 
-  if (session) {
+  if (!session) {
     return {
       redirect: {
-        destination: "/",
+        destination: "/login",
         permanent: false,
       },
     };

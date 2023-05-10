@@ -7,7 +7,7 @@ import styled, { css } from "styled-components";
 const Home = styled.div``;
 
 const index: FC = () => {
-  return <Home>hooome</Home>;
+  return <Home>Home</Home>;
 };
 
 export { index as Home };

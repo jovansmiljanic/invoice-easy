@@ -1,20 +1,24 @@
 // Global containers
-import { Home, Login } from "@containers";
+import { MyAccount } from "@containers";
 
 // Global components
 import { Layout } from "@components";
+
+// Core
 import { GetServerSideProps } from "next";
+
+// Vendors
 import { getSession } from "next-auth/react";
-import { Session } from "next-auth";
+import { MyAccount as MyAccountType } from "@types";
 
 interface ContentPageProps {
-  session: Session;
+  myAccount: MyAccountType[];
 }
 
-export default function Page({ session }: ContentPageProps) {
+export default function Page({ myAccount }: ContentPageProps) {
   return (
-    <Layout title="Home">
-      <Home />
+    <Layout title="Create new invoice">
+      <MyAccount details={myAccount} />
     </Layout>
   );
 }
@@ -32,7 +36,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
+  const details = await fetch(`${process.env.NEXTAUTH_URL}/api/my-account`);
+  const { myAccount } = await details.json();
+
   return {
-    props: { session },
+    props: { myAccount },
   };
 };

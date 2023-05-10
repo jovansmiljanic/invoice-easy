@@ -8,7 +8,8 @@ export type Colors =
   | "textColor"
   | "lightGray"
   | "hoverGray"
-  | "background";
+  | "background"
+  | "gray";
 
 export type FontWeights = "light" | "regular" | "medium" | "semiBold" | "bold";
 
