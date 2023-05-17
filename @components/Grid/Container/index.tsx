@@ -35,6 +35,7 @@ interface Props {
   color?: Colorstype;
   children: React.ReactNode;
   fullHeight?: boolean;
+  alignCenter?: boolean;
 }
 
 export const Container = styled.div<Props>`
@@ -102,12 +103,19 @@ const Wrapper = styled.div<{
   backgroundColor?: Colorstype;
   textColor?: Colorstype;
   fullHeight?: boolean;
+  alignCenter?: boolean;
 }>`
   width: 100%;
   height: 100%;
   position: relative;
 
-  ${({ fullHeight, backgroundColor, textColor, theme: { colors } }) => `
+  ${({
+    fullHeight,
+    alignCenter,
+    backgroundColor,
+    textColor,
+    theme: { colors },
+  }) => `
   ${
     backgroundColor
       ? `
@@ -128,6 +136,12 @@ const Wrapper = styled.div<{
     fullHeight &&
     `
       min-height: 100vh;
+    `
+  }
+
+  ${
+    alignCenter &&
+    `
       display: flex;
       justify-content: center;
       align-items: center;

@@ -94,7 +94,7 @@ export const Field = styled.input<Field>`
       }
 
       &[disabled] {
-        background-color: ${colors.lightGray};
+        background-color: ${colors.hoverGray};
       }
 
       ::placeholder {

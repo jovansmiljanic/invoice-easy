@@ -1,5 +1,5 @@
 // Global containers
-import { NewCompany } from "@containers";
+import { NewClient } from "@containers";
 
 // Global components
 import { Layout } from "@components";
@@ -13,7 +13,7 @@ import { getSession } from "next-auth/react";
 export default function Page() {
   return (
     <Layout title="Create new invoice">
-      <NewCompany />
+      <NewClient />
     </Layout>
   );
 }

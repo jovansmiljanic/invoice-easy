@@ -5,11 +5,11 @@ import { getSession } from "next-auth/react";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // Models
-import { User } from "@models";
+import { Invoice, User } from "@models";
 
 // Global utilities
 import { database } from "@utils/server";
-import { Company } from "@models/Company";
+import { Client } from "@models/Client";
 
 // Process request
 const api = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -25,10 +25,10 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
   // Process a GET request
   if (method === "GET") {
     // Grab current user
-    const companies = await Company.find();
+    const invoices = await Invoice.find();
 
     // Return the object
-    return res.send({ companies });
+    return res.send({ invoices });
   }
 
   // Process a POST request
@@ -43,13 +43,13 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
     const { body } = req;
 
     // Create user model object
-    const company = new Company(body);
+    const invoice = new Invoice(body);
 
     // Store user on the Database
-    await company.save();
+    await invoice.save();
 
     // Return the created user
-    return res.send(company);
+    return res.send(invoice);
   }
 
   // End request

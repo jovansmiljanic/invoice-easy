@@ -2,8 +2,9 @@ import { Colors } from "./theme/style";
 
 export type { Theme, ThemeContext } from "./theme";
 export type { User } from "./users";
-export type { Company } from "./company";
+export type { Client } from "./client";
 export type { MyAccount } from "./my-account";
+export type { Invoice } from "./invoice";
 
 export type {
   Breakpoints,

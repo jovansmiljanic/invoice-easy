@@ -10,7 +10,7 @@ import { getSession } from "next-auth/react";
 export default function Page() {
   return (
     <>
-      <title>Registration</title>
+      <title>Registration - Invoice Easy</title>
       <Registration />
     </>
   );

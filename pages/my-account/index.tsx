@@ -9,6 +9,8 @@ import { GetServerSideProps } from "next";
 
 // Vendors
 import { getSession } from "next-auth/react";
+
+// Global types
 import { MyAccount as MyAccountType } from "@types";
 
 interface ContentPageProps {

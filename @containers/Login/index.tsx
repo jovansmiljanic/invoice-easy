@@ -1,5 +1,5 @@
 // Core types
-import type { FC } from "react";
+import { type FC } from "react";
 
 // Core
 import { useState } from "react";
@@ -12,13 +12,15 @@ import { signIn } from "next-auth/react";
 import { Button, Heading, Logo } from "@components";
 
 // Vendors
+import Link from "next/link";
 import { object, string } from "yup";
 import styled, { css } from "styled-components";
 import { Formik, FormikHelpers } from "formik";
 
 // Global styles
 import { Field, Label } from "@styles/Form";
-import Link from "next/link";
+
+// GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
 
 const Wrapper = styled.div`
@@ -87,7 +89,7 @@ const index: FC = () => {
   const router = useRouter();
 
   return (
-    <Container backgroundColor="background" fullHeight>
+    <Container backgroundColor="background" fullHeight alignCenter>
       <Row
         justifyContent={{ xs: "center", sm: "center", md: "center" }}
         alignItems={{ xs: "center", sm: "center", md: "center" }}

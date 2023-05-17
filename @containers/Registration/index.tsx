@@ -10,12 +10,14 @@ import { Button, Heading, Logo } from "@components";
 // Vendors
 import axios from "axios";
 import * as Yup from "yup";
+import Link from "next/link";
 import { Formik, FormikHelpers } from "formik";
 import styled, { css } from "styled-components";
 
 // Form styles
 import { Field, Label } from "@styles/Form";
-import Link from "next/link";
+
+// Global grid components
 import { Column, Container, Row } from "@components/Grid";
 
 const Wrapper = styled.div`
@@ -93,7 +95,7 @@ const index: FC = () => {
   const router = useRouter();
 
   return (
-    <Container backgroundColor="background" fullHeight>
+    <Container backgroundColor="background" fullHeight alignCenter>
       <Row
         justifyContent={{ xs: "center", sm: "center", md: "center" }}
         alignItems={{ xs: "center", sm: "center", md: "center" }}
@@ -140,7 +142,6 @@ const index: FC = () => {
                 })
                   .then((res) => {
                     router.push("/");
-                    console.log(res);
                   })
                   .catch((err) => {
                     console.log(err);

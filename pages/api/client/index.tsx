@@ -5,10 +5,11 @@ import { getSession } from "next-auth/react";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // Models
-import { MyAccount } from "@models";
+import { User } from "@models";
 
 // Global utilities
 import { database } from "@utils/server";
+import { Client } from "@models/Client";
 
 // Process request
 const api = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -24,10 +25,10 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
   // Process a GET request
   if (method === "GET") {
     // Grab current user
-    const myAccount = await MyAccount.find();
+    const clients = await Client.find();
 
     // Return the object
-    return res.send({ myAccount });
+    return res.send({ clients });
   }
 
   // Process a POST request
@@ -42,33 +43,13 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
     const { body } = req;
 
     // Create user model object
-    const myAccount = new MyAccount(body);
+    const client = new Client(body);
 
     // Store user on the Database
-    await myAccount.save();
+    await client.save();
 
     // Return the created user
-    return res.send(myAccount);
-  }
-
-  // Process a POST request
-  if (method === "PUT") {
-    const { body } = req;
-
-    const { id } = body;
-
-    const myAccount = await MyAccount.findOneAndUpdate(
-      {
-        _id: id,
-      },
-      body
-    );
-
-    // Store user on the Database
-    // await myAccount.save();
-
-    // Return the created user
-    return res.send(myAccount);
+    return res.send(client);
   }
 
   // End request

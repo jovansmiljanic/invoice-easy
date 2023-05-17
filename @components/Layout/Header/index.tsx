@@ -1,10 +1,11 @@
 // Core types
-import { FC, useEffect, useRef, useState } from "react";
+import { type FC, useEffect, useRef, useState } from "react";
 
 // NextJS
 import Link from "next/link";
 
 // Vendors
+import { signOut } from "next-auth/react";
 import styled, { css } from "styled-components";
 
 // Global grid components
@@ -12,8 +13,9 @@ import { Column, Container, Row } from "@components/Grid";
 
 // Global components
 import { Heading, Logo } from "@components";
+
+// Client utils
 import { checkCookie } from "@utils/client";
-import { signOut } from "next-auth/react";
 
 const CustomLink = styled.span`
   padding: 0 5px;
@@ -63,14 +65,14 @@ const Dropdown = styled.div`
   `}
 `;
 
-const DropdownItem = styled.div`
+const DropdownItem = styled.div<{ borderTop?: boolean }>`
   cursor: pointer;
   padding: 15px 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
 
-  ${({ theme: { colors } }) => css`
+  ${({ borderTop, theme: { colors } }) => css`
     color: ${colors.gray};
 
     span {
@@ -110,6 +112,11 @@ const DropdownItem = styled.div`
     &:not(:last-child) {
       border-bottom: 1px solid ${colors.lightGray};
     }
+
+    ${borderTop &&
+    `
+      border-top: 1px solid ${colors.lightGray};
+    `}
   `}
 `;
 
@@ -200,7 +207,7 @@ const index: FC = () => {
                   </DropdownItem>
                 </Link>
 
-                <Link href="/new-company">
+                <Link href="/new-client">
                   <DropdownItem>
                     <svg
                       width="24"
@@ -215,11 +222,30 @@ const index: FC = () => {
                       />
                     </svg>
 
-                    <span>New company</span>
+                    <span>New client</span>
                   </DropdownItem>
                 </Link>
 
-                <DropdownItem onClick={handleSignOut}>
+                <Link href="/invoice/add">
+                  <DropdownItem>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3 4.5C3 3.83696 3.26339 3.20107 3.73223 2.73223C4.20107 2.26339 4.83696 2 5.5 2H17C17.663 2 18.2989 2.26339 18.7678 2.73223C19.2366 3.20107 19.5 3.83696 19.5 4.5V11.313C19.0134 11.1561 18.5099 11.0574 18 11.019V4.5C18 4.23478 17.8946 3.98043 17.7071 3.79289C17.5196 3.60536 17.2652 3.5 17 3.5H5.5C5.23478 3.5 4.98043 3.60536 4.79289 3.79289C4.60536 3.98043 4.5 4.23478 4.5 4.5V18H11.019C11.059 18.52 11.159 19.022 11.313 19.5H4.5C4.5 19.7652 4.60536 20.0196 4.79289 20.2071C4.98043 20.3946 5.23478 20.5 5.5 20.5H11.732C12.0183 21.0486 12.3813 21.5537 12.81 22H5.5C4.83696 22 4.20107 21.7366 3.73223 21.2678C3.26339 20.7989 3 20.163 3 19.5V4.5ZM17.5 12C18.9587 12 20.3576 12.5795 21.3891 13.6109C22.4205 14.6424 23 16.0413 23 17.5C23 18.9587 22.4205 20.3576 21.3891 21.3891C20.3576 22.4205 18.9587 23 17.5 23C16.0413 23 14.6424 22.4205 13.6109 21.3891C12.5795 20.3576 12 18.9587 12 17.5C12 16.0413 12.5795 14.6424 13.6109 13.6109C14.6424 12.5795 16.0413 12 17.5 12ZM18.001 20.503V18H20.503C20.6356 18 20.7628 17.9473 20.8566 17.8536C20.9503 17.7598 21.003 17.6326 21.003 17.5C21.003 17.3674 20.9503 17.2402 20.8566 17.1464C20.7628 17.0527 20.6356 17 20.503 17H18V14.5C18 14.3674 17.9473 14.2402 17.8536 14.1464C17.7598 14.0527 17.6326 14 17.5 14C17.3674 14 17.2402 14.0527 17.1464 14.1464C17.0527 14.2402 17 14.3674 17 14.5V17H14.496C14.3634 17 14.2362 17.0527 14.1424 17.1464C14.0487 17.2402 13.996 17.3674 13.996 17.5C13.996 17.6326 14.0487 17.7598 14.1424 17.8536C14.2362 17.9473 14.3634 18 14.496 18H17.001V20.503C17.001 20.6356 17.0537 20.7628 17.1474 20.8566C17.2412 20.9503 17.3684 21.003 17.501 21.003C17.6336 21.003 17.7608 20.9503 17.8546 20.8566C17.9483 20.7628 18.001 20.6356 18.001 20.503ZM6 6C6 5.73478 6.10536 5.48043 6.29289 5.29289C6.48043 5.10536 6.73478 5 7 5H15C15.2652 5 15.5196 5.10536 15.7071 5.29289C15.8946 5.48043 16 5.73478 16 6V8C16 8.26522 15.8946 8.51957 15.7071 8.70711C15.5196 8.89464 15.2652 9 15 9H7C6.73478 9 6.48043 8.89464 6.29289 8.70711C6.10536 8.51957 6 8.26522 6 8V6ZM7.5 7.5H14.5V6.5H7.5V7.5Z"
+                        fill="black"
+                      />
+                    </svg>
+
+                    <span>Create invoice</span>
+                  </DropdownItem>
+                </Link>
+
+                <DropdownItem onClick={handleSignOut} borderTop>
                   <svg
                     width="20"
                     height="20"

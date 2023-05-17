@@ -1,15 +1,23 @@
 // Core types
+import { type FC } from "react";
+
+// Global components
 import { Button, Heading } from "@components";
+
+// GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
-import { Formik, FormikHelpers } from "formik";
-import type { FC } from "react";
-import * as Yup from "yup";
 
 // Vendors
-import styled, { css } from "styled-components";
 import axios from "axios";
+import * as Yup from "yup";
 import { useRouter } from "next/router";
+import { Formik, FormikHelpers } from "formik";
+import styled, { css } from "styled-components";
+
+// Global styles
 import { Field, Label } from "@styles/Form";
+
+// Global types
 import { MyAccount as MyAccountType } from "@types";
 
 const MyAccount = styled.div`
@@ -126,6 +134,8 @@ const index: FC<MyAccount> = ({ details }) => {
                 data: Formvalues,
                 { setSubmitting }: FormikHelpers<Formvalues>
               ) => {
+                setSubmitting(true);
+
                 if (details) {
                   const id = details[0]._id;
 
@@ -138,9 +148,11 @@ const index: FC<MyAccount> = ({ details }) => {
                     },
                   })
                     .then((res) => {
+                      setSubmitting(false);
                       router.push("/");
                     })
                     .catch((err) => {
+                      setSubmitting(false);
                       console.log(err);
                     });
                 } else {
@@ -150,9 +162,11 @@ const index: FC<MyAccount> = ({ details }) => {
                     data,
                   })
                     .then((res) => {
+                      setSubmitting(false);
                       router.push("/");
                     })
                     .catch((err) => {
+                      setSubmitting(false);
                       console.log(err);
                     });
                 }
@@ -332,6 +346,7 @@ const index: FC<MyAccount> = ({ details }) => {
                     type="submit"
                     variant="primary"
                     margin={{ md: { bottom: 2 }, sm: { bottom: 2 } }}
+                    isLoading={isSubmitting}
                   >
                     {isSubmitting ? "Submitting..." : "Submit"}
                   </Button>

@@ -2,11 +2,11 @@
 import type { PopulatedDoc } from "mongoose";
 import mongoose from "mongoose";
 
-export interface Company {
+export interface Client {
   _id: mongoose.Types.ObjectId;
-  companyName: string;
-  companyAddress: string;
+  clientName: string;
+  clientAddress: string;
   zipCode: string;
   taxNumber: string;
-  company: PopulatedDoc<Company>;
+  client: PopulatedDoc<Client>;
 }

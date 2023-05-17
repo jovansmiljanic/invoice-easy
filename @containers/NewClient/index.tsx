@@ -1,17 +1,23 @@
 // Core types
-import { Button, Heading } from "@components";
-import { Column, Container, Row } from "@components/Grid";
-import { Formik, FormikHelpers } from "formik";
 import type { FC } from "react";
-import * as Yup from "yup";
+
+// Global components
+import { Button, Heading } from "@components";
+
+// Global grid components
+import { Column, Container, Row } from "@components/Grid";
 
 // Vendors
-import styled, { css } from "styled-components";
 import axios from "axios";
+import * as Yup from "yup";
 import { useRouter } from "next/router";
+import { Formik, FormikHelpers } from "formik";
+import styled, { css } from "styled-components";
+
+// Global styles
 import { Field, Label } from "@styles/Form";
 
-const NewCompany = styled.div`
+const NewClient = styled.div`
   border-radius: 5px;
   box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
   padding: 40px 20px;
@@ -45,18 +51,18 @@ const ErrorWrap = styled.div`
 `;
 
 interface Formvalues {
-  companyName: string;
-  companyAddress: string;
+  clientName: string;
+  clientAddress: string;
   zipCode: string;
   taxNumber: string;
 }
 
-const NewCompanySchema = Yup.object().shape({
-  companyName: Yup.string()
+const NewClientSchema = Yup.object().shape({
+  clientName: Yup.string()
     .min(2, "Too Short!")
     .max(50, "Too Long!")
     .required("Please enter your full name"),
-  companyAddress: Yup.string().required("Please enter your email"),
+  clientAddress: Yup.string().required("Please enter your email"),
   zipCode: Yup.string().required("Please enter your password"),
   taxNumber: Yup.string().required("Please enter your password"),
 });
@@ -73,31 +79,30 @@ const index: FC = () => {
       >
         <Column responsivity={{ md: 6 }} padding={{ md: { bottom: 10 } }}>
           <Heading as="h4" color="gray" padding={{ md: { bottom: 4 } }}>
-            Add new company
+            Add new client
           </Heading>
 
-          <NewCompany>
+          <NewClient>
             <Formik
               autoComplete="off"
               initialValues={{
-                companyName: "",
-                companyAddress: "",
+                clientName: "",
+                clientAddress: "",
                 zipCode: "",
                 taxNumber: "",
               }}
-              validationSchema={NewCompanySchema}
+              validationSchema={NewClientSchema}
               onSubmit={async (
                 data: Formvalues,
                 { setSubmitting }: FormikHelpers<Formvalues>
               ) => {
                 await axios({
                   method: "POST",
-                  url: "/api/company",
+                  url: "/api/client",
                   data,
                 })
                   .then((res) => {
                     router.push("/");
-                    console.log(res);
                   })
                   .catch((err) => {
                     console.log(err);
@@ -115,45 +120,45 @@ const index: FC = () => {
               }) => (
                 <Form id="myForm" onSubmit={handleSubmit}>
                   <Group>
-                    <Label>Company name</Label>
+                    <Label>Client name</Label>
                     <Field
                       hasError={Boolean(
-                        errors.companyName && touched.companyName
+                        errors.clientName && touched.clientName
                       )}
                       type="text"
-                      name="companyName"
+                      name="clientName"
                       placeholder="Enter your full name"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.companyName}
+                      value={values.clientName}
                     />
 
                     <ErrorWrap>
-                      {errors.companyName && touched.companyName ? (
-                        <>{errors.companyName}</>
+                      {errors.clientName && touched.clientName ? (
+                        <>{errors.clientName}</>
                       ) : null}
                     </ErrorWrap>
                   </Group>
 
                   <Group>
-                    <Label>Company address</Label>
+                    <Label>Client address</Label>
                     <Field
-                      type="companyAddress"
-                      name="companyAddress"
-                      placeholder="Enter Company Address"
+                      type="clientAddress"
+                      name="clientAddress"
+                      placeholder="Enter Client Address"
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      value={values.companyAddress}
+                      value={values.clientAddress}
                       hasError={
-                        errors.companyAddress && touched.companyAddress
+                        errors.clientAddress && touched.clientAddress
                           ? true
                           : false
                       }
                     />
 
                     <ErrorWrap>
-                      {errors.companyAddress && touched.companyAddress ? (
-                        <>{errors.companyAddress}</>
+                      {errors.clientAddress && touched.clientAddress ? (
+                        <>{errors.clientAddress}</>
                       ) : null}
                     </ErrorWrap>
                   </Group>
@@ -206,11 +211,11 @@ const index: FC = () => {
                 </Form>
               )}
             </Formik>
-          </NewCompany>
+          </NewClient>
         </Column>
       </Row>
     </Container>
   );
 };
 
-export { index as NewCompany };
+export { index as NewClient };

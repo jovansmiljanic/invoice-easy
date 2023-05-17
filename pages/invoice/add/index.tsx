@@ -1,6 +1,3 @@
-// Global containers
-import { Dashboard } from "@containers";
-
 // Global components
 import { Layout } from "@components";
 
@@ -10,17 +7,20 @@ import { GetServerSideProps } from "next";
 // Vendors
 import { getSession } from "next-auth/react";
 
-// Types
-import { Invoice } from "@types";
+// Global types
+import { Client } from "@types";
+
+// Global containers
+import { NewInvoice } from "@containers";
 
 interface ContentPageProps {
-  invoices: Invoice[];
+  clients: Client[];
 }
 
-export default function Page({ invoices }: ContentPageProps) {
+export default function Page({ clients }: ContentPageProps) {
   return (
-    <Layout title="Dashboard">
-      <Dashboard invoices={invoices} />
+    <Layout title="Choose client">
+      <NewInvoice clients={clients} />
     </Layout>
   );
 }
@@ -38,10 +38,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const invoice = await fetch(`${process.env.NEXTAUTH_URL}/api/invoice`);
-  const { invoices } = await invoice.json();
+  const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`);
+  const { clients } = await clientDetails.json();
 
   return {
-    props: { invoices },
+    props: { clients },
   };
 };

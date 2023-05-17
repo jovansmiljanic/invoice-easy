@@ -1,5 +1,5 @@
 // Global containers
-import { NewInvoice } from "@containers";
+import { Invoice } from "@containers";
 
 // Global components
 import { Layout } from "@components";
@@ -11,17 +11,17 @@ import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 
 // Global types
-import { Company, MyAccount } from "@types";
+import { Client, MyAccount } from "@types";
 
 interface ContentPageProps {
-  company: Company;
+  client: Client;
   account: MyAccount;
 }
 
-export default function Page({ company, account }: ContentPageProps) {
+export default function Page({ client, account }: ContentPageProps) {
   return (
     <Layout title="Create new invoice">
-      <NewInvoice company={company} myAccount={account} />
+      <Invoice client={client} myAccount={account} />
     </Layout>
   );
 }
@@ -39,11 +39,11 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const companyDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/company`);
-  const { companies } = await companyDetails.json();
+  const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`);
+  const { clients } = await clientDetails.json();
 
   // Pass data to the page via props
-  const company = companies.find(({ _id }: any) => _id === ctx.params?.company);
+  const client = clients.find(({ _id }: any) => _id === ctx.params?.client);
 
   const myDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/my-account`);
   const { myAccount } = await myDetails.json();
@@ -51,6 +51,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const account = myAccount[0];
 
   return {
-    props: { company, account },
+    props: { client, account },
   };
 };
