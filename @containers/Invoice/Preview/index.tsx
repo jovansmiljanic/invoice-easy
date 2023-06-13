@@ -330,7 +330,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice, client }) => {
 
         <Column responsivity={{ md: 3 }}>
           <Options>
-            <Button
+            {/* <Button
               variant="secondary"
               size="small"
               margin={{
@@ -340,7 +340,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice, client }) => {
               }}
             >
               Send
-            </Button>
+            </Button> */}
 
             {isClient && (
               <PDFDownloadLink
@@ -350,7 +350,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice, client }) => {
                 {({ loading }) =>
                   loading ? (
                     <Button
-                      variant="primary"
+                      variant="secondary"
                       size="small"
                       margin={{
                         xs: { bottom: 1 },
@@ -362,7 +362,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice, client }) => {
                     </Button>
                   ) : (
                     <Button
-                      variant="primary"
+                      variant="secondary"
                       size="small"
                       margin={{
                         xs: { bottom: 1 },

@@ -1,5 +1,5 @@
 // Core types
-import { Fragment, useContext, type FC } from "react";
+import { useContext, type FC } from "react";
 
 // Vendors
 import styled, { css } from "styled-components";
@@ -10,20 +10,6 @@ import { GridContext } from "..";
 // Local component
 import { Item } from "./Item";
 import { Placeholder } from "./Placeholder";
-
-const TableWrapper = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  flex-wrap: wrap;
-  gap: 4rem;
-
-  ${({ theme: { breakpoints } }) => css`
-    @media (max-width: ${breakpoints.md}px) {
-      justify-content: center;
-    }
-  `}
-`;
 
 const NotFound = styled.div`
   width: 100%;
@@ -79,11 +65,8 @@ const Thead = styled.thead`
     }
 
     &:nth-child(7) {
-      width: 15%;
-    }
-
-    &:nth-child(8) {
-      width: 15%;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 `;
@@ -94,29 +77,26 @@ const index: FC = () => {
 
   return (
     <>
-      <Table>
-        <Thead>
-          <tr>
-            <td>ID</td>
-            <td>Client</td>
-            <td>Total</td>
-            <td>Issued date</td>
-            <td>DUE</td>
-            <td>Balance</td>
-            <td>Status</td>
-            <td></td>
-          </tr>
-        </Thead>
+      {isLoading || !updatedItems ? (
+        <Placeholder />
+      ) : (
+        <Table>
+          <Thead>
+            <tr>
+              <td>ID</td>
+              <td>Client</td>
+              <td>Total</td>
+              <td>Issued date</td>
+              <td>DUE</td>
+              <td>Balance</td>
+              <td>Actions</td>
+            </tr>
+          </Thead>
 
-        {Array.isArray(updatedItems) &&
-          updatedItems.map((item, i) => (
-            <Fragment key={i}>
-              {isLoading ? <Placeholder /> : <Item $item={item} />}
-            </Fragment>
-          ))}
-      </Table>
-
-      {!updatedItems && <Placeholder />}
+          {Array.isArray(updatedItems) &&
+            updatedItems.map((item, i) => <Item $item={item} key={i} />)}
+        </Table>
+      )}
 
       {length === 0 && (
         <NotFound>Sorry, we didn't find any invoices...</NotFound>

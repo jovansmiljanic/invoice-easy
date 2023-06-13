@@ -62,13 +62,16 @@ interface StyledButtonProps {
 }
 
 const CustomButton = styled.button<StyledButtonProps>`
-  ${defaultStyle};
-  ${({ theme: { defaults, breakpoints } }) => css`
-    padding: ${defaults.gutter / 1.5}rem ${defaults.gutter * 3}rem;
-    @media (max-width: ${breakpoints.md}px) {
-      padding: ${defaults.gutter / 1.2}rem ${defaults.gutter * 2}rem;
-    }
-  `}
+${defaultStyle};
+
+${({ theme: { defaults, breakpoints } }) => css`
+  width: 100%;
+  padding: ${defaults.gutter / 1.5}rem ${defaults.gutter * 3}rem;
+
+  @media (max-width: ${breakpoints.md}px) {
+    padding: ${defaults.gutter / 1.2}rem ${defaults.gutter * 2}rem;
+  }
+`}
   ${(p) =>
     p.size === "small" &&
     css`

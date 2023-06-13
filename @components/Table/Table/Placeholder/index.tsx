@@ -1,4 +1,5 @@
 // Core types
+import { Column, Container, Row } from "@components/Grid";
 import type { FC } from "react";
 
 // Vendors
@@ -53,13 +54,13 @@ const Wrap = styled.div`
   }
 
   &:nth-child(2) {
-    width: 75px;
-    margin-right: 105px;
+    width: 150px;
+    margin-right: 35px;
   }
 
   &:nth-child(3) {
-    width: 55px;
-    margin-right: 95px;
+    width: 60px;
+    margin-right: 70px;
   }
 
   &:nth-child(4) {
@@ -74,220 +75,50 @@ const Wrap = styled.div`
 
   &:nth-child(6) {
     width: 55px;
-    margin-right: 132px;
+    margin-right: 140px;
   }
 
   &:nth-child(7) {
-    width: 70px;
-    margin-right: 110px;
-  }
-
-  &:nth-child(8) {
-    width: 70px;
+    width: 40px;
   }
 `;
 
 const index: FC = () => {
+  const a = [0, 1, 2, 3, 4, 5, 6];
+
   return (
     <>
-      <Wrapper>
-        <Wrap>
-          <Animation />
-        </Wrap>
+      {a.map((item) => (
+        <Wrapper key={item}>
+          <Wrap>
+            <Animation />
+          </Wrap>
 
-        <Wrap>
-          <Animation />
-        </Wrap>
+          <Wrap>
+            <Animation />
+          </Wrap>
 
-        <Wrap>
-          <Animation />
-        </Wrap>
+          <Wrap>
+            <Animation />
+          </Wrap>
 
-        <Wrap>
-          <Animation />
-        </Wrap>
+          <Wrap>
+            <Animation />
+          </Wrap>
 
-        <Wrap>
-          <Animation />
-        </Wrap>
+          <Wrap>
+            <Animation />
+          </Wrap>
 
-        <Wrap>
-          <Animation />
-        </Wrap>
+          <Wrap>
+            <Animation />
+          </Wrap>
 
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-      </Wrapper>
-      <Wrapper>
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-      </Wrapper>
-      <Wrapper>
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-      </Wrapper>
-      <Wrapper>
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-      </Wrapper>
-      <Wrapper>
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-      </Wrapper>
-      <Wrapper>
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-
-        <Wrap>
-          <Animation />
-        </Wrap>
-      </Wrapper>
+          <Wrap>
+            <Animation />
+          </Wrap>
+        </Wrapper>
+      ))}
     </>
   );
 };

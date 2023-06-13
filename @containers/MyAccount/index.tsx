@@ -130,7 +130,7 @@ const index: FC<MyAccount> = ({ details, session }) => {
         padding={{
           xs: { top: 6, bottom: 6 },
           sm: { top: 6, bottom: 6 },
-          md: { top: 10, bottom: 10 },
+          md: { top: 10, bottom: 6 },
         }}
         justifyContent={{ md: "center" }}
         alignItems={{ md: "center" }}
@@ -178,7 +178,7 @@ const index: FC<MyAccount> = ({ details, session }) => {
                 })
                   .then((res) => {
                     setSubmitting(false);
-                    router.push("/");
+                    router.push("/my-account");
                   })
                   .catch((err) => {
                     setSubmitting(false);

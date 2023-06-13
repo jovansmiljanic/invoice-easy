@@ -135,7 +135,7 @@ const Wrapper = styled.div<{
   ${
     fullHeight &&
     `
-      min-height: 100vh;
+      min-height: 82vh;
     `
   }
 

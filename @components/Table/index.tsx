@@ -21,6 +21,7 @@ import axios from "axios";
 import styled, { css } from "styled-components";
 import { Invoice } from "@types";
 import { Column, Container, Row } from "@components/Grid";
+import { getSession } from "next-auth/react";
 
 interface IFilters {
   type?: string | string[];
@@ -112,12 +113,18 @@ const index: FC = () => {
     // Call axios with filters and page as a string url
     const url = `/api/invoice/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
 
+    const session = await getSession();
+
     await axios.get(url).then(({ data: { items, length } }) => {
+      const uItems = items.filter(
+        (item: any) => item.userId === session?.user._id
+      );
+
       // Invoices
-      setUpdatedItems(items);
+      setUpdatedItems(uItems);
 
       // Length
-      setLength(length);
+      setLength(uItems.length);
 
       // Set loader
       setIsLoading(false);
@@ -189,77 +196,14 @@ const index: FC = () => {
         isLoading,
       }}
     >
-      <Container>
-        <Row>
-          <Column responsivity={{ md: 12 }}>
-            <Wrap>
-              {/* <Filters
-                name="type"
-                label="Resource type"
-                preSelected={typesSelected}
-                options={[
-                  { label: "Webcast", value: "webcast" },
-                  { label: "Whitepaper", value: "whitepaper" },
-                  { label: "Blog post", value: "blog-post" },
-                ]}
-                callback={(e: Filter[]) => {
-                  if (
-                    e &&
-                    (e.map((a) => a.value !== null) ||
-                      e.map((a) => a.value !== undefined))
-                  ) {
-                    const { type, page, searchQuery, ...oldQuery } = query;
-                    const mp = e.map((el) => el.value);
-                    const filterQuery = objectToQuery({
-                      query: { ...oldQuery, type: mp },
-                    });
-
-                    push(`/invoice/?${filterQuery}${searchUrl}&page=${0}`);
-                  }
-                }}
-              /> */}
-
-              {/* <Filters
-                name="topic"
-                label="Resource Topics"
-                preSelected={topicsSelected}
-                options={[
-                  { label: "Lead generation", value: "lead-generation" },
-                  {
-                    label: "Lead qualification",
-                    value: "lead-qualification",
-                  },
-                  {
-                    label: "Marketing Automation",
-                    value: "marketing-automation",
-                  },
-                  {
-                    label: "Performance Marketing",
-                    value: "performance-marketing",
-                  },
-                  { label: "Strategy", value: "strategy" },
-                ]}
-                callback={(e: Filter[]) => {
-                  if (
-                    e &&
-                    (e.map((a) => a.value !== null) ||
-                      e.map((a) => a.value !== undefined))
-                  ) {
-                    const { topic, page, searchQuery, ...oldQuery } = query;
-                    const mp = e.map((el) => el.value);
-                    const filterQuery = objectToQuery({
-                      query: { ...oldQuery, topic: mp },
-                    });
-
-                    push(`/resources/?${filterQuery}${searchUrl}&page=${0}`);
-                  }
-                }}
-              /> */}
-
-              {/* <Search /> */}
-            </Wrap>
-          </Column>
-
+      <Container backgroundColor="background" fullHeight>
+        <Row
+          padding={{
+            xs: { top: 6, bottom: 6 },
+            sm: { top: 6, bottom: 6 },
+            md: { top: 10, bottom: 10 },
+          }}
+        >
           <Column responsivity={{ md: 12 }}>
             <Table />
           </Column>

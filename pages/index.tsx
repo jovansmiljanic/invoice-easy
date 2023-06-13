@@ -14,10 +14,10 @@ import { getSession } from "next-auth/react";
 import { Invoice } from "@types";
 
 interface ContentPageProps {
-  invoices: Invoice[];
+  session: Invoice[];
 }
 
-export default function Page() {
+export default function Page({ session }: ContentPageProps) {
   return (
     <Layout title="Dashboard">
       <Dashboard />
@@ -38,10 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const invoice = await fetch(`${process.env.NEXTAUTH_URL}/api/invoice`);
-  const a = await invoice.json();
-
   return {
-    props: {},
+    props: { session },
   };
 };
