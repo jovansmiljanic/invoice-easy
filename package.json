@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^3.1.9",
     "@types/bcryptjs": "^2.4.2",
     "@types/node": "18.15.3",
     "@types/react": "18.0.28",

@@ -8,5 +8,12 @@ export interface User {
   lastName: string;
   email: string;
   password: string;
+  companyName?: string;
+  companyAddress?: string;
+  zipCode?: string;
+  taxNumber?: string;
+  ttr?: string;
+  bic?: string;
+  phoneNumber?: string;
   user: PopulatedDoc<User>;
 }

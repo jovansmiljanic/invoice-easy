@@ -19,7 +19,7 @@ interface ContentPageProps {
 
 export default function Page({ clients }: ContentPageProps) {
   return (
-    <Layout title="Choose client">
+    <Layout title="Choose client to invoice">
       <NewInvoice clients={clients} />
     </Layout>
   );

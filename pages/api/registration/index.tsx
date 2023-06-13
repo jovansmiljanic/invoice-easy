@@ -26,34 +26,15 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Process a GET request
   if (method === "GET") {
-    // If user has no access, return an error
-    if (!session) {
-      return res
-        .status(401)
-        .send({ error: "Please login to perform the action." });
-    }
-
-    // Destructure the session object
-    const {
-      user: { _id },
-    } = session;
-
     // Grab current user
-    const currentUser = await User.findOne({ _id });
+    const users = await User.find();
 
     // Return the object
-    return res.send({ currentUser });
+    return res.send({ users });
   }
 
   // Process a POST request
   if (method === "POST") {
-    // If user has no access, return an error
-    // if (!session) {
-    //   return res
-    //     .status(401)
-    //     .send({ error: "Please login to perform the action." });
-    // }
-
     const {
       body: { fullName, email, password },
     } = req;
@@ -76,6 +57,30 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
       email,
       password: encryptedPassword,
     });
+
+    // Store user on the Database
+    await user.save();
+
+    // Return the created user
+    return res.send(user);
+  }
+
+  // Process a POST request
+  if (method === "PUT") {
+    const {
+      body: { id, ...rest },
+    } = req;
+
+    const user = await User.findOneAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        ...rest,
+        updatedAt: new Date(),
+      },
+      { new: true }
+    );
 
     // Store user on the Database
     await user.save();

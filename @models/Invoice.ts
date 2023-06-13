@@ -4,10 +4,12 @@ import mongoose from "mongoose";
 const Schema = new mongoose.Schema(
   {
     items: { type: Array, required: true },
-    clientId: { type: mongoose.Types.ObjectId, required: true },
+    client: { type: mongoose.Types.ObjectId, required: true },
     userId: { type: mongoose.Types.ObjectId, required: true },
-    startDate: { type: String, required: true },
-    endDate: { type: String, required: true },
+    startDate: { type: Date, required: true },
+    endDate: { type: Date, required: true },
+    issuedDate: { type: Date, required: true },
+    paymentDeadline: { type: Date, required: true },
   },
   { collection: "Invoice", timestamps: true }
 );

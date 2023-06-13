@@ -5,11 +5,10 @@ import { getSession } from "next-auth/react";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // Models
-import { Invoice, User } from "@models";
+import { Invoice } from "@models";
 
 // Global utilities
 import { database } from "@utils/server";
-import { Client } from "@models/Client";
 
 // Process request
 const api = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -24,11 +23,61 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
 
   // Process a GET request
   if (method === "GET") {
+    const {
+      query: { limit, skip, ...query },
+    } = req;
+
+    // Restructure query based on Collection schema
+    const getQuery = (query: {
+      [x: string]: string | string[] | undefined;
+    }) => {
+      return Object.entries(query).reduce(
+        (p, [key, val]) => {
+          console.log(p, key, val);
+
+          switch (key) {
+            case "searchQuery":
+              return {
+                ...p,
+                companyName: val
+                  ? {
+                      $regex: new RegExp(val.toString(), "i"),
+                    }
+                  : "",
+              };
+
+            // case "type":
+            //   const types = val?.toString().split(",");
+            //   return { ...p, [key]: types?.map((type) => type) };
+
+            // case "topic":
+            //   const topics = val?.toString().split(",");
+            //   return { ...p, [key]: topics?.map((topic) => topic) };
+
+            default:
+              return { ...p, [key]: val };
+          }
+        },
+        {} // Start
+      );
+    };
+
+    const length = await Invoice.find({
+      ...getQuery(query),
+    })
+      .sort({ createdAt: -1 })
+      .count();
+
     // Grab current user
-    const invoices = await Invoice.find();
+    const invoices = await Invoice.find({
+      ...getQuery(query),
+    })
+      .skip(Number(skip) * Number(limit))
+      .limit(Number(limit))
+      .sort({ createdAt: -1 });
 
     // Return the object
-    return res.send({ invoices });
+    return res.send({ items: invoices, length });
   }
 
   // Process a POST request

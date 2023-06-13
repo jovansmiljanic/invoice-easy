@@ -7,7 +7,10 @@ export interface Invoice {
   items: any[];
   client: mongoose.Types.ObjectId;
   userId: mongoose.Types.ObjectId;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
+  issuedDate: Date;
+  paymentDeadline: Date;
+  totalPrice: string;
   invoice: PopulatedDoc<Invoice>;
 }

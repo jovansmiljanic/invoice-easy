@@ -213,11 +213,13 @@ interface NewInvoice {
 }
 
 interface Formvalues {
-  items: any[];
-  clientId: string;
+  items: Values[];
+  client: string;
   userId: string;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
+  paymentDeadline: Date;
+  issuedDate: Date;
 }
 
 interface Values {
@@ -230,10 +232,10 @@ interface Values {
 
 const InvoiceSchema = Yup.object().shape({
   items: Yup.array(),
-  clientId: Yup.string(),
+  client: Yup.string(),
   userId: Yup.string(),
-  startDate: Yup.string(),
-  endDate: Yup.string(),
+  startDate: Yup.date(),
+  endDate: Yup.date(),
 });
 
 const index: FC<NewInvoice> = ({ client, myAccount }) => {
@@ -242,9 +244,9 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
 
   const [startDate, setStartDate] = useState<Date | null>();
   const [endDate, setEndDate] = useState<Date | null>();
+  const [deadlineDate, setDeadlineDate] = useState<Date | null>();
 
-  const formattedStartDate = startDate?.toLocaleDateString("en-GB");
-  const formattedEndDate = endDate?.toLocaleDateString("en-GB");
+  const issuedDate = new Date();
 
   const [tableData, setTableData] = useState<Values[]>([
     {
@@ -314,10 +316,12 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                   price: "",
                 },
               ],
-              clientId: "",
+              client: "",
               userId: "",
-              startDate: "",
-              endDate: "",
+              startDate: new Date(),
+              endDate: new Date(),
+              paymentDeadline: new Date(),
+              issuedDate: new Date(),
             }}
             validationSchema={InvoiceSchema}
             onSubmit={async (
@@ -328,11 +332,14 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                 method: "POST",
                 url: "/api/invoice",
                 data: {
-                  startDate: formattedStartDate,
-                  endDate: formattedEndDate,
-                  clientId: client._id,
-                  userId: myAccount._id,
                   items: tableData,
+                  client: client._id,
+                  userId: myAccount._id,
+                  startDate: startDate,
+                  endDate: endDate,
+                  issuedDate,
+                  paymentDeadline: deadlineDate,
+                  // ...data,
                 },
               })
                 .then((res) => {
@@ -390,7 +397,7 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                         Invoice #3492
                       </Heading>
                       <StartDate>
-                        <Heading as="p">Date Issues:</Heading>
+                        <Heading as="p">Date from:</Heading>
 
                         <DatePicker
                           selected={startDate}
@@ -401,12 +408,23 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                       </StartDate>
 
                       <EndDate>
-                        <Heading as="p">Date Due:</Heading>
+                        <Heading as="p">Date to:</Heading>
 
                         <DatePicker
                           selected={endDate}
                           onChange={(date) => setEndDate(date)}
                           placeholderText="DD/MM/YYYY"
+                          dateFormat="dd/MM/yyyy"
+                        />
+                      </EndDate>
+
+                      <EndDate>
+                        <Heading as="p">Payment deadline:</Heading>
+
+                        <DatePicker
+                          selected={deadlineDate}
+                          onChange={(date) => setDeadlineDate(date)}
+                          placeholderText="DD/MM/YYYdY"
                           dateFormat="dd/MM/yyyy"
                         />
                       </EndDate>
@@ -429,7 +447,6 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                         <tr key={index}>
                           <td>
                             <Field
-                              // hasError={Boolean(errors.name && touched.name)}
                               type="text"
                               name="name"
                               placeholder="Item"
@@ -441,9 +458,6 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                           </td>
                           <td>
                             <Field
-                              // hasError={Boolean(
-                              //   errors.description && touched.description
-                              // )}
                               type="text"
                               name="description"
                               placeholder="Description"
@@ -456,7 +470,6 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
 
                           <td>
                             <Field
-                              // hasError={Boolean(errors.cost && touched.cost)}
                               type="text"
                               name="cost"
                               placeholder="Cost"
@@ -469,7 +482,6 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
 
                           <td>
                             <Field
-                              // hasError={Boolean(errors.qty && touched.qty)}
                               type="text"
                               name="qty"
                               placeholder="QTY"
@@ -482,7 +494,6 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
 
                           <td>
                             <Field
-                              // hasError={Boolean(errors.price && touched.price)}
                               type="text"
                               name="price"
                               disabled
@@ -545,10 +556,12 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                 md: { bottom: 1 },
               }}
             >
-              Send Invoice
+              Save
             </Button>
 
             <Button
+              as="a"
+              href={`/invoice/preview/${myAccount._id}`}
               variant="primary"
               size="small"
               margin={{
@@ -557,11 +570,11 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                 md: { bottom: 1 },
               }}
             >
-              Download
+              Preview
             </Button>
 
             <Button
-              variant="primary"
+              variant="danger"
               size="small"
               margin={{
                 xs: { bottom: 1 },
@@ -569,19 +582,7 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                 md: { bottom: 1 },
               }}
             >
-              Print
-            </Button>
-
-            <Button
-              variant="primary"
-              size="small"
-              margin={{
-                xs: { bottom: 1 },
-                sm: { bottom: 1 },
-                md: { bottom: 1 },
-              }}
-            >
-              Edit Invoice
+              Cancel
             </Button>
           </Options>
         </Column>
@@ -590,4 +591,4 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
   );
 };
 
-export { index as Invoice };
+export { index as AddInvoice };

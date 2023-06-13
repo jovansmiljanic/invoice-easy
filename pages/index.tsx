@@ -17,10 +17,10 @@ interface ContentPageProps {
   invoices: Invoice[];
 }
 
-export default function Page({ invoices }: ContentPageProps) {
+export default function Page() {
   return (
     <Layout title="Dashboard">
-      <Dashboard invoices={invoices} />
+      <Dashboard />
     </Layout>
   );
 }
@@ -39,9 +39,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const invoice = await fetch(`${process.env.NEXTAUTH_URL}/api/invoice`);
-  const { invoices } = await invoice.json();
+  const a = await invoice.json();
 
   return {
-    props: { invoices },
+    props: {},
   };
 };

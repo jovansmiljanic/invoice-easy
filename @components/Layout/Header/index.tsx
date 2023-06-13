@@ -207,7 +207,7 @@ const index: FC = () => {
                   </DropdownItem>
                 </Link>
 
-                <Link href="/new-client">
+                <Link href="/client/add">
                   <DropdownItem>
                     <svg
                       width="24"

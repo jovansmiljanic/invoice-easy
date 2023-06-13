@@ -7,6 +7,13 @@ const Schema = new mongoose.Schema(
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true, select: false },
+    companyName: { type: String },
+    companyAddress: { type: String },
+    zipCode: { type: String },
+    taxNumber: { type: String },
+    ttr: { type: String },
+    bic: { type: String },
+    phoneNumber: { type: String },
   },
   { collection: "Users", timestamps: true }
 );

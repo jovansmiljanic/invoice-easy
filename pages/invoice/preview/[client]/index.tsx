@@ -1,5 +1,5 @@
 // Global containers
-import { AddInvoice } from "@containers";
+import { PreviewInvoice } from "@containers";
 
 // Global components
 import { Layout } from "@components";
@@ -11,17 +11,18 @@ import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 
 // Global types
-import { Client, MyAccount } from "@types";
+import { Client, Invoice, MyAccount } from "@types";
 
 interface ContentPageProps {
-  client: Client;
   account: MyAccount;
+  invoice: Invoice;
+  client: Client;
 }
 
-export default function Page({ client, account }: ContentPageProps) {
+export default function Page({ account, invoice, client }: ContentPageProps) {
   return (
     <Layout title="Create new invoice">
-      <AddInvoice client={client} myAccount={account} />
+      <PreviewInvoice myAccount={account} invoice={invoice} {...{ client }} />
     </Layout>
   );
 }
@@ -39,19 +40,22 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`);
-  const { clients } = await clientDetails.json();
+  // Pass data to the page via props
+  const invoiceDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/invoice`);
+  const { items } = await invoiceDetails.json();
+  const [invoice] = items.filter(({ _id }: any) => _id === ctx.params?.client);
 
   // Pass data to the page via props
-  const client = clients.find(({ _id }: any) => _id === ctx.params?.client);
+  const clientsData = await fetch(`${process.env.NEXTAUTH_URL}/api/client`);
+  const { clients } = await clientsData.json();
+  const [client] = clients.filter(({ _id }: any) => _id === invoice.client);
 
+  // Pass data to the page via props
   const details = await fetch(`${process.env.NEXTAUTH_URL}/api/registration`);
   const { users } = await details.json();
-
-  // Pass data to the page via props
   const [account] = users.filter(({ _id }: any) => _id === session.user._id);
 
   return {
-    props: { client, account },
+    props: { account, invoice, client },
   };
 };
