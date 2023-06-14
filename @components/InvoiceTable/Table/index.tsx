@@ -77,10 +77,10 @@ const index: FC = () => {
 
   return (
     <>
-      {length === 0 ? (
-        <NotFound>Sorry, we didn't find any invoices...</NotFound>
-      ) : isLoading || !updatedItems ? (
+      {isLoading || !updatedItems ? (
         <Placeholder />
+      ) : length === 0 ? (
+        <NotFound>Sorry, we didn't find any invoices...</NotFound>
       ) : (
         <Table>
           <Thead>

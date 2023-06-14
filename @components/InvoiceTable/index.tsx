@@ -217,4 +217,4 @@ const index: FC = () => {
   );
 };
 
-export { index as Table };
+export { index as InvoiceTable };

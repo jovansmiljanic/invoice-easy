@@ -13,14 +13,12 @@ import { Client } from "@types";
 // Global containers
 import { NewInvoice } from "@containers";
 
-interface ContentPageProps {
-  clients: Client[];
-}
+interface ContentPageProps {}
 
-export default function Page({ clients }: ContentPageProps) {
+export default function Page({}) {
   return (
     <Layout title="Choose client to invoice">
-      <NewInvoice clients={clients} />
+      <NewInvoice />
     </Layout>
   );
 }
@@ -38,10 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`);
-  const { clients } = await clientDetails.json();
-
   return {
-    props: { clients },
+    props: {},
   };
 };

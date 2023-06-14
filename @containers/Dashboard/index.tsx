@@ -1,13 +1,11 @@
 // Core
 import { type FC } from "react";
 
-// Global grid components
-import { Table } from "@components";
+// Global components
+import { InvoiceTable } from "@components";
 
-interface Dashboard {}
-
-const index: FC<Dashboard> = () => {
-  return <Table />;
+const index: FC = () => {
+  return <InvoiceTable />;
 };
 
 export { index as Dashboard };

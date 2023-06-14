@@ -10,14 +10,7 @@ import { GetServerSideProps } from "next";
 // Vendors
 import { getSession } from "next-auth/react";
 
-// Types
-import { Invoice } from "@types";
-
-interface ContentPageProps {
-  session: Invoice[];
-}
-
-export default function Page({ session }: ContentPageProps) {
+export default function Page() {
   return (
     <Layout title="Dashboard">
       <Dashboard />
@@ -39,6 +32,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   return {
-    props: { session },
+    props: {},
   };
 };

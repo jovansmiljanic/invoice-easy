@@ -40,10 +40,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`);
-  const { clients } = await clientDetails.json();
+  const { items } = await clientDetails.json();
 
   // Pass data to the page via props
-  const client = clients.find(({ _id }: any) => _id === ctx.params?.client);
+  const client = items.find(({ _id }: any) => _id === ctx.params?.client);
 
   const details = await fetch(`${process.env.NEXTAUTH_URL}/api/registration`);
   const { users } = await details.json();
