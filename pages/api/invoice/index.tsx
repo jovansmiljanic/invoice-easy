@@ -101,6 +101,33 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.send(invoice);
   }
 
+  // Process a POST request
+  if (method === "PUT") {
+    // If user has no access, return an error
+    if (!session) {
+      return res
+        .status(401)
+        .send({ error: "Please login to perform the action." });
+    }
+
+    const {
+      body: { _id, ...rest },
+    } = req;
+
+    // const invoice = new Invoice(body);
+    const updatedInvoice = await Invoice.findOneAndUpdate(
+      { _id },
+      { ...rest, updatedAt: new Date() },
+      { new: true }
+    );
+
+    // Store user on the Database
+    await updatedInvoice.save();
+
+    // // Return the created user
+    return res.send(updatedInvoice);
+  }
+
   // End request
   return res.end();
 };

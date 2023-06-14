@@ -204,10 +204,9 @@ const EndDate = styled.div`
 interface NewInvoice {
   myAccount: MyAccount;
   invoice: Invoice;
-  client: Client;
 }
 
-const index: FC<NewInvoice> = ({ myAccount, invoice, client }) => {
+const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -248,11 +247,13 @@ const index: FC<NewInvoice> = ({ myAccount, invoice, client }) => {
             <ClientDetails>
               <Col1>
                 <Heading as="h6" weight="bold">
-                  {client.clientName}
+                  {invoice.client.clientName}
                 </Heading>
-                <Heading as="p">{client.clientAddress}</Heading>
-                <Heading as="p">{client.zipCode}</Heading>
-                <Heading as="p">Davčna številka: {client.taxNumber}</Heading>
+                <Heading as="p">{invoice.client.clientAddress}</Heading>
+                <Heading as="p">{invoice.client.zipCode}</Heading>
+                <Heading as="p">
+                  Davčna številka: {invoice.client.taxNumber}
+                </Heading>
               </Col1>
 
               <Col2>

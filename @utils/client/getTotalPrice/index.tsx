@@ -12,5 +12,5 @@ export const getTotalPrice = (tableData: TableData[]) => {
     0
   );
 
-  return <>{totalPrice}</>;
+  return <>{totalPrice} €</>;
 };

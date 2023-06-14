@@ -1,26 +1,32 @@
-export const daysLeft = (paymentDeadline: string) => {
-  // Split the payment deadline string into day, month, and year
-  const [day, month, year] = paymentDeadline.split("/");
+import styled, { css } from "styled-components";
 
-  // Create a new Date object from the year, month (subtract 1 as months are zero-based), and day
-  const deadlineDate = new Date(+year, +month - 1, +day);
+const Overdue = styled.div`
+  min-width: 70px;
+  width: fit-content;
+  text-align: center;
+  font-size: 15px;
+  padding: 0 5px;
 
-  // Get the current date
-  const today = new Date();
+  ${({ theme: { font, colors } }) => css`
+    color: ${colors.white};
+    background-color: ${colors.danger};
+    font-weight: ${font.weight.semiBold};
+  `}
+`;
 
-  // Calculate the time difference in milliseconds between the current date and the payment deadline date
-  const timeDiff = deadlineDate.getTime() - today.getTime();
+export const daysLeft = (paymentDeadline: Date, issuedDate: Date) => {
+  const timeDiff =
+    new Date(paymentDeadline).getTime() - new Date(issuedDate).getTime();
 
-  // Convert the time difference to days
   const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
-  if (daysLeft < 0) {
-    return <>Overdue</>;
+  if (daysLeft <= 0) {
+    return <Overdue>Overdue</Overdue>;
   }
 
   if (daysLeft === 1) {
-    return <>{daysLeft} day</>;
+    return <div>{daysLeft} day</div>;
   }
 
-  return <>{daysLeft} days</>;
+  return <div>{daysLeft} days</div>;
 };

@@ -77,7 +77,9 @@ const index: FC = () => {
 
   return (
     <>
-      {isLoading || !updatedItems ? (
+      {length === 0 ? (
+        <NotFound>Sorry, we didn't find any invoices...</NotFound>
+      ) : isLoading || !updatedItems ? (
         <Placeholder />
       ) : (
         <Table>
@@ -96,10 +98,6 @@ const index: FC = () => {
           {Array.isArray(updatedItems) &&
             updatedItems.map((item, i) => <Item $item={item} key={i} />)}
         </Table>
-      )}
-
-      {length === 0 && (
-        <NotFound>Sorry, we didn't find any invoices...</NotFound>
       )}
     </>
   );

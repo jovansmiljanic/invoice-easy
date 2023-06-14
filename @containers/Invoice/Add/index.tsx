@@ -333,7 +333,7 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                 url: "/api/invoice",
                 data: {
                   items: tableData,
-                  client: client._id,
+                  client,
                   userId: myAccount._id,
                   startDate: startDate,
                   endDate: endDate,

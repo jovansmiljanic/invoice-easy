@@ -6,3 +6,4 @@ export { SignOut } from "./sign-out";
 export { Prev } from "./prev";
 export { Next } from "./next";
 export { ClearSvg } from "./clear";
+export { Dots } from "./dots";
