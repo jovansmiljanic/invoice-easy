@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const invoicePayed = async ({ _id, router }: any) => {
+export const invoicePaid = async ({ _id, router }: any) => {
   await axios
-    .put("/api/invoice", { _id, payed: true })
+    .put("/api/invoice", { _id, status: "1" })
     .then((res) => {
       router.push("/");
     })

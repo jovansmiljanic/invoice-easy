@@ -10,7 +10,7 @@ const Schema = new mongoose.Schema(
     endDate: { type: Date, required: true },
     issuedDate: { type: Date, required: true },
     paymentDeadline: { type: Date, required: true },
-    payed: { type: Boolean },
+    status: { type: String },
   },
   { collection: "Invoice", timestamps: true }
 );

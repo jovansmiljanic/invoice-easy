@@ -22,9 +22,10 @@ import styled, { css } from "styled-components";
 import { Invoice } from "@types";
 import { Column, Container, Row } from "@components/Grid";
 import { getSession } from "next-auth/react";
+import { Button } from "@components/Button";
 
 interface IFilters {
-  type?: string | string[];
+  status?: string | string[];
 }
 
 interface Filter {
@@ -32,15 +33,26 @@ interface Filter {
   value: string;
 }
 
-const Wrap = styled.div`
+const Wrapper = styled.div`
   display: flex;
+  justify-content: space-between;
   flex-wrap: wrap;
-  position: relative;
-  z-index: 10;
 
   ${({ theme: { colors } }) => css`
     color: ${colors.textColor};
+    background-color: ${colors.white};
+    border-bottom: 1px solid ${colors.lightGray};
   `}
+`;
+
+const Col1 = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Col2 = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;
 
 interface Checkbox {
@@ -86,14 +98,13 @@ const index: FC = () => {
   // Indicate that new items are loading
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // // Set selected value
-  // const [typesSelected, setTypesSelected] = useState<Checkbox[] | undefined>();
-  // const [topicsSelected, setTopicsSelected] = useState<
-  //   Checkbox[] | undefined
-  // >();
-
   // Store the current limit of the pagination
   const limit = 6;
+
+  // Set selected value
+  const [statusSelected, setStatusSelected] = useState<
+    Checkbox[] | undefined
+  >();
 
   // Fetch items
   interface IFetch {
@@ -138,25 +149,15 @@ const index: FC = () => {
     if (!isObjectEmpty(rest)) setFilters(rest);
     if (isObjectEmpty(rest)) setFilters({});
 
-    // const types = rest.type
-    //   ?.toString()
-    //   .split(",")
-    //   .map((type) => {
-    //     return { value: type, label: type };
-    //   });
+    const status = rest.status
+      ?.toString()
+      .split(",")
+      .map((type) => {
+        return { value: type, label: type };
+      });
 
-    // const topics = rest.topic
-    //   ?.toString()
-    //   .split(",")
-    //   .map((topic) => {
-    //     return { value: topic, label: topic };
-    //   });
-
-    // if (rest.type) setTypesSelected(types);
-    // if (!rest.type) setTypesSelected([]);
-
-    // if (rest.topic) setTopicsSelected(topics);
-    // if (!rest.topic) setTopicsSelected([]);
+    if (rest.status) setStatusSelected(status);
+    if (!rest.status) setStatusSelected([]);
 
     // Update page number
     if (queryPage) setPage(Math.round(Number(queryPage.toString())));
@@ -196,7 +197,7 @@ const index: FC = () => {
         isLoading,
       }}
     >
-      <Container backgroundColor="background" fullHeight>
+      <Container backgroundColor="background" height={82}>
         <Row
           padding={{
             xs: { top: 6, bottom: 6 },
@@ -204,6 +205,52 @@ const index: FC = () => {
             md: { top: 10, bottom: 10 },
           }}
         >
+          <Column responsivity={{ md: 12 }}>
+            <Wrapper>
+              <Col1>
+                <Button
+                  size="small"
+                  variant="primary"
+                  margin={{ xs: { left: 1 }, sm: { left: 1 }, md: { left: 1 } }}
+                >
+                  Create invoice
+                </Button>
+              </Col1>
+
+              <Col2>
+                <Search />
+
+                <Filters
+                  name="status"
+                  label="Select status"
+                  preSelected={statusSelected}
+                  options={[
+                    { label: "Paid", value: "1" },
+                    {
+                      label: "Not paid",
+                      value: "2",
+                    },
+                  ]}
+                  callback={(e: Filter[]) => {
+                    if (
+                      e &&
+                      (e.map((a) => a.value !== null) ||
+                        e.map((a) => a.value !== undefined))
+                    ) {
+                      const { status, page, searchQuery, ...oldQuery } = query;
+                      const mp = e.map((el) => el.value);
+                      const filterQuery = objectToQuery({
+                        query: { ...oldQuery, status: mp },
+                      });
+
+                      push(`/?${filterQuery}${searchUrl}&page=${0}`);
+                    }
+                  }}
+                />
+              </Col2>
+            </Wrapper>
+          </Column>
+
           <Column responsivity={{ md: 12 }}>
             <Table />
           </Column>

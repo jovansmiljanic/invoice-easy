@@ -90,7 +90,7 @@ const index: FC = () => {
   const router = useRouter();
 
   return (
-    <Container backgroundColor="background" fullHeight>
+    <Container backgroundColor="background" height={82}>
       <Row
         padding={{
           xs: { top: 6, bottom: 6 },

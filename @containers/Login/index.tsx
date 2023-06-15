@@ -89,7 +89,7 @@ const index: FC = () => {
   const router = useRouter();
 
   return (
-    <Container backgroundColor="background" fullHeight alignCenter>
+    <Container backgroundColor="background" height={100} alignCenter>
       <Row
         justifyContent={{ xs: "center", sm: "center", md: "center" }}
         alignItems={{ xs: "center", sm: "center", md: "center" }}

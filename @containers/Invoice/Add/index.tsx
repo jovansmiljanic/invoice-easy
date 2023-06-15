@@ -21,6 +21,7 @@ import { Formik, FormikHelpers, FormikValues } from "formik";
 
 // Global styles
 import { Field } from "@styles/Form";
+import { getTotalPrice } from "@utils/client";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -167,7 +168,14 @@ const Total = styled.div`
 
 const TotalRow = styled.div`
   display: flex;
+  align-items: center;
   width: 200px;
+
+  input {
+    flex: 0 0 50% !important;
+    padding: 5px 10px !important;
+    font-size: 14px;
+  }
 
   p {
     display: flex;
@@ -207,6 +215,27 @@ const EndDate = styled.div`
   }
 `;
 
+const Note = styled.div`
+  width: 60%;
+  padding: 80px 15px;
+
+  p {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+`;
+
+const Footer = styled.div`
+  text-align: center;
+
+  ${({ theme: { font } }) => css`
+    p {
+      font-size: 10px;
+      font-weight: ${font.weight.semiBold};
+    }
+  `}
+`;
+
 interface NewInvoice {
   client: Client;
   myAccount: MyAccount;
@@ -218,6 +247,7 @@ interface Formvalues {
   userId: string;
   startDate: Date;
   endDate: Date;
+  tax: number;
   paymentDeadline: Date;
   issuedDate: Date;
 }
@@ -225,9 +255,9 @@ interface Formvalues {
 interface Values {
   name: string;
   description: string;
-  cost: string;
-  qty: string;
-  price: string;
+  cost: number;
+  qty: number;
+  price: number;
 }
 
 const InvoiceSchema = Yup.object().shape({
@@ -236,6 +266,7 @@ const InvoiceSchema = Yup.object().shape({
   userId: Yup.string(),
   startDate: Yup.date(),
   endDate: Yup.date(),
+  tax: Yup.number(),
 });
 
 const index: FC<NewInvoice> = ({ client, myAccount }) => {
@@ -252,9 +283,9 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
     {
       name: "",
       description: "",
-      cost: "",
-      qty: "",
-      price: "",
+      cost: 0,
+      qty: 0,
+      price: 0,
     },
   ]);
 
@@ -265,9 +296,9 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
       {
         name: "",
         description: "",
-        cost: "",
-        qty: "",
-        price: "",
+        cost: 0,
+        qty: 0,
+        price: 0,
       },
     ]);
   };
@@ -294,72 +325,73 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
   };
 
   return (
-    <Container backgroundColor="background">
-      <Row padding={{ md: { top: 10, bottom: 10 } }}>
-        <Column
-          responsivity={{ md: 9 }}
-          padding={{
-            xs: { top: 4, bottom: 4 },
-            sm: { top: 4, bottom: 4 },
-            md: { top: 0, bottom: 10 },
-          }}
-        >
-          <Formik
-            autoComplete="off"
-            initialValues={{
-              items: [
-                {
-                  name: "",
-                  description: "",
-                  cost: "",
-                  qty: "",
-                  price: "",
-                },
-              ],
-              client: "",
-              userId: "",
-              startDate: new Date(),
-              endDate: new Date(),
-              paymentDeadline: new Date(),
-              issuedDate: new Date(),
-            }}
-            validationSchema={InvoiceSchema}
-            onSubmit={async (
-              data: FormikValues,
-              { setSubmitting }: FormikHelpers<Formvalues>
-            ) => {
-              await axios({
-                method: "POST",
-                url: "/api/invoice",
-                data: {
-                  items: tableData,
-                  client,
-                  userId: myAccount._id,
-                  startDate: startDate,
-                  endDate: endDate,
-                  issuedDate,
-                  paymentDeadline: deadlineDate,
-                  // ...data,
-                },
-              })
-                .then((res) => {
-                  router.push("/");
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-            }}
-          >
-            {({
-              handleChange,
-              handleSubmit,
-              handleBlur,
-              values,
-              errors,
-              touched,
-              isSubmitting,
-            }) => (
-              <form onSubmit={handleSubmit}>
+    <Formik
+      autoComplete="off"
+      initialValues={{
+        items: [
+          {
+            name: "",
+            description: "",
+            cost: 0,
+            qty: 0,
+            price: 0,
+          },
+        ],
+        client: "",
+        userId: "",
+        startDate: new Date(),
+        endDate: new Date(),
+        tax: 0,
+        paymentDeadline: new Date(),
+        issuedDate: new Date(),
+      }}
+      validationSchema={InvoiceSchema}
+      onSubmit={async (
+        data: FormikValues,
+        { setSubmitting }: FormikHelpers<Formvalues>
+      ) => {
+        await axios({
+          method: "POST",
+          url: "/api/invoice",
+          data: {
+            items: tableData,
+            client,
+            userId: myAccount._id,
+            startDate: startDate,
+            endDate: endDate,
+            issuedDate,
+            paymentDeadline: deadlineDate,
+            // ...data,
+          },
+        })
+          .then((res) => {
+            router.push("/");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }}
+    >
+      {({
+        handleChange,
+        handleSubmit,
+        handleBlur,
+        values,
+        errors,
+        touched,
+        isSubmitting,
+      }) => (
+        <form onSubmit={handleSubmit}>
+          <Container backgroundColor="background">
+            <Row padding={{ md: { top: 10, bottom: 10 } }}>
+              <Column
+                responsivity={{ md: 9 }}
+                padding={{
+                  xs: { top: 4, bottom: 4 },
+                  sm: { top: 4, bottom: 4 },
+                  md: { top: 0, bottom: 10 },
+                }}
+              >
                 <NewInvoice>
                   <UserDetails>
                     <Col1>
@@ -379,7 +411,6 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                       <Heading as="p">Telefon: {myAccount.phoneNumber}</Heading>
                     </Col2>
                   </UserDetails>
-
                   <ClientDetails>
                     <Col1>
                       <Heading as="h6" weight="bold">
@@ -424,13 +455,12 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                         <DatePicker
                           selected={deadlineDate}
                           onChange={(date) => setDeadlineDate(date)}
-                          placeholderText="DD/MM/YYYdY"
+                          placeholderText="DD/MM/YYYY"
                           dateFormat="dd/MM/yyyy"
                         />
                       </EndDate>
                     </Col2>
                   </ClientDetails>
-
                   <Table>
                     <Thead>
                       <tr>
@@ -470,7 +500,7 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
 
                           <td>
                             <Field
-                              type="text"
+                              type="number"
                               name="cost"
                               placeholder="Cost"
                               onChange={(e) =>
@@ -482,7 +512,7 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
 
                           <td>
                             <Field
-                              type="text"
+                              type="number"
                               name="qty"
                               placeholder="QTY"
                               onChange={(e) =>
@@ -494,7 +524,7 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
 
                           <td>
                             <Field
-                              type="text"
+                              type="number"
                               name="price"
                               disabled
                               placeholder="00.00"
@@ -508,86 +538,117 @@ const index: FC<NewInvoice> = ({ client, myAccount }) => {
                       ))}
                     </Tbody>
                   </Table>
-
-                  <button onClick={addRow} type="button">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="small"
+                    margin={{
+                      xs: { top: 1, bottom: 1, left: 2 },
+                      sm: { top: 1, bottom: 1, left: 2 },
+                      md: { top: 1, bottom: 1, left: 2 },
+                    }}
+                    onClick={addRow}
+                  >
                     Add Row
-                  </button>
-
+                  </Button>
                   <Total>
                     <TotalRow>
                       <Heading as="p" padding={{ md: { right: 4 } }}>
                         Subtotal:
                       </Heading>
-                      <Heading as="p">$154.25</Heading>
+                      <Heading as="p">
+                        {getTotalPrice(tableData)
+                          ? `${getTotalPrice(tableData)} €`
+                          : "00.00 €"}
+                      </Heading>
                     </TotalRow>
 
                     <TotalRow>
                       <Heading as="p" padding={{ md: { right: 4 } }}>
                         Tax:
                       </Heading>
-                      <Heading as="p">$50.00</Heading>
+
+                      <Field
+                        type="number"
+                        name="tax"
+                        placeholder="00.00 €"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.tax}
+                      />
                     </TotalRow>
 
                     <TotalRow>
                       <Heading as="p" padding={{ md: { right: 4 } }}>
                         Total:
                       </Heading>
-                      <Heading as="p">$204.25</Heading>
+                      <Heading as="p">
+                        {getTotalPrice(tableData)
+                          ? getTotalPrice(tableData) + values.tax
+                          : "00.00 €"}
+                      </Heading>
                     </TotalRow>
                   </Total>
+
+                  <Note>
+                    <Heading as="p">
+                      DDV ni obračunan na podlagi 1. Odstavka 94. Člena Zakona o
+                      davku na dodano vrednost. (nisem zavezanec za DDV). PRI
+                      POSLOVANJU NE UPORABLJAM ŽIGA.
+                    </Heading>
+                    <Heading as="p">
+                      Znesek računa poravnajte na transakcijski račun odprt pri
+                      N26., številka DE91 1001 1001 2623 8152 93. Pri plačilu se
+                      sklicujte na številko računa
+                    </Heading>
+                  </Note>
+
+                  <Footer>
+                    <p>
+                      {myAccount.companyField}, {myAccount.companyName}.
+                      Transakcijski račun odprt pri {myAccount.bankName} –{" "}
+                      {myAccount.ttr}
+                      ., davčna številka: {myAccount.taxNumber}.
+                    </p>
+                  </Footer>
                 </NewInvoice>
+              </Column>
 
-                <button type="submit" disabled={isSubmitting}>
-                  Submit
-                </button>
-              </form>
-            )}
-          </Formik>
-        </Column>
+              <Column responsivity={{ md: 3 }}>
+                <Options>
+                  <Button
+                    variant="secondary"
+                    type="submit"
+                    disabled={isSubmitting}
+                    margin={{
+                      xs: { bottom: 1 },
+                      sm: { bottom: 1 },
+                      md: { bottom: 1 },
+                    }}
+                  >
+                    Submit
+                  </Button>
 
-        <Column responsivity={{ md: 3 }}>
-          <Options>
-            <Button
-              variant="secondary"
-              size="small"
-              margin={{
-                xs: { bottom: 1 },
-                sm: { bottom: 1 },
-                md: { bottom: 1 },
-              }}
-            >
-              Save
-            </Button>
-
-            <Button
-              as="a"
-              href={`/invoice/preview/${myAccount._id}`}
-              variant="primary"
-              size="small"
-              margin={{
-                xs: { bottom: 1 },
-                sm: { bottom: 1 },
-                md: { bottom: 1 },
-              }}
-            >
-              Preview
-            </Button>
-
-            <Button
-              variant="danger"
-              size="small"
-              margin={{
-                xs: { bottom: 1 },
-                sm: { bottom: 1 },
-                md: { bottom: 1 },
-              }}
-            >
-              Cancel
-            </Button>
-          </Options>
-        </Column>
-      </Row>
-    </Container>
+                  <Button
+                    variant="danger"
+                    as="a"
+                    href="/"
+                    size="small"
+                    margin={{
+                      xs: { bottom: 1 },
+                      sm: { bottom: 1 },
+                      md: { bottom: 1 },
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Options>
+              </Column>
+            </Row>
+          </Container>
+        </form>
+      )}
+    </Formik>
   );
 };
 

@@ -7,3 +7,4 @@ export { Prev } from "./prev";
 export { Next } from "./next";
 export { ClearSvg } from "./clear";
 export { Dots } from "./dots";
+export { ToggleArrow } from "./toggle-arrow";

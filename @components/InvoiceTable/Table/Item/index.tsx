@@ -12,7 +12,7 @@ import { daysLeft, formatDate, getTotalPrice } from "@utils/client";
 // GLobal types
 import { Invoice } from "@types";
 import { Dots, Eye } from "public/svg";
-import { invoicePayed } from "@utils/client";
+import { invoicePaid } from "@utils/client";
 import { useRouter } from "next/router";
 
 interface Item {
@@ -58,6 +58,7 @@ const Tbody = styled.tbody`
 
       &:nth-child(2) {
         width: 15%;
+        font-weight: 600;
       }
 
       &:nth-child(3) {
@@ -160,7 +161,13 @@ const index: FC<Item> = ({ $item }) => {
         <td>{getTotalPrice($item.items)}</td>
         <td>{formatDate($item.issuedDate)}</td>
         <td>{daysLeft($item.paymentDeadline, $item.issuedDate)}</td>
-        <td>{$item.payed ? <Paid>PAID</Paid> : getTotalPrice($item.items)}</td>
+        <td>
+          {$item.status === "1" ? (
+            <Paid>PAID</Paid>
+          ) : (
+            getTotalPrice($item.items)
+          )}
+        </td>
         <td>
           <Wrap>
             <Link href={`/invoice/preview/${$item._id}`}>
@@ -174,11 +181,11 @@ const index: FC<Item> = ({ $item }) => {
 
               {isOptionsOpen && (
                 <Modal>
-                  {!$item.payed && (
+                  {$item.status === "2" && (
                     <ModalItem
-                      onClick={() => invoicePayed({ _id: $item._id, router })}
+                      onClick={() => invoicePaid({ _id: $item._id, router })}
                     >
-                      Mark as payed
+                      Mark as paid
                     </ModalItem>
                   )}
                   <ModalItem>Download</ModalItem>

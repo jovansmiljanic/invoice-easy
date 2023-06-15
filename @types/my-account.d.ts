@@ -6,13 +6,19 @@ export interface MyAccount {
   _id: mongoose.Types.ObjectId;
   firstName: string;
   lastName: string;
+  email: string;
+  phoneNumber: string;
+  taxNumber: string;
+
+  companyField: string;
   companyName: string;
   companyAddress: string;
   zipCode: string;
-  taxNumber: string;
+  city: string;
+  country: string;
+
+  bankName: string;
   ttr: string;
   bic: string;
-  email: string;
-  phoneNumber: string;
   myAccount: PopulatedDoc<MyAccount>;
 }

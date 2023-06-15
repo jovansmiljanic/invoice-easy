@@ -7,13 +7,10 @@ import Link from "next/link";
 // Vendors
 import styled, { css } from "styled-components";
 import { copyText } from "@utils/shared";
-import { daysLeft, formatDate, getTotalPrice } from "@utils/client";
 
 // GLobal types
 import { Client, Invoice } from "@types";
 import { Dots, Eye } from "public/svg";
-import { invoicePayed } from "@utils/client";
-import { useRouter } from "next/router";
 
 interface Item {
   $item: Client;
@@ -123,9 +120,6 @@ const ModalItem = styled.div`
 
 const index: FC<Item> = ({ $item }) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
-  const router = useRouter();
-
-  console.log($item);
 
   return (
     <Tbody>

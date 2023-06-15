@@ -6,9 +6,7 @@ import { Filter, Label } from "@styles/Filter";
 
 // Vendors
 import styled, { css } from "styled-components";
-
-// Global components
-import { Heading } from "@components";
+import { ToggleArrow } from "public/svg";
 
 // Dropdown container
 const Container = styled.div`
@@ -121,9 +119,9 @@ const Dropdown: FC<{
   return (
     <Container>
       {Array.isArray(filteredOptions) &&
-        filteredOptions.map(({ label, value }) => (
+        filteredOptions.map(({ label, value }, i) => (
           <Item
-            key={value}
+            key={i}
             setSelected={setSelected}
             selected={selected}
             label={label}
@@ -174,39 +172,28 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
   }, []);
 
   return (
-    <>
-      <Filter ref={accountDropdownRef}>
-        <Heading as="h6" weight="semiBold">
-          {label}
-        </Heading>
+    <Filter ref={accountDropdownRef}>
+      <Label
+        onClick={() => setDropdown(!isDropdownActive)}
+        active={Boolean(selected && selected?.length >= 1)}
+      >
+        <span>
+          {selected && selected.length >= 1
+            ? `Selected ${preSelected?.length}`
+            : "Please select"}
+        </span>
 
-        <Label
-          onClick={() => setDropdown(!isDropdownActive)}
-          active={Boolean(selected && selected?.length >= 1)}
-        >
-          <span>
-            {selected && selected.length >= 1
-              ? `Selected ${preSelected?.length}`
-              : "Please select"}
-          </span>
-          Icon
-          {/* <Icon
-            $size={2}
-            $icon="toggle-arrow"
-            $color="black"
-            $toggled={isDropdownActive}
-          /> */}
-        </Label>
+        <ToggleArrow toggled={isDropdownActive} />
+      </Label>
 
-        {isDropdownActive && (
-          <Dropdown
-            selected={selected}
-            setSelected={handleSelection}
-            options={options}
-          />
-        )}
-      </Filter>
-    </>
+      {isDropdownActive && (
+        <Dropdown
+          selected={selected}
+          setSelected={handleSelection}
+          options={options}
+        />
+      )}
+    </Filter>
   );
 };
 

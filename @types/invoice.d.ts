@@ -5,9 +5,9 @@ import mongoose from "mongoose";
 type Item = {
   name: string;
   description: string;
-  cost: string;
-  qty: string;
-  price: string;
+  cost: number;
+  qty: number;
+  price: number;
 };
 
 type Client = {
@@ -27,6 +27,6 @@ export interface Invoice {
   issuedDate: Date;
   paymentDeadline: Date;
   totalPrice: string;
-  payed: boolean;
+  status: string;
   invoice: PopulatedDoc<Invoice>;
 }

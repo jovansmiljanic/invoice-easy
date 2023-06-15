@@ -36,7 +36,6 @@ export const Field = styled.input<Field>`
   outline: 0;
   -webkit-appearance: none;
   margin: 7.5px 0;
-  margin-bottom:0 ;
   z-index: 1;
   width: 100%;
   border-radius: 5px;
@@ -80,8 +79,7 @@ export const Field = styled.input<Field>`
     return css`
       border: 1px solid ${colors.lightGray};
       font-weight: ${font.weight.medium};
-      padding: ${defaults.gutter * 10}px ${defaults.gutter * 20}px
-        ${defaults.gutter * 10}px ${defaults.gutter * 20}px;
+      padding: ${defaults.gutter * 10}px ${defaults.gutter * 20}px;
 
       &[type="checkbox"] {
         &:checked {
@@ -100,7 +98,7 @@ export const Field = styled.input<Field>`
       ::placeholder {
         font-size: 14px;
         /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: ${colors.lightGray};
+        color: ${colors.gray};
         opacity: 1; /* Firefox */
       }
 

@@ -1,16 +1,13 @@
 interface TableData {
   name: string;
   description: string;
-  cost: string;
-  price: string;
-  qty: string;
+  cost: number;
+  price: number;
+  qty: number;
 }
 
 export const getTotalPrice = (tableData: TableData[]) => {
-  const totalPrice = tableData.reduce(
-    (acc, item) => acc + parseFloat(item.price),
-    0
-  );
+  const totalPrice = tableData.reduce((acc, item) => acc + +item.price, 0);
 
-  return <>{totalPrice} €</>;
+  return totalPrice;
 };

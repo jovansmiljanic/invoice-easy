@@ -33,26 +33,20 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
     }) => {
       return Object.entries(query).reduce(
         (p, [key, val]) => {
-          console.log(p, key, val);
-
           switch (key) {
             case "searchQuery":
               return {
                 ...p,
-                companyName: val
+                "client.clientName": val
                   ? {
                       $regex: new RegExp(val.toString(), "i"),
                     }
                   : "",
               };
 
-            // case "type":
-            //   const types = val?.toString().split(",");
-            //   return { ...p, [key]: types?.map((type) => type) };
-
-            // case "topic":
-            //   const topics = val?.toString().split(",");
-            //   return { ...p, [key]: topics?.map((topic) => topic) };
+            case "status":
+              const status = val?.toString().split(",");
+              return { ...p, [key]: status?.map((type) => type) };
 
             default:
               return { ...p, [key]: val };

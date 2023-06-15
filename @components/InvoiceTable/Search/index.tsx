@@ -3,13 +3,9 @@ import { useEffect, type FC, useContext } from "react";
 
 // Styles form
 import { Field } from "@styles/Form";
-// import { Icon as IconStyle } from "@styles";
 
 // Nextjs
 import { useRouter } from "next/router";
-
-// Global components
-import { Heading } from "@components";
 
 // Vendors
 import styled, { css } from "styled-components";
@@ -19,7 +15,7 @@ import { GridContext } from "..";
 import { ClearSvg } from "public/svg";
 
 const SearchWrapper = styled.div`
-  flex: 1;
+  flex: 0 0 50%;
   position: relative;
 
   svg {
@@ -28,16 +24,14 @@ const SearchWrapper = styled.div`
     left: 10px !important;
   }
 
-  ${Field} {
-    width: 100%;
-    border: 1px solid black;
-    min-height: 45px;
-  }
-
-  ${({ theme: { defaults, breakpoints } }) => css`
+  ${({ theme: { defaults, breakpoints, colors } }) => css`
     ${Field} {
+      width: 100%;
+      border: 1px solid ${colors.gray};
+      min-height: 45px;
+
       padding-left: ${defaults.gutter * 2}px;
-      padding: 10px 20px 10px 40px;
+      padding: 10px 20px;
     }
 
     @media (max-width: ${breakpoints.sm}px) {
@@ -92,18 +86,14 @@ const index: FC = () => {
 
   return (
     <SearchWrapper>
-      {/* <Icon $icon="search" $color="black" /> */}
-      Icon
-      <Heading as="h6" weight="semiBold">
-        Search
-      </Heading>
       <Field
         id="search"
         name="search"
         value={searchQuery}
         onChange={handleChangeSearch}
-        placeholder="Search"
+        placeholder="Search invoice"
       />
+
       {searchQuery && (
         <Clear
           onClick={() => {

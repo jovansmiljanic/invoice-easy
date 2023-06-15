@@ -11,7 +11,7 @@ export const Filter = styled.div`
   align-items: flex-start;
   justify-content: center;
   position: relative;
-  margin-right: 30px;
+  margin: 0 5px;
 
   ${({ theme: { breakpoints } }) => css`
     @media (max-width: ${breakpoints.sm}px) {
@@ -34,12 +34,12 @@ export const Label = styled.div<{ active?: boolean }>`
   flex: 1;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid black;
-  min-width: 260px;
-  margin-top: 7.5px;
+  min-width: 240px;
+  margin: 7.5px 0;
 
   span {
     padding-right: 80px;
+    font-size: 14px;
   }
 
   &:active {
@@ -47,6 +47,9 @@ export const Label = styled.div<{ active?: boolean }>`
   }
 
   ${({ active, theme: { colors, breakpoints, font } }) => css`
+    border: 1px solid ${colors.gray};
+    border-radius: 5px;
+
     ${active &&
     css`
       border-color: ${colors.primary};
@@ -63,9 +66,11 @@ export const Label = styled.div<{ active?: boolean }>`
       }
     `}
 
-    min-height: 45px;
+    min-height: 15px;
+    height: 15px;
+
     padding: 5px 20px;
-    color: ${colors.textColor};
+    color: ${colors.gray};
 
     &:hover {
       background-color: #e1e1e1;

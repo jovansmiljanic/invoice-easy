@@ -34,8 +34,6 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
     }) => {
       return Object.entries(query).reduce(
         (p, [key, val]) => {
-          console.log(p, key, val);
-
           switch (key) {
             case "searchQuery":
               return {
