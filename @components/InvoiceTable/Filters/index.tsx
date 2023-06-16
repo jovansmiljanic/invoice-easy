@@ -180,7 +180,7 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
         <span>
           {selected && selected.length >= 1
             ? `Selected ${preSelected?.length}`
-            : "Please select"}
+            : "Select status"}
         </span>
 
         <ToggleArrow toggled={isDropdownActive} />

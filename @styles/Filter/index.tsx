@@ -15,15 +15,8 @@ export const Filter = styled.div`
 
   ${({ theme: { breakpoints } }) => css`
     @media (max-width: ${breakpoints.sm}px) {
-      min-width: 0;
-      flex: 0 0 50%;
-      padding-right: 5px;
-      margin: 0;
-    }
-
-    @media (max-width: ${breakpoints.xs}px) {
+      min-height: 60px;
       flex: 0 0 100%;
-      padding-right: 5px;
       margin: 0;
     }
   `}
@@ -49,6 +42,21 @@ export const Label = styled.div<{ active?: boolean }>`
   ${({ active, theme: { colors, breakpoints, font } }) => css`
     border: 1px solid ${colors.gray};
     border-radius: 5px;
+    padding: 5px 20px;
+    color: ${colors.gray};
+
+    &:hover {
+      background-color: #e1e1e1;
+    }
+
+    @media (max-width: ${breakpoints.sm}px) {
+      min-width: 0;
+      width: 100%;
+
+      span {
+        padding-right: 20px;
+      }
+    }
 
     ${active &&
     css`
@@ -65,24 +73,5 @@ export const Label = styled.div<{ active?: boolean }>`
         }
       }
     `}
-
-    min-height: 15px;
-    height: 15px;
-
-    padding: 5px 20px;
-    color: ${colors.gray};
-
-    &:hover {
-      background-color: #e1e1e1;
-    }
-
-    @media (max-width: ${breakpoints.sm}px) {
-      min-width: 0;
-      width: 100%;
-
-      span {
-        padding-right: 20px;
-      }
-    }
   `}
 `;

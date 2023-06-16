@@ -50,32 +50,32 @@ const Wrap = styled.div`
 
   &:nth-child(1) {
     width: 65px;
-    margin-right: 55px;
+    margin-right: 85px;
   }
 
   &:nth-child(2) {
     width: 150px;
-    margin-right: 35px;
+    margin-right: 75px;
   }
 
   &:nth-child(3) {
     width: 60px;
-    margin-right: 70px;
+    margin-right: 120px;
   }
 
   &:nth-child(4) {
     width: 100px;
-    margin-right: 90px;
+    margin-right: 110px;
   }
 
   &:nth-child(5) {
     width: 85px;
-    margin-right: 95px;
+    margin-right: 155px;
   }
 
   &:nth-child(6) {
     width: 55px;
-    margin-right: 140px;
+    margin-right: 190px;
   }
 
   &:nth-child(7) {

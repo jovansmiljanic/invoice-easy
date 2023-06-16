@@ -23,6 +23,7 @@ import { Invoice } from "@types";
 import { Column, Container, Row } from "@components/Grid";
 import { getSession } from "next-auth/react";
 import { Button } from "@components/Button";
+import { Plus } from "public/svg";
 
 interface IFilters {
   status?: string | string[];
@@ -37,8 +38,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  border-radius: 5px 5px 0 0;
 
-  ${({ theme: { colors } }) => css`
+  ${({ theme: { colors, breakpoints } }) => css`
     color: ${colors.textColor};
     background-color: ${colors.white};
     border-bottom: 1px solid ${colors.lightGray};
@@ -53,6 +55,12 @@ const Col1 = styled.div`
 const Col2 = styled.div`
   display: flex;
   justify-content: flex-end;
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (max-width: ${breakpoints.md}px) {
+      flex-wrap: wrap;
+    }
+  `}
 `;
 
 interface Checkbox {
@@ -211,8 +219,9 @@ const index: FC = () => {
                 <Button
                   size="small"
                   variant="primary"
-                  margin={{ xs: { left: 1 }, sm: { left: 1 }, md: { left: 1 } }}
+                  margin={{ xs: { left: 0 }, sm: { left: 0 }, md: { left: 1 } }}
                 >
+                  <Plus />
                   Create invoice
                 </Button>
               </Col1>
