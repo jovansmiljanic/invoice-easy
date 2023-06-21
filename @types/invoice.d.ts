@@ -21,7 +21,6 @@ export interface Invoice {
   _id: mongoose.Types.ObjectId;
   items: Item[];
   client: Client;
-  userId: mongoose.Types.ObjectId;
   startDate: Date;
   endDate: Date;
   issuedDate: Date;

@@ -1,4 +1,4 @@
-export const ToggleArrow = ({ toggled }: any) => {
+export const ToggleArrow = ({ toggled }: { toggled: boolean }) => {
   return (
     <svg
       width="19"

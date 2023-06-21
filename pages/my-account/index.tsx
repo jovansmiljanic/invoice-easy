@@ -14,6 +14,9 @@ import { getSession } from "next-auth/react";
 // Global types
 import { MyAccount as MyAccountType } from "@types";
 
+// Vendor types
+import mongoose from "mongoose";
+
 interface ContentPageProps {
   session: Session;
   myAccount: MyAccountType;
@@ -44,7 +47,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { users } = await details.json();
 
   // Pass data to the page via props
-  const [myAccount] = users.filter(({ _id }: any) => _id === session.user._id);
+  const [myAccount] = users.filter(
+    ({ _id }: mongoose.Types.ObjectId) => _id === session.user._id
+  );
 
   return {
     props: { myAccount, session },

@@ -197,14 +197,6 @@ const index: FC = () => {
                   </DropdownItem>
                 </Link>
 
-                <Link href="/client/add">
-                  <DropdownItem>
-                    <NewClient />
-
-                    <span>New client</span>
-                  </DropdownItem>
-                </Link>
-
                 <Link href="/invoice/add">
                   <DropdownItem>
                     <CreateInvoice />

@@ -113,12 +113,18 @@ const index: FC = () => {
     // Call axios with filters and page as a string url
     const url = `/api/client/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
 
+    const session = await getSession();
+
     await axios.get(url).then(({ data: { items, length } }) => {
+      const uItems = items.filter(
+        (item: any) => item.owner === session?.user._id
+      );
+
       // Invoices
-      setUpdatedItems(items);
+      setUpdatedItems(uItems);
 
       // Length
-      setLength(length);
+      setLength(uItems.length);
 
       // Set loader
       setIsLoading(false);

@@ -86,7 +86,7 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
     const { body } = req;
 
     // Create user model object
-    const invoice = new Invoice(body);
+    const invoice = new Invoice({ owner: session.user._id, ...body });
 
     // Store user on the Database
     await invoice.save();

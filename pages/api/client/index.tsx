@@ -91,7 +91,7 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
     const { body } = req;
 
     // Create user model object
-    const client = new Client(body);
+    const client = new Client({ owner: session.user._id, ...body });
 
     // Store user on the Database
     await client.save();

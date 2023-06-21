@@ -28,13 +28,17 @@ const NewInvoice = styled.div`
 const Options = styled.div`
   display: flex;
   flex-direction: column;
+
+  button {
+    width: 100%;
+  }
 `;
 
 const UserDetails = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 30px 40px 20px 40px;
+  padding: 50px 40px 30px 40px;
 
   ${({ theme: { colors, breakpoints } }) => css`
     border-bottom: 1px solid ${colors.lightGray};
@@ -49,7 +53,7 @@ const UserDetails = styled.div`
 const ClientDetails = styled.div`
   display: flex;
   align-items: flex-start;
-  padding: 20px 40px;
+  padding: 30px 40px;
 
   ${({ theme: { colors, breakpoints } }) => css`
     border-bottom: 1px solid ${colors.lightGray};
@@ -201,6 +205,28 @@ const EndDate = styled.div`
   }
 `;
 
+const Note = styled.div`
+  width: 60%;
+  padding: 80px 40px;
+
+  p {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+`;
+
+const Footer = styled.div`
+  text-align: center;
+  padding: 20px 0;
+
+  ${({ theme: { font } }) => css`
+    p {
+      font-size: 10px;
+      font-weight: ${font.weight.semiBold};
+    }
+  `}
+`;
+
 interface NewInvoice {
   myAccount: MyAccount;
   invoice: Invoice;
@@ -296,9 +322,9 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
                   <tr key={index}>
                     <td>{row.name}</td>
                     <td>{row.description}</td>
-                    <td>{row.cost}</td>
+                    <td>{row.cost} €</td>
                     <td>{row.qty}</td>
-                    <td>{row.price}</td>
+                    <td>{row.price} €</td>
                   </tr>
                 ))}
               </Tbody>
@@ -326,27 +352,44 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
                 <Heading as="p">$204.25</Heading>
               </TotalRow>
             </Total>
+
+            <Note>
+              <Heading
+                as="p"
+                padding={{
+                  xs: { bottom: 3 },
+                  sm: { bottom: 3 },
+                  md: { bottom: 3 },
+                }}
+              >
+                DDV ni obračunan na podlagi 1. Odstavka 94. Člena Zakona o davku
+                na dodano vrednost. (nisem zavezanec za DDV). PRI POSLOVANJU NE
+                UPORABLJAM ŽIGA.
+              </Heading>
+
+              <Heading as="p">
+                Znesek računa poravnajte na transakcijski račun odprt pri N26.,
+                številka DE91 1001 1001 2623 8152 93. Pri plačilu se sklicujte
+                na številko računa
+              </Heading>
+            </Note>
+
+            <Footer>
+              <p>
+                {myAccount.companyField}, {myAccount.companyName}. Transakcijski
+                račun odprt pri {myAccount.bankName} – {myAccount.ttr}
+                ., davčna številka: {myAccount.taxNumber}.
+              </p>
+            </Footer>
           </NewInvoice>
         </Column>
 
         <Column responsivity={{ md: 3 }}>
           <Options>
-            {/* <Button
-              variant="secondary"
-              size="small"
-              margin={{
-                xs: { bottom: 1 },
-                sm: { bottom: 1 },
-                md: { bottom: 1 },
-              }}
-            >
-              Send
-            </Button> */}
-
             {isClient && (
               <PDFDownloadLink
                 document={<File myAccount={myAccount} />}
-                fileName={`${myAccount.firstName} ${myAccount.lastName} - ${invoice.client}`}
+                fileName={`${myAccount.firstName} ${myAccount.lastName} - ${invoice.client.clientName}`}
               >
                 {({ loading }) =>
                   loading ? (
