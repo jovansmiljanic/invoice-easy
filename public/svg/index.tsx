@@ -9,3 +9,4 @@ export { ClearSvg } from "./clear";
 export { Dots } from "./dots";
 export { ToggleArrow } from "./toggle-arrow";
 export { Plus } from "./plus";
+export { Trash } from "./trash";

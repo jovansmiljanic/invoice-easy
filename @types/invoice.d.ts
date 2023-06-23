@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 
 type Item = {
   name: string;
-  description: string;
   cost: number;
   qty: number;
   price: number;

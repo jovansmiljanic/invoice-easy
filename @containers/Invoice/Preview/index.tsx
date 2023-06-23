@@ -310,7 +310,6 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
               <Thead>
                 <tr>
                   <td>Item</td>
-                  <td>Description</td>
                   <td>Cost</td>
                   <td>QTY</td>
                   <td>Price</td>
@@ -321,7 +320,6 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
                 {invoice?.items?.map((row, index) => (
                   <tr key={index}>
                     <td>{row.name}</td>
-                    <td>{row.description}</td>
                     <td>{row.cost} €</td>
                     <td>{row.qty}</td>
                     <td>{row.price} €</td>

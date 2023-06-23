@@ -1,6 +1,5 @@
 interface TableData {
   name: string;
-  description: string;
   cost: number;
   price: number;
   qty: number;

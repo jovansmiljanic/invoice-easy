@@ -103,10 +103,10 @@ const index: FC = () => {
               <tr>
                 <td>ID</td>
                 <td>Client</td>
-                <td>Total</td>
-                <td>Issued date</td>
-                <td>DUE</td>
-                <td>Balance</td>
+                <td>Status</td>
+                <td>Date</td>
+                <td>Due date</td>
+                <td>Amount</td>
                 <td>Actions</td>
               </tr>
             </Thead>

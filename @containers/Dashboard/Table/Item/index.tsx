@@ -75,11 +75,26 @@ const Paid = styled.div`
   width: fit-content;
   min-width: 45px;
   text-align: center;
-  font-size: 14px;
+  font-size: 13px;
+  padding: 0 5px;
 
   ${({ theme: { defaults, colors, font, ...theme } }) => css`
     color: ${colors.white};
     background-color: ${colors.success};
+    font-weight: ${font.weight.semiBold};
+  `}
+`;
+
+const UnPaid = styled.div`
+  width: fit-content;
+  min-width: 45px;
+  text-align: center;
+  font-size: 13px;
+  padding: 0 5px;
+
+  ${({ theme: { defaults, colors, font, ...theme } }) => css`
+    color: ${colors.white};
+    background-color: ${colors.danger};
     font-weight: ${font.weight.semiBold};
   `}
 `;
@@ -219,17 +234,19 @@ const index: FC<Item> = ({ $item }) => {
           <td onClick={() => copyText($item._id.toString())}>
             #{$item._id.toString().slice(0, 4)}
           </td>
+
           <td>{$item.client.clientName}</td>
-          <td>{getTotalPrice($item.items)}</td>
-          <td>{formatDate($item.issuedDate)}</td>
-          <td>{daysLeft($item.paymentDeadline, $item.issuedDate)}</td>
+
           <td>
-            {$item.status === "1" ? (
-              <Paid>PAID</Paid>
-            ) : (
-              getTotalPrice($item.items)
-            )}
+            {$item.status === "1" ? <Paid>Paid</Paid> : <UnPaid>Unpaid</UnPaid>}
           </td>
+
+          <td>{formatDate($item.issuedDate)}</td>
+
+          <td>{daysLeft($item.paymentDeadline, $item.issuedDate)}</td>
+
+          <td>{getTotalPrice($item.items)} €</td>
+
           <td>
             <Wrap>
               <Link href={`/invoice/preview/${$item._id}`}>
