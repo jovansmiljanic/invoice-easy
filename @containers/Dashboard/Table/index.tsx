@@ -60,7 +60,7 @@ const Thead = styled.thead`
       }
 
       &:nth-child(3) {
-        width: 12%;
+        width: 15%;
       }
 
       &:nth-child(4) {

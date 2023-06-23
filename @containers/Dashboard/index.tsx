@@ -3,6 +3,7 @@ import { type FC, createContext, useEffect, useState, useMemo } from "react";
 
 // NextJS
 import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 
 // Shared utils
 import { isObjectEmpty, objectToQuery } from "@utils/shared";
@@ -19,10 +20,17 @@ import { Pagination } from "./Pagination";
 // Vendors
 import axios from "axios";
 import styled, { css } from "styled-components";
+
+// Global types
 import { Invoice } from "@types";
+
+// GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
-import { getSession } from "next-auth/react";
-import { Button } from "@components/Button";
+
+// Global components
+import { Button } from "@components";
+
+// Svg
 import { Plus } from "public/svg";
 
 interface IFilters {
@@ -39,6 +47,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   border-radius: 5px 5px 0 0;
+  padding: 10px 0;
 
   ${({ theme: { colors } }) => css`
     color: ${colors.textColor};
@@ -55,7 +64,6 @@ const Col1 = styled.div`
 const Col2 = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 7.5px;
 
   ${({ theme: { breakpoints } }) => css`
     @media (max-width: ${breakpoints.md}px) {

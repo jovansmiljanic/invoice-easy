@@ -26,5 +26,6 @@ export interface Invoice {
   paymentDeadline: Date;
   totalPrice: string;
   status: string;
+  invoiceNumber: number;
   invoice: PopulatedDoc<Invoice>;
 }

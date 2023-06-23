@@ -59,6 +59,17 @@ const Modal = styled.div`
   background-color: white;
 `;
 
+interface Formvalues {
+  items: Values[];
+  client: object;
+  startDate: Date;
+  endDate: Date;
+  tax: number;
+  paymentDeadline: Date;
+  issuedDate: Date;
+  invoiceNumber: number;
+}
+
 interface NewInvoice {
   client: Client[];
   account: MyAccount;
@@ -84,6 +95,12 @@ const index: FC<NewInvoice> = ({ account, client }) => {
   // Handle router
   const router = useRouter();
 
+  // Hide dropdown when clicked outside it's Ref
+  const articlesPopupRef = useRef<HTMLDivElement>(null);
+
+  // Toggle articles dropdown
+  const [toggledArticles, setToggleArticles] = useState<boolean>(false);
+
   const [startDate, setStartDate] = useState<Date | null>();
   const [endDate, setEndDate] = useState<Date | null>();
   const [deadlineDate, setDeadlineDate] = useState<Date | null>();
@@ -103,12 +120,6 @@ const index: FC<NewInvoice> = ({ account, client }) => {
     zipCode: string;
     taxNumber: string;
   }>();
-
-  // Hide dropdown when clicked outside it's Ref
-  const articlesPopupRef = useRef<HTMLDivElement>(null);
-
-  // Toggle articles dropdown
-  const [toggledArticles, setToggleArticles] = useState<boolean>(false);
 
   const handleClickOutside = (event: { target: any }) => {
     if (
@@ -159,6 +170,7 @@ const index: FC<NewInvoice> = ({ account, client }) => {
               issuedDate: new Date(),
               paymentDeadline: deadlineDate,
               client: clientOption,
+              invoiceNumber: data.invoiceNumber,
             },
           })
             .then((res) => {

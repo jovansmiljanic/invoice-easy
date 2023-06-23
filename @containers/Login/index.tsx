@@ -49,7 +49,7 @@ const Wrap = styled.div`
 const Group = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
 `;
 
 const ButtonWrap = styled.div`

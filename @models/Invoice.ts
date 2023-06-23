@@ -10,6 +10,7 @@ const Schema = new mongoose.Schema(
     endDate: { type: Date, required: true },
     issuedDate: { type: Date, required: true },
     paymentDeadline: { type: Date, required: true },
+    invoiceNumber: { type: Number, required: true },
     status: { type: String, default: "2" },
   },
   { collection: "Invoice", timestamps: true }

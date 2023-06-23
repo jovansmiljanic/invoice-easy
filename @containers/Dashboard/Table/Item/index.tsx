@@ -5,15 +5,27 @@ import { useState, type FC, useContext } from "react";
 import Link from "next/link";
 
 // Vendors
+import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
+
+// Shared utils
 import { copyText } from "@utils/shared";
-import { daysLeft, formatDate, getTotalPrice } from "@utils/client";
+
+// Client utils
+import {
+  daysLeft,
+  formatDate,
+  getTotalPrice,
+  invoicePaid,
+} from "@utils/client";
 
 // GLobal types
 import { Invoice } from "@types";
+
+// Svg
 import { Dots, Eye } from "public/svg";
-import { invoicePaid } from "@utils/client";
-import { useRouter } from "next/router";
+
+// Global context
 import { StoreContext } from "@context";
 
 interface Item {
@@ -77,8 +89,9 @@ const Paid = styled.div`
   text-align: center;
   font-size: 13px;
   padding: 0 5px;
+  border-radius: 5px;
 
-  ${({ theme: { defaults, colors, font, ...theme } }) => css`
+  ${({ theme: { colors, font } }) => css`
     color: ${colors.white};
     background-color: ${colors.success};
     font-weight: ${font.weight.semiBold};
@@ -91,8 +104,9 @@ const UnPaid = styled.div`
   text-align: center;
   font-size: 13px;
   padding: 0 5px;
+  border-radius: 5px;
 
-  ${({ theme: { defaults, colors, font, ...theme } }) => css`
+  ${({ theme: { colors, font } }) => css`
     color: ${colors.white};
     background-color: ${colors.danger};
     font-weight: ${font.weight.semiBold};
@@ -145,7 +159,7 @@ const Tbody = styled.tbody`
     }
 
     td {
-      padding: 10px 5px;
+      padding: 10px 15px;
 
       &:nth-child(1) {
         width: 10%;
@@ -164,7 +178,7 @@ const Tbody = styled.tbody`
       }
 
       &:nth-child(3) {
-        width: 12%;
+        width: 15%;
       }
 
       &:nth-child(4) {

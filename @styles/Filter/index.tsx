@@ -28,7 +28,6 @@ export const Label = styled.div<{ active?: boolean }>`
   justify-content: space-between;
   align-items: center;
   min-width: 240px;
-  margin-top: 7.5px;
 
   span {
     padding-right: 80px;
