@@ -30,8 +30,8 @@ export const Label = styled.div<{ active?: boolean }>`
   min-width: 240px;
 
   span {
-    padding-right: 80px;
     font-size: 14px;
+    display: flex;
   }
 
   &:active {

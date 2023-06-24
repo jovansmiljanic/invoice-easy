@@ -42,10 +42,10 @@ const SearchWrapper = styled.div`
 
 const Clear = styled.div`
   position: absolute;
-  right: 20px;
   width: 25px;
   height: 25px;
-  top: 42%;
+  top: 0%;
+  right: 15px;
   background-color: rgba(255, 255, 255, 0.123);
   display: flex;
   align-items: center;

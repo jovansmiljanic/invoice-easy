@@ -6,7 +6,12 @@ interface TableData {
 }
 
 export const getTotalPrice = (tableData: TableData[]) => {
-  const totalPrice = tableData.reduce((acc, item) => acc + +item.price, 0);
+  const totalPrice = tableData
+    .reduce((acc, item) => acc + +item.price, 0)
+    .toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
 
   return totalPrice;
 };

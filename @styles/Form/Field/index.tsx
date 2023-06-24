@@ -35,7 +35,7 @@ export const TextArea = styled.textarea`
 export const Field = styled.input<Field>`
   outline: 0;
   -webkit-appearance: none;
-  z-index: 1;
+  z-index: 0;
   width: 100%;
   border-radius: 5px;
 

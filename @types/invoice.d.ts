@@ -14,6 +14,8 @@ type Client = {
   clientAddress: string;
   zipCode: string;
   taxNumber: string;
+  city: string;
+  country: string;
 };
 
 export interface Invoice {

@@ -10,8 +10,8 @@ import { ToggleArrow } from "public/svg";
 
 // Dropdown container
 const Container = styled.div`
-  width: 260px;
-  padding-bottom: 14px;
+  width: 240px;
+  padding: 10px 0;
   position: absolute;
   top: 100%;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
@@ -56,6 +56,25 @@ const Check = styled.div<{ active?: boolean | undefined }>`
         2px center no-repeat;
 
     `};
+  `}
+`;
+
+const Status = styled.div<{ status: string }>`
+  width: fit-content;
+  min-width: 45px;
+  text-align: center;
+  font-size: 13px;
+  padding: 0 5px;
+  border-radius: 5px;
+  margin: 0 5px;
+
+  ${({ status, theme: { colors, font } }) => css`
+    color: ${colors.white};
+    font-weight: ${font.weight.semiBold};
+
+    ${status === "1"
+      ? `background-color: ${colors.success};`
+      : `background-color: ${colors.danger};`};
   `}
 `;
 
@@ -178,9 +197,17 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
         active={Boolean(selected && selected?.length >= 1)}
       >
         <span>
-          {selected && selected.length >= 1
-            ? `Selected ${preSelected?.length}`
-            : "Select status"}
+          {selected && selected?.length > 0
+            ? selected?.map((select) =>
+                select.value === "1" ? (
+                  <Status status={select.value}>Paid</Status>
+                ) : select.value === "2" ? (
+                  <Status status={select.value}>Unpaid</Status>
+                ) : (
+                  ""
+                )
+              )
+            : "Please select"}
         </span>
 
         <ToggleArrow toggled={isDropdownActive} />

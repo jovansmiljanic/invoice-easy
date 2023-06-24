@@ -1,7 +1,7 @@
 export const formatDate = (date: Date) => {
   const options: any = {
     year: "numeric",
-    month: "short",
+    month: "2-digit",
     day: "2-digit",
   };
 

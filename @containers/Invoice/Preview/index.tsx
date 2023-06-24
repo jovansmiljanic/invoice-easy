@@ -2,7 +2,7 @@
 import { FC, useEffect, useState } from "react";
 
 // Core types
-import { Client, Invoice, MyAccount } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // Global components
 import { Button, Heading } from "@components";
@@ -14,7 +14,7 @@ import { Column, Container, Row } from "@components/Grid";
 import styled, { css } from "styled-components";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { File } from "./File";
-import { formatDate } from "@utils/client";
+import { formatDate, getTotalPrice } from "@utils/client";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -72,86 +72,56 @@ const Col1 = styled.div`
 
 const Col2 = styled.div``;
 
-const Table = styled.table`
-  width: 100%;
-`;
+const Table = styled.div``;
 
-const Thead = styled.thead`
+const Head = styled.div`
+  width: 100%;
+  display: flex;
   font-size: 14px;
 
   ${({ theme: { colors, font } }) => css`
     font-weight: ${font.weight.bold};
     border-bottom: 1px solid ${colors.lightGray};
   `}
-
-  td {
-    padding: 15px;
-
-    &:nth-child(1) {
-      width: 20%;
-    }
-
-    &:nth-child(2) {
-      width: 30%;
-    }
-
-    &:nth-child(3) {
-      width: 15%;
-    }
-
-    &:nth-child(4) {
-      width: 15%;
-    }
-
-    &:nth-child(5) {
-      width: 15%;
-    }
-  }
 `;
 
-const Tbody = styled.tbody`
+const Body = styled.div`
+  width: 100%;
+`;
+
+const Wrap = styled.div`
+  width: 100%;
+  display: flex;
+
   ${({ theme: { colors } }) => css`
-    &:not(:last-child) {
-      border-bottom: 1px solid ${colors.lightGray};
-    }
-
-    tr {
-      border-bottom: 1px solid ${colors.lightGray};
-    }
-
-    td {
-      padding: 15px;
-
-      input {
-        width: 100%;
-      }
-
-      svg {
-        cursor: pointer;
-        margin-right: 15px;
-      }
-
-      &:nth-child(1) {
-        width: 20%;
-      }
-
-      &:nth-child(2) {
-        width: 30%;
-      }
-
-      &:nth-child(3) {
-        width: 15%;
-      }
-
-      &:nth-child(4) {
-        width: 15%;
-      }
-
-      &:nth-child(5) {
-        width: 15%;
-      }
-    }
+    border-bottom: 1px solid ${colors.lightGray};
   `}
+`;
+
+const Item = styled.div`
+  padding: 15px;
+
+  &:nth-child(1) {
+    flex: 0 0 50%;
+  }
+
+  &:nth-child(2) {
+    flex: 0 0 15%;
+  }
+
+  &:nth-child(3) {
+    flex: 0 0 15%;
+  }
+
+  &:nth-child(4) {
+    flex: 0 0 15%;
+  }
+
+  &:nth-child(5) {
+    padding: 0;
+    flex: 0 0 5%;
+    cursor: pointer;
+  }
 `;
 
 const Total = styled.div`
@@ -250,8 +220,6 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
             md: { top: 0, bottom: 10 },
           }}
         >
-          {/* {isClient && <File myAccount={myAccount} />} */}
-
           <NewInvoice>
             <UserDetails>
               <Col1>
@@ -259,7 +227,9 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
                   {myAccount.companyName}
                 </Heading>
                 <Heading as="p">{myAccount.companyAddress}</Heading>
-                <Heading as="p">{myAccount.zipCode}</Heading>
+                <Heading as="p">
+                  {myAccount.zipCode}, {myAccount.city}, {myAccount.country}
+                </Heading>
                 <Heading as="p">Davčna številka: {myAccount.taxNumber}</Heading>
               </Col1>
               <Col2>
@@ -276,7 +246,10 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
                   {invoice.client.clientName}
                 </Heading>
                 <Heading as="p">{invoice.client.clientAddress}</Heading>
-                <Heading as="p">{invoice.client.zipCode}</Heading>
+                <Heading as="p">
+                  {invoice.client.zipCode}, {invoice.client.city},
+                  {invoice.client.country}
+                </Heading>
                 <Heading as="p">
                   Davčna številka: {invoice.client.taxNumber}
                 </Heading>
@@ -284,7 +257,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
 
               <Col2>
                 <Heading as="h5" weight="semiBold">
-                  Invoice #3492
+                  Invoice #{invoice.invoiceNumber}
                 </Heading>
                 <StartDate>
                   <Heading as="p">
@@ -307,25 +280,23 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
             </ClientDetails>
 
             <Table>
-              <Thead>
-                <tr>
-                  <td>Item</td>
-                  <td>Cost</td>
-                  <td>QTY</td>
-                  <td>Price</td>
-                </tr>
-              </Thead>
+              <Head>
+                <Item>Item</Item>
+                <Item>Cost</Item>
+                <Item>QTY</Item>
+                <Item>Price</Item>
+              </Head>
 
-              <Tbody>
+              <Body>
                 {invoice?.items?.map((row, index) => (
-                  <tr key={index}>
-                    <td>{row.name}</td>
-                    <td>{row.cost} €</td>
-                    <td>{row.qty}</td>
-                    <td>{row.price} €</td>
-                  </tr>
+                  <Wrap key={index}>
+                    <Item>{row.name}</Item>
+                    <Item>{row.cost} €</Item>
+                    <Item>{row.qty}</Item>
+                    <Item>{row.price} €</Item>
+                  </Wrap>
                 ))}
-              </Tbody>
+              </Body>
             </Table>
 
             <Total>
@@ -333,21 +304,21 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
                 <Heading as="p" padding={{ md: { right: 4 } }}>
                   Subtotal:
                 </Heading>
-                <Heading as="p">$154.25</Heading>
+                <Heading as="p">{getTotalPrice(invoice.items)} €</Heading>
               </TotalRow>
 
               <TotalRow>
                 <Heading as="p" padding={{ md: { right: 4 } }}>
                   Tax:
                 </Heading>
-                <Heading as="p">$50.00</Heading>
+                <Heading as="p">0.00 €</Heading>
               </TotalRow>
 
               <TotalRow>
                 <Heading as="p" padding={{ md: { right: 4 } }}>
                   Total:
                 </Heading>
-                <Heading as="p">$204.25</Heading>
+                <Heading as="p">{getTotalPrice(invoice.items)} €</Heading>
               </TotalRow>
             </Total>
 
