@@ -54,7 +54,7 @@ const index: FC<Footer> = ({ account }) => {
       <Footer>
         <p>
           {account.companyField}, {account.companyName}. Transakcijski račun
-          odprt pri {account.bankName} – {account.ttr}
+          odprt pri {account.bankName} – {account.trr}
           ., davčna številka: {account.taxNumber}.
         </p>
       </Footer>

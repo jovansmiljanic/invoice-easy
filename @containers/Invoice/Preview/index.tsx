@@ -233,7 +233,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
                 <Heading as="p">Davčna številka: {myAccount.taxNumber}</Heading>
               </Col1>
               <Col2>
-                <Heading as="p">TRR: {myAccount.ttr}</Heading>
+                <Heading as="p">TRR: {myAccount.trr}</Heading>
                 <Heading as="p">BIC koda: {myAccount.bic}</Heading>
                 <Heading as="p">E-pošta: {myAccount.email}</Heading>
                 <Heading as="p">Telefon: {myAccount.phoneNumber}</Heading>
@@ -346,7 +346,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
             <Footer>
               <p>
                 {myAccount.companyField}, {myAccount.companyName}. Transakcijski
-                račun odprt pri {myAccount.bankName} – {myAccount.ttr}
+                račun odprt pri {myAccount.bankName} – {myAccount.trr}
                 ., davčna številka: {myAccount.taxNumber}.
               </p>
             </Footer>

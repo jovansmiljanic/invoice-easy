@@ -11,19 +11,25 @@ import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 
 // Global types
-import { Client, MyAccount } from "@types";
+import { Client, Invoice, MyAccount } from "@types";
 import { Session } from "next-auth";
 
 interface ContentPageProps {
   client: Client[];
   account: MyAccount;
   session: Session;
+  invoice: Invoice;
 }
 
-export default function Page({ account, client, session }: ContentPageProps) {
+export default function Page({
+  account,
+  client,
+  session,
+  invoice,
+}: ContentPageProps) {
   return (
     <Layout title="Create new invoice" session={session}>
-      <AddInvoice account={account} client={client} />
+      <AddInvoice account={account} client={client} invoice={invoice} />
     </Layout>
   );
 }
@@ -41,6 +47,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
+  const invoiceDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/invoice`);
+  const { items: invoices } = await invoiceDetails.json();
+  const invoice = invoices[0];
+
   const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`);
   const { items } = await clientDetails.json();
 
@@ -54,6 +64,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const [account] = users.filter(({ _id }: any) => _id === session.user._id);
 
   return {
-    props: { account, client, session },
+    props: { account, client, invoice, session },
   };
 };

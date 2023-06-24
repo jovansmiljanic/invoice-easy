@@ -18,7 +18,7 @@ const Schema = new mongoose.Schema(
     country: { type: String },
 
     bankName: { type: String },
-    ttr: { type: String },
+    trr: { type: String },
     bic: { type: String },
   },
   { collection: "Users", timestamps: true }

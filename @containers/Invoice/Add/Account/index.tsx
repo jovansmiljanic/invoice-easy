@@ -48,7 +48,7 @@ const index: FC<Account> = ({ account }) => {
       </div>
 
       <div>
-        <Heading as="p">TRR: {account.ttr}</Heading>
+        <Heading as="p">TRR: {account.trr}</Heading>
         <Heading as="p">BIC koda: {account.bic}</Heading>
         <Heading as="p">E-pošta: {account.email}</Heading>
         <Heading as="p">Telefon: {account.phoneNumber}</Heading>

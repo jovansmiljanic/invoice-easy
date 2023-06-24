@@ -2,7 +2,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 
 // Core types
-import { Client, MyAccount } from "@types";
+import { Client, Invoice, MyAccount } from "@types";
 
 // Global components
 import { AddClientModal, Button } from "@components";
@@ -73,6 +73,7 @@ interface Formvalues {
 interface NewInvoice {
   client: Client[];
   account: MyAccount;
+  invoice: Invoice;
 }
 
 interface Values {
@@ -91,7 +92,7 @@ const InvoiceSchema = Yup.object().shape({
   invoiceNumber: Yup.number(),
 });
 
-const index: FC<NewInvoice> = ({ account, client }) => {
+const index: FC<NewInvoice> = ({ account, client, invoice }) => {
   // Handle router
   const router = useRouter();
 
@@ -154,7 +155,7 @@ const index: FC<NewInvoice> = ({ account, client }) => {
           startDate: new Date(),
           endDate: new Date(),
           tax: 0,
-          invoiceNumber: 0,
+          invoiceNumber: invoice.invoiceNumber + 1,
           paymentDeadline: new Date(),
           issuedDate: new Date(),
         }}

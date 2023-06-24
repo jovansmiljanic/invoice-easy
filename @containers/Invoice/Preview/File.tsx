@@ -59,7 +59,7 @@ const index: FC<File> = ({ myAccount }) => {
           </View>
 
           <View style={styles.col}>
-            <Text style={styles.text}>TRR: {myAccount.ttr}</Text>
+            <Text style={styles.text}>TRR: {myAccount.trr}</Text>
             <Text style={styles.text}>BIC koda: {myAccount.bic}</Text>
             <Text style={styles.text}>E-pošta: {myAccount.email}</Text>
             <Text style={styles.text}>Telefon: {myAccount.phoneNumber}</Text>

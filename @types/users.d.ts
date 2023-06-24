@@ -12,7 +12,7 @@ export interface User {
   companyAddress?: string;
   zipCode?: string;
   taxNumber?: string;
-  ttr?: string;
+  trr?: string;
   bic?: string;
   phoneNumber?: string;
   user: PopulatedDoc<User>;

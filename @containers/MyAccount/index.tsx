@@ -85,7 +85,7 @@ interface Formvalues {
   country: string;
 
   bankName: string;
-  ttr: string;
+  trr: string;
   bic: string;
 }
 
@@ -103,8 +103,8 @@ const MyAccountSchema = Yup.object().shape({
   city: Yup.string().required("Please enter City"),
   country: Yup.string().required("Please enter Country"),
 
-  bankName: Yup.string().required("Please enter your TTR"),
-  ttr: Yup.string().required("Please enter your TTR"),
+  bankName: Yup.string().required("Please enter your TRR"),
+  trr: Yup.string().required("Please enter your TRR"),
   bic: Yup.string().required("Please enter your BIC code"),
 });
 
@@ -132,7 +132,7 @@ const index: FC<MyAccount> = ({ details, session }) => {
     country: details.country ? details.country : "",
 
     bankName: details.bankName ? details.bankName : "",
-    ttr: details.ttr ? details.ttr : "",
+    trr: details.trr ? details.trr : "",
     bic: details.bic ? details.bic : "",
   };
 
@@ -487,20 +487,20 @@ const index: FC<MyAccount> = ({ details, session }) => {
                     </Group>
 
                     <Group>
-                      <Label>TTR</Label>
+                      <Label>TRR</Label>
                       <Field
                         type="text"
-                        name="ttr"
-                        placeholder="Please enter your TTR"
+                        name="trr"
+                        placeholder="Please enter your TRR"
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.ttr}
-                        hasError={Boolean(errors.ttr && touched.ttr)}
+                        value={values.trr}
+                        hasError={Boolean(errors.trr && touched.trr)}
                       />
 
                       <ErrorWrap>
-                        {errors.ttr && touched.ttr ? (
-                          <ErrorWrap>{errors.ttr}</ErrorWrap>
+                        {errors.trr && touched.trr ? (
+                          <ErrorWrap>{errors.trr}</ErrorWrap>
                         ) : null}
                       </ErrorWrap>
                     </Group>

@@ -18,7 +18,7 @@ export interface MyAccount {
   country: string;
 
   bankName: string;
-  ttr: string;
+  trr: string;
   bic: string;
   myAccount: PopulatedDoc<MyAccount>;
 }
