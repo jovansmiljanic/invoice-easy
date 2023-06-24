@@ -62,9 +62,9 @@ const nextAuthOptions = ({ res }: Configuration): NextAuthOptions => {
           const { password: unusedpassword, ...userForCookie } = user;
 
           res?.setHeader("set-cookie", [
-            `user=${JSON.stringify(
-              userForCookie
-            )}; max-age=60 * 60 * 24 * 30; path=/; samesite=lax;`,
+            `user=${JSON.stringify(userForCookie)}; max-Age=${
+              60 * 60 * 24 * 30
+            }; path=/; samesite=lax;`,
           ]);
 
           if (user) {

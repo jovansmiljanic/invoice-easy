@@ -78,8 +78,7 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
       {
         ...rest,
         updatedAt: new Date(),
-      },
-      { new: true }
+      }
     );
 
     // Store user on the Database
