@@ -15,8 +15,8 @@ import { Column, Container, Row } from "@components/Grid";
 import { Heading, Logo } from "@components";
 
 // Client utils
-import { checkCookie } from "@utils/client";
-import { CreateInvoice, MyProfile, NewClient, SignOut } from "public/svg";
+import { CreateInvoice, MyProfile, SignOut } from "public/svg";
+import { Session } from "next-auth";
 
 const CustomLink = styled.span`
   padding: 0 5px;
@@ -121,16 +121,11 @@ const DropdownItem = styled.div<{ borderTop?: boolean }>`
   `}
 `;
 
-const index: FC = () => {
-  // Get user data from cookie
-  const { user } = checkCookie();
+interface Header {
+  session?: Session;
+}
 
-  const handleSignOut = () => {
-    document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-    signOut();
-  };
-
+const index: FC<Header> = ({ session }) => {
   // Hide dropdown when clicked outside it's Ref
   const resourcesPopupRef = useRef<HTMLDivElement>(null);
 
@@ -176,8 +171,8 @@ const index: FC = () => {
           <UserModal ref={resourcesPopupRef}>
             <User onClick={() => setDropdown(!dropdown)}>
               <Heading as="h6" weight="semiBold">
-                {user?.firstName.substring(0, 1)}
-                {user?.lastName.substring(0, 1)}
+                {session?.user.firstName.substring(0, 1)}
+                {session?.user.lastName.substring(0, 1)}
               </Heading>
             </User>
 
@@ -185,7 +180,7 @@ const index: FC = () => {
               <Dropdown>
                 <DropdownItem>
                   <Heading as="h6">
-                    {user?.firstName} {user?.lastName}
+                    {session?.user.firstName} {session?.user.lastName}
                   </Heading>
                 </DropdownItem>
 
@@ -205,7 +200,7 @@ const index: FC = () => {
                   </DropdownItem>
                 </Link>
 
-                <DropdownItem onClick={handleSignOut} borderTop>
+                <DropdownItem onClick={() => signOut()} borderTop>
                   <SignOut />
 
                   <span>Sign out</span>

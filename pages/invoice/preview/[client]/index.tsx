@@ -12,15 +12,17 @@ import { getSession } from "next-auth/react";
 
 // Global types
 import { Invoice, MyAccount } from "@types";
+import { Session } from "next-auth";
 
 interface ContentPageProps {
   account: MyAccount;
   invoice: Invoice;
+  session: Session;
 }
 
-export default function Page({ account, invoice }: ContentPageProps) {
+export default function Page({ account, invoice, session }: ContentPageProps) {
   return (
-    <Layout title="Create new invoice">
+    <Layout title="Create new invoice" session={session}>
       <PreviewInvoice myAccount={account} invoice={invoice} />
     </Layout>
   );
@@ -50,6 +52,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const [account] = users.filter(({ _id }: any) => _id === session.user._id);
 
   return {
-    props: { account, invoice },
+    props: { account, invoice, session },
   };
 };

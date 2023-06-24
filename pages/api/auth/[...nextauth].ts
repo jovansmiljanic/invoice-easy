@@ -59,14 +59,6 @@ const nextAuthOptions = ({ res }: Configuration): NextAuthOptions => {
             throw new Error("Incorrect password");
           }
 
-          const { password: unusedpassword, ...userForCookie } = user;
-
-          res?.setHeader("set-cookie", [
-            `user=${JSON.stringify(userForCookie)}; max-Age=${
-              60 * 60 * 24 * 30
-            }; path=/; samesite=lax;`,
-          ]);
-
           if (user) {
             return { ...user };
           }

@@ -9,19 +9,23 @@ import type { FC } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 
+// Nextjs types
+import { Session } from "next-auth";
+
 interface Props {
   title?: string;
   children?: React.ReactNode;
+  session?: Session;
 }
 
-export const Layout: FC<Props> = ({ title, children }) => {
+export const Layout: FC<Props> = ({ title, children, session }) => {
   return (
     <>
       <Head>
         <title>{`${title ? title + " - " : ""}Invoice easy`}</title>
       </Head>
 
-      <Header />
+      <Header session={session} />
       {children}
       <Footer />
     </>

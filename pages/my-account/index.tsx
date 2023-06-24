@@ -24,7 +24,7 @@ interface ContentPageProps {
 
 export default function Page({ myAccount, session }: ContentPageProps) {
   return (
-    <Layout title="Update company details">
+    <Layout title="Update company details" session={session}>
       <MyAccount details={myAccount} session={session} />
     </Layout>
   );
