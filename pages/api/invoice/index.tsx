@@ -122,6 +122,21 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.send(updatedInvoice);
   }
 
+  // Process a GET request
+  if (method === "DELETE") {
+    // If user has no access, return an error
+    if (!session) {
+      return res
+        .status(401)
+        .send({ error: "Please login to perform the action." });
+    }
+
+    const { body } = req;
+
+    // Grab current user
+    await Invoice.deleteOne({ _id: body });
+  }
+
   // End request
   return res.end();
 };

@@ -71,7 +71,6 @@ interface Formvalues {
 }
 
 interface NewInvoice {
-  client: Client[];
   account: MyAccount;
   invoice: Invoice;
 }
@@ -92,7 +91,7 @@ const InvoiceSchema = Yup.object().shape({
   invoiceNumber: Yup.number(),
 });
 
-const index: FC<NewInvoice> = ({ account, client, invoice }) => {
+const index: FC<NewInvoice> = ({ account, invoice }) => {
   // Handle router
   const router = useRouter();
 
@@ -132,6 +131,8 @@ const index: FC<NewInvoice> = ({ account, client, invoice }) => {
   };
 
   useEffect(() => {
+    setTableData(invoice.items);
+
     document.addEventListener("click", handleClickOutside, true);
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
@@ -144,20 +145,21 @@ const index: FC<NewInvoice> = ({ account, client, invoice }) => {
         autoComplete="off"
         initialValues={{
           items: tableData,
-          client: {},
-          startDate: new Date(),
-          endDate: new Date(),
-          tax: 0,
-          invoiceNumber: invoice.invoiceNumber + 1,
-          paymentDeadline: new Date(),
-          issuedDate: new Date(),
+          client: invoice.client,
+          startDate: invoice.startDate,
+          endDate: invoice.endDate,
+          tax: invoice.tax ? invoice.tax : 0,
+          invoiceNumber: invoice.invoiceNumber,
+          paymentDeadline: invoice.paymentDeadline,
+          issuedDate: invoice.createdAt,
         }}
         validationSchema={InvoiceSchema}
         onSubmit={async (data: FormikValues) => {
           await axios({
-            method: "POST",
+            method: "PUT",
             url: "/api/invoice",
             data: {
+              _id: invoice._id,
               items: tableData,
               startDate: startDate,
               endDate: endDate,
@@ -191,7 +193,7 @@ const index: FC<NewInvoice> = ({ account, client, invoice }) => {
                     <AccountDetails account={account} />
 
                     <ClientDetails
-                      client={client}
+                      client={invoice.client}
                       clientOption={clientOption}
                       startDate={startDate}
                       setStartDate={setStartDate}
@@ -203,6 +205,7 @@ const index: FC<NewInvoice> = ({ account, client, invoice }) => {
                       setToggleArticles={setToggleArticles}
                       setClientOption={setClientOption}
                       values={values}
+                      invoice={invoice}
                     />
 
                     <Table tableData={tableData} setTableData={setTableData} />
@@ -263,4 +266,4 @@ const index: FC<NewInvoice> = ({ account, client, invoice }) => {
   );
 };
 
-export { index as AddInvoice };
+export { index as EditInvoice };

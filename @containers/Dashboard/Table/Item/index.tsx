@@ -14,6 +14,7 @@ import { copyText } from "@utils/shared";
 // Client utils
 import {
   daysLeft,
+  deleteItem,
   formatDate,
   getTotalPrice,
   invoicePaid,
@@ -23,10 +24,11 @@ import {
 import { Invoice } from "@types";
 
 // Svg
-import { Dots, Eye } from "public/svg";
+import { Dots, Eye, Trash } from "public/svg";
 
 // Global context
 import { StoreContext } from "@context";
+import { lighten } from "polished";
 
 interface Item {
   $item: Invoice;
@@ -57,7 +59,7 @@ const Modal = styled.div`
   top: 100%;
   right: 0;
   border-radius: 5px;
-  padding: 10px 0;
+  padding: 5px 0;
 
   display: flex;
   flex-direction: column;
@@ -71,19 +73,28 @@ const Modal = styled.div`
 `;
 
 const ModalItem = styled.div`
-  padding: 10px 0;
+  padding: 10px 0 10px 20px;
   width: 100%;
-  text-align: center;
+  text-align: left;
   cursor: pointer;
 
   ${({ theme: { colors } }) => css`
+    a {
+      color: ${colors.gray};
+    }
+
     &:hover {
       background-color: ${colors.hoverGray};
+    }
+
+    &:last-child {
+      color: ${colors.danger};
+      border-top: 1px solid ${colors.lightGray};
     }
   `}
 `;
 
-const Paid = styled.div`
+const Status = styled.div<{ status: "danger" | "success" }>`
   width: fit-content;
   min-width: 45px;
   text-align: center;
@@ -91,24 +102,9 @@ const Paid = styled.div`
   padding: 0 5px;
   border-radius: 5px;
 
-  ${({ theme: { colors, font } }) => css`
-    color: ${colors.white};
-    background-color: ${colors.success};
-    font-weight: ${font.weight.semiBold};
-  `}
-`;
-
-const UnPaid = styled.div`
-  width: fit-content;
-  min-width: 45px;
-  text-align: center;
-  font-size: 13px;
-  padding: 0 5px;
-  border-radius: 5px;
-
-  ${({ theme: { colors, font } }) => css`
-    color: ${colors.white};
-    background-color: ${colors.danger};
+  ${({ status, theme: { colors, font } }) => css`
+    color: ${colors[status]};
+    background-color: ${lighten(0.3, colors[status])};
     font-weight: ${font.weight.semiBold};
   `}
 `;
@@ -252,7 +248,11 @@ const index: FC<Item> = ({ $item }) => {
           <td>{$item.client.clientName}</td>
 
           <td>
-            {$item.status === "1" ? <Paid>Paid</Paid> : <UnPaid>Unpaid</UnPaid>}
+            {$item.status === "1" ? (
+              <Status status="success">Paid</Status>
+            ) : (
+              <Status status="danger">Unpaid</Status>
+            )}
           </td>
 
           <td>{formatDate($item.issuedDate)}</td>
@@ -281,7 +281,18 @@ const index: FC<Item> = ({ $item }) => {
                         Mark as paid
                       </ModalItem>
                     )}
+
                     <ModalItem>Download</ModalItem>
+
+                    <ModalItem>
+                      <Link href={`/invoice/edit/${$item._id}`}>Edit</Link>
+                    </ModalItem>
+
+                    <ModalItem
+                      onClick={() => deleteItem($item._id, router, "invoice")}
+                    >
+                      Delete invoice
+                    </ModalItem>
                   </Modal>
                 )}
               </Popup>

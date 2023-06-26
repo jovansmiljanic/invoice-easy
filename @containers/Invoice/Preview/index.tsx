@@ -393,6 +393,8 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
             <Button
               variant="primary"
               size="small"
+              as="a"
+              href={`/invoice/edit/${invoice._id}`}
               margin={{
                 xs: { bottom: 1 },
                 sm: { bottom: 1 },

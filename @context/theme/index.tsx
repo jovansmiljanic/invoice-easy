@@ -17,6 +17,7 @@ const defaultTheme: ThemeType = {
     secondary: "#696cff",
     success: "#40E271",
     danger: "#dc3545",
+    warning: "#e9910c",
     textColor: "#222930",
     lightGray: "#d4d4d4",
     hoverGray: "#4359710a",

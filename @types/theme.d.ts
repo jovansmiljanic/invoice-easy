@@ -14,6 +14,7 @@ export interface Theme {
     secondary: string;
     success: string;
     danger: string;
+    warning: string;
     textColor: string;
     lightGray: string;
     hoverGray: string;

@@ -1,15 +1,17 @@
+import { lighten } from "polished";
 import styled, { css } from "styled-components";
 
-const Overdue = styled.div`
-  min-width: 70px;
+const Status = styled.div<{ status: "warning" }>`
   width: fit-content;
+  min-width: 45px;
   text-align: center;
-  font-size: 15px;
+  font-size: 13px;
   padding: 0 5px;
+  border-radius: 5px;
 
-  ${({ theme: { font, colors } }) => css`
-    color: ${colors.white};
-    background-color: ${colors.danger};
+  ${({ status, theme: { colors, font } }) => css`
+    color: ${colors[status]};
+    background-color: ${lighten(0.3, colors[status])};
     font-weight: ${font.weight.semiBold};
   `}
 `;
@@ -21,7 +23,7 @@ export const daysLeft = (paymentDeadline: Date, issuedDate: Date) => {
   const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
   if (daysLeft <= 0) {
-    return <Overdue>Overdue</Overdue>;
+    return <Status status="warning">Overdue</Status>;
   }
 
   if (daysLeft === 1) {

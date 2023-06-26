@@ -5,6 +5,7 @@ export type Colors =
   | "secondary"
   | "success"
   | "danger"
+  | "warning"
   | "textColor"
   | "lightGray"
   | "hoverGray"
