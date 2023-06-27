@@ -5,7 +5,7 @@ import type { FC } from "react";
 import styled, { css } from "styled-components";
 
 import { Document, Page, Text, View, StyleSheet } from "@react-pdf/renderer";
-import { MyAccount } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // Create styles
 const styles = StyleSheet.create({
@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
 });
 
 interface File {
+  invoice: Invoice;
   myAccount: MyAccount;
 }
 
-const index: FC<File> = ({ myAccount }) => {
+const index: FC<File> = ({ myAccount, invoice }) => {
   return (
     <Document>
       <Page size="A4" style={styles.newInvoice}>
@@ -68,7 +69,8 @@ const index: FC<File> = ({ myAccount }) => {
 
         <View style={styles.clientDetails}>
           <View>
-            <Text>Client details</Text>
+            <Text>{invoice.client.clientName}</Text>
+            <Text>{invoice.client.clientAddress}</Text>
           </View>
         </View>
       </Page>

@@ -357,7 +357,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
           <Options>
             {isClient && (
               <PDFDownloadLink
-                document={<File myAccount={myAccount} />}
+                document={<File myAccount={myAccount} invoice={invoice} />}
                 fileName={`${myAccount.firstName} ${myAccount.lastName} - ${invoice.client.clientName}`}
               >
                 {({ loading }) =>
@@ -404,6 +404,10 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
               Edit
             </Button>
           </Options>
+        </Column>
+
+        <Column responsivity={{ md: 12 }}>
+          <File myAccount={myAccount} invoice={invoice} />
         </Column>
       </Row>
     </Container>
