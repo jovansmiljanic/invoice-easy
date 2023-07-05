@@ -15,7 +15,7 @@ import { Session } from "next-auth";
 interface Props {
   title?: string;
   children?: React.ReactNode;
-  session?: Session;
+  session?: Session | null;
 }
 
 export const Layout: FC<Props> = ({ title, children, session }) => {

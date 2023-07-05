@@ -222,62 +222,71 @@ const index: FC = () => {
             md: { top: 10, bottom: 10 },
           }}
         >
-          <Column responsivity={{ md: 12 }}>
-            <Wrapper>
-              <Col1>
-                <Button
-                  size="small"
-                  variant="primary"
-                  margin={{ xs: { left: 0 }, sm: { left: 0 }, md: { left: 1 } }}
-                  as="a"
-                  href="/invoice/add"
-                >
-                  <Plus />
-                  Create invoice
-                </Button>
-              </Col1>
+          {updatedItems && updatedItems.length > 0 && (
+            <Column responsivity={{ md: 12 }}>
+              <Wrapper>
+                <Col1>
+                  <Button
+                    size="small"
+                    variant="primary"
+                    margin={{
+                      xs: { left: 0 },
+                      sm: { left: 0 },
+                      md: { left: 1 },
+                    }}
+                    as="a"
+                    href="/invoice/add"
+                  >
+                    <Plus />
+                    Create invoice
+                  </Button>
+                </Col1>
 
-              <Col2>
-                <Search />
+                <Col2>
+                  <Search />
 
-                <Filters
-                  name="status"
-                  label="Select status"
-                  preSelected={statusSelected}
-                  options={[
-                    { label: "Paid", value: "1" },
-                    {
-                      label: "Not paid",
-                      value: "2",
-                    },
-                  ]}
-                  callback={(e: Filter[]) => {
-                    if (
-                      e &&
-                      (e.map((a) => a.value !== null) ||
-                        e.map((a) => a.value !== undefined))
-                    ) {
-                      const { status, page, searchQuery, ...oldQuery } = query;
-                      const mp = e.map((el) => el.value);
-                      const filterQuery = objectToQuery({
-                        query: { ...oldQuery, status: mp },
-                      });
+                  <Filters
+                    name="status"
+                    label="Select status"
+                    preSelected={statusSelected}
+                    options={[
+                      { label: "Paid", value: "1" },
+                      {
+                        label: "Not paid",
+                        value: "2",
+                      },
+                    ]}
+                    callback={(e: Filter[]) => {
+                      if (
+                        e &&
+                        (e.map((a) => a.value !== null) ||
+                          e.map((a) => a.value !== undefined))
+                      ) {
+                        const { status, page, searchQuery, ...oldQuery } =
+                          query;
+                        const mp = e.map((el) => el.value);
+                        const filterQuery = objectToQuery({
+                          query: { ...oldQuery, status: mp },
+                        });
 
-                      push(`/?${filterQuery}${searchUrl}&page=${0}`);
-                    }
-                  }}
-                />
-              </Col2>
-            </Wrapper>
-          </Column>
+                        push(`/?${filterQuery}${searchUrl}&page=${0}`);
+                      }
+                    }}
+                  />
+                </Col2>
+              </Wrapper>
+            </Column>
+          )}
 
           <Column responsivity={{ md: 12 }}>
             <Table />
           </Column>
 
-          <Column responsivity={{ md: 12 }}>
-            <Pagination />
-          </Column>
+          {updatedItems && updatedItems.length > 0 && (
+            <Column responsivity={{ md: 12 }}>
+              <Pagination />
+            </Column>
+          )}
         </Row>
       </Container>
     </GridContext.Provider>

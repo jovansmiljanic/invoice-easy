@@ -10,3 +10,4 @@ export { Dots } from "./dots";
 export { ToggleArrow } from "./toggle-arrow";
 export { Plus } from "./plus";
 export { Trash } from "./trash";
+export { NotFoundIcon } from "./not-found";

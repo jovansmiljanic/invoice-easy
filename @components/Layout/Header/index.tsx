@@ -122,7 +122,7 @@ const DropdownItem = styled.div<{ borderTop?: boolean }>`
 `;
 
 interface Header {
-  session?: Session;
+  session?: Session | null;
 }
 
 const index: FC<Header> = ({ session }) => {

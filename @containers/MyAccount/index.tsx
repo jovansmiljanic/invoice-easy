@@ -99,11 +99,11 @@ const MyAccountSchema = Yup.object().shape({
   companyField: Yup.string().required("Please enter Company field"),
   companyName: Yup.string().required("Please enter Company name"),
   companyAddress: Yup.string().required("Please enter your Company address"),
-  zipCode: Yup.string().required("Please enter your Zip Code"),
+  zipCode: Yup.string().required("Please enter your Zip code"),
   city: Yup.string().required("Please enter City"),
   country: Yup.string().required("Please enter Country"),
 
-  bankName: Yup.string().required("Please enter your TRR"),
+  bankName: Yup.string().required("Please enter your Bank name"),
   trr: Yup.string().required("Please enter your TRR"),
   bic: Yup.string().required("Please enter your BIC code"),
 });
@@ -177,7 +177,7 @@ const index: FC<MyAccount> = ({ details, session }) => {
               })
                 .then((res) => {
                   setSubmitting(false);
-                  router.push("/my-account");
+                  router.push("/");
                 })
                 .catch((err) => {
                   setSubmitting(false);
