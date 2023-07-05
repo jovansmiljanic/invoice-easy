@@ -32,7 +32,7 @@ const Footer = styled.div`
 `;
 
 interface Footer {
-  account: MyAccount;
+  account?: MyAccount;
 }
 
 const index: FC<Footer> = ({ account }) => {
@@ -53,9 +53,9 @@ const index: FC<Footer> = ({ account }) => {
 
       <Footer>
         <p>
-          {account.companyField}, {account.companyName}. Transakcijski račun
-          odprt pri {account.bankName} – {account.trr}
-          ., davčna številka: {account.taxNumber}.
+          {account?.companyField}, {account?.companyName}. Transakcijski račun
+          odprt pri {account?.bankName} – {account?.trr}
+          ., davčna številka: {account?.taxNumber}.
         </p>
       </Footer>
     </>

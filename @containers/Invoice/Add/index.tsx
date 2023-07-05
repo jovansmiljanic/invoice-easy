@@ -71,9 +71,9 @@ interface Formvalues {
 }
 
 interface NewInvoice {
-  client: Client[];
-  account: MyAccount;
-  invoice: Invoice;
+  client?: Client[];
+  account?: MyAccount;
+  invoice?: Invoice;
 }
 
 interface Values {
@@ -148,7 +148,7 @@ const index: FC<NewInvoice> = ({ account, client, invoice }) => {
           startDate: new Date(),
           endDate: new Date(),
           tax: 0,
-          invoiceNumber: invoice.invoiceNumber + 1,
+          invoiceNumber: invoice?.invoiceNumber ? invoice.invoiceNumber + 1 : 1,
           paymentDeadline: new Date(),
           issuedDate: new Date(),
         }}

@@ -32,7 +32,7 @@ const Account = styled.div`
 `;
 
 interface Account {
-  account: MyAccount;
+  account?: MyAccount;
 }
 
 const index: FC<Account> = ({ account }) => {
@@ -40,18 +40,20 @@ const index: FC<Account> = ({ account }) => {
     <Account>
       <div>
         <Heading as="h6" weight="bold">
-          {account.companyName}
+          {account?.companyName}
         </Heading>
-        <Heading as="p">{account.companyAddress}</Heading>
-        <Heading as="p">{account.zipCode}</Heading>
-        <Heading as="p">Davčna številka: {account.taxNumber}</Heading>
+        <Heading as="p">{account?.companyAddress}</Heading>
+        <Heading as="p">
+          {account?.zipCode}, {account?.city}, {account?.country}
+        </Heading>
+        <Heading as="p">Davčna številka: {account?.taxNumber}</Heading>
       </div>
 
       <div>
-        <Heading as="p">TRR: {account.trr}</Heading>
-        <Heading as="p">BIC koda: {account.bic}</Heading>
-        <Heading as="p">E-pošta: {account.email}</Heading>
-        <Heading as="p">Telefon: {account.phoneNumber}</Heading>
+        <Heading as="p">TRR: {account?.trr}</Heading>
+        <Heading as="p">BIC koda: {account?.bic}</Heading>
+        <Heading as="p">E-pošta: {account?.email}</Heading>
+        <Heading as="p">Telefon: {account?.phoneNumber}</Heading>
       </div>
     </Account>
   );
