@@ -15,10 +15,10 @@ import { Client, Invoice, MyAccount } from "@types";
 import { Session } from "next-auth";
 
 interface ContentPageProps {
-  client: Client[];
-  account: MyAccount;
+  client?: Client[];
+  account?: MyAccount;
   session: Session;
-  invoice: Invoice;
+  invoice?: Invoice;
 }
 
 export default function Page({
@@ -49,7 +49,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const invoiceDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/invoice`);
   const { items: invoices } = await invoiceDetails.json();
-  const invoice = invoices[0];
+  const invoice = invoices.length > 0 ? invoices[0] : [];
 
   const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`);
   const { items } = await clientDetails.json();
@@ -62,8 +62,9 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   // Pass data to the page via props
   const [account] = users.filter(({ _id }: any) => _id === session.user._id);
+  const accountDetails = account ? account : [];
 
   return {
-    props: { account, client, invoice, session },
+    props: { account: accountDetails, client, invoice, session },
   };
 };

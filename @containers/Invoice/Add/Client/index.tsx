@@ -85,7 +85,7 @@ interface Client {
   setStartDate: any;
   setEndDate: any;
   setDeadlineDate: any;
-  client: ClientTypes[];
+  client?: ClientTypes[];
   toggledArticles: any;
   setToggleArticles: any;
   setClientOption: any;
@@ -108,7 +108,7 @@ const index: FC<Client> = ({
 }) => {
   const { handleBlur, handleChange } = useFormikContext();
 
-  const clientOptions = client.map((item) => {
+  const clientOptions = client?.map((item) => {
     return { value: item, label: item.clientName };
   });
 
@@ -166,7 +166,7 @@ const index: FC<Client> = ({
           <Field
             type="number"
             name="invoiceNumber"
-            placeholder="0.0 €"
+            placeholder="0"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.invoiceNumber}
