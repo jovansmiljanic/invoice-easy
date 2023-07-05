@@ -11,13 +11,24 @@ import { GridContext } from "..";
 import { Item } from "./Item";
 import { Placeholder } from "./Placeholder";
 import { StoreContext } from "@context";
+import { NotFoundIcon } from "public/svg";
+import { Button, Heading } from "@components";
 
 const NotFound = styled.div`
-  width: 100%;
-  min-height: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (max-width: ${breakpoints.md}px) {
+      text-align: center;
+      flex-direction: column;
+
+      svg {
+        width: 100%;
+      }
+    }
+  `}
 `;
 
 const Table = styled.table`
@@ -95,7 +106,40 @@ const index: FC = () => {
       {isLoading || !updatedItems ? (
         <Placeholder />
       ) : length === 0 ? (
-        <NotFound>Sorry, we didn't find any invoices...</NotFound>
+        <NotFound>
+          <div>
+            <Heading
+              as="h4"
+              weight="bold"
+              padding={{
+                xs: { bottom: 1 },
+                sm: { bottom: 1 },
+                md: { bottom: 1 },
+              }}
+            >
+              No invoices found!
+            </Heading>
+
+            <Heading
+              as="h6"
+              padding={{
+                xs: { bottom: 2 },
+                sm: { bottom: 2 },
+                md: { bottom: 2 },
+              }}
+            >
+              Please click on create invoice to start generating
+            </Heading>
+
+            <Button variant="primary" as="a" href="/invoice/add">
+              Create Invoice
+            </Button>
+          </div>
+
+          <div>
+            <NotFoundIcon />
+          </div>
+        </NotFound>
       ) : (
         <Table>
           {!isPhone && (

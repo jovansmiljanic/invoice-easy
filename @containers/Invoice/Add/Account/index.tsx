@@ -39,21 +39,30 @@ const index: FC<Account> = ({ account }) => {
   return (
     <Account>
       <div>
-        <Heading as="h6" weight="bold">
-          {account?.companyName}
-        </Heading>
-        <Heading as="p">{account?.companyAddress}</Heading>
+        {account?.companyName && (
+          <Heading as="h6" weight="bold">
+            {account.companyName}
+          </Heading>
+        )}
+
+        {account?.companyAddress && (
+          <Heading as="p">{account.companyAddress}</Heading>
+        )}
         <Heading as="p">
           {account?.zipCode}, {account?.city}, {account?.country}
         </Heading>
-        <Heading as="p">Davčna številka: {account?.taxNumber}</Heading>
+        {account?.taxNumber && (
+          <Heading as="p">Davčna številka: {account.taxNumber}</Heading>
+        )}
       </div>
 
       <div>
-        <Heading as="p">TRR: {account?.trr}</Heading>
-        <Heading as="p">BIC koda: {account?.bic}</Heading>
-        <Heading as="p">E-pošta: {account?.email}</Heading>
-        <Heading as="p">Telefon: {account?.phoneNumber}</Heading>
+        {account?.trr && <Heading as="p">TRR: {account.trr}</Heading>}
+        {account?.bic && <Heading as="p">BIC koda: {account.bic}</Heading>}
+        {account?.email && <Heading as="p">E-pošta: {account.email}</Heading>}
+        {account?.phoneNumber && (
+          <Heading as="p">Telefon: {account.phoneNumber}</Heading>
+        )}
       </div>
     </Account>
   );

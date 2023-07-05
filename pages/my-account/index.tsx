@@ -46,7 +46,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const details = await fetch(`${process.env.NEXTAUTH_URL}/api/registration`);
   const { users } = await details.json();
 
-  // Pass data to the page via props
   const [myAccount] = users.filter(
     ({ _id }: mongoose.Types.ObjectId) => _id === session.user._id
   );
