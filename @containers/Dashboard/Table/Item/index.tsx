@@ -53,6 +53,24 @@ const Popup = styled.div`
   position: relative;
 `;
 
+const ModalItem = styled.div`
+  padding: 10px 0 10px 20px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+
+  ${({ theme: { colors } }) => css`
+    &:hover {
+      background-color: ${colors.hoverGray};
+    }
+
+    &:last-child {
+      color: ${colors.danger};
+      border-bottom: 1px solid ${colors.lightGray};
+    }
+  `}
+`;
+
 const Modal = styled.div`
   position: absolute;
   z-index: 1;
@@ -69,27 +87,12 @@ const Modal = styled.div`
     min-height: 50px;
     box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
     background-color: ${colors.white};
-  `}
-`;
 
-const ModalItem = styled.div`
-  padding: 10px 0 10px 20px;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-
-  ${({ theme: { colors } }) => css`
     a {
-      color: ${colors.gray};
-    }
-
-    &:hover {
-      background-color: ${colors.hoverGray};
-    }
-
-    &:last-child {
-      color: ${colors.danger};
-      border-top: 1px solid ${colors.lightGray};
+      ${ModalItem} {
+        color: ${colors.gray};
+        background-color: ${colors.hoverGray};
+      }
     }
   `}
 `;
@@ -284,9 +287,9 @@ const index: FC<Item> = ({ $item }) => {
 
                     <ModalItem>Download</ModalItem>
 
-                    <ModalItem>
-                      <Link href={`/invoice/edit/${$item._id}`}>Edit</Link>
-                    </ModalItem>
+                    <Link href={`/invoice/edit/${$item._id}`}>
+                      <ModalItem>Edit</ModalItem>
+                    </Link>
 
                     <ModalItem
                       onClick={() => deleteItem($item._id, router, "invoice")}
