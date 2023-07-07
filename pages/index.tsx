@@ -38,6 +38,20 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
+  const details = await fetch(`${process.env.NEXTAUTH_URL}/api/registration`);
+  const { users } = await details.json();
+  // Pass data to the page via props
+  const [account] = users.filter(({ _id }: any) => _id === session.user._id);
+
+  if (!account.phoneNumber || !account.taxNumber) {
+    return {
+      redirect: {
+        destination: "/my-account",
+        permanent: false,
+      },
+    };
+  }
+
   return {
     props: { session },
   };
