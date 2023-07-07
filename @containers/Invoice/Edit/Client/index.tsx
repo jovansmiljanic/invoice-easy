@@ -110,8 +110,6 @@ const index: FC<Client> = ({
 }) => {
   const { handleBlur, handleChange } = useFormikContext();
 
-  console.log(client);
-
   // Handle types
   const handleChangeType = (e: any) => {
     setClientOption(e.value);
