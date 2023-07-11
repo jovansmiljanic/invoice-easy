@@ -337,9 +337,9 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
               </Heading>
 
               <Heading as="p">
-                Znesek računa poravnajte na transakcijski račun odprt pri N26.,
-                številka DE91 1001 1001 2623 8152 93. Pri plačilu se sklicujte
-                na številko računa
+                Znesek računa poravnajte na transakcijski račun odprt pri{" "}
+                {myAccount.bankName}., številka {myAccount.trr}. Pri plačilu se
+                sklicujte na številko računa
               </Heading>
             </Note>
 
@@ -358,7 +358,11 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
             {isClient && (
               <PDFDownloadLink
                 document={<File myAccount={myAccount} invoice={invoice} />}
-                fileName={`${myAccount.firstName} ${myAccount.lastName} - ${invoice.client.clientName}`}
+                fileName={`Invoice - ${
+                  myAccount.firstName + " " + myAccount.lastName
+                } - ${invoice.client.clientName} - ${formatDate(
+                  invoice.issuedDate
+                )}.pdf`}
               >
                 {({ loading }) =>
                   loading ? (
@@ -404,10 +408,6 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
               Edit
             </Button>
           </Options>
-        </Column>
-
-        <Column responsivity={{ md: 12 }}>
-          <File myAccount={myAccount} invoice={invoice} />
         </Column>
       </Row>
     </Container>
