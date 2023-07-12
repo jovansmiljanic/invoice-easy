@@ -1,5 +1,5 @@
 // Core
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 // Core types
 import { Invoice, MyAccount } from "@types";
@@ -15,6 +15,7 @@ import styled, { css } from "styled-components";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { File } from "./File";
 import { formatDate, getTotalPrice } from "@utils/client";
+import { StoreContext } from "@context";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -93,8 +94,13 @@ const Wrap = styled.div`
   width: 100%;
   display: flex;
 
-  ${({ theme: { colors } }) => css`
+  ${({ theme: { colors, breakpoints } }) => css`
     border-bottom: 1px solid ${colors.lightGray};
+
+    @media (max-width: ${breakpoints.md}px) {
+      padding: 10px 0;
+      flex-direction: column;
+    }
   `}
 `;
 
@@ -122,6 +128,13 @@ const Item = styled.div`
     flex: 0 0 5%;
     cursor: pointer;
   }
+
+  ${({ theme: { colors, breakpoints } }) => css`
+    @media (max-width: ${breakpoints.md}px) {
+      margin: 0 10px;
+      border: 1px solid ${colors.lightGray};
+    }
+  `}
 `;
 
 const Total = styled.div`
@@ -183,18 +196,35 @@ const Note = styled.div`
     font-size: 10px;
     line-height: 1.5;
   }
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (max-width: ${breakpoints.md}px) {
+      width: 100%;
+      padding: 50px 15px;
+    }
+  `}
 `;
 
 const Footer = styled.div`
   text-align: center;
   padding: 20px 0;
 
-  ${({ theme: { font } }) => css`
+  ${({ theme: { font, breakpoints } }) => css`
     p {
       font-size: 10px;
       font-weight: ${font.weight.semiBold};
     }
+
+    @media (max-width: ${breakpoints.md}px) {
+      padding: 0 15px;
+    }
   `}
+`;
+
+const ItemWrap = styled.div``;
+
+const Label = styled.div`
+  padding: 5px 15px;
 `;
 
 interface NewInvoice {
@@ -208,6 +238,9 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  // Store context
+  const { isPhone } = useContext(StoreContext);
 
   return (
     <Container backgroundColor="background">
@@ -285,25 +318,55 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
               </Col2>
             </ClientDetails>
 
-            <Table>
-              <Head>
-                <Item>Item</Item>
-                <Item>Cost</Item>
-                <Item>QTY</Item>
-                <Item>Price</Item>
-              </Head>
+            {!isPhone ? (
+              <Table>
+                <Head>
+                  <Item>Item</Item>
+                  <Item>Cost</Item>
+                  <Item>QTY</Item>
+                  <Item>Price</Item>
+                </Head>
 
-              <Body>
-                {invoice?.items?.map((row, index) => (
-                  <Wrap key={index}>
-                    <Item>{row.name}</Item>
-                    <Item>{row.cost} €</Item>
-                    <Item>{row.qty}</Item>
-                    <Item>{row.price} €</Item>
-                  </Wrap>
-                ))}
-              </Body>
-            </Table>
+                <Body>
+                  {invoice?.items?.map((row, index) => (
+                    <Wrap key={index}>
+                      <Item>{row.name}</Item>
+                      <Item>{row.cost} €</Item>
+                      <Item>{row.qty}</Item>
+                      <Item>{row.price} €</Item>
+                    </Wrap>
+                  ))}
+                </Body>
+              </Table>
+            ) : (
+              <Table>
+                <Body>
+                  {invoice?.items?.map((row, index) => (
+                    <Wrap key={index}>
+                      <ItemWrap>
+                        <Label>Item</Label>
+                        <Item>{row.name}</Item>
+                      </ItemWrap>
+
+                      <ItemWrap>
+                        <Label>Cost</Label>
+                        <Item>{row.cost} €</Item>
+                      </ItemWrap>
+
+                      <ItemWrap>
+                        <Label>Qty</Label>
+                        <Item>{row.qty}</Item>
+                      </ItemWrap>
+
+                      <ItemWrap>
+                        <Label>Price</Label>
+                        <Item>{row.price} €</Item>
+                      </ItemWrap>
+                    </Wrap>
+                  ))}
+                </Body>
+              </Table>
+            )}
 
             <Total>
               <TotalRow>
@@ -422,7 +485,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
             )}
 
             <Button
-              variant="secondary"
+              variant="warning"
               size="small"
               as="a"
               href={`/invoice/edit/${invoice._id}`}
