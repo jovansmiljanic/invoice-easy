@@ -59,17 +59,6 @@ const Modal = styled.div`
   background-color: white;
 `;
 
-interface Formvalues {
-  items: Values[];
-  client: object;
-  startDate: Date;
-  endDate: Date;
-  tax: number;
-  paymentDeadline: Date;
-  issuedDate: Date;
-  invoiceNumber: number;
-}
-
 interface NewInvoice {
   client?: Client[];
   account?: MyAccount;
@@ -178,7 +167,13 @@ const index: FC<NewInvoice> = ({ account, client, invoice }) => {
         {({ handleSubmit, values, errors, touched, isSubmitting }) => (
           <form onSubmit={handleSubmit}>
             <Container backgroundColor="background">
-              <Row padding={{ md: { top: 10, bottom: 10 } }}>
+              <Row
+                padding={{
+                  xs: { top: 6, bottom: 6 },
+                  sm: { top: 6, bottom: 6 },
+                  md: { top: 10, bottom: 10 },
+                }}
+              >
                 <Column
                   responsivity={{ md: 9 }}
                   padding={{

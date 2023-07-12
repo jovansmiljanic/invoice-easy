@@ -46,35 +46,34 @@ const Date = styled.div`
   }
 `;
 
-const CustomSelect = styled(Select)`
-  width: 235px;
-
-  ${({ theme: { colors } }) => css`
-    * > input {
-      padding: 5px 0 !important;
-    }
-
-    * {
-      font-size: 14px;
-      border-radius: 5px !important;
-      border-color: ${colors.gray} !important;
-    }
-  `}
-`;
-
 const Invoice = styled.div`
   display: flex;
   align-items: center;
 
   h5 {
     width: 43%;
-    // margin-right: 40px;
   }
 
   input {
     flex: 0 0 30% !important;
     padding: 5px 10px !important;
     font-size: 14px;
+  }
+`;
+
+const Wrap = styled.div`
+  ${({ theme: { breakpoints } }) => css`
+    @media (max-width: ${breakpoints.md}px) {
+      margin-top: 20px;
+    }
+  `}
+`;
+
+const HelpWrap = styled.div`
+  width: 235px;
+
+  button {
+    width: 100%;
   }
 `;
 
@@ -130,14 +129,7 @@ const index: FC<Client> = ({
             <Heading as="p">Davčna številka: {client.taxNumber}</Heading>
           </>
         ) : (
-          <>
-            {/* <CustomSelect
-              instanceId="newClient"
-              options={}
-              placeholder="Choose existing one"
-              onChange={(e) => handleChangeType(e)}
-              onBlur={handleBlur}
-            /> */}
+          <HelpWrap>
             <div>select</div>
             <div>or</div>
 
@@ -149,11 +141,11 @@ const index: FC<Client> = ({
             >
               Add new client
             </Button>
-          </>
+          </HelpWrap>
         )}
       </div>
 
-      <div>
+      <Wrap>
         <Invoice>
           <Heading
             as="h5"
@@ -205,7 +197,7 @@ const index: FC<Client> = ({
             dateFormat="dd/MM/yyyy"
           />
         </Date>
-      </div>
+      </Wrap>
     </Client>
   );
 };

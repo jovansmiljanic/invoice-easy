@@ -18,15 +18,26 @@ const Note = styled.div`
     font-size: 10px;
     line-height: 1.5;
   }
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (max-width: ${breakpoints.md}px) {
+      width: 100%;
+      padding: 50px 15px;
+    }
+  `}
 `;
 
 const Footer = styled.div`
   text-align: center;
 
-  ${({ theme: { font } }) => css`
+  ${({ theme: { font, breakpoints } }) => css`
     p {
       font-size: 10px;
       font-weight: ${font.weight.semiBold};
+    }
+
+    @media (max-width: ${breakpoints.md}px) {
+      padding: 0 15px;
     }
   `}
 `;
