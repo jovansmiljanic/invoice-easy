@@ -23,6 +23,7 @@ const Form = styled.form`
 
 const Group = styled.div`
   width: 100%;
+  margin: 6px 0;
 `;
 
 const ErrorWrap = styled.div`
@@ -47,11 +48,11 @@ interface Formvalues {
 }
 
 const AddClientSchema = Yup.object().shape({
-  clientName: Yup.string().required("Please enter client's company name"),
-  clientAddress: Yup.string().required("Please enter client's company address"),
+  clientName: Yup.string().required("Please enter client's name"),
+  clientAddress: Yup.string().required("Please enter client's address"),
+  zipCode: Yup.string().required("Please enter client's zip code"),
   city: Yup.string().required("Please enter client's city"),
   country: Yup.string().required("Please enter client's country"),
-  zipCode: Yup.string().required("Please enter client's zip code"),
   taxNumber: Yup.string().required("Please enter client's company tax number"),
 });
 
@@ -153,6 +154,25 @@ const index: FC<{ setClientOption: any; setToggleArticles: any }> = ({
           </Group>
 
           <Group>
+            <Label>Zip Code</Label>
+            <Field
+              type="text"
+              name="zipCode"
+              placeholder="Enter client's zip code"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.zipCode}
+              hasError={Boolean(errors.zipCode && touched.zipCode)}
+            />
+
+            <ErrorWrap>
+              {errors.zipCode && touched.zipCode ? (
+                <ErrorWrap>{errors.zipCode}</ErrorWrap>
+              ) : null}
+            </ErrorWrap>
+          </Group>
+
+          <Group>
             <Label>City</Label>
             <Field
               type="text"
@@ -191,25 +211,6 @@ const index: FC<{ setClientOption: any; setToggleArticles: any }> = ({
           </Group>
 
           <Group>
-            <Label>Zip Code</Label>
-            <Field
-              type="text"
-              name="zipCode"
-              placeholder="Enter client's zip code"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.zipCode}
-              hasError={Boolean(errors.zipCode && touched.zipCode)}
-            />
-
-            <ErrorWrap>
-              {errors.zipCode && touched.zipCode ? (
-                <ErrorWrap>{errors.zipCode}</ErrorWrap>
-              ) : null}
-            </ErrorWrap>
-          </Group>
-
-          <Group>
             <Label>Tax Number</Label>
             <Field
               type="text"
@@ -230,7 +231,7 @@ const index: FC<{ setClientOption: any; setToggleArticles: any }> = ({
 
           <Button
             type="submit"
-            variant="primary"
+            variant="secondary"
             isLoading={isSubmitting}
             margin={{
               xs: { top: 2 },

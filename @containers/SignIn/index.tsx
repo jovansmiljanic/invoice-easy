@@ -22,9 +22,12 @@ import { Field, Label } from "@styles/Form";
 
 // GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
+import { ToggleEye } from "public/svg";
 
 const Wrapper = styled.div`
   padding: 40px 20px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
   ${({ theme: { colors, breakpoints } }) => css`
     background-color: ${colors.white};
@@ -34,7 +37,7 @@ const Wrapper = styled.div`
     }
 
     a {
-      color: ${colors.primary};
+      color: ${colors.secondary};
     }
   `}
 `;
@@ -50,12 +53,18 @@ const Group = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
+
+  position: relative;
 `;
 
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  button {
+    width: 100%;
+  }
 `;
 
 const ErrorWrap = styled.div`
@@ -69,12 +78,20 @@ const ErrorWrap = styled.div`
   `}
 `;
 
+const EyeWrap = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translate(0, -20%);
+  cursoir: pointer;
+`;
+
 type Formvalues = {
   email: string;
   password: string;
 };
 
-const LoginSchema = object().shape({
+const SignInSchema = object().shape({
   email: string().email("Invalid email").required("Please enter email address"),
   password: string().required("Please enter your password"),
 });
@@ -88,8 +105,10 @@ const index: FC = () => {
   // Handle router
   const router = useRouter();
 
+  const [isEyeOpened, setIsEyeOpened] = useState(false);
+
   return (
-    <Container backgroundColor="background" height={100} alignCenter>
+    <Container height={82} alignCenter>
       <Row
         justifyContent={{ xs: "center", sm: "center", md: "center" }}
         alignItems={{ xs: "center", sm: "center", md: "center" }}
@@ -97,25 +116,24 @@ const index: FC = () => {
         <Column responsivity={{ md: 4 }}>
           <Wrapper>
             <Wrap>
-              <Logo $width="100" $height="50" $color="primary" />
+              <Logo $width="100" $height="50" $color="secondary" />
             </Wrap>
 
-            <div>
-              <Heading as="h4" weight="semiBold">
-                Welcome to Invoice Easy! 👋
-              </Heading>
+            <Heading as="h4" weight="semiBold" color="gray">
+              Welcome to Invoice Easy! 👋
+            </Heading>
 
-              <Heading
-                as="h6"
-                padding={{
-                  xs: { top: 1, bottom: 4 },
-                  sm: { top: 1, bottom: 4 },
-                  md: { top: 1, bottom: 4 },
-                }}
-              >
-                Please sign-in to your account and start the adventure
-              </Heading>
-            </div>
+            <Heading
+              as="h6"
+              padding={{
+                xs: { top: 1, bottom: 4 },
+                sm: { top: 1, bottom: 4 },
+                md: { top: 1, bottom: 4 },
+              }}
+              color="gray"
+            >
+              Please sign-in to your account and start the adventure
+            </Heading>
 
             <Formik
               autoComplete="off"
@@ -123,7 +141,7 @@ const index: FC = () => {
                 email: "",
                 password: "",
               }}
-              validationSchema={LoginSchema}
+              validationSchema={SignInSchema}
               onSubmit={async (
                 values: Formvalues,
                 { setSubmitting }: FormikHelpers<Formvalues>
@@ -188,14 +206,13 @@ const index: FC = () => {
                     <Label>Password</Label>
                     <Field
                       hasError={Boolean(errors.password && touched.password)}
-                      type="password"
+                      type={isEyeOpened ? "text" : "password"}
                       name="password"
                       placeholder="************"
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.password}
                     />
-
                     <ErrorWrap>
                       {errors.password && touched.password ? (
                         <>{errors.password}</>
@@ -203,11 +220,19 @@ const index: FC = () => {
                         <>{errorMessage}</>
                       ) : null}
                     </ErrorWrap>
+
+                    <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
+                      <ToggleEye toggled={isEyeOpened} />
+                    </EyeWrap>
                   </Group>
 
                   <ButtonWrap>
-                    <Button variant="primary" type="submit">
-                      {isSubmitting ? "Login..." : "Sign in"}
+                    <Button
+                      variant="secondary"
+                      type="submit"
+                      isLoading={isSubmitting}
+                    >
+                      {isSubmitting ? "Loading..." : "Sign in"}
                     </Button>
                   </ButtonWrap>
                 </form>
@@ -218,9 +243,9 @@ const index: FC = () => {
               as="h6"
               textAlign={{ xs: "center", sm: "center", md: "center" }}
               padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
+              color="gray"
             >
-              New on our platform?{" "}
-              <Link href="/registration">Create account</Link>
+              New on our platform? <Link href="/signup">Create account</Link>
             </Heading>
           </Wrapper>
         </Column>
@@ -229,4 +254,4 @@ const index: FC = () => {
   );
 };
 
-export { index as Login };
+export { index as SignIn };

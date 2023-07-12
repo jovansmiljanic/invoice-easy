@@ -142,7 +142,7 @@ const index: FC<Client> = ({
             <div>or</div>
 
             <Button
-              variant="primary"
+              variant="secondary"
               type="button"
               size="small"
               onClick={() => setToggleArticles(!toggledArticles)}

@@ -8,9 +8,8 @@ export const Label = styled.label<Label>`
   cursor: pointer;
   font-size: 14px;
 
-  ${({ theme: { defaults, font, colors } }) => css`
-    font-weight: ${font.weight.medium};
-    color: ${colors.black};
-    margin-bottom: ${defaults.gutter / 4}px;
+  ${({ theme: { defaults, colors } }) => css`
+    color: ${colors.gray};
+    margin-bottom: ${defaults.gutter * 4}px;
   `}
 `;

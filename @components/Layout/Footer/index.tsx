@@ -23,7 +23,7 @@ const index: FC = () => {
         }}
       >
         <Column responsivity={{ md: 6 }} textAlign={{ md: "right" }}>
-          <Logo $width="100" $height="50" $color="primary" />
+          <Logo $width="100" $height="50" $color="secondary" />
         </Column>
 
         <Column responsivity={{ md: 6 }} textAlign={{ md: "left" }}>

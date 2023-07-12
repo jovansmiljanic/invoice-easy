@@ -65,7 +65,7 @@ const CustomButton = styled.button<StyledButtonProps>`
 ${defaultStyle};
 
 ${({ theme: { defaults, breakpoints } }) => css`
-  padding: ${defaults.gutter / 1.5}rem ${defaults.gutter * 3}rem;
+  padding: ${defaults.gutter / 2}rem ${defaults.gutter * 4}rem;
 
   @media (max-width: ${breakpoints.md}px) {
     padding: ${defaults.gutter / 1.2}rem ${defaults.gutter * 2}rem;

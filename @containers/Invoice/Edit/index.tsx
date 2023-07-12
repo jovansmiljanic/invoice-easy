@@ -219,7 +219,7 @@ const index: FC<NewInvoice> = ({ account, invoice }) => {
                 <Column responsivity={{ md: 3 }}>
                   <Options>
                     <Button
-                      variant="primary"
+                      variant="secondary"
                       type="submit"
                       disabled={isSubmitting}
                       margin={{

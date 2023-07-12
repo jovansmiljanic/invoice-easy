@@ -1,3 +1,4 @@
+export { ToggleEye } from "./toggle-eye";
 export { Eye } from "./eye";
 export { MyProfile } from "./my-profile";
 export { NewClient } from "./new-client";
@@ -11,3 +12,4 @@ export { ToggleArrow } from "./toggle-arrow";
 export { Plus } from "./plus";
 export { Trash } from "./trash";
 export { NotFoundIcon } from "./not-found";
+export { NotFound as NotFound404 } from "./404";

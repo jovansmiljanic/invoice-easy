@@ -528,7 +528,7 @@ const index: FC<MyAccount> = ({ details, session }) => {
 
                 <Button
                   type="submit"
-                  variant="primary"
+                  variant="secondary"
                   margin={{
                     xs: { top: 2 },
                     sm: { top: 2 },
