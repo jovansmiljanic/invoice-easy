@@ -211,7 +211,13 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
 
   return (
     <Container backgroundColor="background">
-      <Row padding={{ md: { top: 10, bottom: 10 } }}>
+      <Row
+        padding={{
+          xs: { top: 8, bottom: 8 },
+          sm: { top: 8, bottom: 8 },
+          md: { top: 10, bottom: 10 },
+        }}
+      >
         <Column
           responsivity={{ md: 9 }}
           padding={{
@@ -301,21 +307,42 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
 
             <Total>
               <TotalRow>
-                <Heading as="p" padding={{ md: { right: 4 } }}>
+                <Heading
+                  as="p"
+                  padding={{
+                    xs: { right: 2 },
+                    sm: { right: 2 },
+                    md: { right: 4 },
+                  }}
+                >
                   Subtotal:
                 </Heading>
                 <Heading as="p">{getTotalPrice(invoice.items)} €</Heading>
               </TotalRow>
 
               <TotalRow>
-                <Heading as="p" padding={{ md: { right: 4 } }}>
+                <Heading
+                  as="p"
+                  padding={{
+                    xs: { right: 2 },
+                    sm: { right: 2 },
+                    md: { right: 4 },
+                  }}
+                >
                   Tax:
                 </Heading>
                 <Heading as="p">0.00 €</Heading>
               </TotalRow>
 
               <TotalRow>
-                <Heading as="p" padding={{ md: { right: 4 } }}>
+                <Heading
+                  as="p"
+                  padding={{
+                    xs: { right: 2 },
+                    sm: { right: 2 },
+                    md: { right: 4 },
+                  }}
+                >
                   Total:
                 </Heading>
                 <Heading as="p">{getTotalPrice(invoice.items)} €</Heading>
