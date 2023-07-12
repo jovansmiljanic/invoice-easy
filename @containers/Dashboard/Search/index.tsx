@@ -34,8 +34,9 @@ const SearchWrapper = styled.div`
       padding: 10px 20px;
     }
 
-    @media (max-width: ${breakpoints.sm}px) {
+    @media (max-width: ${breakpoints.md}px) {
       flex: 0 0 100%;
+      margin-bottom: 10px;
     }
   `}
 `;

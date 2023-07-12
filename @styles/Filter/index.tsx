@@ -12,10 +12,12 @@ export const Filter = styled.div`
   justify-content: center;
   position: relative;
   margin: 0 5px;
+  max-height: 46px;
 
   ${({ theme: { breakpoints } }) => css`
-    @media (max-width: ${breakpoints.sm}px) {
-      min-height: 60px;
+    @media (max-width: ${breakpoints.md}px) {
+      min-height: 50px;
+      max-height: 50px;
       flex: 0 0 100%;
       margin: 0;
     }

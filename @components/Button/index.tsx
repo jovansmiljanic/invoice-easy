@@ -78,7 +78,7 @@ ${({ theme: { defaults, breakpoints } }) => css`
         font-size: 14px;
         padding: ${defaults.gutter / 2}rem ${defaults.gutter}rem;
         @media (max-width: ${breakpoints.md}px) {
-          padding: ${defaults.gutter / 1.2}rem ${defaults.gutter * 2}rem;
+          padding: ${defaults.gutter / 1.7}rem ${defaults.gutter * 2.2}rem;
         }
       `}
     `}

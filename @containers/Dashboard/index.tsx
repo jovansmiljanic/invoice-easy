@@ -59,6 +59,16 @@ const Wrapper = styled.div`
 const Col1 = styled.div`
   display: flex;
   align-items: center;
+
+  ${({ theme: { breakpoints } }) => css`
+    @media (max-width: ${breakpoints.md}px) {
+      width: 100%;
+
+      a {
+        width: 100%;
+      }
+    }
+  `}
 `;
 
 const Col2 = styled.div`
@@ -229,8 +239,8 @@ const index: FC = () => {
                   size="small"
                   variant="secondary"
                   margin={{
-                    xs: { left: 0 },
-                    sm: { left: 0 },
+                    xs: { left: 0, top: 1, bottom: 1 },
+                    sm: { left: 0, top: 1, bottom: 1 },
                     md: { left: 1 },
                   }}
                   as="a"
