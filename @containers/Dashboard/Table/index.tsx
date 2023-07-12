@@ -112,8 +112,8 @@ const index: FC = () => {
               as="h4"
               weight="bold"
               padding={{
-                xs: { bottom: 1 },
-                sm: { bottom: 1 },
+                xs: { bottom: 1, top: 4 },
+                sm: { bottom: 1, top: 4 },
                 md: { bottom: 1 },
               }}
             >
