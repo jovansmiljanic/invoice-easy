@@ -124,6 +124,11 @@ const index: FC = () => {
       <Row
         justifyContent={{ xs: "center", sm: "center", md: "center" }}
         alignItems={{ xs: "center", sm: "center", md: "center" }}
+        padding={{
+          xs: { top: 10, bottom: 10 },
+          sm: { top: 10, bottom: 10 },
+          md: { top: 0, bottom: 0 },
+        }}
       >
         <Column responsivity={{ md: 4 }}>
           <Wrapper>
@@ -247,7 +252,11 @@ const index: FC = () => {
                     <Button
                       type="submit"
                       variant="secondary"
-                      margin={{ md: { bottom: 2 }, sm: { bottom: 2 } }}
+                      margin={{
+                        xs: { bottom: 2 },
+                        sm: { bottom: 2 },
+                        md: { bottom: 2 },
+                      }}
                       isLoading={isSubmitting}
                     >
                       {isSubmitting ? "Loading..." : "Sign up"}

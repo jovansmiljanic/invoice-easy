@@ -15,7 +15,11 @@ const index: FC = () => {
   return (
     <Container backgroundColor="background" height={80}>
       <Row
-        padding={{ md: { top: 10, bottom: 10 } }}
+        padding={{
+          xs: { top: 8, bottom: 8 },
+          sm: { top: 8, bottom: 8 },
+          md: { top: 10, bottom: 10 },
+        }}
         alignItems={{ md: "center" }}
       >
         <Column responsivity={{ md: 6 }}>

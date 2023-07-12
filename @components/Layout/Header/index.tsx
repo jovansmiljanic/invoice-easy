@@ -157,7 +157,11 @@ const index: FC<Header> = ({ session }) => {
           md: "space-between",
         }}
         alignItems={{ xs: "center", sm: "center", md: "center" }}
-        padding={{ md: { top: 2, bottom: 2 }, sm: { top: 2, bottom: 2 } }}
+        padding={{
+          xs: { top: 2, bottom: 2 },
+          sm: { top: 2, bottom: 2 },
+          md: { top: 2, bottom: 2 },
+        }}
       >
         <Column responsivity={{ md: 3, sm: 4 }}>
           <Link href="/">

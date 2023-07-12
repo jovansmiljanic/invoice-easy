@@ -58,7 +58,10 @@ const index: FC<Total> = ({ tableData, values }) => {
   return (
     <Total>
       <TotalRow>
-        <Heading as="p" padding={{ md: { right: 4 } }}>
+        <Heading
+          as="p"
+          padding={{ xs: { right: 2 }, sm: { right: 2 }, md: { right: 4 } }}
+        >
           Subtotal:
         </Heading>
 
@@ -68,7 +71,10 @@ const index: FC<Total> = ({ tableData, values }) => {
       </TotalRow>
 
       <TotalRow>
-        <Heading as="p" padding={{ md: { right: 4 } }}>
+        <Heading
+          as="p"
+          padding={{ xs: { right: 2 }, sm: { right: 2 }, md: { right: 4 } }}
+        >
           Tax:
         </Heading>
 
@@ -83,7 +89,10 @@ const index: FC<Total> = ({ tableData, values }) => {
       </TotalRow>
 
       <TotalRow>
-        <Heading as="p" padding={{ md: { right: 4 } }}>
+        <Heading
+          as="p"
+          padding={{ xs: { right: 2 }, sm: { right: 2 }, md: { right: 4 } }}
+        >
           Total:
         </Heading>
 
