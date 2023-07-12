@@ -85,7 +85,7 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!session) {
       return res
         .status(401)
-        .send({ error: "Please login to perform the action." });
+        .send({ error: "Please sign in to perform the action." });
     }
 
     const { body } = req;

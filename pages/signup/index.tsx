@@ -1,5 +1,8 @@
 // Global containers
-import { Registration } from "@containers";
+import { Layout } from "@components";
+
+// Global containers
+import { SignUp } from "@containers";
 
 // Core
 import { GetServerSideProps } from "next";
@@ -9,10 +12,9 @@ import { getSession } from "next-auth/react";
 
 export default function Page() {
   return (
-    <>
-      <title>Registration - Invoice Easy</title>
-      <Registration />
-    </>
+    <Layout title="Sign up">
+      <SignUp />
+    </Layout>
   );
 }
 

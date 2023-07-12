@@ -46,7 +46,7 @@ const User = styled.div`
 
   ${({ theme: { colors } }) => css`
     color: ${colors.white};
-    background-color: ${colors.primary};
+    background-color: ${colors.secondary};
   `}
 `;
 
@@ -100,12 +100,12 @@ const DropdownItem = styled.div<{ borderTop?: boolean }>`
     }
 
     &:hover {
-      color: ${colors.primary};
+      color: ${colors.secondary};
       background-color: ${colors.hoverGray};
 
       svg {
         path {
-          fill: ${colors.primary};
+          fill: ${colors.secondary};
         }
       }
     }
@@ -162,52 +162,54 @@ const index: FC<Header> = ({ session }) => {
         <Column responsivity={{ md: 3, sm: 4 }}>
           <Link href="/">
             <CustomLink>
-              <Logo $width="100" $height="50" $color="primary" />
+              <Logo $width="100" $height="50" $color="secondary" />
             </CustomLink>
           </Link>
         </Column>
 
         <Column responsivity={{ md: 9, sm: 4 }} textAlign={{ md: "right" }}>
-          <UserModal ref={resourcesPopupRef}>
-            <User onClick={() => setDropdown(!dropdown)}>
-              <Heading as="h6" weight="semiBold">
-                {session?.user.firstName.substring(0, 1)}
-                {session?.user.lastName.substring(0, 1)}
-              </Heading>
-            </User>
+          {session && (
+            <UserModal ref={resourcesPopupRef}>
+              <User onClick={() => setDropdown(!dropdown)}>
+                <Heading as="h6" weight="semiBold">
+                  {session.user.firstName.substring(0, 1)}
+                  {session.user.lastName.substring(0, 1)}
+                </Heading>
+              </User>
 
-            {dropdown && (
-              <Dropdown>
-                <DropdownItem>
-                  <Heading as="h6">
-                    {session?.user.firstName} {session?.user.lastName}
-                  </Heading>
-                </DropdownItem>
-
-                <Link href="/my-account">
+              {dropdown && (
+                <Dropdown>
                   <DropdownItem>
-                    <MyProfile />
-
-                    <span>My profile</span>
+                    <Heading as="h6">
+                      {session.user.firstName} {session.user.lastName}
+                    </Heading>
                   </DropdownItem>
-                </Link>
 
-                <Link href="/invoice/add">
-                  <DropdownItem>
-                    <CreateInvoice />
+                  <Link href="/my-account">
+                    <DropdownItem>
+                      <MyProfile />
 
-                    <span>Create invoice</span>
+                      <span>My profile</span>
+                    </DropdownItem>
+                  </Link>
+
+                  <Link href="/invoice/add">
+                    <DropdownItem>
+                      <CreateInvoice />
+
+                      <span>Create invoice</span>
+                    </DropdownItem>
+                  </Link>
+
+                  <DropdownItem onClick={() => signOut()} borderTop>
+                    <SignOut />
+
+                    <span>Sign out</span>
                   </DropdownItem>
-                </Link>
-
-                <DropdownItem onClick={() => signOut()} borderTop>
-                  <SignOut />
-
-                  <span>Sign out</span>
-                </DropdownItem>
-              </Dropdown>
-            )}
-          </UserModal>
+                </Dropdown>
+              )}
+            </UserModal>
+          )}
         </Column>
       </Row>
     </Container>

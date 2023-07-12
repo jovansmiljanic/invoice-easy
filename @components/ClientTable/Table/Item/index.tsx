@@ -46,7 +46,7 @@ const Tbody = styled.tbody`
         width: 25%;
 
         cursor: pointer;
-        color: ${colors.primary};
+        color: ${colors.secondary};
 
         &:hover {
           color: ${colors.secondary};

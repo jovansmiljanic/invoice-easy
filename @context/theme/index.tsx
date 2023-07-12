@@ -22,7 +22,7 @@ const defaultTheme: ThemeType = {
     lightGray: "#d4d4d4",
     hoverGray: "#4359710a",
     background: "#f5f5f9",
-    gray: "#5F6E7F",
+    gray: "#566A7F",
   },
   font: {
     size: 16,

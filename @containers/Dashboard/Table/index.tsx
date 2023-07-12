@@ -131,7 +131,7 @@ const index: FC = () => {
               Please click on create invoice to start generating
             </Heading>
 
-            <Button variant="primary" as="a" href="/invoice/add">
+            <Button variant="secondary" as="a" href="/invoice/add">
               Create Invoice
             </Button>
           </div>

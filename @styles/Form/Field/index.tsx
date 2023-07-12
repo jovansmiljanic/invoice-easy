@@ -87,7 +87,7 @@ export const Field = styled.input<Field>`
       }
 
       &:focus {
-        border: 1px solid ${colors.primary};
+        border: 1px solid ${colors.secondary};
       }
 
       &[disabled] {

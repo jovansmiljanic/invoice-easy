@@ -59,16 +59,16 @@ export const Label = styled.div<{ active?: boolean }>`
 
     ${active &&
     css`
-      border-color: ${colors.primary};
+      border-color: ${colors.secondary};
 
       span {
         font-weight: ${font.weight.semiBold};
-        color: ${colors.primary};
+        color: ${colors.secondary};
       }
 
       svg {
         path {
-          stroke: ${colors.primary};
+          stroke: ${colors.secondary};
         }
       }
     `}

@@ -1,5 +1,5 @@
 // Core types
-import type { FC } from "react";
+import { useState, type FC } from "react";
 
 // NextJS
 import { useRouter } from "next/router";
@@ -19,9 +19,13 @@ import { Field, Label } from "@styles/Form";
 
 // Global grid components
 import { Column, Container, Row } from "@components/Grid";
+import { Eye, ToggleEye } from "public/svg";
 
 const Wrapper = styled.div`
   padding: 40px 20px;
+  border-radius: 5px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
   ${({ theme: { colors, breakpoints } }) => css`
     background-color: ${colors.white};
@@ -31,7 +35,7 @@ const Wrapper = styled.div`
     }
 
     a {
-      color: ${colors.primary};
+      color: ${colors.secondary};
     }
   `}
 `;
@@ -52,6 +56,7 @@ const Form = styled.form`
 
 const Group = styled.div`
   width: 100%;
+  position: relative;
   padding-bottom: 10px;
 `;
 
@@ -64,6 +69,24 @@ const ErrorWrap = styled.div`
     background-color: ${colors.danger};
     color: ${colors.white};
   `}
+`;
+
+const EyeWrap = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translate(0, -10%);
+  cursoir: pointer;
+`;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    width: 100%;
+  }
 `;
 
 interface Formvalues {
@@ -94,8 +117,10 @@ const index: FC = () => {
   // Router
   const router = useRouter();
 
+  const [isEyeOpened, setIsEyeOpened] = useState(false);
+
   return (
-    <Container backgroundColor="background" height={100} alignCenter>
+    <Container height={82} alignCenter>
       <Row
         justifyContent={{ xs: "center", sm: "center", md: "center" }}
         alignItems={{ xs: "center", sm: "center", md: "center" }}
@@ -103,25 +128,24 @@ const index: FC = () => {
         <Column responsivity={{ md: 4 }}>
           <Wrapper>
             <Wrap>
-              <Logo $width="100" $height="50" $color="primary" />
+              <Logo $width="100" $height="50" $color="secondary" />
             </Wrap>
 
-            <div>
-              <Heading as="h4" weight="semiBold">
-                Adventure starts here 🚀
-              </Heading>
+            <Heading as="h4" weight="semiBold" color="gray">
+              Adventure starts here 🚀
+            </Heading>
 
-              <Heading
-                as="h6"
-                padding={{
-                  xs: { top: 1, bottom: 4 },
-                  sm: { top: 1, bottom: 4 },
-                  md: { top: 1, bottom: 4 },
-                }}
-              >
-                Make your invoicing easy and fun!
-              </Heading>
-            </div>
+            <Heading
+              as="h6"
+              padding={{
+                xs: { top: 1, bottom: 4 },
+                sm: { top: 1, bottom: 4 },
+                md: { top: 1, bottom: 4 },
+              }}
+              color="gray"
+            >
+              Make your invoicing easy and fun!
+            </Heading>
 
             <Formik
               autoComplete="off"
@@ -213,15 +237,22 @@ const index: FC = () => {
                         <>{errors.password}</>
                       ) : null}
                     </ErrorWrap>
+
+                    <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
+                      <ToggleEye toggled={isEyeOpened} />
+                    </EyeWrap>
                   </Group>
 
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    margin={{ md: { bottom: 2 }, sm: { bottom: 2 } }}
-                  >
-                    {isSubmitting ? "Registering..." : "Sign up"}
-                  </Button>
+                  <ButtonWrap>
+                    <Button
+                      type="submit"
+                      variant="secondary"
+                      margin={{ md: { bottom: 2 }, sm: { bottom: 2 } }}
+                      isLoading={isSubmitting}
+                    >
+                      {isSubmitting ? "Loading..." : "Sign up"}
+                    </Button>
+                  </ButtonWrap>
                 </Form>
               )}
             </Formik>
@@ -230,6 +261,7 @@ const index: FC = () => {
               as="h6"
               textAlign={{ xs: "center", sm: "center", md: "center" }}
               padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
+              color="gray"
             >
               Already have an account? <Link href="/">Sign in instead</Link>
             </Heading>
@@ -240,4 +272,4 @@ const index: FC = () => {
   );
 };
 
-export { index as Registration };
+export { index as SignUp };

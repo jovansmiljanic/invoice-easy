@@ -395,7 +395,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
             )}
 
             <Button
-              variant="primary"
+              variant="secondary"
               size="small"
               as="a"
               href={`/invoice/edit/${invoice._id}`}

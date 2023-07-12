@@ -222,13 +222,12 @@ const index: FC = () => {
             md: { top: 10, bottom: 10 },
           }}
         >
-          {/* {updatedItems && updatedItems.length > 0 && ( */}
           <Column responsivity={{ md: 12 }}>
             <Wrapper>
               <Col1>
                 <Button
                   size="small"
-                  variant="primary"
+                  variant="secondary"
                   margin={{
                     xs: { left: 0 },
                     sm: { left: 0 },
@@ -275,7 +274,6 @@ const index: FC = () => {
               </Col2>
             </Wrapper>
           </Column>
-          {/* )} */}
 
           <Column responsivity={{ md: 12 }}>
             <Table />
