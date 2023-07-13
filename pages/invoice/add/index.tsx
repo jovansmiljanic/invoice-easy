@@ -49,10 +49,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const invoiceDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/invoice`);
   const { items: invoices } = await invoiceDetails.json();
-  const currentUserInovice = invoices.filter(
-    ({ owner }: any) => owner === session.user._id
-  );
-  const invoice = currentUserInovice.length > 0 ? currentUserInovice[0] : [];
+  const invoice = invoices.length > 0 ? invoices[0] : [];
 
   const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`);
   const { items } = await clientDetails.json();

@@ -141,7 +141,10 @@ const index: FC<Client> = ({
               {clientOption.clientName}
             </Heading>
             <Heading as="p">{clientOption.clientAddress}</Heading>
-            <Heading as="p">{clientOption.zipCode}</Heading>
+            <Heading as="p">
+              {clientOption.zipCode}, {clientOption.city},{" "}
+              {clientOption.country}
+            </Heading>
             <Heading as="p">Davčna številka: {clientOption.taxNumber}</Heading>
           </>
         ) : (

@@ -58,6 +58,7 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const length = await Invoice.find({
       ...getQuery(query),
+      owner: session?.user._id,
     })
       .sort({ createdAt: -1 })
       .count();
@@ -65,6 +66,7 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
     // Grab current user
     const invoices = await Invoice.find({
       ...getQuery(query),
+      owner: session?.user._id,
     })
       .skip(Number(skip) * Number(limit))
       .limit(Number(limit))

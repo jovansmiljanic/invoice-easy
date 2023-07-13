@@ -245,7 +245,7 @@ const index: FC<Item> = ({ $item }) => {
       <Tbody>
         <tr>
           <td onClick={() => copyText($item._id.toString())}>
-            #{$item._id.toString().slice(0, 4)}
+            #{$item._id.toString().slice(19)}
           </td>
 
           <td>{$item.client.clientName}</td>
