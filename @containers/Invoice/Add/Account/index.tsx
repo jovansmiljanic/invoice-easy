@@ -32,36 +32,40 @@ const Account = styled.div`
 `;
 
 interface Account {
-  account?: MyAccount;
+  currentUser: MyAccount;
 }
 
-const index: FC<Account> = ({ account }) => {
+const index: FC<Account> = ({ currentUser }) => {
   return (
     <Account>
       <div>
-        {account?.companyName && (
+        {currentUser?.companyName && (
           <Heading as="h6" weight="bold">
-            {account.companyName}
+            {currentUser.companyName}
           </Heading>
         )}
 
-        {account?.companyAddress && (
-          <Heading as="p">{account.companyAddress}</Heading>
+        {currentUser?.companyAddress && (
+          <Heading as="p">{currentUser.companyAddress}</Heading>
         )}
         <Heading as="p">
-          {account?.zipCode}, {account?.city}, {account?.country}
+          {currentUser?.zipCode}, {currentUser?.city}, {currentUser?.country}
         </Heading>
-        {account?.taxNumber && (
-          <Heading as="p">Davčna številka: {account.taxNumber}</Heading>
+        {currentUser?.taxNumber && (
+          <Heading as="p">Davčna številka: {currentUser.taxNumber}</Heading>
         )}
       </div>
 
       <div>
-        {account?.trr && <Heading as="p">TRR: {account.trr}</Heading>}
-        {account?.bic && <Heading as="p">BIC koda: {account.bic}</Heading>}
-        {account?.email && <Heading as="p">E-pošta: {account.email}</Heading>}
-        {account?.phoneNumber && (
-          <Heading as="p">Telefon: {account.phoneNumber}</Heading>
+        {currentUser?.trr && <Heading as="p">TRR: {currentUser.trr}</Heading>}
+        {currentUser?.bic && (
+          <Heading as="p">BIC koda: {currentUser.bic}</Heading>
+        )}
+        {currentUser?.email && (
+          <Heading as="p">E-pošta: {currentUser.email}</Heading>
+        )}
+        {currentUser?.phoneNumber && (
+          <Heading as="p">Telefon: {currentUser.phoneNumber}</Heading>
         )}
       </div>
     </Account>
