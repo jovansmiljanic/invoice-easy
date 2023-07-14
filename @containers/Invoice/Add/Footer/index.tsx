@@ -43,10 +43,10 @@ const Footer = styled.div`
 `;
 
 interface Footer {
-  account?: MyAccount;
+  currentUser: MyAccount;
 }
 
-const index: FC<Footer> = ({ account }) => {
+const index: FC<Footer> = ({ currentUser }) => {
   return (
     <>
       <Note>
@@ -64,9 +64,9 @@ const index: FC<Footer> = ({ account }) => {
 
       <Footer>
         <p>
-          {account?.companyField}, {account?.companyName}. Transakcijski račun
-          odprt pri {account?.bankName} – {account?.trr}
-          ., davčna številka: {account?.taxNumber}.
+          {currentUser?.companyField}, {currentUser?.companyName}. Transakcijski
+          račun odprt pri {currentUser?.bankName} – {currentUser?.trr}
+          ., davčna številka: {currentUser?.taxNumber}.
         </p>
       </Footer>
     </>

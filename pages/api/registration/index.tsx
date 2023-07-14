@@ -27,10 +27,10 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
   // Process a GET request
   if (method === "GET") {
     // Grab current user
-    const users = await User.find();
+    const currentUser = await User.findOne({ _id: session?.user._id });
 
     // Return the object
-    return res.send({ users });
+    return res.send({ currentUser });
   }
 
   // Process a POST request

@@ -2,7 +2,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 
 // Core types
-import { Client, Invoice, MyAccount } from "@types";
+import { Client, MyAccount } from "@types";
 
 // Global components
 import { AddClientModal, Button } from "@components";
@@ -14,9 +14,9 @@ import { Column, Container, Row } from "@components/Grid";
 import axios from "axios";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
+import { Formik, FormikValues } from "formik";
 import styled, { css } from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
-import { Formik, FormikValues } from "formik";
 
 // Local components
 import { Table } from "./Table";
@@ -61,8 +61,8 @@ const Modal = styled.div`
 
 interface NewInvoice {
   client?: Client[];
-  account?: MyAccount;
-  invoice?: Invoice;
+  currentUser: MyAccount;
+  invoiceNumber: number;
 }
 
 interface Values {
@@ -81,7 +81,7 @@ const InvoiceSchema = Yup.object().shape({
   invoiceNumber: Yup.number(),
 });
 
-const index: FC<NewInvoice> = ({ account, client, invoice }) => {
+const index: FC<NewInvoice> = ({ currentUser, client, invoiceNumber }) => {
   // Handle router
   const router = useRouter();
 
@@ -137,7 +137,7 @@ const index: FC<NewInvoice> = ({ account, client, invoice }) => {
           startDate: new Date(),
           endDate: new Date(),
           tax: 0,
-          invoiceNumber: invoice?.invoiceNumber ? invoice.invoiceNumber + 1 : 1,
+          invoiceNumber: invoiceNumber + 1,
           paymentDeadline: new Date(),
           issuedDate: new Date(),
         }}
@@ -183,7 +183,7 @@ const index: FC<NewInvoice> = ({ account, client, invoice }) => {
                   }}
                 >
                   <NewInvoice>
-                    <AccountDetails account={account} />
+                    <AccountDetails currentUser={currentUser} />
 
                     <ClientDetails
                       client={client}
@@ -204,7 +204,7 @@ const index: FC<NewInvoice> = ({ account, client, invoice }) => {
 
                     <Total tableData={tableData} values={values} />
 
-                    <Footer account={account} />
+                    <Footer currentUser={currentUser} />
                   </NewInvoice>
                 </Column>
 

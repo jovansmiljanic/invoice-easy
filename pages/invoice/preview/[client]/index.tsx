@@ -15,15 +15,19 @@ import { Invoice, MyAccount } from "@types";
 import { Session } from "next-auth";
 
 interface ContentPageProps {
-  account: MyAccount;
+  currentUser: MyAccount;
   invoice: Invoice;
   session: Session;
 }
 
-export default function Page({ account, invoice, session }: ContentPageProps) {
+export default function Page({
+  currentUser,
+  invoice,
+  session,
+}: ContentPageProps) {
   return (
     <Layout title="Create new invoice" session={session}>
-      <PreviewInvoice myAccount={account} invoice={invoice} />
+      <PreviewInvoice myAccount={currentUser} invoice={invoice} />
     </Layout>
   );
 }
@@ -42,16 +46,31 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   }
 
   // Pass data to the page via props
-  const invoiceDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/invoice`);
-  const { items } = await invoiceDetails.json();
-  const [invoice] = items.filter(({ _id }: any) => _id === ctx.params?.client);
+  const invoiceDetails = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/invoice`,
+    {
+      method: "GET",
+      headers: {
+        Cookie: ctx?.req?.headers?.cookie ?? "",
+      },
+    }
+  );
+  const { items: invoices } = await invoiceDetails.json();
+
+  const [invoice] = invoices.filter(
+    ({ _id }: any) => _id === ctx.params?.client
+  );
 
   // Pass data to the page via props
-  const details = await fetch(`${process.env.NEXTAUTH_URL}/api/registration`);
-  const { users } = await details.json();
-  const [account] = users.filter(({ _id }: any) => _id === session.user._id);
+  const user = await fetch(`${process.env.NEXTAUTH_URL}/api/registration`, {
+    method: "GET",
+    headers: {
+      Cookie: ctx?.req?.headers?.cookie ?? "",
+    },
+  });
+  const { currentUser } = await user.json();
 
   return {
-    props: { account, invoice, session },
+    props: { currentUser, invoice, session },
   };
 };

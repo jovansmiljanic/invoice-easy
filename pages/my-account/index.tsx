@@ -14,18 +14,15 @@ import { getSession } from "next-auth/react";
 // Global types
 import { MyAccount as MyAccountType } from "@types";
 
-// Vendor types
-import mongoose from "mongoose";
-
 interface ContentPageProps {
   session: Session;
-  myAccount: MyAccountType;
+  currentUser: MyAccountType;
 }
 
-export default function Page({ myAccount, session }: ContentPageProps) {
+export default function Page({ currentUser, session }: ContentPageProps) {
   return (
     <Layout title="Update company details" session={session}>
-      <MyAccount details={myAccount} session={session} />
+      <MyAccount details={currentUser} session={session} />
     </Layout>
   );
 }
@@ -43,14 +40,16 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const details = await fetch(`${process.env.NEXTAUTH_URL}/api/registration`);
-  const { users } = await details.json();
+  const user = await fetch(`${process.env.NEXTAUTH_URL}/api/registration`, {
+    method: "GET",
+    headers: {
+      Cookie: ctx?.req?.headers?.cookie ?? "",
+    },
+  });
 
-  const [myAccount] = users.filter(
-    ({ _id }: mongoose.Types.ObjectId) => _id === session.user._id
-  );
+  const { currentUser } = await user.json();
 
   return {
-    props: { myAccount, session },
+    props: { currentUser, session },
   };
 };
