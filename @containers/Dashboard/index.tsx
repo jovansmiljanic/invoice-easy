@@ -126,7 +126,7 @@ const index: FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Store the current limit of the pagination
-  const limit = 6;
+  const limit = 9;
 
   // Set selected value
   const [statusSelected, setStatusSelected] = useState<

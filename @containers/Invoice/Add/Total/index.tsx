@@ -55,6 +55,12 @@ interface Total {
 
 const index: FC<Total> = ({ tableData, values }) => {
   const { handleBlur, handleChange } = useFormikContext();
+
+  const price = getTotalPrice(tableData);
+
+  const total = +price + values.tax;
+
+  console.log(getTotalPrice(tableData));
   return (
     <Total>
       <TotalRow>
@@ -96,11 +102,7 @@ const index: FC<Total> = ({ tableData, values }) => {
           Total:
         </Heading>
 
-        <Heading as="p">
-          {getTotalPrice(tableData)
-            ? getTotalPrice(tableData) + values.tax
-            : "0.0 €"}
-        </Heading>
+        <Heading as="p">{+price !== 0 ? `${total} €` : "0.00 €"}</Heading>
       </TotalRow>
     </Total>
   );
