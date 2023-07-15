@@ -12,6 +12,7 @@ export const Filter = styled.div`
   justify-content: center;
   position: relative;
   margin: 0 5px;
+  min-height: 46px;
   max-height: 46px;
 
   ${({ theme: { breakpoints } }) => css`

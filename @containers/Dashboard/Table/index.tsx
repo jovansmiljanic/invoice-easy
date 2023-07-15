@@ -33,7 +33,6 @@ const NotFound = styled.div`
 
 const Table = styled.table`
   width: 100%;
-  box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
   border-radius: 0 0 5px 5px;
 
   ${({ theme: { colors, breakpoints } }) => css`
@@ -94,6 +93,14 @@ const Thead = styled.thead`
   `}
 `;
 
+const Wrap = styled.div`
+  ${({ theme: { colors } }) => css`
+    border: 1px solid ${colors.lightGray};
+    border-top: 0;
+    border-bottom: 0;
+  `}
+`;
+
 const index: FC = () => {
   // Store context
   const { isPhone } = useContext(StoreContext);
@@ -102,7 +109,7 @@ const index: FC = () => {
   const { length, updatedItems, isLoading } = useContext(GridContext);
 
   return (
-    <>
+    <Wrap>
       {isLoading || !updatedItems ? (
         <Placeholder />
       ) : length === 0 ? (
@@ -160,7 +167,7 @@ const index: FC = () => {
             updatedItems.map((item, i) => <Item $item={item} key={i} />)}
         </Table>
       )}
-    </>
+    </Wrap>
   );
 };
 
