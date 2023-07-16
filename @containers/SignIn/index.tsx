@@ -22,7 +22,9 @@ import { Field, Label } from "@styles/Form";
 
 // GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
-import { ToggleEye } from "public/svg";
+
+// Icon
+import { VisibilityOutlined, VisibilityOffOutlined } from "@mui/icons-material";
 
 const Wrapper = styled.div`
   padding: 40px 20px;
@@ -82,7 +84,7 @@ const EyeWrap = styled.div`
   position: absolute;
   top: 50%;
   right: 10px;
-  transform: translate(0, -20%);
+  transform: translate(0, -25%);
   cursoir: pointer;
 `;
 
@@ -227,7 +229,11 @@ const index: FC = () => {
                     </ErrorWrap>
 
                     <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
-                      <ToggleEye toggled={isEyeOpened} />
+                      {isEyeOpened ? (
+                        <VisibilityOutlined />
+                      ) : (
+                        <VisibilityOffOutlined />
+                      )}
                     </EyeWrap>
                   </Group>
 

@@ -6,7 +6,8 @@ import { Filter, Label } from "@styles/Filter";
 
 // Vendors
 import styled, { css } from "styled-components";
-import { ToggleArrow } from "public/svg";
+
+import { ExpandLessOutlined, ExpandMoreOutlined } from "@mui/icons-material";
 
 // Dropdown container
 const Container = styled.div`
@@ -210,7 +211,7 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
             : "Please select"}
         </span>
 
-        <ToggleArrow toggled={isDropdownActive} />
+        {isDropdownActive ? <ExpandLessOutlined /> : <ExpandMoreOutlined />}
       </Label>
 
       {isDropdownActive && (

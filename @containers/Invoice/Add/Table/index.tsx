@@ -10,8 +10,10 @@ import { Button } from "@components";
 // Vendors
 import styled, { css } from "styled-components";
 
-// Svg
-import { Trash } from "public/svg";
+// ICon
+import { RemoveCircleOutlineOutlined } from "@mui/icons-material";
+
+// Store context
 import { StoreContext } from "@context";
 
 const Table = styled.div``;
@@ -206,9 +208,10 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
 
                 <Item>
                   {index !== 0 && (
-                    <div onClick={() => removeItem(index)}>
-                      <Trash />
-                    </div>
+                    <RemoveCircleOutlineOutlined
+                      color="error"
+                      onClick={() => removeItem(index)}
+                    />
                   )}
                 </Item>
               </Wrap>
@@ -267,9 +270,10 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
 
                 <Item>
                   {index !== 0 && (
-                    <div onClick={() => removeItem(index)}>
-                      <Trash />
-                    </div>
+                    <RemoveCircleOutlineOutlined
+                      color="error"
+                      onClick={() => removeItem(index)}
+                    />
                   )}
                 </Item>
               </Wrap>

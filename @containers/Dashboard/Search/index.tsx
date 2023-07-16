@@ -12,7 +12,9 @@ import styled, { css } from "styled-components";
 
 // Local context
 import { GridContext } from "..";
-import { ClearSvg } from "public/svg";
+
+// Icon
+import { CloseOutlined } from "@mui/icons-material";
 
 const SearchWrapper = styled.div`
   flex: 0 0 50%;
@@ -45,7 +47,7 @@ const Clear = styled.div`
   position: absolute;
   width: 25px;
   height: 25px;
-  top: 0%;
+  top: -6px;
   right: 15px;
   background-color: rgba(255, 255, 255, 0.123);
   display: flex;
@@ -104,7 +106,7 @@ const index: FC = () => {
             push(`/?${queryUrl}${searchUrl}&page=${0}`);
           }}
         >
-          <ClearSvg />
+          <CloseOutlined />
         </Clear>
       )}
     </SearchWrapper>

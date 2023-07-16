@@ -13,6 +13,7 @@ import { Placeholder } from "./Placeholder";
 import { StoreContext } from "@context";
 import { NotFoundIcon } from "public/svg";
 import { Button, Heading } from "@components";
+import { MyAccount } from "@types";
 
 const NotFound = styled.div`
   display: flex;
@@ -101,7 +102,11 @@ const Wrap = styled.div`
   `}
 `;
 
-const index: FC = () => {
+interface Table {
+  currentUser: MyAccount;
+}
+
+const index: FC<Table> = ({ currentUser }) => {
   // Store context
   const { isPhone } = useContext(StoreContext);
 
@@ -164,7 +169,9 @@ const index: FC = () => {
           )}
 
           {Array.isArray(updatedItems) &&
-            updatedItems.map((item, i) => <Item $item={item} key={i} />)}
+            updatedItems.map((item, i) => (
+              <Item $item={item} key={i} currentUser={currentUser} />
+            ))}
         </Table>
       )}
     </Wrap>

@@ -15,8 +15,14 @@ import { Column, Container, Row } from "@components/Grid";
 import { Heading, Logo } from "@components";
 
 // Client utils
-import { CreateInvoice, MyProfile, SignOut } from "public/svg";
 import { Session } from "next-auth";
+
+// Icons
+import {
+  ManageAccountsOutlined,
+  PostAddOutlined,
+  LogoutOutlined,
+} from "@mui/icons-material";
 
 const CustomLink = styled.span`
   padding: 0 5px;
@@ -191,7 +197,7 @@ const index: FC<Header> = ({ session }) => {
 
                   <Link href="/my-account">
                     <DropdownItem>
-                      <MyProfile />
+                      <ManageAccountsOutlined />
 
                       <span>My profile</span>
                     </DropdownItem>
@@ -199,14 +205,14 @@ const index: FC<Header> = ({ session }) => {
 
                   <Link href="/invoice/add">
                     <DropdownItem>
-                      <CreateInvoice />
+                      <PostAddOutlined />
 
                       <span>Create invoice</span>
                     </DropdownItem>
                   </Link>
 
                   <DropdownItem onClick={() => signOut()} borderTop>
-                    <SignOut />
+                    <LogoutOutlined />
 
                     <span>Sign out</span>
                   </DropdownItem>
