@@ -13,6 +13,7 @@ import { Placeholder } from "./Placeholder";
 import { StoreContext } from "@context";
 import { NotFoundIcon } from "public/svg";
 import { Button, Heading } from "@components";
+import { MyAccount } from "@types";
 
 const NotFound = styled.div`
   display: flex;
@@ -33,7 +34,6 @@ const NotFound = styled.div`
 
 const Table = styled.table`
   width: 100%;
-  box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
   border-radius: 0 0 5px 5px;
 
   ${({ theme: { colors, breakpoints } }) => css`
@@ -94,7 +94,19 @@ const Thead = styled.thead`
   `}
 `;
 
-const index: FC = () => {
+const Wrap = styled.div`
+  ${({ theme: { colors } }) => css`
+    border: 1px solid ${colors.lightGray};
+    border-top: 0;
+    border-bottom: 0;
+  `}
+`;
+
+interface Table {
+  currentUser: MyAccount;
+}
+
+const index: FC<Table> = ({ currentUser }) => {
   // Store context
   const { isPhone } = useContext(StoreContext);
 
@@ -102,7 +114,7 @@ const index: FC = () => {
   const { length, updatedItems, isLoading } = useContext(GridContext);
 
   return (
-    <>
+    <Wrap>
       {isLoading || !updatedItems ? (
         <Placeholder />
       ) : length === 0 ? (
@@ -157,10 +169,12 @@ const index: FC = () => {
           )}
 
           {Array.isArray(updatedItems) &&
-            updatedItems.map((item, i) => <Item $item={item} key={i} />)}
+            updatedItems.map((item, i) => (
+              <Item $item={item} key={i} currentUser={currentUser} />
+            ))}
         </Table>
       )}
-    </>
+    </Wrap>
   );
 };
 

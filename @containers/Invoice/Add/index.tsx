@@ -25,6 +25,9 @@ import { Footer } from "./Footer";
 import { ClientDetails } from "./Client";
 import { AccountDetails } from "./Account";
 
+// Icon
+import { CloseOutlined } from "@mui/icons-material";
+
 const NewInvoice = styled.div`
   border-radius: 5px;
   box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
@@ -56,7 +59,22 @@ const Modal = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  background-color: white;
+
+  ${({ theme: { breakpoints, colors } }) => css`
+    background-color: ${colors.white};
+
+    @media (max-width: ${breakpoints.md}px) {
+      overflow: scroll;
+      width: 90%;
+    }
+  `}
+`;
+
+const Close = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 5px;
 `;
 
 interface NewInvoice {
@@ -251,6 +269,13 @@ const index: FC<NewInvoice> = ({ currentUser, client, invoiceNumber }) => {
               setClientOption={setClientOption}
               setToggleArticles={setToggleArticles}
             />
+
+            <Close>
+              <CloseOutlined
+                fontSize="large"
+                onClick={() => setToggleArticles(!toggledArticles)}
+              />
+            </Close>
           </Modal>
         </Background>
       )}

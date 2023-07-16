@@ -60,7 +60,6 @@ const index: FC<Total> = ({ tableData, values }) => {
 
   const total = +price + values.tax;
 
-  console.log(getTotalPrice(tableData));
   return (
     <Total>
       <TotalRow>

@@ -45,12 +45,12 @@ const Wrapper = styled.div`
 `;
 
 const Wrap = styled.div`
-  height: 20px;
+  height: 27.5px;
   margin: 10px;
 
   &:nth-child(1) {
-    width: 65px;
-    margin-right: 85px;
+    width: 60px;
+    margin-right: 75px;
   }
 
   &:nth-child(2) {
@@ -59,23 +59,23 @@ const Wrap = styled.div`
   }
 
   &:nth-child(3) {
-    width: 60px;
-    margin-right: 120px;
+    width: 50px;
+    margin-right: 170px;
   }
 
   &:nth-child(4) {
     width: 100px;
-    margin-right: 110px;
+    margin-right: 120px;
   }
 
   &:nth-child(5) {
-    width: 85px;
+    width: 60px;
     margin-right: 155px;
   }
 
   &:nth-child(6) {
-    width: 55px;
-    margin-right: 190px;
+    width: 85px;
+    margin-right: 145px;
   }
 
   &:nth-child(7) {
@@ -84,7 +84,7 @@ const Wrap = styled.div`
 `;
 
 const index: FC = () => {
-  const a = [0, 1, 2, 3, 4, 5, 6];
+  const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (
     <>

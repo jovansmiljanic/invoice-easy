@@ -21,17 +21,23 @@ import { Pagination } from "./Pagination";
 import axios from "axios";
 import styled, { css } from "styled-components";
 
+// Icons
+import {
+  PaidOutlined,
+  ReceiptLongOutlined,
+  GroupOutlined,
+  ReceiptOutlined,
+  AddOutlined,
+} from "@mui/icons-material/";
+
 // Global types
-import { Invoice } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
 
 // Global components
-import { Button } from "@components";
-
-// Svg
-import { Plus } from "public/svg";
+import { Button, Heading } from "@components";
 
 interface IFilters {
   status?: string | string[];
@@ -47,12 +53,11 @@ const Wrapper = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   border-radius: 5px 5px 0 0;
-  padding: 10px 0;
 
   ${({ theme: { colors } }) => css`
     color: ${colors.textColor};
     background-color: ${colors.white};
-    border-bottom: 1px solid ${colors.lightGray};
+    border: 1px solid ${colors.lightGray};
   `}
 `;
 
@@ -74,12 +79,31 @@ const Col1 = styled.div`
 const Col2 = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 
   ${({ theme: { breakpoints } }) => css`
     @media (max-width: ${breakpoints.md}px) {
       flex-wrap: wrap;
+      margin: 0 10px;
+      margin-bottom: 10px;
     }
   `}
+`;
+
+const Box = styled.div`
+  padding: 20px;
+  border-radius: 5px;
+
+  ${({ theme: { colors } }) => css`
+    border: 1px solid ${colors.lightGray};
+  `}
+`;
+
+const BoxWrap = styled.div`
+  display: flex;
+  align-items: center;
+
+  ${({ theme: { defaults, colors, font, ...theme } }) => css``}
 `;
 
 interface Checkbox {
@@ -102,7 +126,19 @@ interface IGridContext {
 
 export const GridContext = createContext({} as IGridContext);
 
-const index: FC = () => {
+interface Dashboard {
+  clients?: number;
+  totalPrice?: number;
+  totalPaidInvoices?: number;
+  currentUser: MyAccount;
+}
+
+const index: FC<Dashboard> = ({
+  clients,
+  totalPrice,
+  totalPaidInvoices,
+  currentUser,
+}) => {
   const { query, push } = useRouter();
 
   // Declare filters
@@ -124,6 +160,8 @@ const index: FC = () => {
 
   // Indicate that new items are loading
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [totalInvoices, setTotalInvoices] = useState(0);
 
   // Store the current limit of the pagination
   const limit = 9;
@@ -151,12 +189,14 @@ const index: FC = () => {
     // Call axios with filters and page as a string url
     const url = `/api/invoice/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
 
-    await axios.get(url).then(({ data: { items, length } }) => {
+    await axios.get(url).then(({ data: { items, length, totalInvoices } }) => {
       // Invoices
       setUpdatedItems(items);
 
       // Length
       setLength(length);
+
+      setTotalInvoices(totalInvoices);
 
       // Set loader
       setIsLoading(false);
@@ -218,12 +258,146 @@ const index: FC = () => {
         isLoading,
       }}
     >
-      <Container backgroundColor="background" height={82}>
+      <Container height={82}>
         <Row
           padding={{
-            xs: { top: 6, bottom: 6 },
-            sm: { top: 6, bottom: 6 },
-            md: { top: 10, bottom: 10 },
+            xs: { top: 2, bottom: 2 },
+            sm: { top: 2, bottom: 2 },
+            md: { top: 8, bottom: 2 },
+          }}
+        >
+          <Column responsivity={{ sm: 6, xs: 6, md: 3 }}>
+            <Box>
+              <BoxWrap>
+                <ReceiptLongOutlined htmlColor="#566A7F" />
+
+                <Heading
+                  as="h6"
+                  padding={{
+                    xs: { left: 1 },
+                    sm: { left: 1 },
+                    md: { left: 1 },
+                  }}
+                  color="gray"
+                >
+                  Invoices
+                </Heading>
+              </BoxWrap>
+
+              <Heading
+                as="h3"
+                weight="semiBold"
+                padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
+              >
+                {totalInvoices}
+              </Heading>
+            </Box>
+          </Column>
+
+          <Column responsivity={{ sm: 6, xs: 6, md: 3 }}>
+            <Box>
+              <BoxWrap>
+                <GroupOutlined htmlColor="#566A7F" />
+
+                <Heading
+                  as="h6"
+                  padding={{
+                    xs: { left: 1 },
+                    sm: { left: 1 },
+                    md: { left: 1 },
+                  }}
+                  color="gray"
+                >
+                  Clients
+                </Heading>
+              </BoxWrap>
+
+              <Heading
+                as="h3"
+                weight="semiBold"
+                padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
+              >
+                {clients}
+              </Heading>
+            </Box>
+          </Column>
+
+          <Column
+            responsivity={{ sm: 6, xs: 6, md: 3 }}
+            padding={{
+              xs: { top: 1 },
+              sm: { top: 1 },
+              md: { top: 0 },
+            }}
+          >
+            <Box>
+              <BoxWrap>
+                <ReceiptOutlined htmlColor="#566A7F" />
+
+                <Heading
+                  as="h6"
+                  padding={{
+                    xs: { left: 1 },
+                    sm: { left: 1 },
+                    md: { left: 1 },
+                  }}
+                  color="gray"
+                >
+                  Invoiced
+                </Heading>
+              </BoxWrap>
+
+              <Heading
+                as="h3"
+                weight="semiBold"
+                padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
+              >
+                {totalPrice?.toLocaleString()} €
+              </Heading>
+            </Box>
+          </Column>
+
+          <Column
+            responsivity={{ sm: 6, xs: 6, md: 3 }}
+            padding={{
+              xs: { top: 1 },
+              sm: { top: 1 },
+              md: { top: 0 },
+            }}
+          >
+            <Box>
+              <BoxWrap>
+                <PaidOutlined htmlColor="#566A7F" />
+
+                <Heading
+                  as="h6"
+                  padding={{
+                    xs: { left: 1 },
+                    sm: { left: 1 },
+                    md: { left: 1 },
+                  }}
+                  color="gray"
+                >
+                  Paid
+                </Heading>
+              </BoxWrap>
+
+              <Heading
+                as="h3"
+                weight="semiBold"
+                padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
+              >
+                {totalPaidInvoices?.toLocaleString()} €
+              </Heading>
+            </Box>
+          </Column>
+        </Row>
+
+        <Row
+          padding={{
+            xs: { top: 2, bottom: 2 },
+            sm: { top: 2, bottom: 2 },
+            md: { top: 0, bottom: 0 },
           }}
         >
           <Column responsivity={{ md: 12 }}>
@@ -233,14 +407,14 @@ const index: FC = () => {
                   size="small"
                   variant="secondary"
                   margin={{
-                    xs: { left: 0, top: 1, bottom: 1 },
-                    sm: { left: 0, top: 1, bottom: 1 },
+                    xs: { right: 1, left: 1, top: 1, bottom: 1 },
+                    sm: { right: 1, left: 1, top: 1, bottom: 1 },
                     md: { left: 1 },
                   }}
                   as="a"
                   href="/invoice/add"
                 >
-                  <Plus />
+                  <AddOutlined />
                   Create invoice
                 </Button>
               </Col1>
@@ -280,7 +454,7 @@ const index: FC = () => {
           </Column>
 
           <Column responsivity={{ md: 12 }}>
-            <Table />
+            <Table currentUser={currentUser} />
           </Column>
 
           {updatedItems && updatedItems.length > 0 && (

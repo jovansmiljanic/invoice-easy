@@ -16,6 +16,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { File } from "./File";
 import { formatDate, getTotalPrice } from "@utils/client";
 import { StoreContext } from "@context";
+import { DonwloadInvoice } from "@components/DownloadInvoice";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -233,12 +234,6 @@ interface NewInvoice {
 }
 
 const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
   // Store context
   const { isPhone } = useContext(StoreContext);
 
@@ -445,44 +440,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
 
         <Column responsivity={{ md: 3 }}>
           <Options>
-            {isClient && (
-              <PDFDownloadLink
-                document={<File myAccount={myAccount} invoice={invoice} />}
-                fileName={`Invoice - ${
-                  myAccount.firstName + " " + myAccount.lastName
-                } - ${invoice.client.clientName} - ${formatDate(
-                  invoice.issuedDate
-                )}.pdf`}
-              >
-                {({ loading }) =>
-                  loading ? (
-                    <Button
-                      variant="secondary"
-                      size="small"
-                      margin={{
-                        xs: { bottom: 1 },
-                        sm: { bottom: 1 },
-                        md: { bottom: 1 },
-                      }}
-                    >
-                      Loading...
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="secondary"
-                      size="small"
-                      margin={{
-                        xs: { bottom: 1 },
-                        sm: { bottom: 1 },
-                        md: { bottom: 1 },
-                      }}
-                    >
-                      Download
-                    </Button>
-                  )
-                }
-              </PDFDownloadLink>
-            )}
+            <DonwloadInvoice myAccount={myAccount} invoice={invoice} />
 
             <Button
               variant="warning"

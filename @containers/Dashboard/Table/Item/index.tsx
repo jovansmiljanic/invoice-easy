@@ -5,6 +5,7 @@ import { useState, type FC, useContext } from "react";
 import Link from "next/link";
 
 // Vendors
+import { lighten } from "polished";
 import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
 
@@ -21,17 +22,18 @@ import {
 } from "@utils/client";
 
 // GLobal types
-import { Invoice } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // Svg
-import { Dots, Eye, Trash } from "public/svg";
+import { MoreVertOutlined, VisibilityOutlined } from "@mui/icons-material";
 
 // Global context
 import { StoreContext } from "@context";
-import { lighten } from "polished";
+import { DonwloadInvoice } from "@components/DownloadInvoice";
 
 interface Item {
   $item: Invoice;
+  currentUser: MyAccount;
 }
 
 const Item = styled.div`
@@ -220,7 +222,7 @@ const Tbody = styled.tbody`
   `}
 `;
 
-const index: FC<Item> = ({ $item }) => {
+const index: FC<Item> = ({ $item, currentUser }) => {
   const { isPhone } = useContext(StoreContext);
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -267,13 +269,20 @@ const index: FC<Item> = ({ $item }) => {
           <td>
             <Wrap>
               <Link href={`/invoice/preview/${$item._id}`}>
-                <Eye />
+                <VisibilityOutlined fontSize="small" />
               </Link>
 
+              <DonwloadInvoice
+                myAccount={currentUser}
+                invoice={$item}
+                icon={true}
+              />
+
               <Popup>
-                <div onClick={() => setIsOptionsOpen(!isOptionsOpen)}>
-                  <Dots />
-                </div>
+                <MoreVertOutlined
+                  fontSize="small"
+                  onClick={() => setIsOptionsOpen(!isOptionsOpen)}
+                />
 
                 {isOptionsOpen && (
                   <Modal>

@@ -1,7 +1,6 @@
 export { Dashboard } from "./Dashboard";
 export { SignIn } from "./SignIn";
 export { SignUp } from "./SignUp";
-export { NewInvoice } from "./Invoice";
 export { AddInvoice } from "./Invoice/Add";
 export { EditInvoice } from "./Invoice/Edit";
 export { PreviewInvoice } from "./Invoice/Preview";

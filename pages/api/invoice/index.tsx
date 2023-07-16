@@ -63,6 +63,12 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
       .sort({ createdAt: -1 })
       .count();
 
+    const totalInvoices = await Invoice.find({
+      owner: session?.user._id,
+    })
+      .sort({ createdAt: -1 })
+      .count();
+
     // Grab current user
     const invoices = await Invoice.find({
       ...getQuery(query),
@@ -73,7 +79,7 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
       .sort({ createdAt: -1 });
 
     // Return the object
-    return res.send({ items: invoices, length });
+    return res.send({ items: invoices, length, totalInvoices });
   }
 
   // Process a POST request

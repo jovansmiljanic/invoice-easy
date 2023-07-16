@@ -19,7 +19,9 @@ import { Field, Label } from "@styles/Form";
 
 // Global grid components
 import { Column, Container, Row } from "@components/Grid";
-import { Eye, ToggleEye } from "public/svg";
+
+// Icon
+import { VisibilityOutlined, VisibilityOffOutlined } from "@mui/icons-material";
 
 const Wrapper = styled.div`
   padding: 40px 20px;
@@ -244,7 +246,11 @@ const index: FC = () => {
                     </ErrorWrap>
 
                     <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
-                      <ToggleEye toggled={isEyeOpened} />
+                      {isEyeOpened ? (
+                        <VisibilityOutlined />
+                      ) : (
+                        <VisibilityOffOutlined />
+                      )}
                     </EyeWrap>
                   </Group>
 

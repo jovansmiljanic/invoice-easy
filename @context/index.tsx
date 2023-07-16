@@ -33,7 +33,7 @@ export const Store: FC<Props> = (props) => {
 
   useEffect(() => {
     // Check if users device is smaller than 768px and enable Phone layout
-    const isPhone = window.matchMedia("(max-width: 768px)").matches;
+    const isPhone = window.matchMedia("(max-width: 992px)").matches;
 
     if (isPhone) setIsPhone(isPhone);
 
@@ -48,7 +48,7 @@ export const Store: FC<Props> = (props) => {
 
   // Detect window resize and enable respective layout
   const detectLayout = () => {
-    const isPhone = window.matchMedia("(max-width: 768px)").matches;
+    const isPhone = window.matchMedia("(max-width: 992px)").matches;
 
     // Act accordingly by enabling isPhone layout
     setIsPhone(isPhone);
