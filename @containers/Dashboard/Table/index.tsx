@@ -111,11 +111,11 @@ const index: FC<Table> = ({ currentUser }) => {
   const { isPhone } = useContext(StoreContext);
 
   // Grid context
-  const { length, updatedItems, isLoading } = useContext(GridContext);
+  const { length, updatedInvoices, isLoading } = useContext(GridContext);
 
   return (
     <Wrap>
-      {isLoading || !updatedItems ? (
+      {isLoading || !updatedInvoices ? (
         <Placeholder />
       ) : length === 0 ? (
         <NotFound>
@@ -168,8 +168,8 @@ const index: FC<Table> = ({ currentUser }) => {
             </Thead>
           )}
 
-          {Array.isArray(updatedItems) &&
-            updatedItems.map((item, i) => (
+          {Array.isArray(updatedInvoices) &&
+            updatedInvoices.map((item, i) => (
               <Item $item={item} key={i} currentUser={currentUser} />
             ))}
         </Table>
