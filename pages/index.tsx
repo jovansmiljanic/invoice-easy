@@ -63,6 +63,15 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   });
   const { currentUser } = await user.json();
 
+  if (!currentUser?.phoneNumber) {
+    return {
+      redirect: {
+        destination: "/my-account",
+        permanent: false,
+      },
+    };
+  }
+
   // Get all clients
   const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`, {
     method: "GET",
@@ -105,15 +114,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     },
     0
   );
-
-  if (!currentUser?.phoneNumber) {
-    return {
-      redirect: {
-        destination: "/my-account",
-        permanent: false,
-      },
-    };
-  }
 
   return {
     props: {
