@@ -16,25 +16,22 @@ import { Client, Invoice, MyAccount } from "@types";
 
 interface ContentPageProps {
   session: Session;
-  clients?: number;
-  totalPrice?: number;
-  totalPaidInvoices?: number;
+  // clients?: Client[];
+  // invoices?: Invoice[];
   currentUser: MyAccount;
 }
 
 export default function Page({
   session,
-  clients,
-  totalPrice,
-  totalPaidInvoices,
+  // clients,
+  // invoices,
   currentUser,
 }: ContentPageProps) {
   return (
     <Layout title="Dashboard" session={session}>
       <Dashboard
-        clients={clients}
-        totalPrice={totalPrice}
-        totalPaidInvoices={totalPaidInvoices}
+        // clients={clients}
+        // invoices={invoices}
         currentUser={currentUser}
       />
     </Layout>
@@ -72,55 +69,31 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  // Get all clients
-  const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`, {
-    method: "GET",
-    headers: {
-      Cookie: ctx?.req?.headers?.cookie ?? "",
-    },
-  });
-  const { items: clients } = await clientDetails.json();
+  // // Get all clients
+  // const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`, {
+  //   method: "GET",
+  //   headers: {
+  //     Cookie: ctx?.req?.headers?.cookie ?? "",
+  //   },
+  // });
+  // const { items: clients } = await clientDetails.json();
 
-  const invoiceDetails = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/invoice`,
-    {
-      method: "GET",
-      headers: {
-        Cookie: ctx?.req?.headers?.cookie ?? "",
-      },
-    }
-  );
-  const { items: invoices } = await invoiceDetails.json();
-
-  // Calculate the total sum of prices
-  const totalPrice = invoices.reduce((sum: number, invoice: Invoice) => {
-    const items = invoice.items;
-    const prices = items.map((item) => parseInt(item.price.toString()));
-    const total = prices.reduce((subtotal, price) => subtotal + price, 0);
-    return sum + total;
-  }, 0);
-
-  const totalPaid = invoices.filter(
-    (invoice: Invoice) => invoice.status === "1"
-  );
-
-  // Calculate the total sum of prices
-  const totalPaidInvoices = totalPaid.reduce(
-    (sum: number, invoice: Invoice) => {
-      const items = invoice.items;
-      const prices = items.map((item) => parseInt(item.price.toString()));
-      const total = prices.reduce((subtotal, price) => subtotal + price, 0);
-      return sum + total;
-    },
-    0
-  );
+  // const invoiceDetails = await fetch(
+  //   `${process.env.NEXTAUTH_URL}/api/invoice`,
+  //   {
+  //     method: "GET",
+  //     headers: {
+  //       Cookie: ctx?.req?.headers?.cookie ?? "",
+  //     },
+  //   }
+  // );
+  // const { items: invoices } = await invoiceDetails.json();
 
   return {
     props: {
       session,
-      clients: clients.length,
-      totalPrice,
-      totalPaidInvoices,
+      // clients,
+      // invoices,
       currentUser,
     },
   };

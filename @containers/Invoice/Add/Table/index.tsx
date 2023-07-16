@@ -142,10 +142,10 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
 
   // Function to handle item removal
   const removeItem = (index: number) => {
-    const updatedItems = [...tableData];
+    const updatedInvoices = [...tableData];
 
-    updatedItems.splice(index, 1);
-    setTableData(updatedItems);
+    updatedInvoices.splice(index, 1);
+    setTableData(updatedInvoices);
   };
 
   // Store context

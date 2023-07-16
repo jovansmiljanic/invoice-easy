@@ -31,7 +31,7 @@ import {
 } from "@mui/icons-material/";
 
 // Global types
-import { Invoice, MyAccount } from "@types";
+import { Client, Invoice, MyAccount } from "@types";
 
 // GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
@@ -102,8 +102,6 @@ const Box = styled.div`
 const BoxWrap = styled.div`
   display: flex;
   align-items: center;
-
-  ${({ theme: { defaults, colors, font, ...theme } }) => css``}
 `;
 
 interface Checkbox {
@@ -120,25 +118,19 @@ interface IGridContext {
   limit: number;
   length: number;
   searchUrl: string;
-  updatedItems?: Invoice[];
+  updatedInvoices?: Invoice[];
   isLoading: boolean;
 }
 
 export const GridContext = createContext({} as IGridContext);
 
 interface Dashboard {
-  clients?: number;
-  totalPrice?: number;
-  totalPaidInvoices?: number;
+  // clients?: Client[];
+  // invoices?: Invoice[];
   currentUser: MyAccount;
 }
 
-const index: FC<Dashboard> = ({
-  clients,
-  totalPrice,
-  totalPaidInvoices,
-  currentUser,
-}) => {
+const index: FC<Dashboard> = ({ currentUser }) => {
   const { query, push } = useRouter();
 
   // Declare filters
@@ -153,7 +145,13 @@ const index: FC<Dashboard> = ({
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
 
   // Store Original and Updated/Filtered items
-  const [updatedItems, setUpdatedItems] = useState<Invoice[]>();
+  const [updatedInvoices, setUpdatedInvoices] = useState<Invoice[]>();
+
+  // Store Original and Updated/Filtered items
+  const [updatedClients, setUpdatedClients] = useState<Client[]>();
+
+  // Store Original and Updated/Filtered items
+  const [updatedI, setUpdatedI] = useState<Invoice[]>();
 
   // Declare length
   const [length, setLength] = useState<number>(0);
@@ -187,18 +185,34 @@ const index: FC<Dashboard> = ({
     setIsLoading(true);
 
     // Call axios with filters and page as a string url
-    const url = `/api/invoice/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
+    const invoiceUrl = `/api/invoice/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
+    const clientUrl = `/api/client/`;
+    const invoicesUrl = `/api/invoice/`;
 
-    await axios.get(url).then(({ data: { items, length, totalInvoices } }) => {
+    await axios
+      .get(invoiceUrl)
+      .then(({ data: { items, length, totalInvoices } }) => {
+        // Invoices
+        setUpdatedInvoices(items);
+
+        // Length
+        setLength(length);
+
+        setTotalInvoices(totalInvoices);
+
+        // Set loader
+        setIsLoading(false);
+      });
+
+    await axios.get(clientUrl).then(({ data: { items, length } }) => {
       // Invoices
-      setUpdatedItems(items);
+      setUpdatedClients(items);
+      setIsLoading(false);
+    });
 
-      // Length
-      setLength(length);
-
-      setTotalInvoices(totalInvoices);
-
-      // Set loader
+    await axios.get(invoicesUrl).then(({ data: { items, length } }) => {
+      // Invoices
+      setUpdatedI(items);
       setIsLoading(false);
     });
   };
@@ -244,6 +258,29 @@ const index: FC<Dashboard> = ({
     50
   );
 
+  // Calculate the total sum of prices
+  const totalPrice = updatedI?.reduce((sum: number, invoice: Invoice) => {
+    const items = invoice.items;
+    const prices = items.map((item) => parseInt(item.price.toString()));
+    const total = prices.reduce((subtotal, price) => subtotal + price, 0);
+    return sum + total;
+  }, 0);
+
+  const totalPaid = updatedI?.filter(
+    (invoice: Invoice) => invoice.status === "1"
+  );
+
+  // Calculate the total sum of prices
+  const totalPaidInvoices = totalPaid?.reduce(
+    (sum: number, invoice: Invoice) => {
+      const items = invoice.items;
+      const prices = items.map((item) => parseInt(item.price.toString()));
+      const total = prices.reduce((subtotal, price) => subtotal + price, 0);
+      return sum + total;
+    },
+    0
+  );
+
   return (
     <GridContext.Provider
       value={{
@@ -254,7 +291,7 @@ const index: FC<Dashboard> = ({
         length,
         limit,
         searchUrl,
-        updatedItems,
+        updatedInvoices,
         isLoading,
       }}
     >
@@ -317,7 +354,7 @@ const index: FC<Dashboard> = ({
                 weight="semiBold"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
-                {clients}
+                {updatedClients?.length}
               </Heading>
             </Box>
           </Column>
@@ -457,7 +494,7 @@ const index: FC<Dashboard> = ({
             <Table currentUser={currentUser} />
           </Column>
 
-          {updatedItems && updatedItems.length > 0 && (
+          {updatedInvoices && updatedInvoices.length > 0 && (
             <Column responsivity={{ md: 12 }}>
               <Pagination />
             </Column>
