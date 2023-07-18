@@ -1,13 +1,23 @@
-import { File } from "@containers/Invoice/Preview/File";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { Invoice, MyAccount } from "@types";
-import axios, { AxiosResponse } from "axios";
+// Core
 import { FC, useEffect, useState } from "react";
-import { formatDate } from "../../@utils/client/formatDate";
+
+// Download File
+import { File } from "@containers/Invoice/Preview/File";
+
+// Vendors
+import { PDFDownloadLink } from "@react-pdf/renderer";
+
+// GLobal types
+import { Invoice, MyAccount } from "@types";
+
+// FOrmat date
+import { formatDate } from "@utils/client/formatDate";
+
+// GLobal components
 import { Button } from "@components";
 
 // Svg
-import { FileDownloadOutlined } from "@mui/icons-material";
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 
 interface Download {
   myAccount: MyAccount;
@@ -59,9 +69,9 @@ const index: FC<Download> = ({ myAccount, invoice, icon }) => {
                 Download
               </Button>
             ) : !loading && icon ? (
-              <FileDownloadOutlined fontSize="small" />
+              <FileDownloadOutlinedIcon fontSize="small" />
             ) : (
-              <>s</>
+              <></>
             )
           }
         </PDFDownloadLink>

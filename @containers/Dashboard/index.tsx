@@ -22,13 +22,11 @@ import axios from "axios";
 import styled, { css } from "styled-components";
 
 // Icons
-import {
-  PaidOutlined,
-  ReceiptLongOutlined,
-  GroupOutlined,
-  ReceiptOutlined,
-  AddOutlined,
-} from "@mui/icons-material/";
+import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
+import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 // Global types
 import { Client, Invoice, MyAccount } from "@types";
@@ -306,7 +304,7 @@ const index: FC<Dashboard> = ({ currentUser }) => {
           <Column responsivity={{ sm: 6, xs: 6, md: 3 }}>
             <Box>
               <BoxWrap>
-                <ReceiptLongOutlined htmlColor="#566A7F" />
+                <ReceiptLongOutlinedIcon htmlColor="#566A7F" />
 
                 <Heading
                   as="h6"
@@ -334,7 +332,7 @@ const index: FC<Dashboard> = ({ currentUser }) => {
           <Column responsivity={{ sm: 6, xs: 6, md: 3 }}>
             <Box>
               <BoxWrap>
-                <GroupOutlined htmlColor="#566A7F" />
+                <GroupOutlinedIcon htmlColor="#566A7F" />
 
                 <Heading
                   as="h6"
@@ -369,7 +367,7 @@ const index: FC<Dashboard> = ({ currentUser }) => {
           >
             <Box>
               <BoxWrap>
-                <ReceiptOutlined htmlColor="#566A7F" />
+                <ReceiptOutlinedIcon htmlColor="#566A7F" />
 
                 <Heading
                   as="h6"
@@ -404,7 +402,7 @@ const index: FC<Dashboard> = ({ currentUser }) => {
           >
             <Box>
               <BoxWrap>
-                <PaidOutlined htmlColor="#566A7F" />
+                <PaidOutlinedIcon htmlColor="#566A7F" />
 
                 <Heading
                   as="h6"
@@ -451,7 +449,7 @@ const index: FC<Dashboard> = ({ currentUser }) => {
                   as="a"
                   href="/invoice/add"
                 >
-                  <AddOutlined />
+                  <AddOutlinedIcon />
                   Create invoice
                 </Button>
               </Col1>

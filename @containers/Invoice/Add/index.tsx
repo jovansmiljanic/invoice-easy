@@ -26,7 +26,7 @@ import { ClientDetails } from "./Client";
 import { AccountDetails } from "./Account";
 
 // Icon
-import { CloseOutlined } from "@mui/icons-material";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -271,7 +271,7 @@ const index: FC<NewInvoice> = ({ currentUser, client, invoiceNumber }) => {
             />
 
             <Close>
-              <CloseOutlined
+              <CloseOutlinedIcon
                 fontSize="large"
                 onClick={() => setToggleArticles(!toggledArticles)}
               />
