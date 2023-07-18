@@ -11,7 +11,7 @@ import { Button } from "@components";
 import styled, { css } from "styled-components";
 
 // ICon
-import { RemoveCircleOutlineOutlined } from "@mui/icons-material";
+import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
 
 // Store context
 import { StoreContext } from "@context";
@@ -207,7 +207,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                 </Item>
 
                 <Item>
-                  <RemoveCircleOutlineOutlined
+                  <RemoveCircleOutlineOutlinedIcon
                     color="error"
                     onClick={() => removeItem(index)}
                   />
@@ -271,7 +271,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                 </Item>
 
                 <Item>
-                  <RemoveCircleOutlineOutlined
+                  <RemoveCircleOutlineOutlinedIcon
                     color="error"
                     onClick={() => removeItem(index)}
                   />

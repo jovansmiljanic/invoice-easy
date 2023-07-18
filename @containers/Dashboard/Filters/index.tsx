@@ -7,7 +7,8 @@ import { Filter, Label } from "@styles/Filter";
 // Vendors
 import styled, { css } from "styled-components";
 
-import { ExpandLessOutlined, ExpandMoreOutlined } from "@mui/icons-material";
+import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
+import  ExpandMoreOutlinedIcon  from "@mui/icons-material/ExpandMoreOutlined";
 
 // Dropdown container
 const Container = styled.div`
@@ -211,7 +212,7 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
             : "Please select"}
         </span>
 
-        {isDropdownActive ? <ExpandLessOutlined /> : <ExpandMoreOutlined />}
+        {isDropdownActive ? <ExpandLessOutlinedIcon /> : <ExpandMoreOutlinedIcon />}
       </Label>
 
       {isDropdownActive && (

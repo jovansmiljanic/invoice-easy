@@ -18,11 +18,9 @@ import { Heading, Logo } from "@components";
 import { Session } from "next-auth";
 
 // Icons
-import {
-  ManageAccountsOutlined,
-  PostAddOutlined,
-  LogoutOutlined,
-} from "@mui/icons-material";
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 const CustomLink = styled.span`
   padding: 0 5px;
@@ -197,7 +195,7 @@ const index: FC<Header> = ({ session }) => {
 
                   <Link href="/my-account">
                     <DropdownItem>
-                      <ManageAccountsOutlined />
+                      <ManageAccountsOutlinedIcon />
 
                       <span>My profile</span>
                     </DropdownItem>
@@ -205,14 +203,14 @@ const index: FC<Header> = ({ session }) => {
 
                   <Link href="/invoice/add">
                     <DropdownItem>
-                      <PostAddOutlined />
+                      <PostAddOutlinedIcon />
 
                       <span>Create invoice</span>
                     </DropdownItem>
                   </Link>
 
                   <DropdownItem onClick={() => signOut()} borderTop>
-                    <LogoutOutlined />
+                    <LogoutOutlinedIcon />
 
                     <span>Sign out</span>
                   </DropdownItem>

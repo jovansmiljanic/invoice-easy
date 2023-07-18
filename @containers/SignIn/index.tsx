@@ -24,7 +24,8 @@ import { Field, Label } from "@styles/Form";
 import { Column, Container, Row } from "@components/Grid";
 
 // Icon
-import { VisibilityOutlined, VisibilityOffOutlined } from "@mui/icons-material";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 const Wrapper = styled.div`
   padding: 40px 20px;
@@ -230,9 +231,9 @@ const index: FC = () => {
 
                     <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
                       {isEyeOpened ? (
-                        <VisibilityOutlined />
+                        <VisibilityOutlinedIcon />
                       ) : (
-                        <VisibilityOffOutlined />
+                        <VisibilityOffOutlinedIcon />
                       )}
                     </EyeWrap>
                   </Group>

@@ -25,7 +25,8 @@ import {
 import { Invoice, MyAccount } from "@types";
 
 // Svg
-import { MoreVertOutlined, VisibilityOutlined } from "@mui/icons-material";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 
 // Global context
 import { StoreContext } from "@context";
@@ -269,7 +270,7 @@ const index: FC<Item> = ({ $item, currentUser }) => {
           <td>
             <Wrap>
               <Link href={`/invoice/preview/${$item._id}`}>
-                <VisibilityOutlined fontSize="small" />
+                <VisibilityOutlinedIcon fontSize="small" />
               </Link>
 
               <DonwloadInvoice
@@ -279,7 +280,7 @@ const index: FC<Item> = ({ $item, currentUser }) => {
               />
 
               <Popup>
-                <MoreVertOutlined
+                <MoreVertOutlinedIcon
                   fontSize="small"
                   onClick={() => setIsOptionsOpen(!isOptionsOpen)}
                 />

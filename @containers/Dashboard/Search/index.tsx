@@ -14,7 +14,7 @@ import styled, { css } from "styled-components";
 import { GridContext } from "..";
 
 // Icon
-import { CloseOutlined } from "@mui/icons-material";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 const SearchWrapper = styled.div`
   flex: 0 0 50%;
@@ -106,7 +106,7 @@ const index: FC = () => {
             push(`/?${queryUrl}${searchUrl}&page=${0}`);
           }}
         >
-          <CloseOutlined />
+          <CloseOutlinedIcon />
         </Clear>
       )}
     </SearchWrapper>
