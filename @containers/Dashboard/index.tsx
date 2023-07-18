@@ -92,8 +92,12 @@ const Box = styled.div`
   padding: 20px;
   border-radius: 5px;
 
-  ${({ theme: { colors } }) => css`
+  ${({ theme: { colors, breakpoints } }) => css`
     border: 1px solid ${colors.lightGray};
+
+    @media (max-width: ${breakpoints.md}px) {
+      padding: 20px 10px;
+    }
   `}
 `;
 
@@ -143,7 +147,9 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
 
   // Store Original and Updated/Filtered items
-  const [updatedInvoices, setUpdatedInvoices] = useState<Invoice[]>();
+  const [updatedInvoices, setUpdatedInvoices] = useState<Invoice[]>(
+    invoices ? invoices : []
+  );
 
   // Declare length
   const [length, setLength] = useState<number>(0);
@@ -304,7 +310,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
                 weight="semiBold"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
-                {totalInvoices}
+                {invoices?.length}
               </Heading>
             </Box>
           </Column>
