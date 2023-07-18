@@ -123,12 +123,12 @@ interface IGridContext {
 export const GridContext = createContext({} as IGridContext);
 
 interface Dashboard {
-  // clients?: Client[];
-  // invoices?: Invoice[];
+  clients?: Client[];
+  invoices?: Invoice[];
   currentUser: MyAccount;
 }
 
-const index: FC<Dashboard> = ({ currentUser }) => {
+const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
   const { query, push } = useRouter();
 
   // Declare filters
@@ -144,12 +144,6 @@ const index: FC<Dashboard> = ({ currentUser }) => {
 
   // Store Original and Updated/Filtered items
   const [updatedInvoices, setUpdatedInvoices] = useState<Invoice[]>();
-
-  // Store Original and Updated/Filtered items
-  const [updatedClients, setUpdatedClients] = useState<Client[]>();
-
-  // Store Original and Updated/Filtered items
-  const [updatedI, setUpdatedI] = useState<Invoice[]>();
 
   // Declare length
   const [length, setLength] = useState<number>(0);
@@ -184,8 +178,6 @@ const index: FC<Dashboard> = ({ currentUser }) => {
 
     // Call axios with filters and page as a string url
     const invoiceUrl = `/api/invoice/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
-    const clientUrl = `/api/client/`;
-    const invoicesUrl = `/api/invoice/`;
 
     await axios
       .get(invoiceUrl)
@@ -201,18 +193,6 @@ const index: FC<Dashboard> = ({ currentUser }) => {
         // Set loader
         setIsLoading(false);
       });
-
-    await axios.get(clientUrl).then(({ data: { items, length } }) => {
-      // Invoices
-      setUpdatedClients(items);
-      setIsLoading(false);
-    });
-
-    await axios.get(invoicesUrl).then(({ data: { items, length } }) => {
-      // Invoices
-      setUpdatedI(items);
-      setIsLoading(false);
-    });
   };
 
   useEffect(() => {
@@ -257,14 +237,14 @@ const index: FC<Dashboard> = ({ currentUser }) => {
   );
 
   // Calculate the total sum of prices
-  const totalPrice = updatedI?.reduce((sum: number, invoice: Invoice) => {
+  const totalPrice = invoices?.reduce((sum: number, invoice: Invoice) => {
     const items = invoice.items;
     const prices = items.map((item) => parseInt(item.price.toString()));
     const total = prices.reduce((subtotal, price) => subtotal + price, 0);
     return sum + total;
   }, 0);
 
-  const totalPaid = updatedI?.filter(
+  const totalPaid = invoices?.filter(
     (invoice: Invoice) => invoice.status === "1"
   );
 
@@ -352,7 +332,7 @@ const index: FC<Dashboard> = ({ currentUser }) => {
                 weight="semiBold"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
-                {updatedClients?.length}
+                {clients?.length}
               </Heading>
             </Box>
           </Column>

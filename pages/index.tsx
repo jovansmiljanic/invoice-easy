@@ -16,22 +16,22 @@ import { Client, Invoice, MyAccount } from "@types";
 
 interface ContentPageProps {
   session: Session;
-  // clients?: Client[];
-  // invoices?: Invoice[];
+  clients?: Client[];
+  invoices?: Invoice[];
   currentUser: MyAccount;
 }
 
 export default function Page({
   session,
-  // clients,
-  // invoices,
+  clients,
+  invoices,
   currentUser,
 }: ContentPageProps) {
   return (
     <Layout title="Dashboard" session={session}>
       <Dashboard
-        // clients={clients}
-        // invoices={invoices}
+        clients={clients}
+        invoices={invoices}
         currentUser={currentUser}
       />
     </Layout>
@@ -69,31 +69,31 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  // // Get all clients
-  // const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`, {
-  //   method: "GET",
-  //   headers: {
-  //     Cookie: ctx?.req?.headers?.cookie ?? "",
-  //   },
-  // });
-  // const { items: clients } = await clientDetails.json();
+  // Get all clients
+  const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`, {
+    method: "GET",
+    headers: {
+      Cookie: ctx?.req?.headers?.cookie ?? "",
+    },
+  });
+  const { items: clients } = await clientDetails.json();
 
-  // const invoiceDetails = await fetch(
-  //   `${process.env.NEXTAUTH_URL}/api/invoice`,
-  //   {
-  //     method: "GET",
-  //     headers: {
-  //       Cookie: ctx?.req?.headers?.cookie ?? "",
-  //     },
-  //   }
-  // );
-  // const { items: invoices } = await invoiceDetails.json();
+  const invoiceDetails = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/invoice`,
+    {
+      method: "GET",
+      headers: {
+        Cookie: ctx?.req?.headers?.cookie ?? "",
+      },
+    }
+  );
+  const { items: invoices } = await invoiceDetails.json();
 
   return {
     props: {
       session,
-      // clients,
-      // invoices,
+      clients,
+      invoices,
       currentUser,
     },
   };
