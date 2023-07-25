@@ -12,6 +12,7 @@ const Schema = new mongoose.Schema(
     paymentDeadline: { type: Date, required: true },
     invoiceNumber: { type: Number, required: true },
     status: { type: String, default: "2" },
+    year: { type: String },
   },
   { collection: "Invoice", timestamps: true }
 );

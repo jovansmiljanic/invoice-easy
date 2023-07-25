@@ -29,7 +29,7 @@ const SearchWrapper = styled.div`
   ${({ theme: { defaults, breakpoints, colors } }) => css`
     ${Field} {
       width: 100%;
-      border: 1px solid ${colors.gray};
+      border: 1px solid ${colors.lightGray};
       min-height: 45px;
 
       padding-left: ${defaults.gutter * 2}px;

@@ -48,6 +48,10 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
               const status = val?.toString().split(",");
               return { ...p, [key]: status?.map((type) => type) };
 
+            case "year":
+              const year = val?.toString().split(",");
+              return { ...p, [key]: year?.map((type) => type) };
+
             default:
               return { ...p, [key]: val };
           }
@@ -63,12 +67,6 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
       .sort({ createdAt: -1 })
       .count();
 
-    const totalInvoices = await Invoice.find({
-      owner: session?.user._id,
-    })
-      .sort({ createdAt: -1 })
-      .count();
-
     // Grab current user
     const invoices = await Invoice.find({
       ...getQuery(query),
@@ -79,7 +77,7 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
       .sort({ createdAt: -1 });
 
     // Return the object
-    return res.send({ items: invoices, length, totalInvoices });
+    return res.send({ items: invoices, length });
   }
 
   // Process a POST request

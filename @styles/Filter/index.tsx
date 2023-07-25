@@ -42,7 +42,7 @@ export const Label = styled.div<{ active?: boolean }>`
   }
 
   ${({ active, theme: { colors, breakpoints, font } }) => css`
-    border: 1px solid ${colors.gray};
+    border: 1px solid ${colors.lightGray};
     border-radius: 5px;
     padding: 5px 20px;
     color: ${colors.gray};
