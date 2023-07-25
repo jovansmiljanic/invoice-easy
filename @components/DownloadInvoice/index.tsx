@@ -71,7 +71,7 @@ const index: FC<Download> = ({ myAccount, invoice, icon }) => {
             ) : !loading && icon ? (
               <FileDownloadOutlinedIcon fontSize="small" />
             ) : (
-              <></>
+              <FileDownloadOutlinedIcon fontSize="small" />
             )
           }
         </PDFDownloadLink>

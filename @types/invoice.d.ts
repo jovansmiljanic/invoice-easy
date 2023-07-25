@@ -28,6 +28,7 @@ export interface Invoice {
   paymentDeadline: Date;
   totalPrice: string;
   status: string;
+  year?: string;
   tax?: string;
   invoiceNumber: number;
   createdAt?: number;

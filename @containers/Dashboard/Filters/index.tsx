@@ -8,7 +8,7 @@ import { Filter, Label } from "@styles/Filter";
 import styled, { css } from "styled-components";
 
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
-import  ExpandMoreOutlinedIcon  from "@mui/icons-material/ExpandMoreOutlined";
+import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 
 // Dropdown container
 const Container = styled.div`
@@ -50,7 +50,7 @@ const Check = styled.div<{ active?: boolean | undefined }>`
   margin-right: 10px;
 
   ${({ active, theme: { colors } }) => css`
-    border: 1px solid ${colors.textColor};
+    border: 1px solid ${colors.lightGray};
 
     ${active &&
     `
@@ -209,10 +209,14 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
                   ""
                 )
               )
-            : "Please select"}
+            : "Filter by status"}
         </span>
 
-        {isDropdownActive ? <ExpandLessOutlinedIcon /> : <ExpandMoreOutlinedIcon />}
+        {isDropdownActive ? (
+          <ExpandLessOutlinedIcon />
+        ) : (
+          <ExpandMoreOutlinedIcon />
+        )}
       </Label>
 
       {isDropdownActive && (

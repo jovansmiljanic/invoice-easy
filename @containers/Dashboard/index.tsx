@@ -39,6 +39,7 @@ import { Button, Heading } from "@components";
 
 interface IFilters {
   status?: string | string[];
+  year?: string | string[];
 }
 
 interface Filter {
@@ -92,8 +93,12 @@ const Box = styled.div`
   padding: 20px;
   border-radius: 5px;
 
-  ${({ theme: { colors } }) => css`
+  ${({ theme: { colors, breakpoints } }) => css`
     border: 1px solid ${colors.lightGray};
+
+    @media (max-width: ${breakpoints.md}px) {
+      padding: 20px 10px;
+    }
   `}
 `;
 
@@ -143,15 +148,15 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
 
   // Store Original and Updated/Filtered items
-  const [updatedInvoices, setUpdatedInvoices] = useState<Invoice[]>();
+  const [updatedInvoices, setUpdatedInvoices] = useState<Invoice[]>(
+    invoices ? invoices : []
+  );
 
   // Declare length
   const [length, setLength] = useState<number>(0);
 
   // Indicate that new items are loading
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const [totalInvoices, setTotalInvoices] = useState(0);
 
   // Store the current limit of the pagination
   const limit = 9;
@@ -160,6 +165,9 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
   const [statusSelected, setStatusSelected] = useState<
     Checkbox[] | undefined
   >();
+
+  // Set selected value
+  const [yearSelected, setYearSelected] = useState<Checkbox[] | undefined>();
 
   // Fetch items
   interface IFetch {
@@ -179,20 +187,16 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
     // Call axios with filters and page as a string url
     const invoiceUrl = `/api/invoice/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
 
-    await axios
-      .get(invoiceUrl)
-      .then(({ data: { items, length, totalInvoices } }) => {
-        // Invoices
-        setUpdatedInvoices(items);
+    await axios.get(invoiceUrl).then(({ data: { items, length } }) => {
+      // Invoices
+      setUpdatedInvoices(items);
 
-        // Length
-        setLength(length);
+      // Length
+      setLength(length);
 
-        setTotalInvoices(totalInvoices);
-
-        // Set loader
-        setIsLoading(false);
-      });
+      // Set loader
+      setIsLoading(false);
+    });
   };
 
   useEffect(() => {
@@ -211,6 +215,16 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
 
     if (rest.status) setStatusSelected(status);
     if (!rest.status) setStatusSelected([]);
+
+    const year = rest.year
+      ?.toString()
+      .split(",")
+      .map((type) => {
+        return { value: type, label: type };
+      });
+
+    if (rest.year) setYearSelected(year);
+    if (!rest.year) setYearSelected([]);
 
     // Update page number
     if (queryPage) setPage(Math.round(Number(queryPage.toString())));
@@ -302,9 +316,10 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
               <Heading
                 as="h3"
                 weight="semiBold"
+                color="gray"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
-                {totalInvoices}
+                {invoices?.length}
               </Heading>
             </Box>
           </Column>
@@ -330,6 +345,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
               <Heading
                 as="h3"
                 weight="semiBold"
+                color="gray"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
                 {clients?.length}
@@ -365,6 +381,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
               <Heading
                 as="h3"
                 weight="semiBold"
+                color="gray"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
                 {totalPrice?.toLocaleString()} €
@@ -400,6 +417,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
               <Heading
                 as="h3"
                 weight="semiBold"
+                color="gray"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
                 {totalPaidInvoices?.toLocaleString()} €
@@ -437,9 +455,37 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
               <Col2>
                 <Search />
 
+                {/* <Filters
+                  name="year"
+                  label="Select year"
+                  preSelected={yearSelected}
+                  options={[
+                    { label: "2022", value: "2022" },
+                    {
+                      label: "2023",
+                      value: "2023",
+                    },
+                  ]}
+                  callback={(e: Filter[]) => {
+                    if (
+                      e &&
+                      (e.map((a) => a.value !== null) ||
+                        e.map((a) => a.value !== undefined))
+                    ) {
+                      const { year, page, searchQuery, ...oldQuery } = query;
+                      const mp = e.map((el) => el.value);
+                      const filterQuery = objectToQuery({
+                        query: { ...oldQuery, year: mp },
+                      });
+
+                      push(`/?${filterQuery}${searchUrl}&page=${0}`);
+                    }
+                  }}
+                /> */}
+
                 <Filters
                   name="status"
-                  label="Select status"
+                  label="Filter by status"
                   preSelected={statusSelected}
                   options={[
                     { label: "Paid", value: "1" },
