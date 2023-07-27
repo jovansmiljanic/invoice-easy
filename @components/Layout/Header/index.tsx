@@ -125,6 +125,14 @@ const DropdownItem = styled.div<{ borderTop?: boolean }>`
   `}
 `;
 
+const Border = styled.div`
+  width: 100%;
+
+  ${({ theme: { defaults, colors, font, ...theme } }) => css`
+    border-bottom: 1px solid ${colors.lightGray};
+  `}
+`;
+
 interface Header {
   session?: Session | null;
 }
@@ -167,7 +175,7 @@ const index: FC<Header> = ({ session }) => {
           md: { top: 2, bottom: 2 },
         }}
       >
-        <Column responsivity={{ md: 3, sm: 4 }}>
+        <Column responsivity={{ md: 3, sm: 4 }} padding={{ md: { bottom: 2 } }}>
           <Link href="/">
             <CustomLink>
               <Logo $width="100" $height="50" $color="secondary" />
@@ -219,6 +227,8 @@ const index: FC<Header> = ({ session }) => {
             </UserModal>
           )}
         </Column>
+
+        <Border />
       </Row>
     </Container>
   );

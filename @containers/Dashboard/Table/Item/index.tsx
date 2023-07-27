@@ -94,7 +94,6 @@ const Modal = styled.div`
     a {
       ${ModalItem} {
         color: ${colors.gray};
-        background-color: ${colors.hoverGray};
       }
     }
   `}
