@@ -34,6 +34,7 @@ const NewInvoice = styled.div`
 
   ${({ theme: { colors } }) => css`
     background-color: ${colors.white};
+    border: 1px solid ${colors.lightGray};
   `}
 `;
 
@@ -184,7 +185,7 @@ const index: FC<NewInvoice> = ({ currentUser, client, invoiceNumber }) => {
       >
         {({ handleSubmit, values, errors, touched, isSubmitting }) => (
           <form onSubmit={handleSubmit}>
-            <Container backgroundColor="background">
+            <Container>
               <Row
                 padding={{
                   xs: { top: 6, bottom: 6 },

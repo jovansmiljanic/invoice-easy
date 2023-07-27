@@ -30,6 +30,7 @@ const MyAccount = styled.div`
 
   ${({ theme: { colors } }) => css`
     background-color: ${colors.white};
+    border: 1px solid ${colors.lightGray};
   `}
 `;
 
@@ -57,6 +58,8 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  ${({ theme: { colors } }) => css``}
 `;
 
 const ErrorWrap = styled.div`
@@ -137,7 +140,7 @@ const index: FC<MyAccount> = ({ details, session }) => {
   };
 
   return (
-    <Container backgroundColor="background">
+    <Container>
       <Row
         padding={{
           xs: { top: 6, bottom: 6 },
@@ -201,9 +204,9 @@ const index: FC<MyAccount> = ({ details, session }) => {
                     color="gray"
                     weight="semiBold"
                     padding={{
-                      xs: { bottom: 4 },
-                      sm: { bottom: 4 },
-                      md: { bottom: 4 },
+                      xs: { bottom: 6 },
+                      sm: { bottom: 6 },
+                      md: { bottom: 6 },
                     }}
                   >
                     Personal information
@@ -319,9 +322,9 @@ const index: FC<MyAccount> = ({ details, session }) => {
                     color="gray"
                     weight="semiBold"
                     padding={{
-                      xs: { bottom: 4 },
-                      sm: { bottom: 4 },
-                      md: { bottom: 4 },
+                      xs: { bottom: 6 },
+                      sm: { bottom: 6 },
+                      md: { bottom: 6 },
                     }}
                   >
                     Company information
@@ -458,9 +461,9 @@ const index: FC<MyAccount> = ({ details, session }) => {
                     color="gray"
                     weight="semiBold"
                     padding={{
-                      xs: { bottom: 4 },
-                      sm: { bottom: 4 },
-                      md: { bottom: 4 },
+                      xs: { bottom: 6 },
+                      sm: { bottom: 6 },
+                      md: { bottom: 6 },
                     }}
                   >
                     Bank information

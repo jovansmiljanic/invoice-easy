@@ -7,13 +7,12 @@ import { Column, Container, Row } from "@components/Grid";
 // SVG
 import { NotFound404 } from "public/svg";
 
-// Vendors
-import styled, { css } from "styled-components";
+// Global components
 import { Button, Heading } from "@components";
 
 const index: FC = () => {
   return (
-    <Container backgroundColor="background" height={80}>
+    <Container height={80}>
       <Row
         padding={{
           xs: { top: 8, bottom: 8 },
