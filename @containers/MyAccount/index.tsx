@@ -29,7 +29,6 @@ const MyAccount = styled.div`
   margin: 10px 0;
 
   ${({ theme: { colors } }) => css`
-    background-color: ${colors.white};
     border: 1px solid ${colors.lightGray};
   `}
 `;
@@ -201,7 +200,6 @@ const index: FC<MyAccount> = ({ details, session }) => {
                 <MyAccount>
                   <Heading
                     as="h5"
-                    color="gray"
                     weight="semiBold"
                     padding={{
                       xs: { bottom: 6 },
@@ -319,7 +317,6 @@ const index: FC<MyAccount> = ({ details, session }) => {
                 <MyAccount>
                   <Heading
                     as="h5"
-                    color="gray"
                     weight="semiBold"
                     padding={{
                       xs: { bottom: 6 },
@@ -458,7 +455,6 @@ const index: FC<MyAccount> = ({ details, session }) => {
                 <MyAccount>
                   <Heading
                     as="h5"
-                    color="gray"
                     weight="semiBold"
                     padding={{
                       xs: { bottom: 6 },

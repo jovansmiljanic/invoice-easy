@@ -3,7 +3,6 @@ import { type FC, createContext, useEffect, useState, useMemo } from "react";
 
 // NextJS
 import { useRouter } from "next/router";
-import { getSession } from "next-auth/react";
 
 // Shared utils
 import { isObjectEmpty, objectToQuery } from "@utils/shared";
@@ -54,8 +53,6 @@ const Wrapper = styled.div`
   border-radius: 5px 5px 0 0;
 
   ${({ theme: { colors } }) => css`
-    color: ${colors.textColor};
-    background-color: ${colors.white};
     border: 1px solid ${colors.lightGray};
   `}
 `;
@@ -105,6 +102,12 @@ const Box = styled.div`
 const BoxWrap = styled.div`
   display: flex;
   align-items: center;
+
+  ${({ theme: { colors } }) => css`
+    svg {
+      fill: ${colors.textColor};
+    }
+  `}
 `;
 
 interface Checkbox {
@@ -298,7 +301,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
           <Column responsivity={{ sm: 6, xs: 6, md: 3 }}>
             <Box>
               <BoxWrap>
-                <ReceiptLongOutlinedIcon htmlColor="#566A7F" />
+                <ReceiptLongOutlinedIcon />
 
                 <Heading
                   as="h6"
@@ -307,7 +310,6 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
                     sm: { left: 1 },
                     md: { left: 1 },
                   }}
-                  color="gray"
                 >
                   Invoices
                 </Heading>
@@ -316,7 +318,6 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
               <Heading
                 as="h3"
                 weight="semiBold"
-                color="gray"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
                 {invoices?.length}
@@ -327,7 +328,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
           <Column responsivity={{ sm: 6, xs: 6, md: 3 }}>
             <Box>
               <BoxWrap>
-                <GroupOutlinedIcon htmlColor="#566A7F" />
+                <GroupOutlinedIcon />
 
                 <Heading
                   as="h6"
@@ -336,7 +337,6 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
                     sm: { left: 1 },
                     md: { left: 1 },
                   }}
-                  color="gray"
                 >
                   Clients
                 </Heading>
@@ -345,7 +345,6 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
               <Heading
                 as="h3"
                 weight="semiBold"
-                color="gray"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
                 {clients?.length}
@@ -363,7 +362,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
           >
             <Box>
               <BoxWrap>
-                <ReceiptOutlinedIcon htmlColor="#566A7F" />
+                <ReceiptOutlinedIcon />
 
                 <Heading
                   as="h6"
@@ -372,7 +371,6 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
                     sm: { left: 1 },
                     md: { left: 1 },
                   }}
-                  color="gray"
                 >
                   Invoiced
                 </Heading>
@@ -381,7 +379,6 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
               <Heading
                 as="h3"
                 weight="semiBold"
-                color="gray"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
                 {totalPrice?.toLocaleString()} €
@@ -399,7 +396,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
           >
             <Box>
               <BoxWrap>
-                <PaidOutlinedIcon htmlColor="#566A7F" />
+                <PaidOutlinedIcon />
 
                 <Heading
                   as="h6"
@@ -408,7 +405,6 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
                     sm: { left: 1 },
                     md: { left: 1 },
                   }}
-                  color="gray"
                 >
                   Paid
                 </Heading>
@@ -417,7 +413,6 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
               <Heading
                 as="h3"
                 weight="semiBold"
-                color="gray"
                 padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
               >
                 {totalPaidInvoices?.toLocaleString()} €

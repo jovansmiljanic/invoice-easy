@@ -31,7 +31,7 @@ const Wrapper = styled.div`
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
   ${({ theme: { colors, breakpoints } }) => css`
-    background-color: ${colors.white};
+    border: 1px solid ${colors.lightGray};
 
     @media (max-width: ${breakpoints.md}px) {
       padding: 40px 10px;
@@ -139,7 +139,7 @@ const index: FC = () => {
               <Logo $width="100" $height="50" $color="secondary" />
             </Wrap>
 
-            <Heading as="h4" weight="semiBold" color="gray">
+            <Heading as="h4" weight="semiBold">
               Adventure starts here 🚀
             </Heading>
 
@@ -150,7 +150,6 @@ const index: FC = () => {
                 sm: { top: 1, bottom: 4 },
                 md: { top: 1, bottom: 4 },
               }}
-              color="gray"
             >
               Make your invoicing easy and fun!
             </Heading>
@@ -277,7 +276,6 @@ const index: FC = () => {
               as="h6"
               textAlign={{ xs: "center", sm: "center", md: "center" }}
               padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
-              color="gray"
             >
               Already have an account? <Link href="/">Sign in instead</Link>
             </Heading>

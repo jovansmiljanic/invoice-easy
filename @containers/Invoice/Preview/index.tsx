@@ -12,8 +12,6 @@ import { Column, Container, Row } from "@components/Grid";
 
 // Vendors
 import styled, { css } from "styled-components";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { File } from "./File";
 import { formatDate, getTotalPrice } from "@utils/client";
 import { StoreContext } from "@context";
 import { DonwloadInvoice } from "@components/DownloadInvoice";
@@ -24,7 +22,6 @@ const NewInvoice = styled.div`
 
   ${({ theme: { colors } }) => css`
     border: 1px solid ${colors.lightGray};
-    background-color: ${colors.white};
   `}
 `;
 

@@ -31,7 +31,6 @@ const NewInvoice = styled.div`
 
   ${({ theme: { colors } }) => css`
     border: 1px solid ${colors.lightGray};
-    background-color: ${colors.white};
   `}
 `;
 
@@ -57,7 +56,10 @@ const Modal = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  background-color: white;
+
+  ${({ theme: { colors } }) => css`
+    background-color: ${colors.background};
+  `}
 `;
 
 interface Formvalues {

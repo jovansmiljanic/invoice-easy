@@ -33,7 +33,6 @@ const NewInvoice = styled.div`
   box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
 
   ${({ theme: { colors } }) => css`
-    background-color: ${colors.white};
     border: 1px solid ${colors.lightGray};
   `}
 `;
@@ -62,7 +61,7 @@ const Modal = styled.div`
   right: 0;
 
   ${({ theme: { breakpoints, colors } }) => css`
-    background-color: ${colors.white};
+    background-color: ${colors.background};
 
     @media (max-width: ${breakpoints.md}px) {
       overflow: scroll;

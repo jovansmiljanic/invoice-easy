@@ -26,7 +26,7 @@ export const TextArea = styled.textarea`
 
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: black;
+      color: ${colors.textColor};
       opacity: 1; /* Firefox */
     }
   `}
@@ -79,6 +79,8 @@ export const Field = styled.input<Field>`
       border: 1px solid ${colors.lightGray};
       font-weight: ${font.weight.medium};
       padding: ${defaults.gutter * 10}px ${defaults.gutter * 20}px;
+      color: ${colors.textColor};
+      background-color: ${colors.background};
 
       &[type="checkbox"] {
         &:checked {
@@ -97,18 +99,18 @@ export const Field = styled.input<Field>`
       ::placeholder {
         font-size: 14px;
         /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: ${colors.gray};
+        color: ${colors.textColor};
         opacity: 1; /* Firefox */
       }
 
       :-ms-input-placeholder {
         /* Internet Explorer 10-11 */
-        color: black;
+        color: ${colors.textColor};
       }
 
       ::-ms-input-placeholder {
         /* Microsoft Edge */
-        color: black;
+        color: ${colors.textColor};
       }
 
       ${hasError &&

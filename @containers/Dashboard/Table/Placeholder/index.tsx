@@ -35,7 +35,7 @@ const Wrapper = styled.div`
   align-items: center;
 
   ${({ theme: { breakpoints, colors } }) => css`
-    background-color: ${colors.white};
+    background-color: ${colors.background};
     border-bottom: 1px solid ${colors.lightGray};
 
     @media (max-width: ${breakpoints.md}px) {

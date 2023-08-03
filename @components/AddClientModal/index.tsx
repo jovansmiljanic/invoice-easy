@@ -103,7 +103,6 @@ const index: FC<{ setClientOption: any; setToggleArticles: any }> = ({
         <Form id="myForm" onSubmit={handleSubmit}>
           <Heading
             as="h4"
-            color="gray"
             padding={{
               xs: { bottom: 4 },
               sm: { bottom: 4 },

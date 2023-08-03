@@ -35,6 +35,20 @@ const Date = styled.div`
   display: flex;
   align-items: center;
 
+  ${({ theme: { colors, breakpoints } }) => css`
+    .react-datepicker-wrapper {
+      margin: 5px 0;
+
+      input {
+        padding: 2px;
+        color: ${colors.textColor};
+        background-color: ${colors.background} !important;
+        border: 1px solid ${colors.lightGray};
+        border-radius: 5px;
+      }
+    }
+  `}
+
   p {
     width: 100%;
     margin-right: 10px;
@@ -49,14 +63,20 @@ const CustomSelect = styled(Select)`
   width: 235px;
 
   ${({ theme: { colors } }) => css`
+    #react-select-newClient-placeholder {
+      color: ${colors.textColor};
+      z-index: 1;
+    }
+
     * > input {
       padding: 5px 0 !important;
     }
 
     * {
+      background-color: ${colors.background};
       font-size: 14px;
       border-radius: 5px !important;
-      border-color: ${colors.gray} !important;
+      border-color: ${colors.lightGray} !important;
     }
   `}
 `;

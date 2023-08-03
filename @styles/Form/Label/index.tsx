@@ -9,7 +9,7 @@ export const Label = styled.label<Label>`
   font-size: 14px;
 
   ${({ theme: { defaults, colors } }) => css`
-    color: ${colors.gray};
+    color: ${colors.textColor};
     margin-bottom: ${defaults.gutter * 4}px;
   `}
 `;

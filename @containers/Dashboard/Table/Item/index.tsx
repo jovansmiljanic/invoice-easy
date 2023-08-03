@@ -56,24 +56,6 @@ const Popup = styled.div`
   position: relative;
 `;
 
-const ModalItem = styled.div`
-  padding: 10px 0 10px 20px;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-
-  ${({ theme: { colors } }) => css`
-    &:hover {
-      background-color: ${colors.hoverGray};
-    }
-
-    &:last-child {
-      color: ${colors.danger};
-      border-bottom: 1px solid ${colors.lightGray};
-    }
-  `}
-`;
-
 const Modal = styled.div`
   position: absolute;
   z-index: 1;
@@ -89,12 +71,26 @@ const Modal = styled.div`
     min-width: 160px;
     min-height: 50px;
     box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
-    background-color: ${colors.white};
+    background-color: ${colors.background};
+  `}
+`;
 
-    a {
-      ${ModalItem} {
-        color: ${colors.gray};
-      }
+const ModalItem = styled.div`
+  padding: 10px 0 10px 20px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+
+  ${({ theme: { colors } }) => css`
+    color: ${colors.textColor};
+
+    &:hover {
+      background-color: ${colors.hoverGray};
+    }
+
+    &:nth-child(4) {
+      color: ${colors.danger};
+      border-top: 1px solid ${colors.lightGray};
     }
   `}
 `;
@@ -140,7 +136,6 @@ const Thead = styled.thead`
 const Tbody = styled.tbody`
   ${({ theme: { colors, breakpoints } }) => css`
     padding: 10px;
-    color: ${colors.gray};
 
     @media (max-width: ${breakpoints.md}px) {
       padding: 10px 0;
@@ -169,7 +164,7 @@ const Tbody = styled.tbody`
         color: ${colors.secondary};
 
         &:hover {
-          color: ${colors.secondary};
+          color: ${colors.primary};
         }
       }
 
@@ -210,7 +205,7 @@ const Tbody = styled.tbody`
             margin-left: 5px;
 
             path {
-              fill: ${colors.gray};
+              fill: ${colors.textColor};
             }
           }
         }
