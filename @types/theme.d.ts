@@ -57,6 +57,7 @@ export interface Theme {
 
 export interface ThemeContext {
   light: Theme;
+  dark: Theme;
 }
 
 declare module "styled-components" {

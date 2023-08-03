@@ -1,5 +1,5 @@
 // Core types
-import { type FC, useEffect, useRef, useState } from "react";
+import { type FC, useEffect, useRef, useState, useContext } from "react";
 
 // NextJS
 import Link from "next/link";
@@ -21,6 +21,9 @@ import { Session } from "next-auth";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import { StoreContext } from "@context";
 
 const CustomLink = styled.span`
   padding: 0 5px;
@@ -34,7 +37,7 @@ const UserModal = styled.div`
   position: relative;
   width: 50px;
   height: 50px;
-  margin-left: auto;
+  margin-left: 15px;
   cursor: pointer;
 `;
 
@@ -65,8 +68,7 @@ const Dropdown = styled.div`
   box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
 
   ${({ theme: { colors } }) => css`
-    color: ${colors.gray};
-    background-color: ${colors.white};
+    background-color: ${colors.background};
   `}
 `;
 
@@ -78,7 +80,7 @@ const DropdownItem = styled.div<{ borderTop?: boolean }>`
   align-items: center;
 
   ${({ borderTop, theme: { colors } }) => css`
-    color: ${colors.gray};
+    color: ${colors.textColor};
 
     span {
       flex: 0 0 70%;
@@ -99,19 +101,12 @@ const DropdownItem = styled.div<{ borderTop?: boolean }>`
       margin-left: 20px;
 
       path {
-        fill: ${colors.gray};
+        fill: ${colors.textColor};
       }
     }
 
     &:hover {
-      color: ${colors.secondary};
       background-color: ${colors.hoverGray};
-
-      svg {
-        path {
-          fill: ${colors.secondary};
-        }
-      }
     }
 
     &:not(:last-child) {
@@ -131,6 +126,16 @@ const Border = styled.div`
   ${({ theme: { defaults, colors, font, ...theme } }) => css`
     border-bottom: 1px solid ${colors.lightGray};
   `}
+`;
+
+const Wrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  svg {
+    cursor: pointer;
+  }
 `;
 
 interface Header {
@@ -160,6 +165,11 @@ const index: FC<Header> = ({ session }) => {
     };
   }, []);
 
+  const { theme, setTheme } = useContext(StoreContext);
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  };
+
   return (
     <Container>
       <Row
@@ -184,48 +194,56 @@ const index: FC<Header> = ({ session }) => {
         </Column>
 
         <Column responsivity={{ md: 9, sm: 4 }} textAlign={{ md: "right" }}>
-          {session && (
-            <UserModal ref={resourcesPopupRef}>
-              <User onClick={() => setDropdown(!dropdown)}>
-                <Heading as="h6" weight="semiBold">
-                  {session.user.firstName.substring(0, 1)}
-                  {session.user.lastName.substring(0, 1)}
-                </Heading>
-              </User>
+          <Wrap>
+            {theme === "light" ? (
+              <LightModeIcon onClick={toggleTheme} />
+            ) : (
+              <DarkModeIcon onClick={toggleTheme} />
+            )}
 
-              {dropdown && (
-                <Dropdown>
-                  <DropdownItem>
-                    <Heading as="h6">
-                      {session.user.firstName} {session.user.lastName}
-                    </Heading>
-                  </DropdownItem>
+            {session && (
+              <UserModal ref={resourcesPopupRef}>
+                <User onClick={() => setDropdown(!dropdown)}>
+                  <Heading as="h6" weight="semiBold">
+                    {session.user.firstName.substring(0, 1)}
+                    {session.user.lastName.substring(0, 1)}
+                  </Heading>
+                </User>
 
-                  <Link href="/my-account">
+                {dropdown && (
+                  <Dropdown>
                     <DropdownItem>
-                      <ManageAccountsOutlinedIcon />
-
-                      <span>My profile</span>
+                      <Heading as="h6">
+                        {session.user.firstName} {session.user.lastName}
+                      </Heading>
                     </DropdownItem>
-                  </Link>
 
-                  <Link href="/invoice/add">
-                    <DropdownItem>
-                      <PostAddOutlinedIcon />
+                    <Link href="/my-account">
+                      <DropdownItem>
+                        <ManageAccountsOutlinedIcon />
 
-                      <span>Create invoice</span>
+                        <span>My profile</span>
+                      </DropdownItem>
+                    </Link>
+
+                    <Link href="/invoice/add">
+                      <DropdownItem>
+                        <PostAddOutlinedIcon />
+
+                        <span>Create invoice</span>
+                      </DropdownItem>
+                    </Link>
+
+                    <DropdownItem onClick={() => signOut()} borderTop>
+                      <LogoutOutlinedIcon />
+
+                      <span>Sign out</span>
                     </DropdownItem>
-                  </Link>
-
-                  <DropdownItem onClick={() => signOut()} borderTop>
-                    <LogoutOutlinedIcon />
-
-                    <span>Sign out</span>
-                  </DropdownItem>
-                </Dropdown>
-              )}
-            </UserModal>
-          )}
+                  </Dropdown>
+                )}
+              </UserModal>
+            )}
+          </Wrap>
         </Column>
 
         <Border />

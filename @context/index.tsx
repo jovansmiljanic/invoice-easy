@@ -22,6 +22,8 @@ interface Props {
 interface AppContext {
   isPhone?: boolean;
   isTablet?: boolean;
+  theme: "light" | "dark";
+  setTheme?: any;
 }
 
 export const Store: FC<Props> = (props) => {
@@ -31,7 +33,16 @@ export const Store: FC<Props> = (props) => {
   const [isTablet, setIsTablet] = useState<boolean>();
   const isTabletMemo = useMemo(() => isTablet, [isTablet]);
 
+  const [theme, setTheme] = useState<"light" | "dark">("dark"); // Set initial theme
+
   useEffect(() => {
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    if (prefersDark) {
+      setTheme("dark");
+    }
+
     // Check if users device is smaller than 768px and enable Phone layout
     const isPhone = window.matchMedia("(max-width: 992px)").matches;
 
@@ -65,10 +76,12 @@ export const Store: FC<Props> = (props) => {
         {
           isPhone: isPhoneMemo,
           isTablet: isTabletMemo,
+          theme: theme,
+          setTheme,
         } as AppContext
       }
     >
-      <ThemeProvider theme={Theme.light}>{props.children}</ThemeProvider>
+      <ThemeProvider theme={Theme[theme]}>{props.children}</ThemeProvider>
     </StoreContext.Provider>
   );
 };

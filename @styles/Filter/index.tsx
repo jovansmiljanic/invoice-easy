@@ -42,13 +42,13 @@ export const Label = styled.div<{ active?: boolean }>`
   }
 
   ${({ active, theme: { colors, breakpoints, font } }) => css`
-    border: 1px solid ${colors.lightGray};
     border-radius: 5px;
     padding: 5px 20px;
-    color: ${colors.gray};
+    color: ${colors.textColor};
+    border: 1px solid ${colors.lightGray};
 
     &:hover {
-      background-color: #e1e1e1;
+      background-color: ${colors.hoverGray};
     }
 
     @media (max-width: ${breakpoints.sm}px) {

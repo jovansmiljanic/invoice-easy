@@ -37,8 +37,6 @@ const Table = styled.table`
   border-radius: 0 0 5px 5px;
 
   ${({ theme: { colors, breakpoints } }) => css`
-    background-color: ${colors.white};
-
     @media (max-width: ${breakpoints.md}px) {
       display: flex;
       flex-wrap: wrap;

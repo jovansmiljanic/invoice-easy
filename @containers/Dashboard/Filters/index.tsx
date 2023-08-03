@@ -16,12 +16,12 @@ const Container = styled.div`
   padding: 10px 0;
   position: absolute;
   top: 100%;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+  box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45),
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   z-index: 50;
 
   ${({ theme: { colors } }) => css`
-    background-color: ${colors.white};
+    background-color: ${colors.background};
   `};
 `;
 
@@ -32,11 +32,10 @@ const Checkbox = styled.div`
   cursor: pointer;
 
   ${({ theme: { colors, defaults } }) => css`
-    color: ${colors.textColor};
     padding: ${defaults.gutter / 2}rem 10px;
 
     &:hover {
-      background-color: #f1f1f1;
+      background-color: ${colors.hoverGray};
     }
   `}
 `;
@@ -54,8 +53,7 @@ const Check = styled.div<{ active?: boolean | undefined }>`
 
     ${active &&
     `
-      background: url("data:image/svg+xml,%3Csvg width='18' height='15' viewBox='0 0 15 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.707031 5.70703L4.70703 9.70703' stroke='%23222930' strokeLinecap='round'/%3E%3Cpath d='M13.707 0.707031L4.70703 9.70703' stroke='%23222930' strokeLinecap='round'/%3E%3C/svg%3E")
-        2px center no-repeat;
+      background: ${colors.secondary};
 
     `};
   `}
