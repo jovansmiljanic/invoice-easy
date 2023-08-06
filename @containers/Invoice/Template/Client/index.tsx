@@ -12,7 +12,11 @@ import styled, { css } from "styled-components";
 
 // Core types
 import { Client as ClientTypes, Invoice as InvoiceTypes } from "@types";
+
+// Global styles
 import { Field } from "@styles/Form";
+
+// Client utils
 import { formatDate } from "@utils/client";
 
 const Client = styled.div`
@@ -25,7 +29,7 @@ const Client = styled.div`
     border-bottom: 1px solid ${colors.lightGray};
 
     @media (max-width: ${breakpoints.md}px) {
-      padding: 10px;
+      padding: 10px 15px;
       flex-direction: column;
       align-items: flex-start;
     }
@@ -36,6 +40,24 @@ const Date = styled.div`
   display: flex;
   align-items: center;
 
+  ${({ theme: { colors, breakpoints } }) => css`
+    .react-datepicker-wrapper {
+      margin: 5px 0;
+
+      input {
+        padding: 2px 6px;
+        color: ${colors.textColor};
+        background-color: ${colors.background} !important;
+        border: 1px solid ${colors.lightGray};
+        border-radius: 5px;
+
+        &::placeholder {
+          color: ${colors.lightGray};
+        }
+      }
+    }
+  `}
+
   p {
     width: 100%;
     margin-right: 10px;
@@ -44,6 +66,28 @@ const Date = styled.div`
   input {
     font-size: 14px;
   }
+`;
+
+const CustomSelect = styled(Select)`
+  width: 235px;
+
+  ${({ theme: { colors } }) => css`
+    #react-select-newClient-placeholder {
+      color: ${colors.background};
+      z-index: 1;
+    }
+
+    * > input {
+      padding: 5px 0 !important;
+    }
+
+    * {
+      background-color: ${colors.background};
+      font-size: 14px;
+      border-radius: 5px !important;
+      border-color: ${colors.lightGray} !important;
+    }
+  `}
 `;
 
 const Invoice = styled.div`
@@ -85,15 +129,17 @@ interface Client {
   setStartDate: any;
   setEndDate: any;
   setDeadlineDate: any;
-  client: Partial<ClientTypes>;
+  client?: ClientTypes[];
+  currentClient?: Partial<ClientTypes>;
   toggledArticles: any;
   setToggleArticles: any;
   setClientOption: any;
   values: any;
-  invoice: InvoiceTypes;
+  invoice?: InvoiceTypes;
 }
 
 const index: FC<Client> = ({
+  clientOption,
   startDate,
   endDate,
   deadlineDate,
@@ -103,11 +149,16 @@ const index: FC<Client> = ({
   toggledArticles,
   setToggleArticles,
   client,
+  currentClient,
   setClientOption,
   values,
   invoice,
 }) => {
   const { handleBlur, handleChange } = useFormikContext();
+
+  const clientOptions = client?.map((item) => {
+    return { value: item, label: item.clientName };
+  });
 
   // Handle types
   const handleChangeType = (e: any) => {
@@ -117,20 +168,42 @@ const index: FC<Client> = ({
   return (
     <Client>
       <div>
-        {client ? (
+        {clientOption ? (
           <>
             <Heading as="h6" weight="bold">
-              {client.clientName}
+              {clientOption.clientName}
             </Heading>
-            <Heading as="p">{client.clientAddress}</Heading>
+            <Heading as="p">{clientOption.clientAddress}</Heading>
             <Heading as="p">
-              {client.zipCode}, {client.city},{client.country}
+              {clientOption.zipCode}, {clientOption.city},{" "}
+              {clientOption.country}
             </Heading>
-            <Heading as="p">Davčna številka: {client.taxNumber}</Heading>
+            <Heading as="p">Davčna številka: {clientOption.taxNumber}</Heading>
+          </>
+        ) : currentClient ? (
+          <>
+            <Heading as="h6" weight="bold">
+              {currentClient?.clientName}
+            </Heading>
+            <Heading as="p">{currentClient?.clientAddress}</Heading>
+            <Heading as="p">
+              {currentClient?.zipCode}, {currentClient?.city},{" "}
+              {currentClient?.country}
+            </Heading>
+            <Heading as="p">
+              Davčna številka: {currentClient?.taxNumber}
+            </Heading>
           </>
         ) : (
           <HelpWrap>
-            <div>select</div>
+            <CustomSelect
+              instanceId="newClient"
+              options={clientOptions}
+              placeholder="Choose existing one"
+              onChange={(e) => handleChangeType(e)}
+              onBlur={handleBlur}
+            />
+
             <div>or</div>
 
             <Button
@@ -147,18 +220,14 @@ const index: FC<Client> = ({
 
       <Wrap>
         <Invoice>
-          <Heading
-            as="h5"
-            weight="semiBold"
-            padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 0 } }}
-          >
+          <Heading as="h5" weight="semiBold">
             Invoice:
           </Heading>
 
           <Field
             type="number"
             name="invoiceNumber"
-            placeholder="0.0 €"
+            placeholder="0"
             onChange={handleChange}
             onBlur={handleBlur}
             value={values.invoiceNumber}
@@ -171,7 +240,9 @@ const index: FC<Client> = ({
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
-            placeholderText={formatDate(invoice.startDate)}
+            placeholderText={
+              invoice ? formatDate(invoice.startDate) : "DD/MM/YYYY"
+            }
             dateFormat="dd/MM/yyyy"
           />
         </Date>
@@ -182,7 +253,9 @@ const index: FC<Client> = ({
           <DatePicker
             selected={endDate}
             onChange={(date) => setEndDate(date)}
-            placeholderText={formatDate(invoice.endDate)}
+            placeholderText={
+              invoice ? formatDate(invoice.endDate) : "DD/MM/YYYY"
+            }
             dateFormat="dd/MM/yyyy"
           />
         </Date>
@@ -193,7 +266,9 @@ const index: FC<Client> = ({
           <DatePicker
             selected={deadlineDate}
             onChange={(date) => setDeadlineDate(date)}
-            placeholderText={formatDate(invoice.paymentDeadline)}
+            placeholderText={
+              invoice ? formatDate(invoice.paymentDeadline) : "DD/MM/YYYY"
+            }
             dateFormat="dd/MM/yyyy"
           />
         </Date>

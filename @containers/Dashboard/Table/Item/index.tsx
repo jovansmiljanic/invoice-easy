@@ -259,7 +259,7 @@ const index: FC<Item> = ({ $item, currentUser }) => {
 
           <td>{daysLeft($item.paymentDeadline, $item.issuedDate)}</td>
 
-          <td>{getTotalPrice($item.items)} €</td>
+          <td>{getTotalPrice($item.items, $item?.tax)}</td>
 
           <td>
             <Wrap>

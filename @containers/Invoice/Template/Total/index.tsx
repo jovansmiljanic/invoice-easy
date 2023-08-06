@@ -8,7 +8,7 @@ import { Heading } from "@components";
 import { Field } from "@styles/Form";
 
 // Client utils
-import { getTotalPrice } from "@utils/client";
+import { getTotalPrice, getSubTotalPrice } from "@utils/client";
 
 // Vendors
 import { useFormikContext } from "formik";
@@ -56,10 +56,6 @@ interface Total {
 const index: FC<Total> = ({ tableData, values }) => {
   const { handleBlur, handleChange } = useFormikContext();
 
-  const price = getTotalPrice(tableData);
-
-  const total = +price + values.tax;
-
   return (
     <Total>
       <TotalRow>
@@ -70,9 +66,7 @@ const index: FC<Total> = ({ tableData, values }) => {
           Subtotal:
         </Heading>
 
-        <Heading as="p">
-          {getTotalPrice(tableData) ? `${getTotalPrice(tableData)} €` : "0.0 €"}
-        </Heading>
+        <Heading as="p">{getSubTotalPrice(tableData)}</Heading>
       </TotalRow>
 
       <TotalRow>
@@ -101,7 +95,7 @@ const index: FC<Total> = ({ tableData, values }) => {
           Total:
         </Heading>
 
-        <Heading as="p">{+price !== 0 ? `${total} €` : "0.00 €"}</Heading>
+        <Heading as="p">{getTotalPrice(tableData, values.tax)}</Heading>
       </TotalRow>
     </Total>
   );

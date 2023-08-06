@@ -12,7 +12,7 @@ import { Column, Container, Row } from "@components/Grid";
 
 // Vendors
 import styled, { css } from "styled-components";
-import { formatDate, getTotalPrice } from "@utils/client";
+import { formatDate, getSubTotalPrice, getTotalPrice } from "@utils/client";
 import { StoreContext } from "@context";
 import { DonwloadInvoice } from "@components/DownloadInvoice";
 
@@ -373,7 +373,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
                 >
                   Subtotal:
                 </Heading>
-                <Heading as="p">{getTotalPrice(invoice.items)} €</Heading>
+                <Heading as="p">{getSubTotalPrice(invoice.items)}</Heading>
               </TotalRow>
 
               <TotalRow>
@@ -387,7 +387,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
                 >
                   Tax:
                 </Heading>
-                <Heading as="p">0.00 €</Heading>
+                <Heading as="p">{invoice.tax} €</Heading>
               </TotalRow>
 
               <TotalRow>
@@ -401,7 +401,9 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
                 >
                   Total:
                 </Heading>
-                <Heading as="p">{getTotalPrice(invoice.items)} €</Heading>
+                <Heading as="p">
+                  {getTotalPrice(invoice.items, invoice.tax)}
+                </Heading>
               </TotalRow>
             </Total>
 
