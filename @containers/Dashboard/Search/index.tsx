@@ -49,7 +49,6 @@ const Clear = styled.div`
   height: 25px;
   top: -6px;
   right: 15px;
-  background-color: rgba(255, 255, 255, 0.123);
   display: flex;
   align-items: center;
   justify-content: center;

@@ -11,6 +11,7 @@ const Schema = new mongoose.Schema(
     issuedDate: { type: Date, required: true },
     paymentDeadline: { type: Date, required: true },
     invoiceNumber: { type: Number, required: true },
+    tax: { type: Number, default: 0 },
     status: { type: String, default: "2" },
     year: { type: String },
   },

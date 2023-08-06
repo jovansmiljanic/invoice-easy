@@ -2,8 +2,6 @@
 import type { FC } from "react";
 
 // Vendors
-import styled, { css } from "styled-components";
-
 import {
   Document,
   Page,
@@ -12,8 +10,12 @@ import {
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
+
+// Global types
 import { Invoice, MyAccount } from "@types";
-import { formatDate, getTotalPrice } from "@utils/client";
+
+// Client utils
+import { formatDate, getSubTotalPrice, getTotalPrice } from "@utils/client";
 
 // Font
 Font.register({
@@ -189,9 +191,9 @@ const index: FC<File> = ({ myAccount, invoice }) => {
         </View>
 
         <View style={styles.total}>
-          <Text>Subtotal: {getTotalPrice(invoice.items)} €</Text>
-          <Text>Tax: 0.00 €</Text>
-          <Text>Total: {getTotalPrice(invoice.items)} €</Text>
+          <Text>Subtotal: {getSubTotalPrice(invoice.items)}</Text>
+          <Text>Tax: {invoice.tax} €</Text>
+          <Text>Total: {getTotalPrice(invoice.items, invoice.tax)}</Text>
         </View>
 
         <View style={styles.note}>

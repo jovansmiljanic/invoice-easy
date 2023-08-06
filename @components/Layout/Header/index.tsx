@@ -185,7 +185,10 @@ const index: FC<Header> = ({ session }) => {
           md: { top: 2, bottom: 2 },
         }}
       >
-        <Column responsivity={{ md: 3, sm: 4 }} padding={{ md: { bottom: 2 } }}>
+        <Column
+          responsivity={{ md: 3, sm: 4 }}
+          padding={{ xs: { bottom: 2 }, sm: { bottom: 2 }, md: { bottom: 2 } }}
+        >
           <Link href="/">
             <CustomLink>
               <Logo $width="100" $height="50" $color="secondary" />

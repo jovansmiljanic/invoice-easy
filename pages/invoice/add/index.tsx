@@ -1,5 +1,5 @@
 // Global containers
-import { AddInvoice } from "@containers";
+import { Template } from "@containers";
 
 // Global components
 import { Layout } from "@components";
@@ -24,15 +24,15 @@ interface ContentPageProps {
 export default function Page({
   currentUser,
   client,
-  session,
   invoiceNumber,
+  session,
 }: ContentPageProps) {
   return (
     <Layout title="Create new invoice" session={session}>
-      <AddInvoice
+      <Template
         currentUser={currentUser}
-        client={client}
         invoiceNumber={invoiceNumber}
+        client={client}
       />
     </Layout>
   );

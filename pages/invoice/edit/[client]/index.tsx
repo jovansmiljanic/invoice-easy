@@ -1,5 +1,5 @@
 // Global containers
-import { AddInvoice, EditInvoice } from "@containers";
+import { Template } from "@containers";
 
 // Global components
 import { Layout } from "@components";
@@ -11,7 +11,7 @@ import { GetServerSideProps } from "next";
 import { getSession } from "next-auth/react";
 
 // Global types
-import { Client, Invoice, MyAccount } from "@types";
+import { Invoice, MyAccount } from "@types";
 import { Session } from "next-auth";
 
 interface ContentPageProps {
@@ -22,12 +22,12 @@ interface ContentPageProps {
 
 export default function Page({
   currentUser,
-  session,
   invoice,
+  session,
 }: ContentPageProps) {
   return (
-    <Layout title="Create new invoice" session={session}>
-      <EditInvoice account={currentUser} invoice={invoice} />
+    <Layout title="Edit invoice" session={session}>
+      <Template currentUser={currentUser} invoice={invoice} />
     </Layout>
   );
 }
