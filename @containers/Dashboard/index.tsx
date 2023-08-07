@@ -15,6 +15,7 @@ import { Table } from "./Table";
 import { Search } from "./Search";
 import { Filters } from "./Filters";
 import { Pagination } from "./Pagination";
+import { LineChart } from "./LineChart";
 
 // Vendors
 import axios from "axios";
@@ -86,9 +87,18 @@ const Col2 = styled.div`
   `}
 `;
 
+const BoxWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
 const Box = styled.div`
   padding: 20px;
   border-radius: 5px;
+  flex: 0 0 49%;
+  max-height: 150px;
 
   ${({ theme: { colors, breakpoints } }) => css`
     border: 1px solid ${colors.lightGray};
@@ -297,127 +307,121 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
             sm: { top: 2, bottom: 2 },
             md: { top: 8, bottom: 2 },
           }}
+          justifyContent={{ md: "space-between" }}
         >
-          <Column responsivity={{ sm: 6, xs: 6, md: 3 }}>
-            <Box>
-              <BoxWrap>
-                <ReceiptLongOutlinedIcon />
-
-                <Heading
-                  as="h6"
-                  padding={{
-                    xs: { left: 1 },
-                    sm: { left: 1 },
-                    md: { left: 1 },
-                  }}
-                >
-                  Invoices
-                </Heading>
-              </BoxWrap>
-
-              <Heading
-                as="h3"
-                weight="semiBold"
-                padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
-              >
-                {invoices?.length}
-              </Heading>
-            </Box>
-          </Column>
-
-          <Column responsivity={{ sm: 6, xs: 6, md: 3 }}>
-            <Box>
-              <BoxWrap>
-                <GroupOutlinedIcon />
-
-                <Heading
-                  as="h6"
-                  padding={{
-                    xs: { left: 1 },
-                    sm: { left: 1 },
-                    md: { left: 1 },
-                  }}
-                >
-                  Clients
-                </Heading>
-              </BoxWrap>
-
-              <Heading
-                as="h3"
-                weight="semiBold"
-                padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
-              >
-                {clients?.length}
-              </Heading>
-            </Box>
-          </Column>
-
           <Column
-            responsivity={{ sm: 6, xs: 6, md: 3 }}
+            responsivity={{ md: 6 }}
             padding={{
-              xs: { top: 1 },
-              sm: { top: 1 },
-              md: { top: 0 },
+              xs: { bottom: 5 },
+              sm: { bottom: 5 },
+              md: { bottom: 0 },
             }}
           >
-            <Box>
-              <BoxWrap>
-                <ReceiptOutlinedIcon />
+            <BoxWrapper>
+              <Box>
+                <BoxWrap>
+                  <ReceiptLongOutlinedIcon />
+
+                  <Heading
+                    as="h6"
+                    padding={{
+                      xs: { left: 1 },
+                      sm: { left: 1 },
+                      md: { left: 1 },
+                    }}
+                  >
+                    Invoices
+                  </Heading>
+                </BoxWrap>
 
                 <Heading
-                  as="h6"
-                  padding={{
-                    xs: { left: 1 },
-                    sm: { left: 1 },
-                    md: { left: 1 },
-                  }}
+                  as="h3"
+                  weight="semiBold"
+                  padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
                 >
-                  Invoiced
+                  {invoices?.length}
                 </Heading>
-              </BoxWrap>
+              </Box>
 
-              <Heading
-                as="h3"
-                weight="semiBold"
-                padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
-              >
-                {totalPrice?.toLocaleString()} €
-              </Heading>
-            </Box>
+              <Box>
+                <BoxWrap>
+                  <GroupOutlinedIcon />
+
+                  <Heading
+                    as="h6"
+                    padding={{
+                      xs: { left: 1 },
+                      sm: { left: 1 },
+                      md: { left: 1 },
+                    }}
+                  >
+                    Clients
+                  </Heading>
+                </BoxWrap>
+
+                <Heading
+                  as="h3"
+                  weight="semiBold"
+                  padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
+                >
+                  {clients?.length}
+                </Heading>
+              </Box>
+
+              <Box>
+                <BoxWrap>
+                  <ReceiptOutlinedIcon />
+
+                  <Heading
+                    as="h6"
+                    padding={{
+                      xs: { left: 1 },
+                      sm: { left: 1 },
+                      md: { left: 1 },
+                    }}
+                  >
+                    Invoiced
+                  </Heading>
+                </BoxWrap>
+
+                <Heading
+                  as="h3"
+                  weight="semiBold"
+                  padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
+                >
+                  {totalPrice?.toLocaleString()} €
+                </Heading>
+              </Box>
+
+              <Box>
+                <BoxWrap>
+                  <PaidOutlinedIcon />
+
+                  <Heading
+                    as="h6"
+                    padding={{
+                      xs: { left: 1 },
+                      sm: { left: 1 },
+                      md: { left: 1 },
+                    }}
+                  >
+                    Paid
+                  </Heading>
+                </BoxWrap>
+
+                <Heading
+                  as="h3"
+                  weight="semiBold"
+                  padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
+                >
+                  {totalPaidInvoices?.toLocaleString()} €
+                </Heading>
+              </Box>
+            </BoxWrapper>
           </Column>
 
-          <Column
-            responsivity={{ sm: 6, xs: 6, md: 3 }}
-            padding={{
-              xs: { top: 1 },
-              sm: { top: 1 },
-              md: { top: 0 },
-            }}
-          >
-            <Box>
-              <BoxWrap>
-                <PaidOutlinedIcon />
-
-                <Heading
-                  as="h6"
-                  padding={{
-                    xs: { left: 1 },
-                    sm: { left: 1 },
-                    md: { left: 1 },
-                  }}
-                >
-                  Paid
-                </Heading>
-              </BoxWrap>
-
-              <Heading
-                as="h3"
-                weight="semiBold"
-                padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
-              >
-                {totalPaidInvoices?.toLocaleString()} €
-              </Heading>
-            </Box>
+          <Column responsivity={{ md: 6 }}>
+            <LineChart invoices={invoices} />
           </Column>
         </Row>
 
