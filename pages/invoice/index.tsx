@@ -5,13 +5,13 @@ import { Dashboard } from "@containers";
 import { Layout } from "@components";
 
 // Core
-import type { GetServerSideProps } from "next";
+import { GetServerSideProps } from "next";
 
 // Vendors
 import { getSession } from "next-auth/react";
 
 // core types
-import type { Session } from "next-auth";
+import { Session } from "next-auth";
 
 interface ContentPageProps {
   session: Session;

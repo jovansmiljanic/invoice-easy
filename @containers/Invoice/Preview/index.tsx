@@ -440,7 +440,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
 
         <Column responsivity={{ md: 3 }}>
           <Options>
-            <DonwloadInvoice myAccount={myAccount} invoice={invoice} />
+            <DonwloadInvoice invoice={invoice} />
 
             <Button
               variant="warning"

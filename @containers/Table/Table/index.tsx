@@ -102,7 +102,7 @@ const Wrap = styled.div`
 
 interface Table {}
 
-const index: FC<Table> = ({}) => {
+const index: FC<Table> = () => {
   // Store context
   const { isPhone } = useContext(StoreContext);
 
@@ -155,11 +155,10 @@ const index: FC<Table> = ({}) => {
               <tr>
                 <td>ID</td>
                 <td>Client</td>
-                <td>Status</td>
-                <td>Date</td>
-                <td>Due date</td>
-                <td>Amount</td>
-                <td>Actions</td>
+                <td>Address</td>
+                <td>City</td>
+                <td>Country</td>
+                <td>ZIP code</td>
               </tr>
             </Thead>
           )}

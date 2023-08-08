@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
 
 interface File {
   invoice: Invoice;
-  myAccount: MyAccount;
+  myAccount?: MyAccount;
 }
 
 const index: FC<File> = ({ myAccount, invoice }) => {
@@ -145,10 +145,10 @@ const index: FC<File> = ({ myAccount, invoice }) => {
           </View>
 
           <View style={styles.col2}>
-            <Text>TRR: {myAccount.trr}</Text>
-            <Text>BIC koda: {myAccount.bic}</Text>
-            <Text>E-pošta: {myAccount.email}</Text>
-            <Text>Telefon: {myAccount.phoneNumber}</Text>
+            <Text>TRR: {myAccount?.trr}</Text>
+            <Text>BIC koda: {myAccount?.bic}</Text>
+            <Text>E-pošta: {myAccount?.email}</Text>
+            <Text>Telefon: {myAccount?.phoneNumber}</Text>
           </View>
         </View>
 
@@ -205,22 +205,22 @@ const index: FC<File> = ({ myAccount, invoice }) => {
 
           <Text>
             Znesek računa poravnajte na transakcijski račun odprt pri{" "}
-            {" " + myAccount.bankName}., številka {myAccount.trr}. Pri plačilu
+            {" " + myAccount?.bankName}., številka {myAccount?.trr}. Pri plačilu
             se sklicujte na številko računa.
           </Text>
 
           <Text>
-            {myAccount.companyField}, {myAccount.companyName}. Transakcijski
-            račun odprt pri {myAccount.bankName} – {myAccount.trr}
-            ., davčna številka: {myAccount.taxNumber}.
+            {myAccount?.companyField}, {myAccount?.companyName}. Transakcijski
+            račun odprt pri {myAccount?.bankName} – {myAccount?.trr}
+            ., davčna številka: {myAccount?.taxNumber}.
           </Text>
         </View>
 
         <View style={styles.footer}>
           <Text>
-            {myAccount.companyField}, {myAccount.companyName}. Transakcijski
-            račun odprt pri {myAccount.bankName} – {myAccount.trr}., davčna
-            številka: {myAccount.taxNumber}.
+            {myAccount?.companyField}, {myAccount?.companyName}. Transakcijski
+            račun odprt pri {myAccount?.bankName} – {myAccount?.trr}., davčna
+            številka: {myAccount?.taxNumber}.
           </Text>
         </View>
       </Page>

@@ -10,7 +10,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 
 // Nextjs types
-import { Session } from "next-auth";
+import type { Session } from "next-auth";
 
 interface Props {
   title?: string;

@@ -29,7 +29,7 @@ import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 // Global types
-import { Client, Invoice, MyAccount } from "@types";
+import { Invoice } from "@types";
 
 // GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
@@ -105,6 +105,14 @@ const Box = styled.div`
 
     @media (max-width: ${breakpoints.md}px) {
       padding: 20px 10px;
+
+      &:nth-child(1) {
+        margin-bottom: 10px;
+      }
+
+      &:nth-child(2) {
+        margin-bottom: 10px;
+      }
     }
   `}
 `;
@@ -140,13 +148,9 @@ interface IGridContext {
 
 export const GridContext = createContext({} as IGridContext);
 
-interface Dashboard {
-  clients?: Client[];
-  invoices?: Invoice[];
-  currentUser: MyAccount;
-}
+interface Dashboard {}
 
-const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
+const index: FC<Dashboard> = () => {
   const { query, push } = useRouter();
 
   // Declare filters
@@ -161,12 +165,13 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
 
   // Store Original and Updated/Filtered items
-  const [updatedInvoices, setUpdatedInvoices] = useState<Invoice[]>(
-    invoices ? invoices : []
-  );
+  const [updatedInvoices, setUpdatedInvoices] = useState<Invoice[]>();
 
   // Declare length
   const [length, setLength] = useState<number>(0);
+
+  // Declare length
+  const [clientsLength, setClientsLength] = useState<number>(0);
 
   // Indicate that new items are loading
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -206,6 +211,17 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
 
       // Length
       setLength(length);
+
+      // Set loader
+      setIsLoading(false);
+    });
+
+    // Call axios with filters and page as a string url
+    const clientUrl = `/api/client/`;
+
+    await axios.get(clientUrl).then(({ data: { length } }) => {
+      // Length
+      setClientsLength(length);
 
       // Set loader
       setIsLoading(false);
@@ -264,14 +280,17 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
   );
 
   // Calculate the total sum of prices
-  const totalPrice = invoices?.reduce((sum: number, invoice: Invoice) => {
-    const items = invoice.items;
-    const prices = items.map((item) => parseInt(item.price.toString()));
-    const total = prices.reduce((subtotal, price) => subtotal + price, 0);
-    return sum + total;
-  }, 0);
+  const totalPrice = updatedInvoices?.reduce(
+    (sum: number, invoice: Invoice) => {
+      const items = invoice.items;
+      const prices = items.map((item) => parseInt(item.price.toString()));
+      const total = prices.reduce((subtotal, price) => subtotal + price, 0);
+      return sum + total;
+    },
+    0
+  );
 
-  const totalPaid = invoices?.filter(
+  const totalPaid = updatedInvoices?.filter(
     (invoice: Invoice) => invoice.status === "1"
   );
 
@@ -339,7 +358,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
                   weight="semiBold"
                   padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
                 >
-                  {invoices?.length}
+                  {updatedInvoices?.length}
                 </Heading>
               </Box>
 
@@ -364,7 +383,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
                   weight="semiBold"
                   padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
                 >
-                  {clients?.length}
+                  {clientsLength}
                 </Heading>
               </Box>
 
@@ -421,7 +440,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
           </Column>
 
           <Column responsivity={{ md: 6 }}>
-            <LineChart invoices={invoices} />
+            <LineChart invoices={updatedInvoices} />
           </Column>
         </Row>
 
@@ -514,7 +533,7 @@ const index: FC<Dashboard> = ({ currentUser, invoices, clients }) => {
           </Column>
 
           <Column responsivity={{ md: 12 }}>
-            <Table currentUser={currentUser} />
+            <Table />
           </Column>
 
           {updatedInvoices && updatedInvoices.length > 0 && (
