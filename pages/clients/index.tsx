@@ -1,17 +1,15 @@
-// Global containers
-import { Dashboard } from "@containers";
-
 // Global components
 import { Layout } from "@components";
 
 // Core
-import type { GetServerSideProps } from "next";
+import { GetServerSideProps } from "next";
 
 // Vendors
 import { getSession } from "next-auth/react";
 
 // core types
-import type { Session } from "next-auth";
+import { Session } from "next-auth";
+import { TableTemplate } from "@containers/Table";
 
 interface ContentPageProps {
   session: Session;
@@ -20,7 +18,7 @@ interface ContentPageProps {
 export default function Page({ session }: ContentPageProps) {
   return (
     <Layout title="Dashboard" session={session}>
-      <Dashboard />
+      <TableTemplate />
     </Layout>
   );
 }

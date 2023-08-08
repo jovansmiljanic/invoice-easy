@@ -32,11 +32,6 @@ import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import { StoreContext } from "@context";
 import { DonwloadInvoice } from "@components/DownloadInvoice";
 
-interface Item {
-  $item: Invoice;
-  currentUser: MyAccount;
-}
-
 const Item = styled.div`
   cursor: pointer;
   display: flex;
@@ -217,7 +212,11 @@ const Tbody = styled.tbody`
   `}
 `;
 
-const index: FC<Item> = ({ $item, currentUser }) => {
+interface Item {
+  $item: Invoice;
+}
+
+const index: FC<Item> = ({ $item }) => {
   const { isPhone } = useContext(StoreContext);
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -267,11 +266,7 @@ const index: FC<Item> = ({ $item, currentUser }) => {
                 <VisibilityOutlinedIcon fontSize="small" />
               </Link>
 
-              <DonwloadInvoice
-                myAccount={currentUser}
-                invoice={$item}
-                icon={true}
-              />
+              <DonwloadInvoice invoice={$item} icon={true} />
 
               <Popup>
                 <MoreVertOutlinedIcon

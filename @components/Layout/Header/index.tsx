@@ -15,14 +15,18 @@ import { Column, Container, Row } from "@components/Grid";
 import { Heading, Logo } from "@components";
 
 // Client utils
-import { Session } from "next-auth";
+import type { Session } from "next-auth";
 
 // Icons
-import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
-import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+
+// Store context
 import { StoreContext } from "@context";
 
 const CustomLink = styled.span`
@@ -229,11 +233,19 @@ const index: FC<Header> = ({ session }) => {
                       </DropdownItem>
                     </Link>
 
-                    <Link href="/invoice/add">
+                    <Link href="/invoice">
                       <DropdownItem>
-                        <PostAddOutlinedIcon />
+                        <ReceiptIcon />
 
-                        <span>Create invoice</span>
+                        <span>Invoices</span>
+                      </DropdownItem>
+                    </Link>
+
+                    <Link href="/clients">
+                      <DropdownItem>
+                        <PeopleOutlineIcon />
+
+                        <span>Clients</span>
                       </DropdownItem>
                     </Link>
 

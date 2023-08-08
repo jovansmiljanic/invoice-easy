@@ -18,33 +18,46 @@ import { Button } from "@components";
 
 // Svg
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import axios from "axios";
 
 interface Download {
-  myAccount: MyAccount;
   invoice: Invoice;
   icon?: boolean;
 }
 
-const index: FC<Download> = ({ myAccount, invoice, icon }) => {
+const index: FC<Download> = ({ invoice, icon }) => {
   const [isClient, setIsClient] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [isUser, setIsUser] = useState<MyAccount>();
 
   useEffect(() => {
-    setIsClient(true);
+    // Set loader
+    setIsLoading(true);
+
+    // Call axios with filters and page as a string url
+    axios
+      .get("http://localhost:3000/api/registration/")
+      .then(({ data: { currentUser } }) => {
+        setIsUser(currentUser);
+        setIsLoading(false);
+        setIsClient(true);
+      });
   }, []);
 
   return (
     <>
       {isClient && (
         <PDFDownloadLink
-          document={<File myAccount={myAccount} invoice={invoice} />}
+          document={<File myAccount={isUser} invoice={invoice} />}
           fileName={`Invoice - ${
-            myAccount.firstName + " " + myAccount.lastName
+            isUser?.firstName + " " + isUser?.lastName
           } - ${invoice.client.clientName} - ${formatDate(
             invoice.issuedDate
           )}.pdf`}
         >
           {({ loading }) =>
-            loading && !icon ? (
+            loading && !icon && isLoading ? (
               <Button
                 variant="secondary"
                 size="small"
