@@ -1,5 +1,5 @@
 // Core
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 // Core types
 import { Client, Invoice, MyAccount } from "@types";
@@ -24,6 +24,7 @@ import { Total } from "./Total";
 import { Footer } from "./Footer";
 import { ClientDetails } from "./Client";
 import { AccountDetails } from "./Account";
+import { StoreContext } from "@context";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -84,13 +85,6 @@ const index: FC<NewInvoice> = ({
     },
   ]);
 
-  const [clientOption, setClientOption] = useState<{
-    clientName: string;
-    clientAddress: string;
-    zipCode: string;
-    taxNumber: string;
-  }>();
-
   useEffect(() => {
     if (invoice) {
       setTableData(invoice.items);
@@ -119,6 +113,8 @@ const index: FC<NewInvoice> = ({
     issuedDate: invoice?.createdAt,
   };
 
+  const { isClientData } = useContext(StoreContext);
+
   const addOnSubmit = (data: FormikValues) => {
     return {
       method: "POST",
@@ -129,7 +125,7 @@ const index: FC<NewInvoice> = ({
         endDate: endDate,
         issuedDate: new Date(),
         paymentDeadline: deadlineDate,
-        client: clientOption,
+        client: isClientData,
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
       },
@@ -147,7 +143,7 @@ const index: FC<NewInvoice> = ({
         endDate: endDate,
         issuedDate: new Date(),
         paymentDeadline: deadlineDate,
-        client: clientOption,
+        client: isClientData,
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
       },
@@ -162,6 +158,7 @@ const index: FC<NewInvoice> = ({
       onSubmit={async (data: FormikValues) => {
         await axios(invoice ? editOnSubmit(data) : addOnSubmit(data))
           .then((res) => {
+            console.log(res);
             router.push("/");
           })
           .catch((err) => {

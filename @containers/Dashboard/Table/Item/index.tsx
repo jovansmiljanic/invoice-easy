@@ -49,6 +49,10 @@ const Wrap = styled.div``;
 
 const Popup = styled.div`
   position: relative;
+
+  svg {
+    margin: 0 !important;
+  }
 `;
 
 const Modal = styled.div`
@@ -219,9 +223,10 @@ interface Item {
 const index: FC<Item> = ({ item }) => {
   const router = useRouter();
 
-  const { isPhone } = useContext(StoreContext);
-
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+
+  const { isPhone, setIsClientData, setIsConfirmModal, isConfirmModal } =
+    useContext(StoreContext);
 
   return (
     <>
@@ -285,14 +290,19 @@ const index: FC<Item> = ({ item }) => {
                       </ModalItem>
                     )}
 
-                    <ModalItem>Download</ModalItem>
+                    <DonwloadInvoice invoice={item} />
 
                     <Link href={`/invoice/edit/${item._id}`}>
                       <ModalItem>Edit</ModalItem>
                     </Link>
 
                     <ModalItem
-                      onClick={() => deleteItem(item._id, router, "invoice")}
+                      onClick={() => {
+                        // Edit client
+                        setIsClientData(item);
+
+                        setIsConfirmModal(!isConfirmModal);
+                      }}
                     >
                       Delete invoice
                     </ModalItem>

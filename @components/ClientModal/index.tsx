@@ -154,7 +154,6 @@ const index: FC = ({}) => {
   };
 
   const editOnSubmit = (data: FormikValues) => {
-    console.log(isClientData);
     return {
       method: "PUT",
       url: "/api/client",
@@ -178,7 +177,7 @@ const index: FC = ({}) => {
                 setIsModalOpen(false);
 
                 setIsClientData(res.data);
-                router.push("/clients");
+                router.asPath === "/invoice/add" ? "" : router.push("/clients");
               })
               .catch((err) => {
                 console.log(err);
