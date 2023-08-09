@@ -1,4 +1,5 @@
 // Core types
+import { Client, Invoice } from "@types";
 import { createContext, type FC } from "react";
 
 // Create Context base
@@ -10,7 +11,7 @@ interface IGridContext {
   limit: number;
   length: number;
   searchUrl: string;
-  updatedInvoices?: any[];
+  updatedInvoices?: (Client | Invoice)[];
   isLoading: boolean;
   pageName?: string;
 }
@@ -18,7 +19,7 @@ interface IGridContext {
 export const GridContext = createContext({} as IGridContext);
 
 interface Table {
-  children: any;
+  children: React.ReactNode;
   value: any;
 }
 

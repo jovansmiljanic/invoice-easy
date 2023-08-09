@@ -12,7 +12,7 @@ import { ThemeProvider } from "styled-components";
 
 // App context properties
 import { Theme } from "@context/theme";
-import { Client } from "@types";
+import { Client, Invoice } from "@types";
 
 // Instruct component Props Types
 interface Props {
@@ -24,13 +24,13 @@ interface AppContext {
   isPhone?: boolean;
   isTablet?: boolean;
   theme: "light" | "dark";
-  setTheme?: any;
-  isModalOpen?: boolean;
-  setIsModalOpen?: any;
-  isConfirmModal?: boolean;
-  setIsConfirmModal?: any;
-  isClientData?: Client;
-  setIsClientData?: any;
+  setTheme: (theme: string) => void;
+  isModalOpen: boolean;
+  setIsModalOpen: (isModalOpen: boolean) => void;
+  isConfirmModal: boolean;
+  setIsConfirmModal: (isConformModal: boolean) => void;
+  isClientData: Client;
+  setIsClientData: (isClientData?: any) => void;
 }
 
 export const Store: FC<Props> = (props) => {
@@ -49,7 +49,7 @@ export const Store: FC<Props> = (props) => {
   const [isClientData, setIsClientData] = useState<Client>();
   const isClientDataMemo = useMemo(() => isClientData, [isClientData]);
 
-  const [theme, setTheme] = useState<"light" | "dark">("dark"); // Set initial theme
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
     const prefersDark = window.matchMedia(

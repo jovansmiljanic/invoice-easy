@@ -19,10 +19,6 @@ import axios from "axios";
 import styled, { css } from "styled-components";
 
 // Icons
-import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
-import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
-import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 // Global types
@@ -40,6 +36,7 @@ import {
   Search,
   TableContext,
 } from "@components";
+import { Boxes } from "./Boxes";
 
 interface IFilters {
   status?: string | string[];
@@ -91,47 +88,6 @@ const Col2 = styled.div`
   `}
 `;
 
-const BoxWrapper = styled.div`
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
-
-const Box = styled.div`
-  padding: 20px;
-  border-radius: 5px;
-  flex: 0 0 49%;
-  max-height: 150px;
-
-  ${({ theme: { colors, breakpoints } }) => css`
-    border: 1px solid ${colors.lightGray};
-
-    @media (max-width: ${breakpoints.md}px) {
-      padding: 20px 10px;
-
-      &:nth-child(1) {
-        margin-bottom: 10px;
-      }
-
-      &:nth-child(2) {
-        margin-bottom: 10px;
-      }
-    }
-  `}
-`;
-
-const BoxWrap = styled.div`
-  display: flex;
-  align-items: center;
-
-  ${({ theme: { colors } }) => css`
-    svg {
-      fill: ${colors.textColor};
-    }
-  `}
-`;
-
 interface Checkbox {
   label: string;
   value: string;
@@ -155,6 +111,9 @@ const index: FC<Dashboard> = () => {
 
   // Store Original and Updated/Filtered items
   const [updatedInvoices, setUpdatedInvoices] = useState<Invoice[]>();
+
+  // Store Original and Updated/Filtered items
+  const [totalInvoices, setTotalInvoices] = useState<Invoice[]>();
 
   // Declare length
   const [length, setLength] = useState<number>(0);
@@ -194,16 +153,21 @@ const index: FC<Dashboard> = () => {
     // Call axios with filters and page as a string url
     const invoiceUrl = `/api/invoice/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
 
-    await axios.get(invoiceUrl).then(({ data: { items, length } }) => {
-      // Invoices
-      setUpdatedInvoices(items);
+    await axios
+      .get(invoiceUrl)
+      .then(({ data: { items, length, allInvoices } }) => {
+        // Invoices
+        setUpdatedInvoices(items);
 
-      // Length
-      setLength(length);
+        // Invoices
+        setTotalInvoices(allInvoices);
 
-      // Set loader
-      setIsLoading(false);
-    });
+        // Length
+        setLength(length);
+
+        // Set loader
+        setIsLoading(false);
+      });
 
     // Call axios with filters and page as a string url
     const clientUrl = `/api/client/`;
@@ -268,32 +232,6 @@ const index: FC<Dashboard> = () => {
     50
   );
 
-  // Calculate the total sum of prices
-  const totalPrice = updatedInvoices?.reduce(
-    (sum: number, invoice: Invoice) => {
-      const items = invoice.items;
-      const prices = items.map((item) => parseInt(item.price.toString()));
-      const total = prices.reduce((subtotal, price) => subtotal + price, 0);
-      return sum + total;
-    },
-    0
-  );
-
-  const totalPaid = updatedInvoices?.filter(
-    (invoice: Invoice) => invoice.status === "1"
-  );
-
-  // Calculate the total sum of prices
-  const totalPaidInvoices = totalPaid?.reduce(
-    (sum: number, invoice: Invoice) => {
-      const items = invoice.items;
-      const prices = items.map((item) => parseInt(item.price.toString()));
-      const total = prices.reduce((subtotal, price) => subtotal + price, 0);
-      return sum + total;
-    },
-    0
-  );
-
   return (
     <TableContext
       value={{
@@ -318,118 +256,22 @@ const index: FC<Dashboard> = () => {
           justifyContent={{ md: "space-between" }}
         >
           <Column
-            responsivity={{ md: 6 }}
+            responsivity={{ sm: 12, md: 6, xs: 6 }}
             padding={{
               xs: { bottom: 5 },
               sm: { bottom: 5 },
               md: { bottom: 0 },
             }}
           >
-            <BoxWrapper>
-              <Box>
-                <BoxWrap>
-                  <ReceiptLongOutlinedIcon />
-
-                  <Heading
-                    as="h6"
-                    padding={{
-                      xs: { left: 1 },
-                      sm: { left: 1 },
-                      md: { left: 1 },
-                    }}
-                  >
-                    Invoices
-                  </Heading>
-                </BoxWrap>
-
-                <Heading
-                  as="h3"
-                  weight="semiBold"
-                  padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
-                >
-                  {updatedInvoices?.length}
-                </Heading>
-              </Box>
-
-              <Box>
-                <BoxWrap>
-                  <GroupOutlinedIcon />
-
-                  <Heading
-                    as="h6"
-                    padding={{
-                      xs: { left: 1 },
-                      sm: { left: 1 },
-                      md: { left: 1 },
-                    }}
-                  >
-                    Clients
-                  </Heading>
-                </BoxWrap>
-
-                <Heading
-                  as="h3"
-                  weight="semiBold"
-                  padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
-                >
-                  {clientsLength}
-                </Heading>
-              </Box>
-
-              <Box>
-                <BoxWrap>
-                  <ReceiptOutlinedIcon />
-
-                  <Heading
-                    as="h6"
-                    padding={{
-                      xs: { left: 1 },
-                      sm: { left: 1 },
-                      md: { left: 1 },
-                    }}
-                  >
-                    Invoiced
-                  </Heading>
-                </BoxWrap>
-
-                <Heading
-                  as="h3"
-                  weight="semiBold"
-                  padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
-                >
-                  {totalPrice?.toLocaleString()} €
-                </Heading>
-              </Box>
-
-              <Box>
-                <BoxWrap>
-                  <PaidOutlinedIcon />
-
-                  <Heading
-                    as="h6"
-                    padding={{
-                      xs: { left: 1 },
-                      sm: { left: 1 },
-                      md: { left: 1 },
-                    }}
-                  >
-                    Paid
-                  </Heading>
-                </BoxWrap>
-
-                <Heading
-                  as="h3"
-                  weight="semiBold"
-                  padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
-                >
-                  {totalPaidInvoices?.toLocaleString()} €
-                </Heading>
-              </Box>
-            </BoxWrapper>
+            <Boxes
+              items={totalInvoices}
+              invoicesLength={length}
+              clientsLenght={clientsLength}
+            />
           </Column>
 
-          <Column responsivity={{ md: 6 }}>
-            <LineChart invoices={updatedInvoices} />
+          <Column responsivity={{ sm: 12, md: 6, xs: 6 }}>
+            <LineChart invoices={totalInvoices} />
           </Column>
         </Row>
 

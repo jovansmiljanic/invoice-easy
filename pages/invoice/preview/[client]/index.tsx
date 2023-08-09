@@ -12,7 +12,7 @@ import { getSession } from "next-auth/react";
 
 // Global types
 import { Invoice, MyAccount } from "@types";
-import { Session } from "next-auth";
+import type { Session } from "next-auth";
 
 interface ContentPageProps {
   currentUser: MyAccount;
@@ -55,10 +55,10 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       },
     }
   );
-  const { items: invoices } = await invoiceDetails.json();
+  const { items: invoices }: { items: Invoice[] } = await invoiceDetails.json();
 
   const [invoice] = invoices.filter(
-    ({ _id }: any) => _id === ctx.params?.client
+    ({ _id }) => _id.toString() === ctx.params?.client
   );
 
   // Pass data to the page via props

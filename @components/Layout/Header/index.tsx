@@ -153,10 +153,10 @@ const index: FC<Header> = ({ session }) => {
   // Toggle resources dropdown
   const [dropdown, setDropdown] = useState(false);
 
-  const handleClickOutside = (event: any) => {
+  const handleClickOutside = (event: MouseEvent) => {
     if (
       resourcesPopupRef.current &&
-      !resourcesPopupRef.current.contains(event.target as Element)
+      !resourcesPopupRef.current.contains(event.target as Node)
     ) {
       setDropdown(false);
     }

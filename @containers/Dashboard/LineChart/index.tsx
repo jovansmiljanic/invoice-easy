@@ -17,6 +17,7 @@ import {
   Legend,
 } from "chart.js";
 import { getTotalAmountsByMonth } from "@utils/client";
+import styled, { css } from "styled-components";
 
 interface LineChart {
   invoices?: Invoice[];
@@ -31,6 +32,15 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+const Wrap = styled.div`
+  width: 100%;
+
+  canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+`;
 
 const index: FC<LineChart> = ({ invoices }) => {
   const [totalAmountsByMonth, setTotalAmountsByMonth] = useState<
@@ -58,7 +68,11 @@ const index: FC<LineChart> = ({ invoices }) => {
     ],
   };
 
-  return <Line data={chartData} />;
+  return (
+    <Wrap>
+      <Line data={chartData} />
+    </Wrap>
+  );
 };
 
 export { index as LineChart };

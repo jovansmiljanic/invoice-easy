@@ -1,5 +1,5 @@
 // Core types
-import { useContext, type FC } from "react";
+import { useContext, type FC, ChangeEvent } from "react";
 
 // GLobal components
 import { Button, Heading } from "@components";
@@ -7,7 +7,7 @@ import { Button, Heading } from "@components";
 // Vendors
 import Select from "react-select";
 import DatePicker from "react-datepicker";
-import { useFormikContext } from "formik";
+import { FormikValues, useFormikContext } from "formik";
 import styled, { css } from "styled-components";
 
 // Core types
@@ -126,15 +126,14 @@ const HelpWrap = styled.div`
 `;
 
 interface Client {
-  startDate: any;
-  endDate: any;
-  deadlineDate: any;
-  setStartDate: any;
-  setEndDate: any;
-  setDeadlineDate: any;
+  startDate?: Date | null;
+  setStartDate: (date: Date | null) => void;
+  endDate?: Date | null;
+  setEndDate: (date: Date | null) => void;
+  deadlineDate?: Date | null;
+  setDeadlineDate: (date: Date | null) => void;
   client?: ClientTypes[];
   currentClient?: Partial<ClientTypes>;
-  values: any;
   invoice?: InvoiceTypes;
 }
 
@@ -147,21 +146,20 @@ const index: FC<Client> = ({
   setDeadlineDate,
   client,
   currentClient,
-  values,
   invoice,
 }) => {
   const { isModalOpen, setIsModalOpen, setIsClientData, isClientData } =
     useContext(StoreContext);
 
-  const { handleBlur, handleChange } = useFormikContext();
+  const { handleBlur, handleChange, values } = useFormikContext<FormikValues>();
 
   const clientOptions = client?.map((item) => {
     return { value: item, label: item.clientName };
   });
 
   // Handle types
-  const handleChangeType = (e: any) => {
-    setIsClientData(e.value);
+  const handleChangeType = (selected: any) => {
+    setIsClientData(selected.value);
   };
 
   return (
@@ -199,7 +197,7 @@ const index: FC<Client> = ({
               instanceId="newClient"
               options={clientOptions}
               placeholder="Choose existing one"
-              onChange={(e: any) => handleChangeType(e)}
+              onChange={(selected) => handleChangeType(selected)}
               onBlur={handleBlur}
             />
 

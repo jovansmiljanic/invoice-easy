@@ -72,6 +72,8 @@ const index: FC<NewInvoice> = ({
   // Handle router
   const router = useRouter();
 
+  const { isClientData } = useContext(StoreContext);
+
   const [startDate, setStartDate] = useState<Date | null>();
   const [endDate, setEndDate] = useState<Date | null>();
   const [deadlineDate, setDeadlineDate] = useState<Date | null>();
@@ -112,8 +114,6 @@ const index: FC<NewInvoice> = ({
     paymentDeadline: invoice?.paymentDeadline,
     issuedDate: invoice?.createdAt,
   };
-
-  const { isClientData } = useContext(StoreContext);
 
   const addOnSubmit = (data: FormikValues) => {
     return {
@@ -196,13 +196,12 @@ const index: FC<NewInvoice> = ({
                     setEndDate={setEndDate}
                     deadlineDate={deadlineDate}
                     setDeadlineDate={setDeadlineDate}
-                    values={values}
                     invoice={invoice}
                   />
 
                   <Table tableData={tableData} setTableData={setTableData} />
 
-                  <Total tableData={tableData} values={values} />
+                  <Total tableData={tableData} />
 
                   <Footer currentUser={currentUser} />
                 </NewInvoice>
