@@ -37,7 +37,7 @@ const index: FC<Download> = ({ invoice, icon }) => {
 
     // Call axios with filters and page as a string url
     axios
-      .get("http://localhost:3000/api/registration/")
+      .get(`${process.env.NEXTAUTH_URL}/api/registration/`)
       .then(({ data: { currentUser } }) => {
         setIsUser(currentUser);
         setIsLoading(false);
