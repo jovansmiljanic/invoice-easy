@@ -12,6 +12,7 @@ import { ThemeProvider } from "styled-components";
 
 // App context properties
 import { Theme } from "@context/theme";
+import { Client } from "@types";
 
 // Instruct component Props Types
 interface Props {
@@ -24,6 +25,12 @@ interface AppContext {
   isTablet?: boolean;
   theme: "light" | "dark";
   setTheme?: any;
+  isModalOpen?: boolean;
+  setIsModalOpen?: any;
+  isConfirmModal?: boolean;
+  setIsConfirmModal?: any;
+  isClientData?: Client;
+  setIsClientData?: any;
 }
 
 export const Store: FC<Props> = (props) => {
@@ -32,6 +39,15 @@ export const Store: FC<Props> = (props) => {
 
   const [isTablet, setIsTablet] = useState<boolean>();
   const isTabletMemo = useMemo(() => isTablet, [isTablet]);
+
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const isModalOpenMemo = useMemo(() => isModalOpen, [isModalOpen]);
+
+  const [isConfirmModal, setIsConfirmModal] = useState(false);
+  const isConfirmModalMemo = useMemo(() => isConfirmModal, [isConfirmModal]);
+
+  const [isClientData, setIsClientData] = useState();
+  const isClientDataMemo = useMemo(() => isClientData, [isClientData]);
 
   const [theme, setTheme] = useState<"light" | "dark">("dark"); // Set initial theme
 
@@ -76,6 +92,12 @@ export const Store: FC<Props> = (props) => {
         {
           isPhone: isPhoneMemo,
           isTablet: isTabletMemo,
+          isModalOpen: isModalOpenMemo,
+          setIsModalOpen,
+          isClientData: isClientDataMemo,
+          setIsClientData,
+          isConfirmModal: isConfirmModalMemo,
+          setIsConfirmModal,
           theme: theme,
           setTheme,
         } as AppContext

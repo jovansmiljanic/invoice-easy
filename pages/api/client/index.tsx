@@ -38,20 +38,12 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
             case "searchQuery":
               return {
                 ...p,
-                companyName: val
+                clientName: val
                   ? {
                       $regex: new RegExp(val.toString(), "i"),
                     }
                   : "",
               };
-
-            // case "type":
-            //   const types = val?.toString().split(",");
-            //   return { ...p, [key]: types?.map((type) => type) };
-
-            // case "topic":
-            //   const topics = val?.toString().split(",");
-            //   return { ...p, [key]: topics?.map((topic) => topic) };
 
             default:
               return { ...p, [key]: val };
@@ -100,6 +92,48 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // Return the created user
     return res.send(client);
+  }
+
+  // Process a POST request
+  if (method === "PUT") {
+    // If user has no access, return an error
+    if (!session) {
+      return res
+        .status(401)
+        .send({ error: "Please sign in to perform the action." });
+    }
+
+    const {
+      body: { _id, ...rest },
+    } = req;
+
+    // const invoice = new Invoice(body);
+    const updatedInvoice = await Client.findOneAndUpdate(
+      { _id },
+      { ...rest, updatedAt: new Date() },
+      { new: true }
+    );
+
+    // Store user on the Database
+    await updatedInvoice.save();
+
+    // // Return the created user
+    return res.send(updatedInvoice);
+  }
+
+  // Process a GET request
+  if (method === "DELETE") {
+    // If user has no access, return an error
+    if (!session) {
+      return res
+        .status(401)
+        .send({ error: "Please sign in to perform the action." });
+    }
+
+    const { body } = req;
+
+    // Grab current user
+    await Client.deleteOne({ _id: body });
   }
 
   // End request

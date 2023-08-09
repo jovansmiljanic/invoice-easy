@@ -1,5 +1,5 @@
 // Core
-import { type FC, createContext, useEffect, useState, useMemo } from "react";
+import { type FC, useEffect, useState, useMemo } from "react";
 
 // NextJS
 import { useRouter } from "next/router";
@@ -12,9 +12,6 @@ import { useDebouncedEffect } from "@utils/client";
 
 // Local components
 import { Table } from "./Table";
-import { Search } from "./Search";
-import { Filters } from "./Filters";
-import { Pagination } from "./Pagination";
 import { LineChart } from "./LineChart";
 
 // Vendors
@@ -35,7 +32,14 @@ import { Invoice } from "@types";
 import { Column, Container, Row } from "@components/Grid";
 
 // Global components
-import { Button, Heading } from "@components";
+import {
+  Button,
+  Filters,
+  Heading,
+  Pagination,
+  Search,
+  TableContext,
+} from "@components";
 
 interface IFilters {
   status?: string | string[];
@@ -132,21 +136,6 @@ interface Checkbox {
   label: string;
   value: string;
 }
-
-// Create Context base
-interface IGridContext {
-  page: number;
-  searchQuery: string | undefined;
-  setSearchQuery: Function;
-  queryUrl: string;
-  limit: number;
-  length: number;
-  searchUrl: string;
-  updatedInvoices?: Invoice[];
-  isLoading: boolean;
-}
-
-export const GridContext = createContext({} as IGridContext);
 
 interface Dashboard {}
 
@@ -306,7 +295,7 @@ const index: FC<Dashboard> = () => {
   );
 
   return (
-    <GridContext.Provider
+    <TableContext
       value={{
         page: pageMemo,
         searchQuery,
@@ -473,34 +462,6 @@ const index: FC<Dashboard> = () => {
               <Col2>
                 <Search />
 
-                {/* <Filters
-                  name="year"
-                  label="Select year"
-                  preSelected={yearSelected}
-                  options={[
-                    { label: "2022", value: "2022" },
-                    {
-                      label: "2023",
-                      value: "2023",
-                    },
-                  ]}
-                  callback={(e: Filter[]) => {
-                    if (
-                      e &&
-                      (e.map((a) => a.value !== null) ||
-                        e.map((a) => a.value !== undefined))
-                    ) {
-                      const { year, page, searchQuery, ...oldQuery } = query;
-                      const mp = e.map((el) => el.value);
-                      const filterQuery = objectToQuery({
-                        query: { ...oldQuery, year: mp },
-                      });
-
-                      push(`/?${filterQuery}${searchUrl}&page=${0}`);
-                    }
-                  }}
-                /> */}
-
                 <Filters
                   name="status"
                   label="Filter by status"
@@ -543,7 +504,7 @@ const index: FC<Dashboard> = () => {
           )}
         </Row>
       </Container>
-    </GridContext.Provider>
+    </TableContext>
   );
 };
 

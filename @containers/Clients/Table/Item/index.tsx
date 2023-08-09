@@ -2,7 +2,7 @@
 import { type FC, useContext } from "react";
 
 // Vendors
-import { lighten } from "polished";
+import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
 
 // Shared utils
@@ -13,6 +13,10 @@ import { Client } from "@types";
 
 // Global context
 import { StoreContext } from "@context";
+
+// Svg
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 const Item = styled.div`
   cursor: pointer;
@@ -27,7 +31,29 @@ const Item = styled.div`
   `}
 `;
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  display: flex;
+
+  ${({ theme: { colors } }) => css`
+    svg {
+      &:nth-child(1) {
+        &:hover {
+          path {
+            fill: ${colors.danger};
+          }
+        }
+      }
+
+      &:nth-child(2) {
+        &:hover {
+          path {
+            fill: ${colors.warning};
+          }
+        }
+      }
+    }
+  `}
+`;
 
 const Thead = styled.thead`
   font-size: 14px;
@@ -88,7 +114,7 @@ const Tbody = styled.tbody`
       }
 
       &:nth-child(2) {
-        width: 15%;
+        width: 20%;
         font-weight: 600;
       }
 
@@ -97,15 +123,12 @@ const Tbody = styled.tbody`
       }
 
       &:nth-child(4) {
-        width: 15%;
+        width: 20%;
       }
 
       &:nth-child(5) {
-        width: 15%;
-      }
-
-      &:nth-child(6) {
-        width: 15%;
+        width: 2%;
+        cursor: pointer;
       }
 
       @media (max-width: ${breakpoints.md}px) {
@@ -116,11 +139,26 @@ const Tbody = styled.tbody`
 `;
 
 interface Item {
-  $item: Client;
+  item: Client;
 }
 
-const index: FC<Item> = ({ $item }) => {
-  const { isPhone } = useContext(StoreContext);
+const index: FC<Item> = ({ item }) => {
+  const {
+    isPhone,
+    setIsConfirmModal,
+    isConfirmModal,
+    setIsClientData,
+    setIsModalOpen,
+    isModalOpen,
+  } = useContext(StoreContext);
+
+  const handleEdit = (item: Client) => {
+    // Modal state
+    setIsModalOpen(!isModalOpen);
+
+    // Edit client
+    setIsClientData(item);
+  };
 
   return (
     <>
@@ -130,23 +168,34 @@ const index: FC<Item> = ({ $item }) => {
             <td>ID</td>
             <td>Client</td>
             <td>Address</td>
-            <td>City</td>
             <td>Country</td>
-            <td>ZIP code</td>
           </tr>
         </Thead>
       )}
 
       <Tbody>
         <tr>
-          <td onClick={() => copyText($item._id.toString())}>
-            #{$item._id.toString().slice(19)}
+          <td onClick={() => copyText(item._id.toString())}>
+            #{item._id.toString().slice(19)}
           </td>
-          <td>{$item.clientName}</td>
-          <td>{$item.clientAddress}</td>
-          <td>{$item.city}</td>
-          <td>{$item.country}</td>
-          <td>{$item.zipCode}</td>
+          <td>{item.clientName}</td>
+          <td>{item.clientAddress}</td>
+          <td>{item.country}</td>
+
+          <td>
+            <Wrap>
+              <DeleteOutlineIcon
+                onClick={() => {
+                  // Edit client
+                  setIsClientData(item);
+
+                  setIsConfirmModal(!isConfirmModal);
+                }}
+              />
+
+              <EditIcon onClick={() => handleEdit(item)} />
+            </Wrap>
+          </td>
         </tr>
       </Tbody>
     </>

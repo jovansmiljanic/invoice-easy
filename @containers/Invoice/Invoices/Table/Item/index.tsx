@@ -217,11 +217,10 @@ interface Item {
 }
 
 const index: FC<Item> = ({ item }) => {
-  const router = useRouter();
-
   const { isPhone } = useContext(StoreContext);
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -285,7 +284,7 @@ const index: FC<Item> = ({ item }) => {
                       </ModalItem>
                     )}
 
-                    <ModalItem>Download</ModalItem>
+                    <DonwloadInvoice invoice={item} />
 
                     <Link href={`/invoice/edit/${item._id}`}>
                       <ModalItem>Edit</ModalItem>

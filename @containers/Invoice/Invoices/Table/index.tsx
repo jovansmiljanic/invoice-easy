@@ -5,15 +5,21 @@ import { useContext, type FC } from "react";
 import styled, { css } from "styled-components";
 
 // Grid store
-import { GridContext } from "..";
 
 // Local component
 import { Item } from "./Item";
-import { Placeholder } from "./Placeholder";
+
+// Store context
 import { StoreContext } from "@context";
+
+// SVG
 import { NotFoundIcon } from "public/svg";
-import { Button, Heading } from "@components";
-import { MyAccount } from "@types";
+
+// Global components
+import { Button, Heading, TablePlaceholder } from "@components";
+
+// Table template
+import { GridContext } from "@components/TableTemplate";
 
 const NotFound = styled.div`
   display: flex;
@@ -102,7 +108,7 @@ const Wrap = styled.div`
 
 interface Table {}
 
-const index: FC<Table> = () => {
+const index: FC<Table> = ({}) => {
   // Store context
   const { isPhone } = useContext(StoreContext);
 
@@ -112,7 +118,7 @@ const index: FC<Table> = () => {
   return (
     <Wrap>
       {isLoading || !updatedInvoices ? (
-        <Placeholder />
+        <TablePlaceholder />
       ) : length === 0 ? (
         <NotFound>
           <div>
@@ -155,16 +161,17 @@ const index: FC<Table> = () => {
               <tr>
                 <td>ID</td>
                 <td>Client</td>
-                <td>Address</td>
-                <td>City</td>
-                <td>Country</td>
-                <td>ZIP code</td>
+                <td>Status</td>
+                <td>Date</td>
+                <td>Due date</td>
+                <td>Amount</td>
+                <td>Actions</td>
               </tr>
             </Thead>
           )}
 
           {Array.isArray(updatedInvoices) &&
-            updatedInvoices.map((item, i) => <Item $item={item} key={i} />)}
+            updatedInvoices.map((item, i) => <Item item={item} key={i} />)}
         </Table>
       )}
     </Wrap>

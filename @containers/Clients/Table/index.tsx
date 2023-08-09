@@ -13,10 +13,10 @@ import { StoreContext } from "@context";
 // SVG
 import { NotFoundIcon } from "public/svg";
 
-// GLobal components
+// Global components
 import { Button, Heading, TablePlaceholder } from "@components";
 
-// Table Template
+// Table template
 import { GridContext } from "@components/TableTemplate";
 
 const NotFound = styled.div`
@@ -69,28 +69,15 @@ const Thead = styled.thead`
       }
 
       &:nth-child(2) {
-        width: 15%;
+        width: 25%;
       }
 
       &:nth-child(3) {
-        width: 15%;
+        width: 25%;
       }
 
       &:nth-child(4) {
-        width: 15%;
-      }
-
-      &:nth-child(5) {
-        width: 15%;
-      }
-
-      &:nth-child(6) {
-        width: 15%;
-      }
-
-      &:nth-child(7) {
-        display: flex;
-        justify-content: flex-end;
+        width: 2%;
       }
     }
   `}
@@ -106,7 +93,7 @@ const Wrap = styled.div`
 
 interface Table {}
 
-const index: FC<Table> = ({}) => {
+const index: FC<Table> = () => {
   // Store context
   const { isPhone } = useContext(StoreContext);
 
@@ -159,11 +146,8 @@ const index: FC<Table> = ({}) => {
               <tr>
                 <td>ID</td>
                 <td>Client</td>
-                <td>Status</td>
-                <td>Date</td>
-                <td>Due date</td>
-                <td>Amount</td>
-                <td>Actions</td>
+                <td>Address</td>
+                <td>Country</td>
               </tr>
             </Thead>
           )}

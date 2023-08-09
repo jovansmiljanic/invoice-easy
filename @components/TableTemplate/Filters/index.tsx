@@ -7,6 +7,7 @@ import { Filter, Label } from "@styles/Filter";
 // Vendors
 import styled, { css } from "styled-components";
 
+// SVG
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
 
