@@ -36,13 +36,11 @@ const index: FC<Download> = ({ invoice, icon }) => {
     setIsLoading(true);
 
     // Call axios with filters and page as a string url
-    axios
-      .get(`${process.env.NEXTAUTH_URL}/api/registration/`)
-      .then(({ data: { currentUser } }) => {
-        setIsUser(currentUser);
-        setIsLoading(false);
-        setIsClient(true);
-      });
+    axios.get(`/api/registration/`).then(({ data: { currentUser } }) => {
+      setIsUser(currentUser);
+      setIsLoading(false);
+      setIsClient(true);
+    });
   }, []);
 
   return (
