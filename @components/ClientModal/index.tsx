@@ -116,10 +116,10 @@ const index: FC = ({}) => {
     };
   }, []);
 
-  const handleClickOutside = (event: { target: any }) => {
+  const handleClickOutside = (event: MouseEvent) => {
     if (
       modalPopupRef.current &&
-      !modalPopupRef.current.contains(event.target)
+      !modalPopupRef.current.contains(event.target as Node)
     ) {
       setIsModalOpen(false);
     }

@@ -76,8 +76,12 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
       .limit(Number(limit))
       .sort({ createdAt: -1 });
 
+    const allInvoices = await Invoice.find({
+      owner: session?.user._id,
+    });
+
     // Return the object
-    return res.send({ items: invoices, length });
+    return res.send({ items: invoices, length, allInvoices });
   }
 
   // Process a POST request

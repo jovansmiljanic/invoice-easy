@@ -59,10 +59,10 @@ const index: FC = () => {
     };
   }, []);
 
-  const handleClickOutside = (event: { target: any }) => {
+  const handleClickOutside = (event: MouseEvent) => {
     if (
       modalPopupRef.current &&
-      !modalPopupRef.current.contains(event.target)
+      !modalPopupRef.current.contains(event.target as Node)
     ) {
       setIsConfirmModal(false);
     }
@@ -88,7 +88,7 @@ const index: FC = () => {
         <Button
           variant="danger"
           onClick={() => (
-            deleteItem(isClientData?._id, router, path),
+            deleteItem({ id: isClientData?._id, router, path }),
             setIsConfirmModal(false)
           )}
         >

@@ -1,6 +1,17 @@
-import axios, { AxiosResponse } from "axios";
+// Vendor types
+import type { NextRouter } from "next/router";
 
-export const deleteItem = async (id: any, router: any, path: string) => {
+// Vendor
+import axios, { AxiosResponse } from "axios";
+import type mongoose from "mongoose";
+
+interface DeleteItem {
+  id: mongoose.Types.ObjectId;
+  router: NextRouter;
+  path: string;
+}
+
+export const deleteItem = async ({ id, router, path }: DeleteItem) => {
   await axios({
     method: "DELETE",
     url: `/api/${path}`,

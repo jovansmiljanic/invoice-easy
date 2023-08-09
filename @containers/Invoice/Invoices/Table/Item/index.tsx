@@ -22,7 +22,7 @@ import {
 } from "@utils/client";
 
 // GLobal types
-import { Invoice } from "@types";
+import { Client, Invoice } from "@types";
 
 // Svg
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
@@ -291,7 +291,9 @@ const index: FC<Item> = ({ item }) => {
                     </Link>
 
                     <ModalItem
-                      onClick={() => deleteItem(item._id, router, "invoice")}
+                      onClick={() =>
+                        deleteItem({ id: item._id, router, path: "invoice" })
+                      }
                     >
                       Delete invoice
                     </ModalItem>

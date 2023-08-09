@@ -102,7 +102,7 @@ type Values = {
 
 interface Table {
   tableData: Values[];
-  setTableData: any;
+  setTableData: (tableData: Values[]) => void;
 }
 
 const index: FC<Table> = ({ tableData, setTableData }) => {
@@ -110,18 +110,21 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
     index: number,
-    field: any
-  ) => {
-    const newData: any = [...tableData];
-    newData[index][field] = e.target.value;
+    field: keyof Values
+  ): void => {
+    const newData: Values[] = [...tableData];
+
+    // Use type assertion to indicate the type of newData[index][field]
+    (newData[index][field] as string) = e.target.value;
 
     // Calculate the price
-    const cost = parseFloat(newData[index].cost);
-    const qty = parseFloat(newData[index].qty);
+    const cost = newData[index].cost;
+    const qty = newData[index].qty;
+
     if (!isNaN(cost) && !isNaN(qty)) {
-      newData[index].price = (cost * qty).toString();
+      newData[index].price = cost * qty;
     } else {
-      newData[index].price = "";
+      newData[index].price = 0;
     }
 
     setTableData(newData);

@@ -174,10 +174,10 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
   const accountDropdownRef = useRef<HTMLDivElement>(null);
 
   // Handle click outside it's Ref
-  const handleClickOutside = (event: { target: any }) => {
+  const handleClickOutside = (event: MouseEvent) => {
     if (
       accountDropdownRef.current &&
-      !accountDropdownRef.current.contains(event.target)
+      !accountDropdownRef.current.contains(event.target as Node)
     ) {
       setDropdown(false);
     }

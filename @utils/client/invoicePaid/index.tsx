@@ -1,6 +1,15 @@
-import axios from "axios";
+// Vendor types
+import type { NextRouter } from "next/router";
 
-export const invoicePaid = async ({ _id, router }: any) => {
+// Vendors
+import axios from "axios";
+import type mongoose from "mongoose";
+
+interface InvoicePaid {
+  _id: mongoose.Types.ObjectId;
+  router: NextRouter;
+}
+export const invoicePaid = async ({ _id, router }: InvoicePaid) => {
   await axios
     .put("/api/invoice", { _id, status: "1" })
     .then((res) => {

@@ -11,7 +11,7 @@ import { Field } from "@styles/Form";
 import { getTotalPrice, getSubTotalPrice } from "@utils/client";
 
 // Vendors
-import { useFormikContext } from "formik";
+import { FormikValues, useFormikContext } from "formik";
 
 // Vendors
 import styled, { css } from "styled-components";
@@ -48,13 +48,19 @@ const TotalRow = styled.div`
   }
 `;
 
+type Values = {
+  name: string;
+  cost: number;
+  qty: number;
+  price: number;
+};
+
 interface Total {
-  tableData: any;
-  values: any;
+  tableData: Values[];
 }
 
-const index: FC<Total> = ({ tableData, values }) => {
-  const { handleBlur, handleChange } = useFormikContext();
+const index: FC<Total> = ({ tableData }) => {
+  const { handleBlur, handleChange, values } = useFormikContext<FormikValues>();
 
   return (
     <Total>

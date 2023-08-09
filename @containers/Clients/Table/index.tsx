@@ -18,6 +18,7 @@ import { Button, Heading, TablePlaceholder } from "@components";
 
 // Table template
 import { GridContext } from "@components/TableTemplate";
+import { Client } from "@types";
 
 const NotFound = styled.div`
   display: flex;
@@ -153,7 +154,9 @@ const index: FC<Table> = () => {
           )}
 
           {Array.isArray(updatedInvoices) &&
-            updatedInvoices.map((item, i) => <Item item={item} key={i} />)}
+            updatedInvoices.map((item, i) => (
+              <Item item={item as Client} key={i} />
+            ))}
         </Table>
       )}
     </Wrap>
