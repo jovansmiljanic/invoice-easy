@@ -1,11 +1,11 @@
 // Core
-import { FC, useContext, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 // Core types
 import { Client, Invoice, MyAccount } from "@types";
 
 // Global components
-import { ClientModal, Button } from "@components";
+import { Button } from "@components";
 
 // GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
@@ -24,7 +24,6 @@ import { Total } from "./Total";
 import { Footer } from "./Footer";
 import { ClientDetails } from "./Client";
 import { AccountDetails } from "./Account";
-import { StoreContext } from "@context";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -155,103 +154,98 @@ const index: FC<NewInvoice> = ({
     };
   };
 
-  const { isModalOpen } = useContext(StoreContext);
   return (
-    <>
-      <Formik
-        autoComplete="off"
-        initialValues={invoice ? editInitialValues : addInitialValues}
-        validationSchema={InvoiceSchema}
-        onSubmit={async (data: FormikValues) => {
-          await axios(invoice ? editOnSubmit(data) : addOnSubmit(data))
-            .then((res) => {
-              router.push("/");
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }}
-      >
-        {({ handleSubmit, values, errors, touched, isSubmitting }) => (
-          <form onSubmit={handleSubmit}>
-            <Container>
-              <Row
+    <Formik
+      autoComplete="off"
+      initialValues={invoice ? editInitialValues : addInitialValues}
+      validationSchema={InvoiceSchema}
+      onSubmit={async (data: FormikValues) => {
+        await axios(invoice ? editOnSubmit(data) : addOnSubmit(data))
+          .then((res) => {
+            router.push("/");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }}
+    >
+      {({ handleSubmit, values, isSubmitting }) => (
+        <form onSubmit={handleSubmit}>
+          <Container>
+            <Row
+              padding={{
+                xs: { top: 6, bottom: 6 },
+                sm: { top: 6, bottom: 6 },
+                md: { top: 10, bottom: 10 },
+              }}
+            >
+              <Column
+                responsivity={{ md: 9 }}
                 padding={{
-                  xs: { top: 6, bottom: 6 },
-                  sm: { top: 6, bottom: 6 },
-                  md: { top: 10, bottom: 10 },
+                  xs: { top: 4, bottom: 4 },
+                  sm: { top: 4, bottom: 4 },
+                  md: { top: 0, bottom: 10 },
                 }}
               >
-                <Column
-                  responsivity={{ md: 9 }}
-                  padding={{
-                    xs: { top: 4, bottom: 4 },
-                    sm: { top: 4, bottom: 4 },
-                    md: { top: 0, bottom: 10 },
-                  }}
-                >
-                  <NewInvoice>
-                    <AccountDetails currentUser={currentUser} />
+                <NewInvoice>
+                  <AccountDetails currentUser={currentUser} />
 
-                    <ClientDetails
-                      client={client}
-                      currentClient={invoice?.client}
-                      startDate={startDate}
-                      setStartDate={setStartDate}
-                      endDate={endDate}
-                      setEndDate={setEndDate}
-                      deadlineDate={deadlineDate}
-                      setDeadlineDate={setDeadlineDate}
-                      values={values}
-                      invoice={invoice}
-                    />
+                  <ClientDetails
+                    client={client}
+                    currentClient={invoice?.client}
+                    startDate={startDate}
+                    setStartDate={setStartDate}
+                    endDate={endDate}
+                    setEndDate={setEndDate}
+                    deadlineDate={deadlineDate}
+                    setDeadlineDate={setDeadlineDate}
+                    values={values}
+                    invoice={invoice}
+                  />
 
-                    <Table tableData={tableData} setTableData={setTableData} />
+                  <Table tableData={tableData} setTableData={setTableData} />
 
-                    <Total tableData={tableData} values={values} />
+                  <Total tableData={tableData} values={values} />
 
-                    <Footer currentUser={currentUser} />
-                  </NewInvoice>
-                </Column>
+                  <Footer currentUser={currentUser} />
+                </NewInvoice>
+              </Column>
 
-                <Column responsivity={{ md: 3 }}>
-                  <Options>
-                    <Button
-                      variant="secondary"
-                      type="submit"
-                      disabled={isSubmitting}
-                      margin={{
-                        xs: { bottom: 1 },
-                        sm: { bottom: 1 },
-                        md: { bottom: 1 },
-                      }}
-                    >
-                      Save
-                    </Button>
+              <Column responsivity={{ md: 3 }}>
+                <Options>
+                  <Button
+                    variant="secondary"
+                    type="submit"
+                    disabled={isSubmitting}
+                    margin={{
+                      xs: { bottom: 1 },
+                      sm: { bottom: 1 },
+                      md: { bottom: 1 },
+                    }}
+                  >
+                    Save
+                  </Button>
 
-                    <Button
-                      variant="danger"
-                      as="a"
-                      href="/"
-                      size="small"
-                      margin={{
-                        xs: { bottom: 1 },
-                        sm: { bottom: 1 },
-                        md: { bottom: 1 },
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                  </Options>
-                </Column>
-              </Row>
-            </Container>
-          </form>
-        )}
-      </Formik>
-
-      {isModalOpen && <ClientModal />}
-    </>
+                  <Button
+                    variant="danger"
+                    as="a"
+                    href="/"
+                    size="small"
+                    margin={{
+                      xs: { bottom: 1 },
+                      sm: { bottom: 1 },
+                      md: { bottom: 1 },
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </Options>
+              </Column>
+            </Row>
+          </Container>
+        </form>
+      )}
+    </Formik>
   );
 };
 
