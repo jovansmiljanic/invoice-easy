@@ -1,5 +1,5 @@
 // Core
-import { type FC, createContext, useEffect, useState, useMemo } from "react";
+import { type FC, useEffect, useState, useMemo } from "react";
 
 // NextJS
 import { useRouter } from "next/router";
@@ -21,13 +21,20 @@ import styled, { css } from "styled-components";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 // Global types
-import { Client } from "@types";
+import { Invoice } from "@types";
 
 // GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
 
 // Global components
-import { Button, Pagination, Search } from "@components";
+import {
+  Button,
+  Filters,
+  Heading,
+  Pagination,
+  Search,
+  TableContext,
+} from "@components";
 
 interface IFilters {
   status?: string | string[];
@@ -84,26 +91,9 @@ interface Checkbox {
   value: string;
 }
 
-// Create Context base
-interface IGridContext {
-  page: number;
-  searchQuery: string | undefined;
-  setSearchQuery: Function;
-  queryUrl: string;
-  limit: number;
-  length: number;
-  searchUrl: string;
-  updatedInvoices?: Client[];
-  isLoading: boolean;
-}
+interface Dashboard {}
 
-export const GridContext = createContext({} as IGridContext);
-
-interface Dashboard {
-  clients?: Client[];
-}
-
-const index: FC<Dashboard> = ({ clients }) => {
+const index: FC<Dashboard> = () => {
   const { query, push } = useRouter();
 
   // Declare filters
@@ -118,9 +108,7 @@ const index: FC<Dashboard> = ({ clients }) => {
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
 
   // Store Original and Updated/Filtered items
-  const [updatedInvoices, setUpdatedInvoices] = useState<Client[]>(
-    clients ? clients : []
-  );
+  const [updatedInvoices, setUpdatedInvoices] = useState<Invoice[]>();
 
   // Declare length
   const [length, setLength] = useState<number>(0);
@@ -129,7 +117,15 @@ const index: FC<Dashboard> = ({ clients }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Store the current limit of the pagination
-  const limit = 9;
+  const limit = 16;
+
+  // Set selected value
+  const [statusSelected, setStatusSelected] = useState<
+    Checkbox[] | undefined
+  >();
+
+  // Set selected value
+  const [yearSelected, setYearSelected] = useState<Checkbox[] | undefined>();
 
   // Fetch items
   interface IFetch {
@@ -147,7 +143,7 @@ const index: FC<Dashboard> = ({ clients }) => {
     setIsLoading(true);
 
     // Call axios with filters and page as a string url
-    const invoiceUrl = `/api/client/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
+    const invoiceUrl = `/api/invoice/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
 
     await axios.get(invoiceUrl).then(({ data: { items, length } }) => {
       // Invoices
@@ -167,6 +163,26 @@ const index: FC<Dashboard> = ({ clients }) => {
     // Update filters
     if (!isObjectEmpty(rest)) setFilters(rest);
     if (isObjectEmpty(rest)) setFilters({});
+
+    const status = rest.status
+      ?.toString()
+      .split(",")
+      .map((type) => {
+        return { value: type, label: type };
+      });
+
+    if (rest.status) setStatusSelected(status);
+    if (!rest.status) setStatusSelected([]);
+
+    const year = rest.year
+      ?.toString()
+      .split(",")
+      .map((type) => {
+        return { value: type, label: type };
+      });
+
+    if (rest.year) setYearSelected(year);
+    if (!rest.year) setYearSelected([]);
 
     // Update page number
     if (queryPage) setPage(Math.round(Number(queryPage.toString())));
@@ -193,7 +209,7 @@ const index: FC<Dashboard> = ({ clients }) => {
   );
 
   return (
-    <GridContext.Provider
+    <TableContext
       value={{
         page: pageMemo,
         searchQuery,
@@ -215,6 +231,17 @@ const index: FC<Dashboard> = ({ clients }) => {
           }}
         >
           <Column responsivity={{ md: 12 }}>
+            <Heading
+              as="h4"
+              padding={{
+                xs: { top: 6, bottom: 2 },
+                sm: { top: 6, bottom: 2 },
+                md: { top: 6, bottom: 2 },
+              }}
+            >
+              Invoices
+            </Heading>
+
             <Wrapper>
               <Col1>
                 <Button
@@ -229,12 +256,40 @@ const index: FC<Dashboard> = ({ clients }) => {
                   href="/invoice/add"
                 >
                   <AddOutlinedIcon />
-                  Add new client
+                  Create invoice
                 </Button>
               </Col1>
 
               <Col2>
                 <Search />
+
+                <Filters
+                  name="status"
+                  label="Filter by status"
+                  preSelected={statusSelected}
+                  options={[
+                    { label: "Paid", value: "1" },
+                    {
+                      label: "Not paid",
+                      value: "2",
+                    },
+                  ]}
+                  callback={(e: Filter[]) => {
+                    if (
+                      e &&
+                      (e.map((a) => a.value !== null) ||
+                        e.map((a) => a.value !== undefined))
+                    ) {
+                      const { status, page, searchQuery, ...oldQuery } = query;
+                      const mp = e.map((el) => el.value);
+                      const filterQuery = objectToQuery({
+                        query: { ...oldQuery, status: mp },
+                      });
+
+                      push(`/?${filterQuery}${searchUrl}&page=${0}`);
+                    }
+                  }}
+                />
               </Col2>
             </Wrapper>
           </Column>
@@ -250,8 +305,8 @@ const index: FC<Dashboard> = ({ clients }) => {
           )}
         </Row>
       </Container>
-    </GridContext.Provider>
+    </TableContext>
   );
 };
 
-export { index as TableTemplate };
+export { index as Invoices };

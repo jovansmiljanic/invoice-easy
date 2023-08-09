@@ -14,7 +14,7 @@ import styled, { css } from "styled-components";
 
 // Icon
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { GridContext } from "@containers/Table";
+import { GridContext } from "..";
 
 const SearchWrapper = styled.div`
   flex: 0 0 100%;
@@ -67,6 +67,7 @@ const index: FC = () => {
   const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
+  const router = useRouter();
 
   useEffect(() => {
     let delayDebounceFn: NodeJS.Timeout;
@@ -74,7 +75,7 @@ const index: FC = () => {
     // Delay search on 1.5 seconds on typing
     if (searchQuery !== undefined) {
       delayDebounceFn = setTimeout(() => {
-        push(`/?${queryUrl}${searchUrl}&page=${0}`);
+        push(`${router.pathname}?${queryUrl}${searchUrl}&page=${0}`);
       }, 300);
     }
 

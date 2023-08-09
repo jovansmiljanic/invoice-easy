@@ -9,7 +9,7 @@ import styled, { css } from "styled-components";
 
 // Context
 import { Next, Prev } from "public/svg";
-import { GridContext } from "@containers/Table";
+import { GridContext } from "..";
 
 const Pagination = styled.div`
   width: 100%;

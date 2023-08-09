@@ -1,11 +1,11 @@
 // Core
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useContext, useEffect, useRef, useState } from "react";
 
 // Core types
 import { Client, Invoice, MyAccount } from "@types";
 
 // Global components
-import { AddClientModal, Button } from "@components";
+import { ClientModal, Button } from "@components";
 
 // GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
@@ -24,9 +24,7 @@ import { Total } from "./Total";
 import { Footer } from "./Footer";
 import { ClientDetails } from "./Client";
 import { AccountDetails } from "./Account";
-
-// Icon
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { StoreContext } from "@context";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -40,41 +38,6 @@ const NewInvoice = styled.div`
 const Options = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const Background = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
-`;
-
-const Modal = styled.div`
-  width: 500px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-
-  ${({ theme: { breakpoints, colors } }) => css`
-    background-color: ${colors.background};
-
-    @media (max-width: ${breakpoints.md}px) {
-      overflow: scroll;
-      width: 90%;
-    }
-  `}
-`;
-
-const Close = styled.div`
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 5px;
 `;
 
 interface NewInvoice {
@@ -109,12 +72,6 @@ const index: FC<NewInvoice> = ({
   // Handle router
   const router = useRouter();
 
-  // Hide dropdown when clicked outside it's Ref
-  const articlesPopupRef = useRef<HTMLDivElement>(null);
-
-  // Toggle articles dropdown
-  const [toggledArticles, setToggleArticles] = useState<boolean>(false);
-
   const [startDate, setStartDate] = useState<Date | null>();
   const [endDate, setEndDate] = useState<Date | null>();
   const [deadlineDate, setDeadlineDate] = useState<Date | null>();
@@ -135,24 +92,10 @@ const index: FC<NewInvoice> = ({
     taxNumber: string;
   }>();
 
-  const handleClickOutside = (event: { target: any }) => {
-    if (
-      articlesPopupRef.current &&
-      !articlesPopupRef.current.contains(event.target)
-    ) {
-      setToggleArticles(false);
-    }
-  };
-
   useEffect(() => {
     if (invoice) {
       setTableData(invoice.items);
     }
-
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
   }, []);
 
   const addInitialValues = {
@@ -211,6 +154,8 @@ const index: FC<NewInvoice> = ({
       },
     };
   };
+
+  const { isModalOpen } = useContext(StoreContext);
   return (
     <>
       <Formik
@@ -251,16 +196,12 @@ const index: FC<NewInvoice> = ({
                     <ClientDetails
                       client={client}
                       currentClient={invoice?.client}
-                      clientOption={clientOption}
                       startDate={startDate}
                       setStartDate={setStartDate}
                       endDate={endDate}
                       setEndDate={setEndDate}
                       deadlineDate={deadlineDate}
                       setDeadlineDate={setDeadlineDate}
-                      toggledArticles={toggledArticles}
-                      setToggleArticles={setToggleArticles}
-                      setClientOption={setClientOption}
                       values={values}
                       invoice={invoice}
                     />
@@ -309,23 +250,7 @@ const index: FC<NewInvoice> = ({
         )}
       </Formik>
 
-      {toggledArticles && (
-        <Background>
-          <Modal ref={articlesPopupRef}>
-            <AddClientModal
-              setClientOption={setClientOption}
-              setToggleArticles={setToggleArticles}
-            />
-
-            <Close>
-              <CloseOutlinedIcon
-                fontSize="large"
-                onClick={() => setToggleArticles(!toggledArticles)}
-              />
-            </Close>
-          </Modal>
-        </Background>
-      )}
+      {isModalOpen && <ClientModal />}
     </>
   );
 };

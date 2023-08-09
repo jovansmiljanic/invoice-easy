@@ -123,4 +123,4 @@ const index: FC = () => {
   );
 };
 
-export { index as Placeholder };
+export { index as TablePlaceholder };

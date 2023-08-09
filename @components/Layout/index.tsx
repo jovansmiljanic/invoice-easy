@@ -1,5 +1,5 @@
 // Core
-import React from "react";
+import React, { useContext } from "react";
 import Head from "next/head";
 
 // Core types
@@ -11,6 +11,9 @@ import { Footer } from "./Footer";
 
 // Nextjs types
 import type { Session } from "next-auth";
+import { StoreContext } from "@context";
+import { ClientModal } from "@components/ClientModal";
+import { ConfirmModal } from "@components/ConfirmModal";
 
 interface Props {
   title?: string;
@@ -19,6 +22,8 @@ interface Props {
 }
 
 export const Layout: FC<Props> = ({ title, children, session }) => {
+  const { isModalOpen, isConfirmModal } = useContext(StoreContext);
+
   return (
     <>
       <Head>
@@ -28,6 +33,9 @@ export const Layout: FC<Props> = ({ title, children, session }) => {
       <Header session={session} />
       {children}
       <Footer />
+
+      {isModalOpen && <ClientModal />}
+      {isConfirmModal && <ConfirmModal />}
     </>
   );
 };

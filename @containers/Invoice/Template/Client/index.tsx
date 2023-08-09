@@ -1,5 +1,5 @@
 // Core types
-import type { FC } from "react";
+import { useContext, type FC } from "react";
 
 // GLobal components
 import { Button, Heading } from "@components";
@@ -18,6 +18,10 @@ import { Field } from "@styles/Form";
 
 // Client utils
 import { formatDate } from "@utils/client";
+import { StoreContext } from "@context";
+
+// Icons
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 const Client = styled.div`
   display: flex;
@@ -73,7 +77,7 @@ const CustomSelect = styled(Select)`
 
   ${({ theme: { colors } }) => css`
     #react-select-newClient-placeholder {
-      color: ${colors.background};
+      color: ${colors.textColor};
       z-index: 1;
     }
 
@@ -122,7 +126,6 @@ const HelpWrap = styled.div`
 `;
 
 interface Client {
-  clientOption?: any;
   startDate: any;
   endDate: any;
   deadlineDate: any;
@@ -131,29 +134,25 @@ interface Client {
   setDeadlineDate: any;
   client?: ClientTypes[];
   currentClient?: Partial<ClientTypes>;
-  toggledArticles: any;
-  setToggleArticles: any;
-  setClientOption: any;
   values: any;
   invoice?: InvoiceTypes;
 }
 
 const index: FC<Client> = ({
-  clientOption,
   startDate,
   endDate,
   deadlineDate,
   setStartDate,
   setEndDate,
   setDeadlineDate,
-  toggledArticles,
-  setToggleArticles,
   client,
   currentClient,
-  setClientOption,
   values,
   invoice,
 }) => {
+  const { isModalOpen, setIsModalOpen, setIsClientData, isClientData } =
+    useContext(StoreContext);
+
   const { handleBlur, handleChange } = useFormikContext();
 
   const clientOptions = client?.map((item) => {
@@ -162,23 +161,23 @@ const index: FC<Client> = ({
 
   // Handle types
   const handleChangeType = (e: any) => {
-    setClientOption(e.value);
+    setIsClientData(e.value);
   };
 
   return (
     <Client>
       <div>
-        {clientOption ? (
+        {isClientData ? (
           <>
             <Heading as="h6" weight="bold">
-              {clientOption.clientName}
+              {isClientData.clientName}
             </Heading>
-            <Heading as="p">{clientOption.clientAddress}</Heading>
+            <Heading as="p">{isClientData.clientAddress}</Heading>
             <Heading as="p">
-              {clientOption.zipCode}, {clientOption.city},{" "}
-              {clientOption.country}
+              {isClientData.zipCode}, {isClientData.city},{" "}
+              {isClientData.country}
             </Heading>
-            <Heading as="p">Davčna številka: {clientOption.taxNumber}</Heading>
+            <Heading as="p">Davčna številka: {isClientData.taxNumber}</Heading>
           </>
         ) : currentClient ? (
           <>
@@ -200,7 +199,7 @@ const index: FC<Client> = ({
               instanceId="newClient"
               options={clientOptions}
               placeholder="Choose existing one"
-              onChange={(e) => handleChangeType(e)}
+              onChange={(e: any) => handleChangeType(e)}
               onBlur={handleBlur}
             />
 
@@ -210,8 +209,9 @@ const index: FC<Client> = ({
               variant="secondary"
               type="button"
               size="small"
-              onClick={() => setToggleArticles(!toggledArticles)}
+              onClick={() => setIsModalOpen(!isModalOpen)}
             >
+              <AddOutlinedIcon />
               Add new client
             </Button>
           </HelpWrap>
