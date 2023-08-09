@@ -68,6 +68,13 @@ const index: FC = () => {
     }
   };
 
+  const path =
+    router.asPath === "/clients"
+      ? "client"
+      : router.asPath === "/"
+      ? "invoice"
+      : "";
+
   return (
     <Background>
       <Modal ref={modalPopupRef}>
@@ -81,7 +88,7 @@ const index: FC = () => {
         <Button
           variant="danger"
           onClick={() => (
-            deleteItem(isClientData?._id, router, "client"),
+            deleteItem(isClientData?._id, router, path),
             setIsConfirmModal(false)
           )}
         >

@@ -46,7 +46,7 @@ export const Store: FC<Props> = (props) => {
   const [isConfirmModal, setIsConfirmModal] = useState(false);
   const isConfirmModalMemo = useMemo(() => isConfirmModal, [isConfirmModal]);
 
-  const [isClientData, setIsClientData] = useState();
+  const [isClientData, setIsClientData] = useState<Client>();
   const isClientDataMemo = useMemo(() => isClientData, [isClientData]);
 
   const [theme, setTheme] = useState<"light" | "dark">("dark"); // Set initial theme
