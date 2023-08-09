@@ -171,7 +171,7 @@ const index: FC<MyAccount> = ({ details, session }) => {
 
               await axios({
                 method: "PUT",
-                url: "/api/registration",
+                url: `/api/registration`,
                 data: {
                   id,
                   ...data,
