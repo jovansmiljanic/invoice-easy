@@ -1,5 +1,5 @@
 // Core
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext } from "react";
 
 // Core types
 import { Invoice, MyAccount } from "@types";
@@ -12,8 +12,14 @@ import { Column, Container, Row } from "@components/Grid";
 
 // Vendors
 import styled, { css } from "styled-components";
+
+// Client utils
 import { formatDate, getSubTotalPrice, getTotalPrice } from "@utils/client";
+
+// Store context
 import { StoreContext } from "@context";
+
+// Clients download
 import { DonwloadInvoice } from "@components/DownloadInvoice";
 
 const NewInvoice = styled.div`
@@ -98,7 +104,8 @@ const Wrap = styled.div`
 
     @media (max-width: ${breakpoints.md}px) {
       padding: 10px 0;
-      flex-direction: column;
+      flex-wrap: wrap;
+      width: 100%;
     }
   `}
 `;
@@ -220,7 +227,13 @@ const Footer = styled.div`
   `}
 `;
 
-const ItemWrap = styled.div``;
+const ItemWrap = styled.div`
+  width: 33%;
+
+  &:first-child {
+    width: 100%;
+  }
+`;
 
 const Label = styled.div`
   padding: 5px 15px;
@@ -440,7 +453,7 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
 
         <Column responsivity={{ md: 3 }}>
           <Options>
-            <DonwloadInvoice invoice={invoice} />
+            <DonwloadInvoice invoice={invoice} button={true} />
 
             <Button
               variant="warning"

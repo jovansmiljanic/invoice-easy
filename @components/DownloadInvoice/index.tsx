@@ -21,11 +21,6 @@ import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 import axios from "axios";
 import styled, { css, keyframes } from "styled-components";
 
-interface Download {
-  invoice: Invoice;
-  icon?: boolean;
-}
-
 // Animation
 const Loading = keyframes`
 	0% {
@@ -69,7 +64,13 @@ const ModalItem = styled.div`
   `}
 `;
 
-const index: FC<Download> = ({ invoice, icon }) => {
+interface Download {
+  invoice: Invoice;
+  icon?: boolean;
+  button?: boolean;
+}
+
+const index: FC<Download> = ({ invoice, icon, button }) => {
   const [isClient, setIsClient] = useState(false);
   const [isUser, setIsUser] = useState<MyAccount>();
 
@@ -94,10 +95,22 @@ const index: FC<Download> = ({ invoice, icon }) => {
           document={<File myAccount={isUser} invoice={invoice} />}
           fileName={fileName}
         >
-          {!icon ? (
-            <ModalItem>Download</ModalItem>
-          ) : (
+          {icon ? (
             <FileDownloadOutlinedIcon fontSize="small" />
+          ) : button ? (
+            <Button
+              variant="secondary"
+              size="small"
+              margin={{
+                xs: { bottom: 2 },
+                sm: { bottom: 2 },
+                md: { bottom: 2 },
+              }}
+            >
+              Download
+            </Button>
+          ) : (
+            <ModalItem>Download</ModalItem>
           )}
         </PDFDownloadLink>
       )}

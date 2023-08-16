@@ -17,8 +17,7 @@ const Status = styled.div<{ status: "warning" }>`
 `;
 
 export const daysLeft = (paymentDeadline: Date, issuedDate: Date) => {
-  const timeDiff =
-    new Date(paymentDeadline).getTime() - new Date(issuedDate).getTime();
+  const timeDiff = new Date(paymentDeadline).getTime() - new Date().getTime();
 
   const daysLeft = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 

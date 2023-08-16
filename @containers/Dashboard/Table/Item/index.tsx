@@ -268,11 +268,15 @@ const index: FC<Item> = ({ item }) => {
 
           <td>
             <Wrap>
-              <Link href={`/invoice/preview/${item._id}`}>
-                <VisibilityOutlinedIcon fontSize="small" />
-              </Link>
+              {!isPhone && (
+                <>
+                  <Link href={`/invoice/preview/${item._id}`}>
+                    <VisibilityOutlinedIcon fontSize="small" />
+                  </Link>
 
-              <DonwloadInvoice invoice={item} icon={true} />
+                  <DonwloadInvoice invoice={item} icon={true} />
+                </>
+              )}
 
               <Popup>
                 <MoreVertOutlinedIcon
@@ -282,6 +286,10 @@ const index: FC<Item> = ({ item }) => {
 
                 {isOptionsOpen && (
                   <Modal>
+                    <Link href={`/invoice/preview/${item._id}`}>
+                      <ModalItem>Preview</ModalItem>
+                    </Link>
+
                     {item.status === "2" && (
                       <ModalItem
                         onClick={() => invoicePaid({ _id: item._id, router })}
