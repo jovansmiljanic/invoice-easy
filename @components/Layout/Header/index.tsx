@@ -200,7 +200,11 @@ const index: FC<Header> = ({ session }) => {
           </Link>
         </Column>
 
-        <Column responsivity={{ md: 9, sm: 4 }} textAlign={{ md: "right" }}>
+        <Column
+          responsivity={{ md: 9, sm: 4 }}
+          textAlign={{ md: "right" }}
+          padding={{ xs: { bottom: 2 }, sm: { bottom: 2 }, md: { bottom: 2 } }}
+        >
           <Wrap>
             {theme === "light" ? (
               <LightModeIcon onClick={toggleTheme} />
