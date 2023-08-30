@@ -35,11 +35,6 @@ ChartJS.register(
 
 const Wrap = styled.div`
   width: 100%;
-
-  canvas {
-    width: 100% !important;
-    height: auto !important;
-  }
 `;
 
 const index: FC<LineChart> = ({ invoices }) => {

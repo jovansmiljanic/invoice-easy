@@ -77,7 +77,6 @@ const CustomSelect = styled(Select)`
 
   ${({ theme: { colors } }) => css`
     #react-select-newClient-placeholder {
-      color: ${colors.textColor};
       z-index: 1;
     }
 
@@ -86,10 +85,16 @@ const CustomSelect = styled(Select)`
     }
 
     * {
-      background-color: ${colors.background};
       font-size: 14px;
       border-radius: 5px !important;
+      color: ${colors.textColor} !important;
+      background-color: ${colors.background};
       border-color: ${colors.lightGray} !important;
+    }
+
+    .css-1dimb5e-singleValue {
+      z-index: 10;
+      color: ${colors.textColor} !important;
     }
   `}
 `;
