@@ -50,8 +50,7 @@ const Button = styled.button<{ isHidden?: boolean }>`
 const PageNumbers = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex: 1;
+  justify-content: flex-end;
 
   ${({ theme: { defaults } }) => css`
     padding-left: ${defaults.gutter / 2}px;
@@ -85,9 +84,15 @@ const PageNumber = styled.div<{ isActive: boolean; pageColor: string }>`
   `}
 `;
 
+const Wrap = styled.div`
+  display: flex;
+  ${({ theme: { defaults, colors, font, ...theme } }) => css``}
+`;
+
 const index: FC = () => {
   // Grid context
-  const { length, limit, page, queryUrl, searchUrl } = useContext(GridContext);
+  const { length, limit, page, queryUrl, searchUrl, updatedItems } =
+    useContext(GridContext);
 
   const { push } = useRouter();
 
@@ -100,59 +105,64 @@ const index: FC = () => {
 
   return (
     <Pagination>
-      <Button
-        disabled={!Boolean(page !== 0)}
-        onClick={() => {
-          // Change pagination index
-          push(`/?${queryUrl}${searchUrl}&page=${page - 1}`);
+      <div>
+        Showing {updatedItems.length} of {length}
+      </div>
 
-          scrollUp();
-        }}
-        isHidden={!Boolean(page !== 0)}
-      >
-        <Prev />
-      </Button>
+      <Wrap>
+        <Button
+          disabled={!Boolean(page !== 0)}
+          onClick={() => {
+            // Change pagination index
+            push(`/?${queryUrl}${searchUrl}&page=${page - 1}`);
 
-      <PageNumbers>
-        {Array.from(
-          Array(Math.ceil(Number(length) / Number(limit))).keys()
-        ).map((el) => (
-          <PageNumber
-            pageColor="#208DD0"
-            isActive={el === page}
-            key={el}
-            onClick={() => {
-              push(`/?${queryUrl}&page=${el}${searchUrl}`);
+            scrollUp();
+          }}
+          isHidden={!Boolean(page !== 0)}
+        >
+          <Prev />
+        </Button>
 
-              scrollUp();
-            }}
-          >
-            {el + 1}
-          </PageNumber>
-        ))}
-      </PageNumbers>
+        <PageNumbers>
+          {Array.from(
+            Array(Math.ceil(Number(length) / Number(limit))).keys()
+          ).map((el) => (
+            <PageNumber
+              pageColor="#208DD0"
+              isActive={el === page}
+              key={el}
+              onClick={() => {
+                push(`/?${queryUrl}&page=${el}${searchUrl}`);
 
-      <Button
-        disabled={
-          !Boolean(
-            length > limit && !Boolean(length < (page + 1) * Number(limit))
-          )
-        }
-        onClick={() => {
-          // Change pagination index
-          push(`/?${queryUrl}${searchUrl}&page=${page + 1}`);
+                scrollUp();
+              }}
+            >
+              {el + 1}
+            </PageNumber>
+          ))}
+        </PageNumbers>
 
-          scrollUp();
-        }}
-        isHidden={
-          !Boolean(
-            length > limit && !Boolean(length < (page + 1) * Number(limit))
-          )
-        }
-        style={{ marginLeft: "auto" }}
-      >
-        <Next />
-      </Button>
+        <Button
+          disabled={
+            !Boolean(
+              length > limit && !Boolean(length < (page + 1) * Number(limit))
+            )
+          }
+          onClick={() => {
+            // Change pagination index
+            push(`/?${queryUrl}${searchUrl}&page=${page + 1}`);
+
+            scrollUp();
+          }}
+          isHidden={
+            !Boolean(
+              length > limit && !Boolean(length < (page + 1) * Number(limit))
+            )
+          }
+        >
+          <Next />
+        </Button>
+      </Wrap>
     </Pagination>
   );
 };

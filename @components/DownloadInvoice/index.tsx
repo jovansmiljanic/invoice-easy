@@ -35,8 +35,8 @@ const LoadingButton = styled.div`
   position: relative;
   border-radius: 50%;
   animation: ${Loading} 1s infinite linear;
-  width: 15px;
-  height: 15px;
+  width: 17px;
+  height: 17px;
   border-width: 1px;
   border-color: #333;
   border-style: solid;
@@ -66,11 +66,10 @@ const ModalItem = styled.div`
 
 interface Download {
   invoice: Invoice;
-  icon?: boolean;
-  button?: boolean;
+  type: "icon" | "button" | "modalItem";
 }
 
-const index: FC<Download> = ({ invoice, icon, button }) => {
+const index: FC<Download> = ({ invoice, type }) => {
   const [isClient, setIsClient] = useState(false);
   const [isUser, setIsUser] = useState<MyAccount>();
 
@@ -86,35 +85,47 @@ const index: FC<Download> = ({ invoice, icon, button }) => {
     invoice.client.clientName
   } - ${formatDate(invoice.issuedDate)}.pdf`;
 
-  return (
-    <>
-      {!isClient ? (
-        <LoadingButton />
-      ) : (
-        <PDFDownloadLink
-          document={<File myAccount={isUser} invoice={invoice} />}
-          fileName={fileName}
+  let renderedContent;
+
+  switch (type) {
+    case "button":
+      renderedContent = (
+        <Button
+          variant="secondary"
+          size="small"
+          margin={{
+            xs: { bottom: 2 },
+            sm: { bottom: 2 },
+            md: { bottom: 2 },
+          }}
+          disabled={!isClient}
+          isLoading={!isClient}
         >
-          {icon ? (
-            <FileDownloadOutlinedIcon fontSize="small" />
-          ) : button ? (
-            <Button
-              variant="secondary"
-              size="small"
-              margin={{
-                xs: { bottom: 2 },
-                sm: { bottom: 2 },
-                md: { bottom: 2 },
-              }}
-            >
-              Download
-            </Button>
-          ) : (
-            <ModalItem>Download</ModalItem>
-          )}
-        </PDFDownloadLink>
-      )}
-    </>
+          Download
+        </Button>
+      );
+      break;
+    case "icon":
+      renderedContent = <FileDownloadOutlinedIcon fontSize="small" />;
+      break;
+    case "modalItem":
+      renderedContent = <ModalItem>Download</ModalItem>;
+      break;
+    default:
+      renderedContent = <LoadingButton />;
+  }
+
+  if (!isClient) {
+    renderedContent;
+  }
+
+  return (
+    <PDFDownloadLink
+      document={<File myAccount={isUser} invoice={invoice} />}
+      fileName={fileName}
+    >
+      {renderedContent}
+    </PDFDownloadLink>
   );
 };
 
