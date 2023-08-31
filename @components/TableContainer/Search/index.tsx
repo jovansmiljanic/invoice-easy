@@ -10,8 +10,6 @@ import { useRouter } from "next/router";
 // Vendors
 import styled, { css } from "styled-components";
 
-// Local context
-
 // Icon
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { GridContext } from "..";

@@ -1,18 +1,23 @@
 // Core types
-import type { FC } from "react";
+import { type FC } from "react";
 
-import { NotFound } from "@components/TableContainer/NotFound";
-import { Client, Invoice } from "@types";
+// Global types
+import { Invoice } from "@types";
+
+// Client utils
 import { daysLeft, formatDate, getTotalPrice } from "@utils/client";
+
+// Shared utils
 import { copyText } from "@utils/shared";
 
 // Vendors
-import styled, { css } from "styled-components";
 import { lighten } from "polished";
+import styled, { css } from "styled-components";
 
-const Item = styled.div`
-  ${({ theme: { defaults, colors, font, ...theme } }) => css``}
-`;
+// Table component
+import { Actions } from "@components/TableContainer/Actions";
+
+const Item = styled.div``;
 
 const Status = styled.div<{ status: "danger" | "success" }>`
   width: fit-content;
@@ -34,23 +39,32 @@ interface Item {
 }
 
 const index: FC<Item> = ({ updatedItems }) => {
+  let status;
+
+  switch (updatedItems.status) {
+    case "1":
+      status = <Status status="success">Paid</Status>;
+      break;
+    case "2":
+      status = <Status status="danger">Unpaid</Status>;
+      break;
+    default:
+      status = <>not</>;
+  }
+
   return (
     <tr>
       <td onClick={() => copyText(updatedItems._id.toString())}>
         #{updatedItems._id.toString().slice(19)}
       </td>
       <td>{updatedItems.client.clientName}</td>
-      <td>
-        {updatedItems.status === "1" ? (
-          <Status status="success">Paid</Status>
-        ) : (
-          <Status status="danger">Unpaid</Status>
-        )}
-      </td>
+      <td>{status}</td>
       <td>{formatDate(updatedItems.issuedDate)}</td>
       <td>{daysLeft(updatedItems.paymentDeadline, updatedItems.issuedDate)}</td>
-
       <td>{getTotalPrice(updatedItems.items, updatedItems?.tax)}</td>
+      <td>
+        <Actions updatedItems={updatedItems} />
+      </td>
     </tr>
   );
 };

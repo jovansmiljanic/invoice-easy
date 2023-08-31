@@ -10,30 +10,26 @@ import { GetServerSideProps } from "next";
 // Vendors
 import { getSession } from "next-auth/react";
 
+// Vendor types
+import type { Session } from "next-auth";
+
 // Global types
-import { Client, MyAccount } from "@types";
-import { Session } from "next-auth";
+import { Client } from "@types";
 
 interface ContentPageProps {
   client?: Client[];
-  currentUser: MyAccount;
   session: Session;
   invoiceNumber: number;
 }
 
 export default function Page({
-  currentUser,
   client,
   invoiceNumber,
   session,
 }: ContentPageProps) {
   return (
     <Layout title="Create new invoice" session={session}>
-      <Template
-        currentUser={currentUser}
-        invoiceNumber={invoiceNumber}
-        client={client}
-      />
+      <Template invoiceNumber={invoiceNumber} client={client} />
     </Layout>
   );
 }
@@ -71,15 +67,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   });
   const { items: client } = await clientDetails.json();
 
-  const details = await fetch(`${process.env.NEXTAUTH_URL}/api/registration`, {
-    method: "GET",
-    headers: {
-      Cookie: ctx?.req?.headers?.cookie ?? "",
-    },
-  });
-  const { currentUser } = await details.json();
-
   return {
-    props: { currentUser, client, invoiceNumber, session },
+    props: { client, invoiceNumber, session },
   };
 };

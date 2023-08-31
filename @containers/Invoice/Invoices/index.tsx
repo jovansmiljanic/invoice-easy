@@ -1,7 +1,8 @@
 // Core
 import { type FC } from "react";
 
-import { TableContainer } from "@components/TableContainer";
+// Global components
+import { TableContainer } from "@components";
 
 interface Dashboard {}
 

@@ -1,14 +1,12 @@
 // Core types
-import type { FC } from "react";
+import { type FC, useContext } from "react";
 
 // Global components
 import { Heading } from "@components";
 
-// Global types
-import { MyAccount } from "@types";
-
 // Vendors
 import styled, { css } from "styled-components";
+import { StoreContext } from "@context";
 
 const Note = styled.div`
   width: 60%;
@@ -42,11 +40,11 @@ const Footer = styled.div`
   `}
 `;
 
-interface Footer {
-  currentUser: MyAccount;
-}
+interface Footer {}
 
-const index: FC<Footer> = ({ currentUser }) => {
+const index: FC<Footer> = () => {
+  const { isUserData } = useContext(StoreContext);
+
   return (
     <>
       <Note>
@@ -64,9 +62,9 @@ const index: FC<Footer> = ({ currentUser }) => {
 
       <Footer>
         <p>
-          {currentUser?.companyField}, {currentUser?.companyName}. Transakcijski
-          račun odprt pri {currentUser?.bankName} – {currentUser?.trr}
-          ., davčna številka: {currentUser?.taxNumber}.
+          {isUserData?.companyField}, {isUserData?.companyName}. Transakcijski
+          račun odprt pri {isUserData?.bankName} – {isUserData?.trr}
+          ., davčna številka: {isUserData?.taxNumber}.
         </p>
       </Footer>
     </>

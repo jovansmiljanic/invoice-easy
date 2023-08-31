@@ -17,6 +17,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 // Global types
 import type { User as UserType } from "@types";
+import { setCookie } from "@utils/shared";
 
 interface Configuration {
   res: NextApiResponse;
@@ -60,6 +61,13 @@ const nextAuthOptions = ({ res }: Configuration): NextAuthOptions => {
           }
 
           if (user) {
+            setCookie({
+              name: "user",
+              value: JSON.stringify(user),
+              days: 30,
+              res,
+            });
+
             return { ...user };
           }
         },
@@ -83,6 +91,7 @@ const nextAuthOptions = ({ res }: Configuration): NextAuthOptions => {
       async session({ session, token: { user } }) {
         // Assign user on the current session
         user && (session.user = user as UserType);
+
         return session;
       },
 

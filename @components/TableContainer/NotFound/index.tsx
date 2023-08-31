@@ -1,7 +1,7 @@
 // Core types
 import type { FC } from "react";
 
-//
+// Global components
 import { Button, Heading } from "@components";
 
 // SVG

@@ -1,5 +1,5 @@
 // Core
-import { useRef, type FC, useEffect, useContext } from "react";
+import { type FC, useEffect, useContext, useRef } from "react";
 
 // Global components
 import { Button, Heading } from "@components";
