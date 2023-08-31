@@ -1,11 +1,12 @@
 // Core types
-import type { FC } from "react";
-import { useState, useEffect } from "react";
+import { type FC, useState, useEffect } from "react";
 
+// Global types
 import { Invoice } from "@types";
 
 // Vendors
 import { Line } from "react-chartjs-2";
+import styled, { css } from "styled-components";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -16,8 +17,13 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+
+// Client utils
 import { getTotalAmountsByMonth } from "@utils/client";
-import styled, { css } from "styled-components";
+
+const Wrap = styled.div`
+  width: 100%;
+`;
 
 interface LineChart {
   invoices?: Invoice[];
@@ -32,10 +38,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const Wrap = styled.div`
-  width: 100%;
-`;
 
 const index: FC<LineChart> = ({ invoices }) => {
   const [totalAmountsByMonth, setTotalAmountsByMonth] = useState<

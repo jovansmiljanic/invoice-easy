@@ -1,5 +1,5 @@
 // Core types
-import { useContext, type FC } from "react";
+import { type FC, useContext } from "react";
 
 // Nextjs
 import { useRouter } from "next/router";
@@ -9,6 +9,8 @@ import styled, { css } from "styled-components";
 
 // Context
 import { Next, Prev } from "public/svg";
+
+// Grid context
 import { GridContext } from "..";
 
 const Pagination = styled.div`

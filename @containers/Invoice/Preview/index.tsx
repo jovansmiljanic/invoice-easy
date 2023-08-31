@@ -1,8 +1,8 @@
 // Core
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 // Core types
-import { Invoice, MyAccount } from "@types";
+import { Invoice } from "@types";
 
 // Global components
 import { Button, Heading } from "@components";
@@ -20,7 +20,7 @@ import { formatDate, getSubTotalPrice, getTotalPrice } from "@utils/client";
 import { StoreContext } from "@context";
 
 // Clients download
-import { DonwloadInvoice } from "@components/DownloadInvoice";
+import { DownloadInvoice } from "@components/DownloadInvoice";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -240,13 +240,24 @@ const Label = styled.div`
 `;
 
 interface NewInvoice {
-  myAccount: MyAccount;
   invoice: Invoice;
 }
 
-const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
+const index: FC<NewInvoice> = ({ invoice }) => {
   // Store context
-  const { isPhone } = useContext(StoreContext);
+  const {
+    isPhone,
+    setIsClientData,
+    setIsConfirmModal,
+    isConfirmModal,
+    isUserData,
+  } = useContext(StoreContext);
+
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, [,]);
 
   return (
     <Container>
@@ -269,19 +280,22 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
             <UserDetails>
               <Col1>
                 <Heading as="h6" weight="bold">
-                  {myAccount.companyName}
+                  {isUserData?.companyName}
                 </Heading>
-                <Heading as="p">{myAccount.companyAddress}</Heading>
+                <Heading as="p">{isUserData?.companyAddress}</Heading>
                 <Heading as="p">
-                  {myAccount.zipCode}, {myAccount.city}, {myAccount.country}
+                  {isUserData?.zipCode}, {isUserData?.city},{" "}
+                  {isUserData?.country}
                 </Heading>
-                <Heading as="p">Davčna številka: {myAccount.taxNumber}</Heading>
+                <Heading as="p">
+                  Davčna številka: {isUserData?.taxNumber}
+                </Heading>
               </Col1>
               <Col2>
-                <Heading as="p">TRR: {myAccount.trr}</Heading>
-                <Heading as="p">BIC koda: {myAccount.bic}</Heading>
-                <Heading as="p">E-pošta: {myAccount.email}</Heading>
-                <Heading as="p">Telefon: {myAccount.phoneNumber}</Heading>
+                <Heading as="p">TRR: {isUserData?.trr}</Heading>
+                <Heading as="p">BIC koda: {isUserData?.bic}</Heading>
+                <Heading as="p">E-pošta: {isUserData?.email}</Heading>
+                <Heading as="p">Telefon: {isUserData?.phoneNumber}</Heading>
               </Col2>
             </UserDetails>
 
@@ -436,16 +450,17 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
 
               <Heading as="p">
                 Znesek računa poravnajte na transakcijski račun odprt pri{" "}
-                {myAccount.bankName}., številka {myAccount.trr}. Pri plačilu se
-                sklicujte na številko računa
+                {isUserData?.bankName}., številka {isUserData?.trr}. Pri plačilu
+                se sklicujte na številko računa
               </Heading>
             </Note>
 
             <Footer>
               <p>
-                {myAccount.companyField}, {myAccount.companyName}. Transakcijski
-                račun odprt pri {myAccount.bankName} – {myAccount.trr}
-                ., davčna številka: {myAccount.taxNumber}.
+                {isUserData?.companyField}, {isUserData?.companyName}.
+                Transakcijski račun odprt pri {isUserData?.bankName} –{" "}
+                {isUserData?.trr}
+                ., davčna številka: {isUserData?.taxNumber}.
               </p>
             </Footer>
           </NewInvoice>
@@ -453,7 +468,13 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
 
         <Column responsivity={{ md: 3 }}>
           <Options>
-            <DonwloadInvoice invoice={invoice} type="button" />
+            {isClient && (
+              <DownloadInvoice
+                invoice={invoice}
+                type="button"
+                isClient={isClient}
+              />
+            )}
 
             <Button
               variant="warning"
@@ -461,12 +482,27 @@ const index: FC<NewInvoice> = ({ myAccount, invoice }) => {
               as="a"
               href={`/invoice/edit/${invoice._id}`}
               margin={{
+                xs: { bottom: 2 },
+                sm: { bottom: 2 },
+                md: { bottom: 2 },
+              }}
+            >
+              Edit
+            </Button>
+
+            <Button
+              variant="danger"
+              size="small"
+              margin={{
                 xs: { bottom: 1 },
                 sm: { bottom: 1 },
                 md: { bottom: 1 },
               }}
+              onClick={() => {
+                setIsConfirmModal(!isConfirmModal), setIsClientData(invoice);
+              }}
             >
-              Edit
+              Delete
             </Button>
           </Options>
         </Column>

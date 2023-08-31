@@ -9,7 +9,11 @@ import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
+
+// Global components
 import { Heading } from "@components";
+
+// Global types
 import { Invoice } from "@types";
 
 const BoxWrapper = styled.div`

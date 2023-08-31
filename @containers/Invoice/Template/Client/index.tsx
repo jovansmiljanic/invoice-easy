@@ -1,5 +1,5 @@
 // Core types
-import { useContext, type FC, ChangeEvent } from "react";
+import { type FC, useContext } from "react";
 
 // GLobal components
 import { Button, Heading } from "@components";
@@ -7,8 +7,8 @@ import { Button, Heading } from "@components";
 // Vendors
 import Select from "react-select";
 import DatePicker from "react-datepicker";
-import { FormikValues, useFormikContext } from "formik";
 import styled, { css } from "styled-components";
+import { FormikValues, useFormikContext } from "formik";
 
 // Core types
 import { Client as ClientTypes, Invoice as InvoiceTypes } from "@types";
@@ -18,6 +18,8 @@ import { Field } from "@styles/Form";
 
 // Client utils
 import { formatDate } from "@utils/client";
+
+// Store context
 import { StoreContext } from "@context";
 
 // Icons

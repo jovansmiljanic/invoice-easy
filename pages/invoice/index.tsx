@@ -10,8 +10,8 @@ import { GetServerSideProps } from "next";
 // Vendors
 import { getSession } from "next-auth/react";
 
-// core types
-import { Session } from "next-auth";
+// Vendor types
+import type { Session } from "next-auth";
 
 interface ContentPageProps {
   session: Session;

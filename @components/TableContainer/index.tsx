@@ -12,8 +12,9 @@ import { useDebouncedEffect } from "@utils/client";
 
 // Vendors
 import axios from "axios";
-import styled, { css } from "styled-components";
 import Select from "react-select";
+import styled, { css } from "styled-components";
+
 // Icons
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
@@ -24,15 +25,16 @@ import { Client, Invoice } from "@types";
 import { Container, Column, Row } from "@components/Grid";
 
 // Global components
-import { Button } from "@components";
-import { Boxes } from "@components/Boxes";
+import { Button, Boxes } from "@components";
+
+// Chart components
 import { LineChart } from "@components/Charts";
 
 // Local components
 import { Table } from "./Table";
 import { Search } from "./Search";
-import { Pagination } from "./Pagination";
 import { Filters } from "./Filters";
+import { Pagination } from "./Pagination";
 
 const Wrapper = styled.div`
   display: flex;
@@ -235,7 +237,6 @@ const index: FC<Dashboard> = ({
 
   useEffect(() => {
     const { page: queryPage, searchQuery, limit, ...rest } = query;
-    console.log(rest);
 
     // Update filters
     if (!isObjectEmpty(rest)) setFilters(rest);
@@ -303,8 +304,8 @@ const index: FC<Dashboard> = ({
       }}
     >
       <Container height={82}>
-        <Row>
-          {boxes && (
+        {boxes && lineChart && (
+          <Row padding={{ md: { top: 2, bottom: 3 } }}>
             <Column
               responsivity={{ sm: 12, md: 6, xs: 6 }}
               padding={{
@@ -319,14 +320,12 @@ const index: FC<Dashboard> = ({
                 clientsLenght={clientsLength}
               />
             </Column>
-          )}
 
-          {lineChart && (
             <Column responsivity={{ sm: 12, md: 6, xs: 6 }}>
               <LineChart invoices={totalInvoices} />
             </Column>
-          )}
-        </Row>
+          </Row>
+        )}
 
         <Row
           padding={{

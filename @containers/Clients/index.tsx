@@ -1,12 +1,10 @@
 // Core
 import { type FC } from "react";
 
-import { TableContainer } from "@components/TableContainer";
-import { Client } from "@types";
+// Global components
+import { TableContainer } from "@components";
 
-interface Dashboard {
-  clients?: Client[];
-}
+interface Dashboard {}
 
 const index: FC<Dashboard> = () => {
   return (

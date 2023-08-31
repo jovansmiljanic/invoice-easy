@@ -4,19 +4,17 @@ import { useContext, type FC, Fragment } from "react";
 // Vendors
 import styled, { css } from "styled-components";
 
-// Store context
-import { StoreContext } from "@context";
-
-// Global components
-import { TablePlaceholder } from "@components";
-
-// Table template
-import { lighten } from "polished";
-import { ClientItem } from "./ClientItem";
+// Local components
 import { NotFound } from "../NotFound";
-import { GridContext } from "..";
+import { ClientItem } from "./ClientItem";
 import { InvoiceItem } from "./InvoiceItem";
+import { Placeholder } from "../Placeholder";
+
+// Global types
 import { Client, Invoice } from "@types";
+
+// Grid context
+import { GridContext } from "..";
 
 const Table = styled.table`
   width: 100%;
@@ -64,68 +62,6 @@ const Thead = styled.thead`
         width: 2%;
       }
     }
-  `}
-`;
-
-const Popup = styled.div`
-  position: relative;
-
-  svg {
-    margin: 0 !important;
-  }
-`;
-
-const Modal = styled.div`
-  position: absolute;
-  z-index: 1;
-  top: 100%;
-  right: 0;
-  border-radius: 5px;
-  padding: 5px 0;
-
-  display: flex;
-  flex-direction: column;
-
-  ${({ theme: { colors } }) => css`
-    min-width: 160px;
-    min-height: 50px;
-    box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
-    background-color: ${colors.background};
-  `}
-`;
-
-const ModalItem = styled.div`
-  padding: 10px 0 10px 20px;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-
-  ${({ theme: { colors } }) => css`
-    color: ${colors.textColor};
-
-    &:hover {
-      background-color: ${colors.hoverGray};
-    }
-
-    &:nth-child(4) {
-      color: ${colors.danger};
-      border-top: 1px solid ${colors.lightGray};
-    }
-  `}
-`;
-
-const Status = styled.div<{ status: "danger" | "success" }>`
-  width: fit-content;
-  min-width: 45px;
-  text-align: center;
-  font-size: 13px;
-  padding: 0 5px;
-  border-radius: 5px;
-
-  ${({ status, theme: { colors, font } }) => css`
-    color: ${colors[status]};
-    background-color: ${lighten(0.3, colors[status])};
-    font-weight: ${font.weight.semiBold};
   `}
 `;
 
@@ -206,34 +142,39 @@ const index: FC<Table> = ({ tableHeader, path }) => {
   // Grid context
   const { length, updatedItems, isLoading } = useContext(GridContext);
 
-  if (isLoading || !updatedItems) return <TablePlaceholder />;
+  if (isLoading || !updatedItems) return <Placeholder />;
+
   if (length === 0) return <NotFound />;
 
   return (
-    <Table>
-      <Thead>
-        <tr>
-          {tableHeader.map((item, i) => (
-            <td key={i}>{item}</td>
-          ))}
-        </tr>
-      </Thead>
+    <>
+      <Table>
+        <Thead>
+          <tr>
+            {tableHeader.map((item, i) => (
+              <td key={i}>{item}</td>
+            ))}
+          </tr>
+        </Thead>
 
-      <Tbody>
-        {Array.isArray(updatedItems) &&
-          updatedItems.map((item, i) => (
-            <Fragment key={i}>
-              {path === "client" ? (
-                <ClientItem updatedItems={item as Client} />
-              ) : path === "invoice" ? (
-                <InvoiceItem updatedItems={item as Invoice} />
-              ) : (
-                <></>
-              )}
-            </Fragment>
-          ))}
-      </Tbody>
-    </Table>
+        <Tbody>
+          {Array.isArray(updatedItems) &&
+            updatedItems.map((item, i) => (
+              <Fragment key={i}>
+                {path === "client" ? (
+                  <ClientItem updatedItems={item as Client} />
+                ) : path === "invoice" ? (
+                  <InvoiceItem updatedItems={item as Invoice} />
+                ) : (
+                  <></>
+                )}
+              </Fragment>
+            ))}
+        </Tbody>
+      </Table>
+
+      <Placeholder />
+    </>
   );
 };
 

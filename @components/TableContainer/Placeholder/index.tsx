@@ -1,5 +1,4 @@
 // Core types
-import { Column, Container, Row } from "@components/Grid";
 import type { FC } from "react";
 
 // Vendors
@@ -123,4 +122,4 @@ const index: FC = () => {
   );
 };
 
-export { index as TablePlaceholder };
+export { index as Placeholder };

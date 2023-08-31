@@ -1,14 +1,14 @@
 // Core types
-import type { FC } from "react";
+import { type FC, useContext } from "react";
 
 // Global components
 import { Heading } from "@components";
 
-// Global types
-import { MyAccount } from "@types";
-
 // Vendors
 import styled, { css } from "styled-components";
+
+// Store context
+import { StoreContext } from "@context";
 
 const Account = styled.div`
   display: flex;
@@ -31,41 +31,41 @@ const Account = styled.div`
   `}
 `;
 
-interface Account {
-  currentUser: MyAccount;
-}
+interface Account {}
 
-const index: FC<Account> = ({ currentUser }) => {
+const index: FC<Account> = () => {
+  const { isUserData } = useContext(StoreContext);
+
   return (
     <Account>
       <div>
-        {currentUser?.companyName && (
+        {isUserData?.companyName && (
           <Heading as="h6" weight="bold">
-            {currentUser.companyName}
+            {isUserData.companyName}
           </Heading>
         )}
 
-        {currentUser?.companyAddress && (
-          <Heading as="p">{currentUser.companyAddress}</Heading>
+        {isUserData?.companyAddress && (
+          <Heading as="p">{isUserData.companyAddress}</Heading>
         )}
         <Heading as="p">
-          {currentUser?.zipCode}, {currentUser?.city}, {currentUser?.country}
+          {isUserData?.zipCode}, {isUserData?.city}, {isUserData?.country}
         </Heading>
-        {currentUser?.taxNumber && (
-          <Heading as="p">Davčna številka: {currentUser.taxNumber}</Heading>
+        {isUserData?.taxNumber && (
+          <Heading as="p">Davčna številka: {isUserData.taxNumber}</Heading>
         )}
       </div>
 
       <div>
-        {currentUser?.trr && <Heading as="p">TRR: {currentUser.trr}</Heading>}
-        {currentUser?.bic && (
-          <Heading as="p">BIC koda: {currentUser.bic}</Heading>
+        {isUserData?.trr && <Heading as="p">TRR: {isUserData.trr}</Heading>}
+        {isUserData?.bic && (
+          <Heading as="p">BIC koda: {isUserData.bic}</Heading>
         )}
-        {currentUser?.email && (
-          <Heading as="p">E-pošta: {currentUser.email}</Heading>
+        {isUserData?.email && (
+          <Heading as="p">E-pošta: {isUserData.email}</Heading>
         )}
-        {currentUser?.phoneNumber && (
-          <Heading as="p">Telefon: {currentUser.phoneNumber}</Heading>
+        {isUserData?.phoneNumber && (
+          <Heading as="p">Telefon: {isUserData.phoneNumber}</Heading>
         )}
       </div>
     </Account>

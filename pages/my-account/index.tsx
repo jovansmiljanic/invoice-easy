@@ -7,22 +7,20 @@ import { Layout } from "@components";
 // Core
 import { GetServerSideProps } from "next";
 
-// Vendors
-import { Session } from "next-auth";
-import { getSession } from "next-auth/react";
+// Vendor types
+import type { Session } from "next-auth";
 
-// Global types
-import { MyAccount as MyAccountType } from "@types";
+// Vendors
+import { getSession } from "next-auth/react";
 
 interface ContentPageProps {
   session: Session;
-  currentUser: MyAccountType;
 }
 
-export default function Page({ currentUser, session }: ContentPageProps) {
+export default function Page({ session }: ContentPageProps) {
   return (
     <Layout title="Update company details" session={session}>
-      <MyAccount details={currentUser} session={session} />
+      <MyAccount />
     </Layout>
   );
 }
@@ -40,16 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     };
   }
 
-  const user = await fetch(`${process.env.NEXTAUTH_URL}/api/registration`, {
-    method: "GET",
-    headers: {
-      Cookie: ctx?.req?.headers?.cookie ?? "",
-    },
-  });
-
-  const { currentUser } = await user.json();
-
   return {
-    props: { currentUser, session },
+    props: { session },
   };
 };

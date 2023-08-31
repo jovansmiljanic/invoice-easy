@@ -1,5 +1,5 @@
 // Core types
-import { type FC } from "react";
+import { type FC, useContext } from "react";
 
 // Global components
 import { Button, Heading } from "@components";
@@ -10,7 +10,6 @@ import { Column, Container, Row } from "@components/Grid";
 // Vendors
 import axios from "axios";
 import * as Yup from "yup";
-import { Session } from "next-auth";
 import { useRouter } from "next/router";
 import { Formik, FormikHelpers } from "formik";
 import styled, { css } from "styled-components";
@@ -19,9 +18,9 @@ import styled, { css } from "styled-components";
 import { Field, Label } from "@styles/Form";
 
 // Global types
-import { MyAccount as MyAccountType } from "@types";
+import { StoreContext } from "@context";
 
-const MyAccount = styled.div`
+const MyAccountContainer = styled.div`
   width: 100%;
   border-radius: 5px;
   box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
@@ -110,32 +109,35 @@ const MyAccountSchema = Yup.object().shape({
   bic: Yup.string().required("Please enter your BIC code"),
 });
 
-interface MyAccount {
-  details: MyAccountType;
-  session: Session;
-}
+interface IMyAccount {}
 
-const index: FC<MyAccount> = ({ details, session }) => {
+const index: FC<IMyAccount> = () => {
   // Handle router
   const router = useRouter();
 
+  const { isUserData } = useContext(StoreContext);
+
+  if (!isUserData) {
+    return null; // Or you can render a loading indicator
+  }
+
   const initialValue = {
-    firstName: details.firstName ? details.firstName : "",
-    lastName: details.lastName ? details.lastName : "",
-    email: details.email ? details.email : "",
-    phoneNumber: details.phoneNumber ? details.phoneNumber : "",
-    taxNumber: details.taxNumber ? details.taxNumber : "",
+    firstName: isUserData?.firstName ? isUserData.firstName : "",
+    lastName: isUserData?.lastName ? isUserData.lastName : "",
+    email: isUserData?.email ? isUserData.email : "",
+    phoneNumber: isUserData?.phoneNumber ? isUserData.phoneNumber : "",
+    taxNumber: isUserData?.taxNumber ? isUserData.taxNumber : "",
 
-    companyField: details.companyField ? details.companyField : "",
-    companyName: details.companyName ? details.companyName : "",
-    companyAddress: details.companyAddress ? details.companyAddress : "",
-    zipCode: details.zipCode ? details.zipCode : "",
-    city: details.city ? details.city : "",
-    country: details.country ? details.country : "",
+    companyField: isUserData?.companyField ? isUserData.companyField : "",
+    companyName: isUserData?.companyName ? isUserData.companyName : "",
+    companyAddress: isUserData?.companyAddress ? isUserData.companyAddress : "",
+    zipCode: isUserData?.zipCode ? isUserData.zipCode : "",
+    city: isUserData?.city ? isUserData.city : "",
+    country: isUserData?.country ? isUserData.country : "",
 
-    bankName: details.bankName ? details.bankName : "",
-    trr: details.trr ? details.trr : "",
-    bic: details.bic ? details.bic : "",
+    bankName: isUserData?.bankName ? isUserData.bankName : "",
+    trr: isUserData?.trr ? isUserData.trr : "",
+    bic: isUserData?.bic ? isUserData.bic : "",
   };
 
   return (
@@ -167,7 +169,7 @@ const index: FC<MyAccount> = ({ details, session }) => {
             ) => {
               setSubmitting(true);
 
-              const id = session.user._id;
+              const id = isUserData._id;
 
               await axios({
                 method: "PUT",
@@ -197,7 +199,7 @@ const index: FC<MyAccount> = ({ details, session }) => {
               isSubmitting,
             }) => (
               <Form id="myForm" onSubmit={handleSubmit}>
-                <MyAccount>
+                <MyAccountContainer>
                   <Heading
                     as="h5"
                     weight="semiBold"
@@ -312,9 +314,9 @@ const index: FC<MyAccount> = ({ details, session }) => {
                       </ErrorWrap>
                     </Group>
                   </Wrapper>
-                </MyAccount>
+                </MyAccountContainer>
 
-                <MyAccount>
+                <MyAccountContainer>
                   <Heading
                     as="h5"
                     weight="semiBold"
@@ -450,9 +452,9 @@ const index: FC<MyAccount> = ({ details, session }) => {
                       </ErrorWrap>
                     </Group>
                   </Wrapper>
-                </MyAccount>
+                </MyAccountContainer>
 
-                <MyAccount>
+                <MyAccountContainer>
                   <Heading
                     as="h5"
                     weight="semiBold"
@@ -523,7 +525,7 @@ const index: FC<MyAccount> = ({ details, session }) => {
                       </ErrorWrap>
                     </Group>
                   </Wrapper>
-                </MyAccount>
+                </MyAccountContainer>
 
                 <Button
                   type="submit"

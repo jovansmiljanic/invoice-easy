@@ -10,8 +10,9 @@ import { deleteItem } from "@utils/client";
 // Vendors
 import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
-import { Button } from "@components/Button";
-import { Heading } from "@components/Heading";
+
+// Global components
+import { Button, Heading } from "@components";
 
 const Background = styled.div`
   position: fixed;
@@ -84,6 +85,8 @@ const index: FC = () => {
     router.asPath === "/clients"
       ? "client"
       : router.asPath === "/"
+      ? "invoice"
+      : router.pathname === "/invoice/preview/[client]"
       ? "invoice"
       : "";
 

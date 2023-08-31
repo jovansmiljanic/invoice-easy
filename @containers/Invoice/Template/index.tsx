@@ -2,7 +2,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 
 // Core types
-import { Client, Invoice, MyAccount } from "@types";
+import { Client, Invoice } from "@types";
 
 // Global components
 import { Button } from "@components";
@@ -24,6 +24,8 @@ import { Total } from "./Total";
 import { Footer } from "./Footer";
 import { ClientDetails } from "./Client";
 import { AccountDetails } from "./Account";
+
+// Store context
 import { StoreContext } from "@context";
 
 const NewInvoice = styled.div`
@@ -41,7 +43,6 @@ const Options = styled.div`
 `;
 
 interface NewInvoice {
-  currentUser: MyAccount;
   client?: Client[];
   invoiceNumber?: number;
   invoice?: Invoice;
@@ -63,12 +64,7 @@ const InvoiceSchema = Yup.object().shape({
   invoiceNumber: Yup.number(),
 });
 
-const index: FC<NewInvoice> = ({
-  currentUser,
-  client,
-  invoiceNumber,
-  invoice,
-}) => {
+const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
   // Handle router
   const router = useRouter();
 
@@ -185,7 +181,7 @@ const index: FC<NewInvoice> = ({
                 }}
               >
                 <NewInvoice>
-                  <AccountDetails currentUser={currentUser} />
+                  <AccountDetails />
 
                   <ClientDetails
                     client={client}
@@ -203,7 +199,7 @@ const index: FC<NewInvoice> = ({
 
                   <Total tableData={tableData} />
 
-                  <Footer currentUser={currentUser} />
+                  <Footer />
                 </NewInvoice>
               </Column>
 

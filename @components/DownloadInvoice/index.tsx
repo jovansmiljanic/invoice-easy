@@ -5,7 +5,9 @@ import { FC, useEffect, useState } from "react";
 import { File } from "@containers/Invoice/Preview/File";
 
 // Vendors
+import axios from "axios";
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import styled, { css, keyframes } from "styled-components";
 
 // GLobal types
 import { Invoice, MyAccount } from "@types";
@@ -18,8 +20,6 @@ import { Button } from "@components";
 
 // Svg
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import axios from "axios";
-import styled, { css, keyframes } from "styled-components";
 
 // Animation
 const Loading = keyframes`
@@ -67,17 +67,16 @@ const ModalItem = styled.div`
 interface Download {
   invoice: Invoice;
   type: "icon" | "button" | "modalItem";
+  isClient?: boolean;
 }
 
-const index: FC<Download> = ({ invoice, type }) => {
-  const [isClient, setIsClient] = useState(false);
+const index: FC<Download> = ({ invoice, type, isClient }) => {
   const [isUser, setIsUser] = useState<MyAccount>();
 
   useEffect(() => {
     // Call axios with filters and page as a string url
     axios.get(`/api/registration/`).then(({ data: { currentUser } }) => {
       setIsUser(currentUser);
-      setIsClient(true);
     });
   }, []);
 
@@ -129,4 +128,4 @@ const index: FC<Download> = ({ invoice, type }) => {
   );
 };
 
-export { index as DonwloadInvoice };
+export { index as DownloadInvoice };
