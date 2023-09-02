@@ -17,8 +17,6 @@ import styled, { css } from "styled-components";
 // Table component
 import { Actions } from "@components/TableContainer/Actions";
 
-const Item = styled.div``;
-
 const Status = styled.div<{ status: "danger" | "success" }>`
   width: fit-content;
   min-width: 45px;
@@ -31,6 +29,18 @@ const Status = styled.div<{ status: "danger" | "success" }>`
     color: ${colors[status]};
     background-color: ${lighten(0.3, colors[status])};
     font-weight: ${font.weight.semiBold};
+  `}
+`;
+
+const TableCell = styled.td`
+  padding: 8px;
+
+  ${({ theme: { colors, breakpoints } }) => css`
+    border-bottom: 1px solid ${colors.lightGray};
+
+    @media (max-width: ${breakpoints.md}px) {
+      border-bottom: none;
+    }
   `}
 `;
 
@@ -53,19 +63,23 @@ const index: FC<Item> = ({ updatedItems }) => {
   }
 
   return (
-    <tr>
-      <td onClick={() => copyText(updatedItems._id.toString())}>
+    <>
+      <TableCell onClick={() => copyText(updatedItems._id.toString())}>
         #{updatedItems._id.toString().slice(19)}
-      </td>
-      <td>{updatedItems.client.clientName}</td>
-      <td>{status}</td>
-      <td>{formatDate(updatedItems.issuedDate)}</td>
-      <td>{daysLeft(updatedItems.paymentDeadline, updatedItems.issuedDate)}</td>
-      <td>{getTotalPrice(updatedItems.items, updatedItems?.tax)}</td>
-      <td>
+      </TableCell>
+      <TableCell>{updatedItems.client.clientName}</TableCell>
+      <TableCell>{status}</TableCell>
+      <TableCell>{formatDate(updatedItems.issuedDate)}</TableCell>
+      <TableCell>
+        {daysLeft(updatedItems.paymentDeadline, updatedItems.issuedDate)}
+      </TableCell>
+      <TableCell>
+        {getTotalPrice(updatedItems.items, updatedItems?.tax)}
+      </TableCell>
+      <TableCell>
         <Actions updatedItems={updatedItems} />
-      </td>
-    </tr>
+      </TableCell>
+    </>
   );
 };
 

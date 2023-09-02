@@ -10,22 +10,25 @@ import { copyText } from "@utils/shared";
 // Vendors
 import styled, { css } from "styled-components";
 
-const Item = styled.div``;
-
 interface Item {
   updatedItems: Client;
 }
 
+const TableCell = styled.td`
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+`;
+
 const index: FC<Item> = ({ updatedItems }) => {
   return (
-    <tr>
-      <td onClick={() => copyText(updatedItems._id.toString())}>
+    <>
+      <TableCell onClick={() => copyText(updatedItems._id.toString())}>
         #{updatedItems._id.toString().slice(19)}
-      </td>
-      <td>{updatedItems.clientName}</td>
-      <td>{updatedItems.clientAddress}</td>
-      <td>{updatedItems.country}</td>
-    </tr>
+      </TableCell>
+      <TableCell>{updatedItems.clientName}</TableCell>
+      <TableCell>{updatedItems.clientAddress}</TableCell>
+      <TableCell>{updatedItems.country}</TableCell>
+    </>
   );
 };
 
