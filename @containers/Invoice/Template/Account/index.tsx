@@ -1,5 +1,5 @@
 // Core types
-import { type FC, useContext } from "react";
+import { type FC, useEffect, useState } from "react";
 
 // Global components
 import { Heading } from "@components";
@@ -9,6 +9,8 @@ import styled, { css } from "styled-components";
 
 // Store context
 import { StoreContext } from "@context";
+import { MyAccount } from "@types";
+import { getUserData } from "@utils/client/getUserData";
 
 const Account = styled.div`
   display: flex;
@@ -34,38 +36,48 @@ const Account = styled.div`
 interface Account {}
 
 const index: FC<Account> = () => {
-  const { isUserData } = useContext(StoreContext);
+  const [userData, setUserData] = useState<MyAccount>();
+
+  useEffect(() => {
+    // Fetch user data when the component mounts
+    const fetchData = async () => {
+      const data = getUserData();
+      setUserData(data);
+    };
+
+    fetchData();
+  }, []);
+
+  if (!userData) {
+    return <>Loading</>; // Or you can render a loading indicator
+  }
 
   return (
     <Account>
       <div>
-        {isUserData?.companyName && (
+        {userData?.companyName && (
           <Heading as="h6" weight="bold">
-            {isUserData.companyName}
+            {userData.companyName}
           </Heading>
         )}
 
-        {isUserData?.companyAddress && (
-          <Heading as="p">{isUserData.companyAddress}</Heading>
+        {userData?.companyAddress && (
+          <Heading as="p">{userData.companyAddress}</Heading>
         )}
         <Heading as="p">
-          {isUserData?.zipCode}, {isUserData?.city}, {isUserData?.country}
+          {userData?.zipCode}, {userData?.city}, {userData?.country}
         </Heading>
-        {isUserData?.taxNumber && (
-          <Heading as="p">Davčna številka: {isUserData.taxNumber}</Heading>
+        {userData?.taxNumber && (
+          <Heading as="p">Davčna številka: {userData.taxNumber}</Heading>
         )}
       </div>
 
       <div>
-        {isUserData?.trr && <Heading as="p">TRR: {isUserData.trr}</Heading>}
-        {isUserData?.bic && (
-          <Heading as="p">BIC koda: {isUserData.bic}</Heading>
-        )}
-        {isUserData?.email && (
-          <Heading as="p">E-pošta: {isUserData.email}</Heading>
-        )}
-        {isUserData?.phoneNumber && (
-          <Heading as="p">Telefon: {isUserData.phoneNumber}</Heading>
+        {userData?.trr && <Heading as="p">TRR: {userData.trr}</Heading>}
+        {userData?.bic && <Heading as="p">BIC koda: {userData.bic}</Heading>}
+        {userData?.email && <Heading as="p">E-pošta: {userData.email}</Heading>}
+        {userData?.phoneNumber && (
+          <Heading as="p">Telefon: {userData.phoneNumber}</Heading>
         )}
       </div>
     </Account>
