@@ -24,12 +24,18 @@ import { invoicePaid } from "@utils/client";
 
 const Actions = styled.div`
   display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
-  ${({ theme: { colors } }) => css`
+  ${({ theme: { breakpoints, colors } }) => css`
     svg {
       path {
         fill: ${colors.textColor};
       }
+    }
+
+    @media (max-width: ${breakpoints.md}px) {
+      justify-content: flex-start;
     }
   `}
 `;

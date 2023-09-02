@@ -1,22 +1,24 @@
 // Core types
-import type { FC } from "react";
+import { type FC, useContext } from "react";
 
 // Vendors
 import styled, { keyframes, css } from "styled-components";
 
+import { GridContext } from "..";
+
 // Create the keyframes
 const animate = keyframes`
-    0%{
+    0% {
         background-position: -600px 0
     }
-    100%{
+    100% {
         background-position: 600px 0
     }
 `;
 
-const Animation = styled.div`
+export const Animation = styled.div`
   background: #f6f7f8;
-  background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+  background: linear-gradient(to right, #cccccc 20%, #aaaaaa 30%, #888888 95%);
   background-size: 1200px 104px;
   position: relative;
   animation-timing-function: linear;
@@ -28,97 +30,47 @@ const Animation = styled.div`
   animation-name: ${animate};
 `;
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: flex-center;
-  align-items: center;
+const Table = styled.table`
+  width: 100%;
 
-  ${({ theme: { breakpoints, colors } }) => css`
-    background-color: ${colors.background};
-    border-bottom: 1px solid ${colors.lightGray};
+  thead {
+    height: 41px;
+  }
 
-    @media (max-width: ${breakpoints.md}px) {
-      flex-direction: column;
-    }
+  ${({ theme: { colors } }) => css`
+    border: 1px solid ${colors.lightGray};
   `}
 `;
 
-const Wrap = styled.div`
-  height: 27.5px;
-  margin: 10px;
-
-  &:nth-child(1) {
-    width: 60px;
-    margin-right: 75px;
-  }
-
-  &:nth-child(2) {
-    width: 150px;
-    margin-right: 75px;
-  }
-
-  &:nth-child(3) {
-    width: 50px;
-    margin-right: 170px;
-  }
-
-  &:nth-child(4) {
-    width: 100px;
-    margin-right: 120px;
-  }
-
-  &:nth-child(5) {
-    width: 60px;
-    margin-right: 155px;
-  }
-
-  &:nth-child(6) {
-    width: 85px;
-    margin-right: 145px;
-  }
-
-  &:nth-child(7) {
-    width: 40px;
-  }
+const TableCell = styled.td`
+  padding: 8px;
+  height: 45px;
 `;
 
-const index: FC = () => {
-  const a = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+interface Placeholder {
+  items?: string[];
+}
+
+const index: FC<Placeholder> = ({ items }) => {
+  const { limit } = useContext(GridContext);
+  const arrayOfLengt = Array.from({ length: limit }, (_, index) => index);
 
   return (
-    <>
-      {a.map((item) => (
-        <Wrapper key={item}>
-          <Wrap>
-            <Animation />
-          </Wrap>
+    <Table>
+      <thead></thead>
 
-          <Wrap>
-            <Animation />
-          </Wrap>
-
-          <Wrap>
-            <Animation />
-          </Wrap>
-
-          <Wrap>
-            <Animation />
-          </Wrap>
-
-          <Wrap>
-            <Animation />
-          </Wrap>
-
-          <Wrap>
-            <Animation />
-          </Wrap>
-
-          <Wrap>
-            <Animation />
-          </Wrap>
-        </Wrapper>
-      ))}
-    </>
+      <tbody>
+        {arrayOfLengt.map((_, i) => (
+          <tr key={i}>
+            {items?.map((item, i) => (
+              <TableCell>
+                <Animation />
+              </TableCell>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </Table>
   );
 };
 
