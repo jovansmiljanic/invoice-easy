@@ -2,7 +2,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 
 // Core types
-import { Invoice } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // Global components
 import { Button, Heading } from "@components";
@@ -21,6 +21,7 @@ import { StoreContext } from "@context";
 
 // Clients download
 import { DownloadInvoice } from "@components/DownloadInvoice";
+import { getUserData } from "@utils/client/getUserData";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -245,19 +246,23 @@ interface NewInvoice {
 
 const index: FC<NewInvoice> = ({ invoice }) => {
   // Store context
-  const {
-    isPhone,
-    setIsClientData,
-    setIsConfirmModal,
-    isConfirmModal,
-    isUserData,
-  } = useContext(StoreContext);
+  const { isPhone, setIsClientData, setIsConfirmModal, isConfirmModal } =
+    useContext(StoreContext);
 
   const [isClient, setIsClient] = useState(false);
+  const [userData, setUserData] = useState<MyAccount>();
 
   useEffect(() => {
     setIsClient(true);
-  }, [,]);
+
+    // Fetch user data when the component mounts
+    const fetchData = async () => {
+      const data = getUserData();
+      setUserData(data);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Container>
@@ -280,22 +285,19 @@ const index: FC<NewInvoice> = ({ invoice }) => {
             <UserDetails>
               <Col1>
                 <Heading as="h6" weight="bold">
-                  {isUserData?.companyName}
+                  {userData?.companyName}
                 </Heading>
-                <Heading as="p">{isUserData?.companyAddress}</Heading>
+                <Heading as="p">{userData?.companyAddress}</Heading>
                 <Heading as="p">
-                  {isUserData?.zipCode}, {isUserData?.city},{" "}
-                  {isUserData?.country}
+                  {userData?.zipCode}, {userData?.city}, {userData?.country}
                 </Heading>
-                <Heading as="p">
-                  Davčna številka: {isUserData?.taxNumber}
-                </Heading>
+                <Heading as="p">Davčna številka: {userData?.taxNumber}</Heading>
               </Col1>
               <Col2>
-                <Heading as="p">TRR: {isUserData?.trr}</Heading>
-                <Heading as="p">BIC koda: {isUserData?.bic}</Heading>
-                <Heading as="p">E-pošta: {isUserData?.email}</Heading>
-                <Heading as="p">Telefon: {isUserData?.phoneNumber}</Heading>
+                <Heading as="p">TRR: {userData?.trr}</Heading>
+                <Heading as="p">BIC koda: {userData?.bic}</Heading>
+                <Heading as="p">E-pošta: {userData?.email}</Heading>
+                <Heading as="p">Telefon: {userData?.phoneNumber}</Heading>
               </Col2>
             </UserDetails>
 
@@ -450,17 +452,16 @@ const index: FC<NewInvoice> = ({ invoice }) => {
 
               <Heading as="p">
                 Znesek računa poravnajte na transakcijski račun odprt pri{" "}
-                {isUserData?.bankName}., številka {isUserData?.trr}. Pri plačilu
-                se sklicujte na številko računa
+                {userData?.bankName}., številka {userData?.trr}. Pri plačilu se
+                sklicujte na številko računa
               </Heading>
             </Note>
 
             <Footer>
               <p>
-                {isUserData?.companyField}, {isUserData?.companyName}.
-                Transakcijski račun odprt pri {isUserData?.bankName} –{" "}
-                {isUserData?.trr}
-                ., davčna številka: {isUserData?.taxNumber}.
+                {userData?.companyField}, {userData?.companyName}. Transakcijski
+                račun odprt pri {userData?.bankName} – {userData?.trr}
+                ., davčna številka: {userData?.taxNumber}.
               </p>
             </Footer>
           </NewInvoice>

@@ -1,5 +1,5 @@
 // Core types
-import { type FC, useContext } from "react";
+import { type FC, useState, useEffect } from "react";
 
 // Global components
 import { Button, Heading } from "@components";
@@ -19,6 +19,8 @@ import { Field, Label } from "@styles/Form";
 
 // Global types
 import { StoreContext } from "@context";
+import { MyAccount } from "@types";
+import { getUserData } from "@utils/client/getUserData";
 
 const MyAccountContainer = styled.div`
   width: 100%;
@@ -115,29 +117,39 @@ const index: FC<IMyAccount> = () => {
   // Handle router
   const router = useRouter();
 
-  const { isUserData } = useContext(StoreContext);
+  const [userData, setUserData] = useState<MyAccount>();
 
-  if (!isUserData) {
-    return null; // Or you can render a loading indicator
+  useEffect(() => {
+    // Fetch user data when the component mounts
+    const fetchData = async () => {
+      const data = getUserData();
+      setUserData(data);
+    };
+
+    fetchData();
+  }, []);
+
+  if (!userData) {
+    return <>Loading</>; // Or you can render a loading indicator
   }
 
   const initialValue = {
-    firstName: isUserData?.firstName ? isUserData.firstName : "",
-    lastName: isUserData?.lastName ? isUserData.lastName : "",
-    email: isUserData?.email ? isUserData.email : "",
-    phoneNumber: isUserData?.phoneNumber ? isUserData.phoneNumber : "",
-    taxNumber: isUserData?.taxNumber ? isUserData.taxNumber : "",
+    firstName: userData?.firstName ? userData.firstName : "",
+    lastName: userData?.lastName ? userData.lastName : "",
+    email: userData?.email ? userData.email : "",
+    phoneNumber: userData?.phoneNumber ? userData.phoneNumber : "",
+    taxNumber: userData?.taxNumber ? userData.taxNumber : "",
 
-    companyField: isUserData?.companyField ? isUserData.companyField : "",
-    companyName: isUserData?.companyName ? isUserData.companyName : "",
-    companyAddress: isUserData?.companyAddress ? isUserData.companyAddress : "",
-    zipCode: isUserData?.zipCode ? isUserData.zipCode : "",
-    city: isUserData?.city ? isUserData.city : "",
-    country: isUserData?.country ? isUserData.country : "",
+    companyField: userData?.companyField ? userData.companyField : "",
+    companyName: userData?.companyName ? userData.companyName : "",
+    companyAddress: userData?.companyAddress ? userData.companyAddress : "",
+    zipCode: userData?.zipCode ? userData.zipCode : "",
+    city: userData?.city ? userData.city : "",
+    country: userData?.country ? userData.country : "",
 
-    bankName: isUserData?.bankName ? isUserData.bankName : "",
-    trr: isUserData?.trr ? isUserData.trr : "",
-    bic: isUserData?.bic ? isUserData.bic : "",
+    bankName: userData?.bankName ? userData.bankName : "",
+    trr: userData?.trr ? userData.trr : "",
+    bic: userData?.bic ? userData.bic : "",
   };
 
   return (
@@ -169,7 +181,7 @@ const index: FC<IMyAccount> = () => {
             ) => {
               setSubmitting(true);
 
-              const id = isUserData._id;
+              const id = userData?._id;
 
               await axios({
                 method: "PUT",

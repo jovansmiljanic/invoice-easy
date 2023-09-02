@@ -32,7 +32,6 @@ interface AppContext {
   setIsConfirmModal: (isConformModal: boolean) => void;
   isClientData: Client;
   setIsClientData: (isClientData?: any) => void;
-  isUserData: MyAccount;
 }
 
 export const Store: FC<Props> = (props) => {
@@ -47,9 +46,6 @@ export const Store: FC<Props> = (props) => {
 
   const [isConfirmModal, setIsConfirmModal] = useState(false);
   const isConfirmModalMemo = useMemo(() => isConfirmModal, [isConfirmModal]);
-
-  const [isUserData, setIsUserData] = useState<MyAccount>();
-  const isUserDataMemo = useMemo(() => isUserData, [isUserData]);
 
   const [isClientData, setIsClientData] = useState<Client>();
   const isClientDataMemo = useMemo(() => isClientData, [isClientData]);
@@ -69,13 +65,6 @@ export const Store: FC<Props> = (props) => {
       });
 
       setTheme("dark");
-    }
-
-    const userDataCookie = getCookie({ name: "user" });
-
-    if (userDataCookie) {
-      const parsedUserData = JSON.parse(userDataCookie);
-      setIsUserData(parsedUserData);
     }
 
     // Check if users device is smaller than 768px and enable Phone layout
@@ -115,7 +104,6 @@ export const Store: FC<Props> = (props) => {
           setIsModalOpen,
           isClientData: isClientDataMemo,
           setIsClientData,
-          isUserData: isUserDataMemo,
           isConfirmModal: isConfirmModalMemo,
           setIsConfirmModal,
           theme: theme,

@@ -1,5 +1,5 @@
 // Core types
-import { type FC, useContext } from "react";
+import { type FC, useEffect, useState } from "react";
 
 // Global components
 import { Heading } from "@components";
@@ -7,6 +7,8 @@ import { Heading } from "@components";
 // Vendors
 import styled, { css } from "styled-components";
 import { StoreContext } from "@context";
+import { getUserData } from "@utils/client/getUserData";
+import { MyAccount } from "@types";
 
 const Note = styled.div`
   width: 60%;
@@ -43,8 +45,21 @@ const Footer = styled.div`
 interface Footer {}
 
 const index: FC<Footer> = () => {
-  const { isUserData } = useContext(StoreContext);
+  const [userData, setUserData] = useState<MyAccount>();
 
+  useEffect(() => {
+    // Fetch user data when the component mounts
+    const fetchData = async () => {
+      const data = getUserData();
+      setUserData(data);
+    };
+
+    fetchData();
+  }, []);
+
+  if (!userData) {
+    return <>Loading</>; // Or you can render a loading indicator
+  }
   return (
     <>
       <Note>
@@ -62,9 +77,9 @@ const index: FC<Footer> = () => {
 
       <Footer>
         <p>
-          {isUserData?.companyField}, {isUserData?.companyName}. Transakcijski
-          račun odprt pri {isUserData?.bankName} – {isUserData?.trr}
-          ., davčna številka: {isUserData?.taxNumber}.
+          {userData?.companyField}, {userData?.companyName}. Transakcijski račun
+          odprt pri {userData?.bankName} – {userData?.trr}
+          ., davčna številka: {userData?.taxNumber}.
         </p>
       </Footer>
     </>
