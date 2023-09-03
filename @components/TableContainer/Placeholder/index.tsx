@@ -63,7 +63,7 @@ const index: FC<Placeholder> = ({ items }) => {
         {arrayOfLengt.map((_, i) => (
           <tr key={i}>
             {items?.map((item, i) => (
-              <TableCell>
+              <TableCell key={i}>
                 <Animation />
               </TableCell>
             ))}
