@@ -15,6 +15,7 @@ import type { Session } from "next-auth";
 
 // Global types
 import { Client } from "@types";
+import { findBiggestInvoiceNumber } from "@utils/shared/getInvoiceNumber";
 
 interface ContentPageProps {
   client?: Client[];
@@ -57,7 +58,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     }
   );
   const { items: invoices } = await invoiceDetails.json();
-  const invoiceNumber = invoices.length > 0 ? invoices[0].invoiceNumber : 0;
+
+  const invoiceNumber = findBiggestInvoiceNumber(invoices);
 
   const clientDetails = await fetch(`${process.env.NEXTAUTH_URL}/api/client`, {
     method: "GET",

@@ -21,6 +21,8 @@ import { Field, Label } from "@styles/Form";
 import { StoreContext } from "@context";
 import { MyAccount } from "@types";
 import { getUserData } from "@utils/client/getUserData";
+import { setCookie } from "@utils/shared";
+import { updateCookie } from "@utils/shared/setCookie";
 
 const MyAccountContainer = styled.div`
   width: 100%;
@@ -180,6 +182,12 @@ const index: FC<IMyAccount> = () => {
               { setSubmitting }: FormikHelpers<Formvalues>
             ) => {
               setSubmitting(true);
+
+              updateCookie({
+                name: "user",
+                value: JSON.stringify(data),
+                days: 30,
+              });
 
               const id = userData?._id;
 

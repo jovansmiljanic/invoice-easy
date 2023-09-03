@@ -95,7 +95,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
     startDate: new Date(),
     endDate: new Date(),
     tax: 0,
-    invoiceNumber: invoiceNumber ? invoiceNumber + 1 : 1,
+    invoiceNumber: invoiceNumber,
     paymentDeadline: new Date(),
     issuedDate: new Date(),
   };
