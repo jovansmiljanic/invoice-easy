@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 interface TableData {
   name: string;
   cost: number;
@@ -16,13 +18,23 @@ export const getSubTotalPrice = (tableData: TableData[]) => {
   return `${subTotalPrice} €`;
 };
 
-export const getTotalPrice = (tableData: TableData[], tax: number = 0) => {
+export const getTotalPrice = (tableData: TableData[], tax?: number) => {
   const subTotalPrice = tableData.reduce((acc, item) => acc + +item.price, 0);
+  const [totalPrice, setTotalPrice] = useState(subTotalPrice);
 
-  const totalPrice = +subTotalPrice + +tax;
+  useEffect(() => {
+    if (tax !== 0 && tax !== undefined) {
+      const taxable = (subTotalPrice * tax) / 100;
+      setTotalPrice(taxable + subTotalPrice);
+    } else {
+      setTotalPrice(+subTotalPrice);
+    }
+  }, [, tax, subTotalPrice]);
 
-  return `${totalPrice.toLocaleString(undefined, {
+  const formattedTotalPrice = `${totalPrice.toLocaleString(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   })} €`;
+
+  return formattedTotalPrice;
 };

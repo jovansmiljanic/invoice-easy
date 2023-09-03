@@ -28,6 +28,16 @@ const Actions = styled.div`
   align-items: center;
 
   ${({ theme: { breakpoints, colors } }) => css`
+    a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:first-child {
+        margin-right: 6px;
+      }
+    }
+
     svg {
       path {
         fill: ${colors.textColor};
@@ -81,10 +91,11 @@ const ModalItem = styled.div`
 
 const PopupModal = styled.div`
   position: relative;
+  cursor: pointer;
 
-  svg {
-    margin: 0 !important;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 interface Actions {
@@ -104,6 +115,7 @@ const index: FC<Actions> = ({ updatedItems }) => {
       <Link href={`/invoice/preview/${updatedItems._id}`}>
         <VisibilityOutlinedIcon fontSize="small" />
       </Link>
+
       <DownloadInvoice invoice={updatedItems} type="icon" />
 
       <PopupModal>

@@ -192,7 +192,7 @@ const index: FC<File> = ({ myAccount, invoice }) => {
 
         <View style={styles.total}>
           <Text>Subtotal: {getSubTotalPrice(invoice.items)}</Text>
-          <Text>Tax: {invoice.tax} €</Text>
+          <Text>Tax: {invoice.tax}%</Text>
           <Text>Total: {getTotalPrice(invoice.items, invoice.tax)}</Text>
         </View>
 

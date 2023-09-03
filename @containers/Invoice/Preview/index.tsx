@@ -416,7 +416,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 >
                   Tax:
                 </Heading>
-                <Heading as="p">{invoice.tax} €</Heading>
+                <Heading as="p">{invoice.tax}%</Heading>
               </TotalRow>
 
               <TotalRow>

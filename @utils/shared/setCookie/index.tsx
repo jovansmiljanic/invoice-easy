@@ -1,4 +1,3 @@
-// cookies.js
 export const setCookie = ({
   res,
   name,
@@ -28,4 +27,18 @@ export const setCookie = ({
     document.cookie =
       name + "=" + encodeURIComponent(value || "") + expires + "; path=/";
   }
+};
+
+export const updateCookie = ({
+  res,
+  name,
+  value,
+  days,
+}: {
+  res?: any;
+  name: string;
+  value: string;
+  days: number;
+}) => {
+  setCookie({ res, name, value, days }); // Call setCookie to update the cookie
 };
