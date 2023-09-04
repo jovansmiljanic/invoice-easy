@@ -20,6 +20,7 @@ import { Button } from "@components";
 
 // Svg
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import { getUserData } from "@utils/client/getUserData";
 
 // Animation
 const Loading = keyframes`
@@ -71,18 +72,21 @@ interface Download {
 }
 
 const index: FC<Download> = ({ invoice, type, isClient }) => {
-  const [isUser, setIsUser] = useState<MyAccount>();
+  const [userData, setUserData] = useState<MyAccount>();
 
   useEffect(() => {
-    // Call axios with filters and page as a string url
-    axios.get(`/api/registration/`).then(({ data: { currentUser } }) => {
-      setIsUser(currentUser);
-    });
+    // Fetch user data when the component mounts
+    const fetchData = async () => {
+      const data = getUserData();
+      setUserData(data);
+    };
+
+    fetchData();
   }, []);
 
-  const fileName = `Invoice - ${isUser?.firstName + " " + isUser?.lastName} - ${
-    invoice.client.clientName
-  } - ${formatDate(invoice.issuedDate)}.pdf`;
+  const fileName = `Invoice - ${
+    userData?.firstName + " " + userData?.lastName
+  } - ${invoice.client.clientName} - ${formatDate(invoice.issuedDate)}.pdf`;
 
   let renderedContent;
 
@@ -120,7 +124,7 @@ const index: FC<Download> = ({ invoice, type, isClient }) => {
 
   return (
     <PDFDownloadLink
-      document={<File myAccount={isUser} invoice={invoice} />}
+      document={<File myAccount={userData} invoice={invoice} />}
       fileName={fileName}
     >
       {renderedContent}
