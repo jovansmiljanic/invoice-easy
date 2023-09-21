@@ -14,6 +14,7 @@ import { Client, Invoice } from "@types";
 
 // Grid context
 import { GridContext } from "..";
+import { StoreContext } from "@context";
 
 const Table = styled.table`
   width: 100%;
@@ -60,6 +61,8 @@ interface Table {
 const index: FC<Table> = ({ tableHeader, path }) => {
   // Grid context
   const { length, updatedItems, isLoading } = useContext(GridContext);
+  // Store context
+  const { isPhone } = useContext(StoreContext);
 
   if (isLoading || !updatedItems || length === 0)
     return <Placeholder items={tableHeader} />;
@@ -67,13 +70,15 @@ const index: FC<Table> = ({ tableHeader, path }) => {
   return (
     <>
       <Table>
-        <thead>
-          <tr>
-            {tableHeader.map((item, i) => (
-              <TableHeader key={i}>{item}</TableHeader>
-            ))}
-          </tr>
-        </thead>
+        {!isPhone && (
+          <thead>
+            <tr>
+              {tableHeader.map((item, i) => (
+                <TableHeader key={i}>{item}</TableHeader>
+              ))}
+            </tr>
+          </thead>
+        )}
 
         <tbody>
           {Array.isArray(updatedItems) &&

@@ -69,9 +69,9 @@ const index: FC<Footer> = () => {
           UPORABLJAM ŽIGA.
         </Heading>
         <Heading as="p">
-          Znesek računa poravnajte na transakcijski račun odprt pri N26.,
-          številka DE91 1001 1001 2623 8152 93. Pri plačilu se sklicujte na
-          številko računa
+          Znesek računa poravnajte na transakcijski račun odprt pri{" "}
+          {userData?.bankName}, številka {userData?.trr}. Pri plačilu se
+          sklicujte na številko računa
         </Heading>
       </Note>
 
