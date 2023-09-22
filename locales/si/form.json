@@ -1,0 +1,82 @@
+{
+  "fullNameLabel": "Ime in primek",
+  "fullNamePlaceholder": "John Doe",
+  "fullNameError": "Prosim vnesite svoje ime in primek",
+
+  "emailLabel": "E-pošta",
+  "emailPlaceholder": "john.doe@gmail.com",
+  "emailError": "Prosim vnesite svoj e-poštni naslov",
+
+  "firstNameLabel": "Ime",
+  "firstNamePlaceholder": "John",
+  "firstNameError": "Prosimo vnesite ime",
+
+  "lastNameLabel": "Priimek",
+  "lastNamePlaceholder": "Doe",
+  "lastNameError": "Prosimo vnesite priimek",
+
+  "phoneLabel": "Telefonska številka",
+  "phonePlaceholder": "+123 45 678 910",
+  "phoneError": "Prosimo vnesite telefonsko številko",
+
+  "taxNumber": "Davčna številka",
+  "taxNumberPlaceholder": "123456789",
+  "taxNumberError": "Prosimo vnesite davčno številko",
+
+  "companyField": "Dejavnost podjetja",
+  "companyFieldPlaceholder": "Dejavnost podjetja",
+  "companyFieldError": "Prosimo vnesite dejavnost podjetja",
+
+  "companyName": "Naziv podjetja",
+  "companyNamePlaceholder": "Naziv podjetja",
+  "companyNameError": "Prosimo vnesite naziv podjetja",
+
+  "companyAddress": "Naslov podjetja",
+  "companyAddressPlaceholder": "Naslov podjetja",
+  "companyAddressError": "Prosimo vnesite naslov podjetja",
+
+  "zipCode": "Poštna številka",
+  "zipCodePlaceholder": "Poštna številka",
+  "zipCodeError": "Prosimo vnesite poštno številko",
+
+  "city": "Mesto",
+  "cityPlaceholder": "Mesto",
+  "cityError": "Prosimo vnesite mesto",
+
+  "country": "Država",
+  "countryPlaceholder": "Država",
+  "countryError": "Prosimo vnesite državo",
+
+  "bankName": "Ime banke",
+  "bankNamePlaceholder": "Ime banke",
+  "bankNameError": "Prosimo vnesite ime banke",
+
+  "trr": "TRR",
+  "trrPlaceholder": "TRR (Številka transakcijskega računa)",
+  "trrError": "Prosimo vnesite TRR",
+
+  "bic": "BIC",
+  "bicPlaceholder": "BIC (Šifra banke)",
+  "bicError": "Prosimo vnesite BIC",
+
+  "passwordLabel": "Geslo",
+  "passwordPlaceholder": "*********",
+  "passwordError": "Prosim vnesite svoje geslo",
+
+  "signUpCta": "Registracija",
+  "signInCta": "Prijavite se",
+
+  "myAccountCta": "Potrdi",
+
+  "loading": "Nalaganje...",
+
+  "signUpSwitchLabel": "Že imate račun?",
+  "signUpSwitchLink": "Prijavite se",
+
+  "signInSwitchLabel": "Novi na naši platformi?",
+  "signInSwitchLink": "Ustvarite račun",
+
+  "tooShort": "Prekratko!",
+  "tooLong": "Predolgo!",
+  "validEmailError": "Prosimo, vnesite veljaven e-poštni naslov!"
+}

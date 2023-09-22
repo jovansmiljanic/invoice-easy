@@ -14,6 +14,7 @@ import { useDebouncedEffect } from "@utils/client";
 import axios from "axios";
 import Select from "react-select";
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Icons
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -289,6 +290,9 @@ const index: FC<Dashboard> = ({
     50
   );
 
+  // Translation
+  const { t } = useTranslation();
+
   return (
     <GridContext.Provider
       value={{
@@ -364,17 +368,17 @@ const index: FC<Dashboard> = ({
                   href="/invoice/add"
                 >
                   <AddOutlinedIcon />
-                  Create invoice
+                  {t("table:createInvoiceCta")}
                 </Button>
               </Col1>
 
               <Col2>
-                <Search />
+                <Search placeholder={t("table:searchLabel")} />
 
                 {filterOptions && (
                   <Filters
                     name="status"
-                    label="Filter by status"
+                    label={t("table:filterLabel")}
                     preSelected={statusSelected}
                     options={filterOptions}
                     callback={(e: Checkbox[]) => {

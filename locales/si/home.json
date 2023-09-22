@@ -1,0 +1,14 @@
+{
+  "myProfile": "Moj profil",
+  "invoices": "Računi",
+  "clients": "Stranke",
+  "signOut": "Odjava",
+  "boxInvoices": "Računi",
+  "boxClients": "Stranke",
+  "boxInvoiced": "Fakturirano",
+  "boxPaid": "Plačano",
+
+  "personalInformation": "Osebni podatki",
+  "companyInformation": "Podatki o podjetju",
+  "bankInformation": "Bančni podatki"
+}

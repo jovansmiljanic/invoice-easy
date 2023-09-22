@@ -10,7 +10,13 @@ import { NotFound404 } from "public/svg";
 // Global components
 import { Button, Heading } from "@components";
 
+// Vendors
+import useTranslation from "next-translate/useTranslation";
+
 const index: FC = () => {
+  // Translation
+  const { t } = useTranslation();
+
   return (
     <Container height={80}>
       <Row
@@ -43,7 +49,7 @@ const index: FC = () => {
               md: { bottom: 1 },
             }}
           >
-            Sorry, page you requested was not found
+            {t("404:title")}
           </Heading>
 
           <Heading
@@ -55,11 +61,11 @@ const index: FC = () => {
               md: { bottom: 1 },
             }}
           >
-            We suggest you go back to home
+            {t("404:description")}
           </Heading>
 
           <Button variant="secondary" as="a" href="/">
-            Back to home
+            {t("404:cta")}
           </Button>
         </Column>
         <Column responsivity={{ md: 6 }}>

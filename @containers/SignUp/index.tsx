@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import Link from "next/link";
 import { Formik, FormikHelpers } from "formik";
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Form styles
 import { Field, Label } from "@styles/Form";
@@ -98,29 +99,32 @@ interface Formvalues {
   password: string;
 }
 
-const SignupSchema = Yup.object().shape({
-  fullName: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Please enter your full name")
-    .matches(
-      /^([a-zA-ZÀ-ÖØ-öø-ÿ]{2,}\s[a-zA-ZÀ-ÖØ-öø-ÿ]{1,}'?-?[a-zA-ZÀ-ÖØ-öø-ÿ]{2,}\s?([a-zA-ZÀ-ÖØ-öø-ÿ]{1,})?)/,
-      "Please enter your full name"
-    ),
-  email: Yup.string()
-    .email("Please enter valid email")
-    .required("Please enter your email"),
-  password: Yup.string()
-    .min(8, "Your password is too short!")
-    .max(50, "Your password is too long!")
-    .required("Please enter your password"),
-});
-
 const index: FC = () => {
+  // Translation
+  const { t } = useTranslation();
+
   // Router
   const router = useRouter();
 
   const [isEyeOpened, setIsEyeOpened] = useState(false);
+
+  const SignupSchema = Yup.object().shape({
+    fullName: Yup.string()
+      .min(2, t("form:tooShort"))
+      .max(50, t("form:tooLong"))
+      .required(t("form:fullNameError"))
+      .matches(
+        /^([a-zA-ZÀ-ÖØ-öø-ÿ]{2,}\s[a-zA-ZÀ-ÖØ-öø-ÿ]{1,}'?-?[a-zA-ZÀ-ÖØ-öø-ÿ]{2,}\s?([a-zA-ZÀ-ÖØ-öø-ÿ]{1,})?)/,
+        t("form:fullNameError")
+      ),
+    email: Yup.string()
+      .email(t("form:validEmailError"))
+      .required(t("form:emailError")),
+    password: Yup.string()
+      .min(8, t("form:tooShort"))
+      .max(50, t("form:tooLong"))
+      .required(t("form:passwordError")),
+  });
 
   return (
     <Container height={82} alignCenter>
@@ -140,7 +144,7 @@ const index: FC = () => {
             </Wrap>
 
             <Heading as="h4" weight="semiBold">
-              Adventure starts here 🚀
+              {t("signUp:title")}
             </Heading>
 
             <Heading
@@ -151,7 +155,7 @@ const index: FC = () => {
                 md: { top: 1, bottom: 4 },
               }}
             >
-              Make your invoicing easy and fun!
+              {t("signUp:description")}
             </Heading>
 
             <Formik
@@ -190,12 +194,12 @@ const index: FC = () => {
               }) => (
                 <Form id="myForm" onSubmit={handleSubmit}>
                   <Group>
-                    <Label>Full Name</Label>
+                    <Label>{t("form:fullNameLabel")}</Label>
                     <Field
                       hasError={Boolean(errors.fullName && touched.fullName)}
                       type="text"
                       name="fullName"
-                      placeholder="Enter your full name"
+                      placeholder={t("form:fullNamePlaceholder")}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.fullName}
@@ -209,11 +213,11 @@ const index: FC = () => {
                   </Group>
 
                   <Group>
-                    <Label>Email</Label>
+                    <Label>{t("form:emailLabel")}</Label>
                     <Field
                       type="email"
                       name="email"
-                      placeholder="Enter your email"
+                      placeholder={t("form:emailPlaceholder")}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.email}
@@ -228,11 +232,11 @@ const index: FC = () => {
                   </Group>
 
                   <Group>
-                    <Label>Password</Label>
+                    <Label>{t("form:passwordLabel")}</Label>
                     <Field
                       type="password"
                       name="password"
-                      placeholder="********"
+                      placeholder={t("form:passwordPlaceholder")}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.password}
@@ -265,7 +269,7 @@ const index: FC = () => {
                       }}
                       isLoading={isSubmitting}
                     >
-                      {isSubmitting ? "Loading..." : "Sign up"}
+                      {isSubmitting ? t("form:loading") : t("form:signUpCta")}
                     </Button>
                   </ButtonWrap>
                 </Form>
@@ -277,7 +281,8 @@ const index: FC = () => {
               textAlign={{ xs: "center", sm: "center", md: "center" }}
               padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
             >
-              Already have an account? <Link href="/">Sign in instead</Link>
+              {t("form:signUpSwitchLabel")}{" "}
+              <Link href="/">{t("form:signUpSwitchLink")}</Link>
             </Heading>
           </Wrapper>
         </Column>

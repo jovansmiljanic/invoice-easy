@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 
 // Vendors
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Context
 import { Next, Prev } from "public/svg";
@@ -105,10 +106,13 @@ const index: FC = () => {
     });
   };
 
+  // Translation
+  const { t } = useTranslation();
+
   return (
     <Pagination>
       <div>
-        Showing {updatedItems.length} of {length}
+        {t("table:paginationLabel")} {updatedItems.length} of {length}
       </div>
 
       <Wrap>

@@ -26,7 +26,7 @@ export const TextArea = styled.textarea`
 
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: ${colors.textColor};
+      color: ${colors.lightGray};
       opacity: 1; /* Firefox */
     }
   `}
@@ -99,18 +99,18 @@ export const Field = styled.input<Field>`
       ::placeholder {
         font-size: 14px;
         /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: ${colors.textColor};
+        color: ${colors.lightGray};
         opacity: 1; /* Firefox */
       }
 
       :-ms-input-placeholder {
         /* Internet Explorer 10-11 */
-        color: ${colors.textColor};
+        color: ${colors.lightGray};
       }
 
       ::-ms-input-placeholder {
         /* Microsoft Edge */
-        color: ${colors.textColor};
+        color: ${colors.lightGray};
       }
 
       ${hasError &&

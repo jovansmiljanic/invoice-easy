@@ -55,7 +55,11 @@ const Clear = styled.div`
   z-index: 100;
 `;
 
-const index: FC = () => {
+interface Search {
+  placeholder: string;
+}
+
+const index: FC<Search> = ({ placeholder }) => {
   // Grid context
   const { searchQuery, setSearchQuery, queryUrl, searchUrl } =
     useContext(GridContext);
@@ -92,7 +96,7 @@ const index: FC = () => {
         name="search"
         value={searchQuery}
         onChange={handleChangeSearch}
-        placeholder="Search invoice"
+        placeholder={placeholder}
       />
 
       {searchQuery && (

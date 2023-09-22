@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import { Formik, FormikValues } from "formik";
 import styled, { css } from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
+import useTranslation from "next-translate/useTranslation";
 
 // Local components
 import { Table } from "./Table";
@@ -146,6 +147,9 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
     };
   };
 
+  // Translation
+  const { t } = useTranslation();
+
   return (
     <Formik
       autoComplete="off"
@@ -215,7 +219,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
                       md: { bottom: 1 },
                     }}
                   >
-                    Save
+                    {t("invoice:saveCta")}
                   </Button>
 
                   <Button
@@ -229,7 +233,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
                       md: { bottom: 1 },
                     }}
                   >
-                    Cancel
+                    {t("invoice:cancelCta")}
                   </Button>
                 </Options>
               </Column>

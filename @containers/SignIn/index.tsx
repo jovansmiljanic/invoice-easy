@@ -16,6 +16,7 @@ import Link from "next/link";
 import { object, string } from "yup";
 import styled, { css } from "styled-components";
 import { Formik, FormikHelpers } from "formik";
+import useTranslation from "next-translate/useTranslation";
 
 // Global styles
 import { Field, Label } from "@styles/Form";
@@ -94,21 +95,24 @@ type Formvalues = {
   password: string;
 };
 
-const SignInSchema = object().shape({
-  email: string().email("Invalid email").required("Please enter email address"),
-  password: string().required("Please enter your password"),
-});
-
 const index: FC = () => {
+  // Translation
+  const { t } = useTranslation();
+
+  // Handle router
+  const router = useRouter();
+
   // Handle errors
   const [errorMessage, setErrorMessage] = useState<string | undefined>(
     undefined
   );
 
-  // Handle router
-  const router = useRouter();
-
   const [isEyeOpened, setIsEyeOpened] = useState(false);
+
+  const SignInSchema = object().shape({
+    email: string().email("Invalid email").required(t("form:emailError")),
+    password: string().required(t("form:passwordError")),
+  });
 
   return (
     <Container height={82} alignCenter>
@@ -128,7 +132,7 @@ const index: FC = () => {
             </Wrap>
 
             <Heading as="h4" weight="semiBold">
-              Welcome to Invoice Easy! 👋
+              {t("signIn:title")}
             </Heading>
 
             <Heading
@@ -139,7 +143,7 @@ const index: FC = () => {
                 md: { top: 1, bottom: 4 },
               }}
             >
-              Please sign-in to your account and start the adventure
+              {t("signIn:description")}
             </Heading>
 
             <Formik
@@ -191,12 +195,12 @@ const index: FC = () => {
               }) => (
                 <form onSubmit={handleSubmit}>
                   <Group>
-                    <Label>Email address</Label>
+                    <Label>{t("form:emailLabel")}</Label>
                     <Field
                       hasError={Boolean(errors.email && touched.email)}
                       type="text"
                       name="email"
-                      placeholder="Enter your email address"
+                      placeholder={t("form:emailPlaceholder")}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.email}
@@ -210,12 +214,12 @@ const index: FC = () => {
                   </Group>
 
                   <Group>
-                    <Label>Password</Label>
+                    <Label>{t("form:passwordLabel")}</Label>
                     <Field
                       hasError={Boolean(errors.password && touched.password)}
                       type={isEyeOpened ? "text" : "password"}
                       name="password"
-                      placeholder="************"
+                      placeholder={t("form:passwordPlaceholder")}
                       onChange={handleChange}
                       onBlur={handleBlur}
                       value={values.password}
@@ -243,7 +247,7 @@ const index: FC = () => {
                       type="submit"
                       isLoading={isSubmitting}
                     >
-                      {isSubmitting ? "Loading..." : "Sign in"}
+                      {isSubmitting ? t("form:loading") : t("form:signInCta")}
                     </Button>
                   </ButtonWrap>
                 </form>
@@ -255,7 +259,8 @@ const index: FC = () => {
               textAlign={{ xs: "center", sm: "center", md: "center" }}
               padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
             >
-              New on our platform? <Link href="/signup">Create account</Link>
+              {t("form:signInSwitchLabel")}{" "}
+              <Link href="/signup">{t("form:signInSwitchLink")}</Link>
             </Heading>
           </Wrapper>
         </Column>
