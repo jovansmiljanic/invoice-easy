@@ -26,7 +26,7 @@ import { Client, Invoice } from "@types";
 import { Container, Column, Row } from "@components/Grid";
 
 // Global components
-import { Button, Boxes } from "@components";
+import { Button, Boxes, Heading } from "@components";
 
 // Chart components
 import { LineChart } from "@components/Charts";
@@ -135,6 +135,7 @@ interface Dashboard {
   filterOptions?: Checkbox[];
   lineChart?: boolean;
   boxes?: boolean;
+  title?: string;
 }
 
 export const GridContext = createContext({} as IGridContext);
@@ -145,7 +146,11 @@ const index: FC<Dashboard> = ({
   filterOptions,
   lineChart,
   boxes,
+  title,
 }) => {
+  // Translation
+  const { t } = useTranslation();
+
   const { query, push } = useRouter();
 
   // Declare filters
@@ -290,9 +295,6 @@ const index: FC<Dashboard> = ({
     50
   );
 
-  // Translation
-  const { t } = useTranslation();
-
   return (
     <GridContext.Provider
       value={{
@@ -308,6 +310,22 @@ const index: FC<Dashboard> = ({
       }}
     >
       <Container height={82}>
+        {title && (
+          <Row
+            padding={{
+              xs: { top: 4, bottom: 3 },
+              sm: { top: 4, bottom: 3 },
+              md: { top: 5, bottom: 4 },
+            }}
+          >
+            <Column responsivity={{ md: 12 }}>
+              <Heading as="h2" weight="semiBold" color="gray">
+                {title}
+              </Heading>
+            </Column>
+          </Row>
+        )}
+
         {boxes && lineChart && (
           <Row padding={{ md: { top: 2, bottom: 3 } }}>
             <Column

@@ -1,5 +1,6 @@
 // Vendors
 import styled, { css } from "styled-components";
+import { darken, lighten } from "polished";
 
 interface Field {
   hasError?: boolean;
@@ -26,7 +27,7 @@ export const TextArea = styled.textarea`
 
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: ${colors.lightGray};
+      color: ${darken(0.5, colors.lightGray)};
       opacity: 1; /* Firefox */
     }
   `}
@@ -99,18 +100,18 @@ export const Field = styled.input<Field>`
       ::placeholder {
         font-size: 14px;
         /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: ${colors.lightGray};
+        color: ${hasError ? colors.danger : darken(0.3, colors.lightGray)};
         opacity: 1; /* Firefox */
       }
 
       :-ms-input-placeholder {
         /* Internet Explorer 10-11 */
-        color: ${colors.lightGray};
+        color: ${hasError ? colors.danger : darken(0.3, colors.lightGray)};
       }
 
       ::-ms-input-placeholder {
         /* Microsoft Edge */
-        color: ${colors.lightGray};
+        color: ${hasError ? colors.danger : darken(0.3, colors.lightGray)};
       }
 
       ${hasError &&

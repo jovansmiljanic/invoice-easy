@@ -2,7 +2,7 @@
 import { type FC, useState, useEffect } from "react";
 
 // Global components
-import { Button, Heading } from "@components";
+import { Button, ErrorWrap, Heading } from "@components";
 
 // GLobal grid components
 import { Column, Container, Row } from "@components/Grid";
@@ -19,10 +19,12 @@ import useTranslation from "next-translate/useTranslation";
 import { Field, Label } from "@styles/Form";
 
 // Global types
-import { StoreContext } from "@context";
 import { MyAccount } from "@types";
+
+// Client utils
 import { getUserData } from "@utils/client/getUserData";
-import { setCookie } from "@utils/shared";
+
+// Shared utils
 import { updateCookie } from "@utils/shared/setCookie";
 
 const MyAccountContainer = styled.div`
@@ -61,19 +63,6 @@ const Form = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  ${({ theme: { colors } }) => css``}
-`;
-
-const ErrorWrap = styled.div`
-  width: 100%;
-  font-size: 10px;
-  padding: 0 12px;
-
-  ${({ theme: { colors } }) => css`
-    color: ${colors.white};
-    background-color: ${colors.danger};
-  `}
 `;
 
 interface Formvalues {

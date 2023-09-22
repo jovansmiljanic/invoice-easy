@@ -6,3 +6,4 @@ export { ClientModal } from "./ClientModal";
 export { DownloadInvoice } from "./DownloadInvoice";
 export { Boxes } from "./Boxes";
 export { TableContainer } from "./TableContainer";
+export { ErrorWrap } from "./Error";

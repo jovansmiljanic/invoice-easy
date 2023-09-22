@@ -25,6 +25,7 @@ const index: FC<Dashboard> = () => {
         t("table:amount"),
         t("table:actions"),
       ]}
+      title="Svi racuni"
       filterOptions={[
         { label: t("table:paidStatus"), value: "1" },
         {
