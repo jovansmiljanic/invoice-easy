@@ -5,9 +5,9 @@ import { FC, useEffect, useState } from "react";
 import { File } from "@containers/Invoice/Preview/File";
 
 // Vendors
-import axios from "axios";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import styled, { css, keyframes } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // GLobal types
 import { Invoice, MyAccount } from "@types";
@@ -72,6 +72,9 @@ interface Download {
 }
 
 const index: FC<Download> = ({ invoice, type, isClient }) => {
+  // Translation
+  const { t } = useTranslation();
+
   const [userData, setUserData] = useState<MyAccount>();
 
   useEffect(() => {
@@ -104,7 +107,7 @@ const index: FC<Download> = ({ invoice, type, isClient }) => {
           disabled={!isClient}
           isLoading={!isClient}
         >
-          Download
+          {t("table:download")}
         </Button>
       );
       break;
@@ -112,7 +115,7 @@ const index: FC<Download> = ({ invoice, type, isClient }) => {
       renderedContent = <FileDownloadOutlinedIcon fontSize="small" />;
       break;
     case "modalItem":
-      renderedContent = <ModalItem>Download</ModalItem>;
+      renderedContent = <ModalItem>{t("table:download")}</ModalItem>;
       break;
     default:
       renderedContent = <LoadingButton />;

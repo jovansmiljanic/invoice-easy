@@ -5,6 +5,7 @@ import { type FC, useState, useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // SVG
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
@@ -103,6 +104,9 @@ interface Actions {
 }
 
 const index: FC<Actions> = ({ updatedItems }) => {
+  // Translation
+  const { t } = useTranslation();
+
   const router = useRouter();
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -127,21 +131,21 @@ const index: FC<Actions> = ({ updatedItems }) => {
         {isOptionsOpen && (
           <ModalItems>
             <Link href={`/invoice/preview/${updatedItems._id}`}>
-              <ModalItem>Preview</ModalItem>
+              <ModalItem>{t("table:preview")}</ModalItem>
             </Link>
 
             {updatedItems.status === "2" && (
               <ModalItem
                 onClick={() => invoicePaid({ _id: updatedItems._id, router })}
               >
-                Mark as paid
+                {t("table:markAsPaid")}
               </ModalItem>
             )}
 
             <DownloadInvoice invoice={updatedItems} type="modalItem" />
 
             <Link href={`/invoice/edit/${updatedItems._id}`}>
-              <ModalItem>Edit</ModalItem>
+              <ModalItem>{t("table:edit")}</ModalItem>
             </Link>
 
             <ModalItem
@@ -152,7 +156,7 @@ const index: FC<Actions> = ({ updatedItems }) => {
                 setIsConfirmModal(!isConfirmModal);
               }}
             >
-              Delete invoice
+              {t("table:delete")}
             </ModalItem>
           </ModalItems>
         )}

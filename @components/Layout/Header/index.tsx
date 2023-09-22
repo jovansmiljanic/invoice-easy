@@ -7,6 +7,7 @@ import Link from "next/link";
 // Vendors
 import { signOut } from "next-auth/react";
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Global grid components
 import { Column, Container, Row } from "@components/Grid";
@@ -21,13 +22,13 @@ import type { Session } from "next-auth";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import PostAddOutlinedIcon from "@mui/icons-material/PostAddOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 
 // Store context
 import { StoreContext } from "@context";
+import { useRouter } from "next/router";
 
 const CustomLink = styled.span`
   padding: 0 5px;
@@ -142,21 +143,75 @@ const Wrap = styled.div`
   }
 `;
 
+const LngWrap = styled.div`
+  position: relative;
+  margin-right: 10px;
+  cursor: pointer;
+`;
+
+const DropdownLng = styled.div`
+  position: absolute;
+  top: 105%;
+  right: 0;
+  z-index: 100;
+  border-radius: 5px;
+  min-width: 120px;
+  text-align: center;
+  box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
+
+  ${({ theme: { colors } }) => css`
+    background-color: ${colors.background};
+  `}
+`;
+
+const DropdownItemLng = styled.div`
+  cursor: pointer;
+  padding: 10px 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ${({ theme: { colors } }) => css`
+    color: ${colors.textColor};
+
+    &:hover {
+      background-color: ${colors.hoverGray};
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid ${colors.lightGray};
+    }
+  `}
+`;
+
 interface Header {
   session?: Session | null;
 }
 
 const index: FC<Header> = ({ session }) => {
   // Hide dropdown when clicked outside it's Ref
-  const resourcesPopupRef = useRef<HTMLDivElement>(null);
+  const navPopupRef = useRef<HTMLDivElement>(null);
+
+  // Hide dropdown when clicked outside it's Ref
+  const lngPopupRef = useRef<HTMLDivElement>(null);
 
   // Toggle resources dropdown
   const [dropdown, setDropdown] = useState(false);
 
+  const [lngDropdown, setlngDropdown] = useState(false);
+
   const handleClickOutside = (event: MouseEvent) => {
     if (
-      resourcesPopupRef.current &&
-      !resourcesPopupRef.current.contains(event.target as Node)
+      navPopupRef.current &&
+      !navPopupRef.current.contains(event.target as Node)
+    ) {
+      setDropdown(false);
+    }
+
+    if (
+      lngPopupRef.current &&
+      !lngPopupRef.current.contains(event.target as Node)
     ) {
       setDropdown(false);
     }
@@ -173,6 +228,11 @@ const index: FC<Header> = ({ session }) => {
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
+
+  const router = useRouter();
+
+  // Translation
+  const { t } = useTranslation();
 
   return (
     <Container>
@@ -206,6 +266,28 @@ const index: FC<Header> = ({ session }) => {
           padding={{ xs: { bottom: 2 }, sm: { bottom: 2 }, md: { bottom: 2 } }}
         >
           <Wrap>
+            <LngWrap ref={lngPopupRef}>
+              <div onClick={() => setlngDropdown(!lngDropdown)}>
+                {router.locale?.toLocaleUpperCase()}
+              </div>
+
+              {lngDropdown && (
+                <DropdownLng>
+                  <Link href={router.asPath} locale="sr">
+                    <DropdownItemLng>Serbian</DropdownItemLng>
+                  </Link>
+
+                  <Link href={router.asPath} locale="si">
+                    <DropdownItemLng>Slovenian</DropdownItemLng>
+                  </Link>
+
+                  <Link href={router.asPath} locale="en">
+                    <DropdownItemLng>English</DropdownItemLng>
+                  </Link>
+                </DropdownLng>
+              )}
+            </LngWrap>
+
             {theme === "light" ? (
               <LightModeIcon onClick={toggleTheme} />
             ) : (
@@ -213,7 +295,7 @@ const index: FC<Header> = ({ session }) => {
             )}
 
             {session && (
-              <UserModal ref={resourcesPopupRef}>
+              <UserModal ref={navPopupRef}>
                 <User onClick={() => setDropdown(!dropdown)}>
                   <Heading as="h6" weight="semiBold">
                     {session.user.firstName.substring(0, 1)}
@@ -233,7 +315,7 @@ const index: FC<Header> = ({ session }) => {
                       <DropdownItem>
                         <ManageAccountsOutlinedIcon />
 
-                        <span>My profile</span>
+                        <span>{t("home:myProfile")}</span>
                       </DropdownItem>
                     </Link>
 
@@ -241,7 +323,7 @@ const index: FC<Header> = ({ session }) => {
                       <DropdownItem>
                         <ReceiptIcon />
 
-                        <span>Invoices</span>
+                        <span>{t("home:invoices")}</span>
                       </DropdownItem>
                     </Link>
 
@@ -249,14 +331,14 @@ const index: FC<Header> = ({ session }) => {
                       <DropdownItem>
                         <PeopleOutlineIcon />
 
-                        <span>Clients</span>
+                        <span>{t("home:clients")}</span>
                       </DropdownItem>
                     </Link>
 
                     <DropdownItem onClick={() => signOut()} borderTop>
                       <LogoutOutlinedIcon />
 
-                      <span>Sign out</span>
+                      <span>{t("home:signOut")}</span>
                     </DropdownItem>
                   </Dropdown>
                 )}

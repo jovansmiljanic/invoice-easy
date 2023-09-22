@@ -6,9 +6,9 @@ import { Heading } from "@components";
 
 // Vendors
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Store context
-import { StoreContext } from "@context";
 import { MyAccount } from "@types";
 import { getUserData } from "@utils/client/getUserData";
 
@@ -36,6 +36,9 @@ const Account = styled.div`
 interface Account {}
 
 const index: FC<Account> = () => {
+  // Translation
+  const { t } = useTranslation();
+
   const [userData, setUserData] = useState<MyAccount>();
 
   useEffect(() => {
@@ -49,7 +52,7 @@ const index: FC<Account> = () => {
   }, []);
 
   if (!userData) {
-    return <>Loading</>; // Or you can render a loading indicator
+    return <>{t("form:loading")}</>; // Or you can render a loading indicator
   }
 
   return (
@@ -68,16 +71,32 @@ const index: FC<Account> = () => {
           {userData?.zipCode}, {userData?.city}, {userData?.country}
         </Heading>
         {userData?.taxNumber && (
-          <Heading as="p">Davčna številka: {userData.taxNumber}</Heading>
+          <Heading as="p">
+            {t("form:taxNumber")}: {userData.taxNumber}
+          </Heading>
         )}
       </div>
 
       <div>
-        {userData?.trr && <Heading as="p">TRR: {userData.trr}</Heading>}
-        {userData?.bic && <Heading as="p">BIC koda: {userData.bic}</Heading>}
-        {userData?.email && <Heading as="p">E-pošta: {userData.email}</Heading>}
+        {userData?.trr && (
+          <Heading as="p">
+            {t("form:trr")}: {userData.trr}
+          </Heading>
+        )}
+        {userData?.bic && (
+          <Heading as="p">
+            {t("form:bic")}: {userData.bic}
+          </Heading>
+        )}
+        {userData?.email && (
+          <Heading as="p">
+            {t("form:emailLabel")}: {userData.email}
+          </Heading>
+        )}
         {userData?.phoneNumber && (
-          <Heading as="p">Telefon: {userData.phoneNumber}</Heading>
+          <Heading as="p">
+            {t("form:phoneLabel")}: {userData.phoneNumber}
+          </Heading>
         )}
       </div>
     </Account>

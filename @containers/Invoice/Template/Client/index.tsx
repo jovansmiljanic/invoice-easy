@@ -9,6 +9,7 @@ import Select from "react-select";
 import DatePicker from "react-datepicker";
 import styled, { css } from "styled-components";
 import { FormikValues, useFormikContext } from "formik";
+import useTranslation from "next-translate/useTranslation";
 
 // Core types
 import { Client as ClientTypes, Invoice as InvoiceTypes } from "@types";
@@ -155,6 +156,9 @@ const index: FC<Client> = ({
   currentClient,
   invoice,
 }) => {
+  // Translation
+  const { t } = useTranslation();
+
   const { isModalOpen, setIsModalOpen, setIsClientData, isClientData } =
     useContext(StoreContext);
 
@@ -182,7 +186,9 @@ const index: FC<Client> = ({
               {isClientData.zipCode}, {isClientData.city},{" "}
               {isClientData.country}
             </Heading>
-            <Heading as="p">Davčna številka: {isClientData.taxNumber}</Heading>
+            <Heading as="p">
+              {t("form:taxNumber")}: {isClientData.taxNumber}
+            </Heading>
           </>
         ) : currentClient ? (
           <>
@@ -195,7 +201,7 @@ const index: FC<Client> = ({
               {currentClient?.country}
             </Heading>
             <Heading as="p">
-              Davčna številka: {currentClient?.taxNumber}
+              {t("form:taxNumber")}: {currentClient?.taxNumber}
             </Heading>
           </>
         ) : (

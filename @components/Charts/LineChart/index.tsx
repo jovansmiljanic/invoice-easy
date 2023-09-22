@@ -7,6 +7,7 @@ import { Invoice } from "@types";
 // Vendors
 import { Line } from "react-chartjs-2";
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -40,6 +41,9 @@ ChartJS.register(
 );
 
 const index: FC<LineChart> = ({ invoices }) => {
+  // Translation
+  const { t } = useTranslation();
+
   const [totalAmountsByMonth, setTotalAmountsByMonth] = useState<
     Record<string, number>
   >({});
@@ -56,7 +60,7 @@ const index: FC<LineChart> = ({ invoices }) => {
     labels,
     datasets: [
       {
-        label: "Month Amount",
+        label: t("table:chartLabel"),
         data: totalAmounts,
         fill: false,
         borderColor: "rgb(75, 192, 192)",

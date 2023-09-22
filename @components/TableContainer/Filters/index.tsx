@@ -6,6 +6,7 @@ import { Filter, Label } from "@styles/Filter";
 
 // Vendors
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // SVG
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
@@ -191,6 +192,9 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
     };
   }, []);
 
+  // Translation
+  const { t } = useTranslation();
+
   return (
     <Filter ref={accountDropdownRef}>
       <Label
@@ -201,14 +205,16 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
           {selected && selected?.length > 0
             ? selected?.map((select) =>
                 select.value === "1" ? (
-                  <Status status={select.value}>Paid</Status>
+                  <Status status={select.value}>{t("table:paidStatus")}</Status>
                 ) : select.value === "2" ? (
-                  <Status status={select.value}>Unpaid</Status>
+                  <Status status={select.value}>
+                    {t("table:unPaidStatus")}
+                  </Status>
                 ) : (
                   ""
                 )
               )
-            : "Filter by status"}
+            : label}
         </span>
 
         {isDropdownActive ? (

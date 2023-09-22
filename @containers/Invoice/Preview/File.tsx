@@ -163,7 +163,7 @@ const index: FC<File> = ({ myAccount, invoice }) => {
           </View>
 
           <View style={styles.col2}>
-            <Text style={styles.name}>Inovice: #{invoice.invoiceNumber}</Text>
+            <Text style={styles.name}>Invoice: #{invoice.invoiceNumber}</Text>
             <Text>Date from: {formatDate(invoice.startDate)}</Text>
             <Text>Date to: {formatDate(invoice.endDate)}</Text>
             <Text>Payment deadline: {formatDate(invoice.paymentDeadline)}</Text>

@@ -3,6 +3,7 @@ import type { FC } from "react";
 
 // Vendors
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Icons
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
@@ -69,6 +70,9 @@ interface Boxes {
 }
 
 const index: FC<Boxes> = ({ items, invoicesLength, clientsLenght }) => {
+  // Translation
+  const { t } = useTranslation();
+
   // Calculate the total sum of prices
   const totalPrice = items?.reduce((sum: number, invoice: Invoice) => {
     const items = invoice.items;
@@ -104,7 +108,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, clientsLenght }) => {
               md: { left: 1 },
             }}
           >
-            Invoices
+            {t("home:boxInvoices")}
           </Heading>
         </BoxWrap>
 
@@ -129,7 +133,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, clientsLenght }) => {
               md: { left: 1 },
             }}
           >
-            Clients
+            {t("home:boxClients")}
           </Heading>
         </BoxWrap>
 
@@ -154,7 +158,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, clientsLenght }) => {
               md: { left: 1 },
             }}
           >
-            Invoiced
+            {t("home:boxInvoiced")}
           </Heading>
         </BoxWrap>
 
@@ -179,7 +183,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, clientsLenght }) => {
               md: { left: 1 },
             }}
           >
-            Paid
+            {t("home:boxPaid")}
           </Heading>
         </BoxWrap>
 

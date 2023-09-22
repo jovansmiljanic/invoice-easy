@@ -1,0 +1,82 @@
+{
+  "firstNameLabel": "Ime",
+  "firstNamePlaceholder": "John",
+  "firstNameError": "Molimo unesite ime",
+
+  "lastNameLabel": "Prezime",
+  "lastNamePlaceholder": "Doe",
+  "lastNameError": "Molimo unesite prezime",
+
+  "phoneLabel": "Broj telefona",
+  "phonePlaceholder": "+123 45 678 910",
+  "phoneError": "Molimo unesite broj telefona",
+
+  "taxNumber": "Poreski broj",
+  "taxNumberPlaceholder": "123456789",
+  "taxNumberError": "Molimo unesite poreski broj",
+
+  "companyField": "Oblast delovanja",
+  "companyFieldPlaceholder": "Oblast delovanja",
+  "companyFieldError": "Molimo unesite oblast delovanja",
+
+  "companyName": "Naziv kompanije",
+  "companyNamePlaceholder": "Naziv kompanije",
+  "companyNameError": "Molimo unesite naziv kompanije",
+
+  "companyAddress": "Adresa kompanije",
+  "companyAddressPlaceholder": "Adresa kompanije",
+  "companyAddressError": "Molimo unesite adresu kompanije",
+
+  "zipCode": "Poštanski broj",
+  "zipCodePlaceholder": "Poštanski broj",
+  "zipCodeError": "Molimo unesite poštanski broj",
+
+  "city": "Grad",
+  "cityPlaceholder": "Grad",
+  "cityError": "Molimo unesite grad",
+
+  "country": "Zemlja",
+  "countryPlaceholder": "Zemlja",
+  "countryError": "Molimo unesite zemlju",
+
+  "bankName": "Naziv banke",
+  "bankNamePlaceholder": "Naziv banke",
+  "bankNameError": "Molimo unesite naziv banke",
+
+  "trr": "TRR",
+  "trrPlaceholder": "TRR (Broj računa)",
+  "trrError": "Molimo unesite TRR",
+
+  "bic": "BIC",
+  "bicPlaceholder": "BIC (Šifra banke)",
+  "bicError": "Molimo unesite BIC",
+
+  "fullNameLabel": "Ime i prezime",
+  "fullNamePlaceholder": "John Doe",
+  "fullNameError": "Molimo unesite svoje ime i prezime",
+
+  "emailLabel": "Email",
+  "emailPlaceholder": "john.doe@gmail.com",
+  "emailError": "Molimo unesite svoju email adresu",
+
+  "passwordLabel": "Lozinka",
+  "passwordPlaceholder": "*********",
+  "passwordError": "Molimo unesite svoju lozinku",
+
+  "signUpCta": "Registracija",
+  "signInCta": "Prijava",
+
+  "myAccountCta": "Potvrdi",
+
+  "loading": "Učitavanje...",
+
+  "signUpSwitchLabel": "Već imate nalog?",
+  "signUpSwitchLink": "Prijavite se",
+
+  "signInSwitchLabel": "Novi ste na našoj platformi? ",
+  "signInSwitchLink": "Napravite nalog",
+
+  "tooShort": "Prekratko!",
+  "tooLong": "Predugačko!",
+  "validEmailError": "Molim vas unesite validnu email adresu!"
+}

@@ -13,6 +13,7 @@ import { copyText } from "@utils/shared";
 // Vendors
 import { lighten } from "polished";
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Table component
 import { Actions } from "@components/TableContainer/Actions";
@@ -49,17 +50,20 @@ interface Item {
 }
 
 const index: FC<Item> = ({ updatedItems }) => {
+  // Translation
+  const { t } = useTranslation();
+
   let status;
 
   switch (updatedItems.status) {
     case "1":
-      status = <Status status="success">Paid</Status>;
+      status = <Status status="success">{t("table:paidStatus")}</Status>;
       break;
     case "2":
-      status = <Status status="danger">Unpaid</Status>;
+      status = <Status status="danger">{t("table:unPaidStatus")}</Status>;
       break;
     default:
-      status = <>not</>;
+      status = <></>;
   }
 
   return (

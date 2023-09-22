@@ -1,0 +1,82 @@
+{
+  "firstNameLabel": "First name",
+  "firstNamePlaceholder": "John",
+  "firstNameError": "Please enter first name",
+
+  "lastNameLabel": "Last name",
+  "lastNamePlaceholder": "Doe",
+  "lastNameError": "Please enter last name",
+
+  "phoneLabel": "Phone number",
+  "phonePlaceholder": "+123 45 678 910",
+  "phoneError": "Please enter phone number",
+
+  "taxNumber": "Tax number",
+  "taxNumberPlaceholder": "123456789",
+  "taxNumberError": "Please enter tax number",
+
+  "companyField": "Company field",
+  "companyFieldPlaceholder": "Company field",
+  "companyFieldError": "Please enter company field",
+
+  "companyName": "Company name",
+  "companyNamePlaceholder": "Company name",
+  "companyNameError": "Please enter company name",
+
+  "companyAddress": "Company address",
+  "companyAddressPlaceholder": "Company address",
+  "companyAddressError": "Please enter company address",
+
+  "zipCode": "Zip code",
+  "zipCodePlaceholder": "Zip code",
+  "zipCodeError": "Please enter zip code",
+
+  "city": "City",
+  "cityPlaceholder": "City",
+  "cityError": "Please enter city",
+
+  "country": "Country",
+  "countryPlaceholder": "Country",
+  "countryError": "Please enter country",
+
+  "bankName": "Bank name",
+  "bankNamePlaceholder": "Bank name",
+  "bankNameError": "Please enter bank name",
+
+  "trr": "TRR",
+  "trrPlaceholder": "TRR (Transaction Reference Number)",
+  "trrError": "Please enter TRR",
+
+  "bic": "BIC",
+  "bicPlaceholder": "BIC (Bank Identifier Code)",
+  "bicError": "Please enter BIC",
+
+  "fullNameLabel": "Full name",
+  "fullNamePlaceholder": "John Doe",
+  "fullNameError": "Please enter your full name",
+
+  "emailLabel": "Email",
+  "emailPlaceholder": "john.doe@gmail.com",
+  "emailError": "Please enter your email",
+
+  "passwordLabel": "Password",
+  "passwordPlaceholder": "*********",
+  "passwordError": "Please enter your password",
+
+  "signUpCta": "Sign up",
+  "signInCta": "Sign in",
+
+  "myAccountCta": "Submit",
+
+  "loading": "Loading...",
+
+  "signUpSwitchLabel": "Already have an account? ",
+  "signUpSwitchLink": "Sign in instead",
+
+  "signInSwitchLabel": "New on our platform?",
+  "signInSwitchLink": "Create account",
+
+  "tooShort": "Too short!",
+  "tooLong": "Too long!",
+  "validEmailError": "Please enter a valid email address"
+}

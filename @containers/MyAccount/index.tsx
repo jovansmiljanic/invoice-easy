@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import { useRouter } from "next/router";
 import { Formik, FormikHelpers } from "formik";
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Global styles
 import { Field, Label } from "@styles/Form";
@@ -94,28 +95,12 @@ interface Formvalues {
   bic: string;
 }
 
-const MyAccountSchema = Yup.object().shape({
-  firstName: Yup.string().required("Please enter First name"),
-  lastName: Yup.string().required("Please enter Last name"),
-  email: Yup.string().required("Please enter your Email address"),
-  phoneNumber: Yup.string().required("Please enter your Phone number"),
-  taxNumber: Yup.string().required("Please enter your Tax Number"),
-
-  companyField: Yup.string().required("Please enter Company field"),
-  companyName: Yup.string().required("Please enter Company name"),
-  companyAddress: Yup.string().required("Please enter your Company address"),
-  zipCode: Yup.string().required("Please enter your Zip code"),
-  city: Yup.string().required("Please enter City"),
-  country: Yup.string().required("Please enter Country"),
-
-  bankName: Yup.string().required("Please enter your Bank name"),
-  trr: Yup.string().required("Please enter your TRR"),
-  bic: Yup.string().required("Please enter your BIC code"),
-});
-
 interface IMyAccount {}
 
 const index: FC<IMyAccount> = () => {
+  // Translation
+  const { t } = useTranslation();
+
   // Handle router
   const router = useRouter();
 
@@ -134,6 +119,25 @@ const index: FC<IMyAccount> = () => {
   if (!userData) {
     return <>Loading</>; // Or you can render a loading indicator
   }
+
+  const MyAccountSchema = Yup.object().shape({
+    firstName: Yup.string().required(t("form:firstNameError")),
+    lastName: Yup.string().required(t("form:lastNameError")),
+    email: Yup.string().required(t("form:emailError")),
+    phoneNumber: Yup.string().required(t("form:phoneError")),
+    taxNumber: Yup.string().required(t("form:taxNumberError")),
+
+    companyField: Yup.string().required(t("form:companyFieldError")),
+    companyName: Yup.string().required(t("form:companyNameError")),
+    companyAddress: Yup.string().required(t("form:companyAddressError")),
+    zipCode: Yup.string().required(t("form:zipCodeError")),
+    city: Yup.string().required(t("form:cityError")),
+    country: Yup.string().required(t("form:countryError")),
+
+    bankName: Yup.string().required(t("form:bankNameError")),
+    trr: Yup.string().required(t("form:trrError")),
+    bic: Yup.string().required(t("form:bicError")),
+  });
 
   const initialValue = {
     firstName: userData?.firstName ? userData.firstName : "",
@@ -229,19 +233,19 @@ const index: FC<IMyAccount> = () => {
                       md: { bottom: 6 },
                     }}
                   >
-                    Personal information
+                    {t("home:personalInformation")}
                   </Heading>
 
                   <Wrapper>
                     <Group>
-                      <Label>First name</Label>
+                      <Label>{t("form:firstNameLabel")}</Label>
                       <Field
                         hasError={Boolean(
                           errors.firstName && touched.firstName
                         )}
                         type="text"
                         name="firstName"
-                        placeholder="Enter your full name"
+                        placeholder={t("form:firstNamePlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.firstName}
@@ -255,12 +259,12 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>Last name</Label>
+                      <Label>{t("form:lastNameLabel")}</Label>
                       <Field
                         hasError={Boolean(errors.lastName && touched.lastName)}
                         type="text"
                         name="lastName"
-                        placeholder="Enter your full name"
+                        placeholder={t("form:lastNamePlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.lastName}
@@ -274,11 +278,11 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>Email</Label>
+                      <Label>{t("form:emailLabel")}</Label>
                       <Field
                         type="text"
                         name="email"
-                        placeholder="Please enter your email address"
+                        placeholder={t("form:emailPlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.email}
@@ -293,11 +297,11 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>Phone number</Label>
+                      <Label>{t("form:phoneLabel")}</Label>
                       <Field
                         type="text"
                         name="phoneNumber"
-                        placeholder="Please enter your phone number"
+                        placeholder={t("form:phonePlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.phoneNumber}
@@ -314,11 +318,11 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>Tax Number</Label>
+                      <Label>{t("form:taxNumber")}</Label>
                       <Field
                         type="text"
                         name="taxNumber"
-                        placeholder="Tax number"
+                        placeholder={t("form:taxNumberPlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.taxNumber}
@@ -346,19 +350,19 @@ const index: FC<IMyAccount> = () => {
                       md: { bottom: 6 },
                     }}
                   >
-                    Company information
+                    {t("home:companyInformation")}
                   </Heading>
 
                   <Wrapper>
                     <Group>
-                      <Label>Company field</Label>
+                      <Label>{t("form:companyField")}</Label>
                       <Field
                         hasError={Boolean(
                           errors.companyField && touched.companyField
                         )}
                         type="text"
                         name="companyField"
-                        placeholder="Enter your company field"
+                        placeholder={t("form:companyFieldPlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.companyField}
@@ -372,14 +376,14 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>Company name</Label>
+                      <Label>{t("form:companyName")}</Label>
                       <Field
                         hasError={Boolean(
                           errors.companyName && touched.companyName
                         )}
                         type="text"
                         name="companyName"
-                        placeholder="Enter your full name"
+                        placeholder={t("form:companyNamePlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.companyName}
@@ -393,11 +397,11 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>Company address</Label>
+                      <Label>{t("form:companyAddress")}</Label>
                       <Field
                         type="companyAddress"
                         name="companyAddress"
-                        placeholder="Enter Company Address"
+                        placeholder={t("form:companyAddressPlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.companyAddress}
@@ -416,11 +420,11 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>Zip Code</Label>
+                      <Label>{t("form:zipCode")}</Label>
                       <Field
                         type="text"
                         name="zipCode"
-                        placeholder="Zip code and City"
+                        placeholder={t("form:zipCodePlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.zipCode}
@@ -435,11 +439,11 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>City</Label>
+                      <Label>{t("form:city")}</Label>
                       <Field
                         type="text"
                         name="city"
-                        placeholder="City"
+                        placeholder={t("form:cityPlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.city}
@@ -454,11 +458,11 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>Country</Label>
+                      <Label>{t("form:country")}</Label>
                       <Field
                         type="text"
                         name="country"
-                        placeholder="Country"
+                        placeholder={t("form:countryPlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.country}
@@ -484,16 +488,16 @@ const index: FC<IMyAccount> = () => {
                       md: { bottom: 6 },
                     }}
                   >
-                    Bank information
+                    {t("home:bankInformation")}
                   </Heading>
 
                   <Wrapper>
                     <Group>
-                      <Label>Bank name</Label>
+                      <Label>{t("form:bankName")}</Label>
                       <Field
                         type="text"
                         name="bankName"
-                        placeholder="Please enter your bank name"
+                        placeholder={t("form:bankNamePlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.bankName}
@@ -508,11 +512,11 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>TRR</Label>
+                      <Label>{t("form:trr")}</Label>
                       <Field
                         type="text"
                         name="trr"
-                        placeholder="Please enter your TRR"
+                        placeholder={t("form:trrPlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.trr}
@@ -527,11 +531,11 @@ const index: FC<IMyAccount> = () => {
                     </Group>
 
                     <Group>
-                      <Label>BIC</Label>
+                      <Label>{t("form:bic")}</Label>
                       <Field
                         type="text"
                         name="bic"
-                        placeholder="Please enter BIC number"
+                        placeholder={t("form:bicPlaceholder")}
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.bic}
@@ -557,7 +561,7 @@ const index: FC<IMyAccount> = () => {
                   }}
                   isLoading={isSubmitting}
                 >
-                  {isSubmitting ? "Submitting..." : "Submit"}
+                  {isSubmitting ? t("form:loading") : t("form:myAccountCta")}
                 </Button>
               </Form>
             )}
