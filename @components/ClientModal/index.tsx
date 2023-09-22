@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import { useRouter } from "next/router";
 import { Formik, FormikValues } from "formik";
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Global styles
 import { Field, Label } from "@styles/Form";
@@ -89,16 +90,10 @@ interface Formvalues {
   taxNumber?: string;
 }
 
-const AddClientSchema = Yup.object().shape({
-  clientName: Yup.string().required("Please enter client's name"),
-  clientAddress: Yup.string().required("Please enter client's address"),
-  zipCode: Yup.string().required("Please enter client's zip code"),
-  city: Yup.string().required("Please enter client's city"),
-  country: Yup.string().required("Please enter client's country"),
-  taxNumber: Yup.string().required("Please enter client's company tax number"),
-});
-
 const index: FC = ({}) => {
+  // Translation
+  const { t } = useTranslation();
+
   // Router
   const router = useRouter();
 
@@ -124,6 +119,15 @@ const index: FC = ({}) => {
       setIsModalOpen(false);
     }
   };
+
+  const AddClientSchema = Yup.object().shape({
+    clientName: Yup.string().required(t("form:clientNameError")),
+    clientAddress: Yup.string().required(t("form:clientAddressError")),
+    zipCode: Yup.string().required(t("form:zipCodeError")),
+    city: Yup.string().required(t("form:cityError")),
+    country: Yup.string().required(t("form:countryError")),
+    taxNumber: Yup.string().required(t("form:taxNumberError")),
+  });
 
   const addInitialValues = {
     clientName: "",
@@ -202,16 +206,16 @@ const index: FC = ({}) => {
                   md: { bottom: 4 },
                 }}
               >
-                Add new client
+                {t("invoice:addNewClient")}
               </Heading>
 
               <Group>
-                <Label>Client name</Label>
+                <Label>{t("form:clientNameLabel")}</Label>
                 <Field
                   hasError={Boolean(errors.clientName && touched.clientName)}
                   type="text"
                   name="clientName"
-                  placeholder="Enter client's name"
+                  placeholder={t("form:clientNamePlaceholder")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.clientName}
@@ -225,11 +229,11 @@ const index: FC = ({}) => {
               </Group>
 
               <Group>
-                <Label>Client address</Label>
+                <Label>{t("form:clientAddressLabel")}</Label>
                 <Field
                   type="text"
                   name="clientAddress"
-                  placeholder="Enter client's address"
+                  placeholder={t("form:clientAddressPlaceholder")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.clientAddress}
@@ -246,11 +250,11 @@ const index: FC = ({}) => {
               </Group>
 
               <Group>
-                <Label>Zip Code</Label>
+                <Label>{t("form:zipCode")}</Label>
                 <Field
                   type="text"
                   name="zipCode"
-                  placeholder="Enter client's zip code"
+                  placeholder={t("form:zipCodePlaceholder")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.zipCode}
@@ -265,11 +269,11 @@ const index: FC = ({}) => {
               </Group>
 
               <Group>
-                <Label>City</Label>
+                <Label>{t("form:city")}</Label>
                 <Field
                   type="text"
                   name="city"
-                  placeholder="Enter client's city"
+                  placeholder={t("form:cityPlaceholder")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.city}
@@ -284,11 +288,11 @@ const index: FC = ({}) => {
               </Group>
 
               <Group>
-                <Label>Country</Label>
+                <Label>{t("form:country")}</Label>
                 <Field
                   type="text"
                   name="country"
-                  placeholder="Enter client's country"
+                  placeholder={t("form:countryPlaceholder")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.country}
@@ -303,11 +307,11 @@ const index: FC = ({}) => {
               </Group>
 
               <Group>
-                <Label>Tax Number</Label>
+                <Label>{t("form:taxNumber")}</Label>
                 <Field
                   type="text"
                   name="taxNumber"
-                  placeholder="Enter client's tax number"
+                  placeholder={t("form:taxNumberPlaceholder")}
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.taxNumber}
@@ -331,7 +335,7 @@ const index: FC = ({}) => {
                   md: { top: 2 },
                 }}
               >
-                {isSubmitting ? "Submitting..." : "Submit"}
+                {isSubmitting ? t("form:loading") : t("form:myAccountCta")}
               </Button>
             </Form>
           )}

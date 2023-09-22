@@ -1,4 +1,24 @@
 {
   "cancelCta": "PREKLIČI",
-  "saveCta": "SHRANI"
+  "saveCta": "SHRANI",
+  "deleteCta": "Izbriši",
+  "invoice": "Račun",
+  "dateFrom": "Datum od",
+  "dateTo": "Datum do",
+  "paymentDeadline": "Rok plačila",
+  "item": "Artikel",
+  "cost": "Cena",
+  "qty": "Količina",
+  "price": "Skupna cena",
+  "subtotal": "Skupni znesek",
+  "tax": "Davčna obveznost",
+  "total": "Skupaj",
+  "ddvParagraph": "DDV ni obračunan na podlagi 1. odstavka 94. člena Zakona o davku na dodano vrednost. (Nisem zavezanec za DDV). PRI POSLOVANJU NE UPORABLJAM ŽIGA.",
+  "invoiceFooterOne": "Znesek računa poravnajte na transakcijski račun odprt pri",
+  "invoiceFooterTwo": "številka",
+  "invoiceFooterThree": "Pri plačilu se sklicujte na številko računa",
+  "invoiceFooterFour": "Transakcijski račun odprt pri",
+  "addNewCta": "Dodaj novo postavko",
+  "addNewClient": "Dodaj novo stranko",
+  "chooseClient": "Izberite obstoječega"
 }

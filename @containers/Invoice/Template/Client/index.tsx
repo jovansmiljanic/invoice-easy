@@ -209,7 +209,7 @@ const index: FC<Client> = ({
             <CustomSelect
               instanceId="newClient"
               options={clientOptions}
-              placeholder="Choose existing one"
+              placeholder={t("invoice:chooseClient")}
               onChange={(selected) => handleChangeType(selected)}
               onBlur={handleBlur}
             />
@@ -223,7 +223,7 @@ const index: FC<Client> = ({
               onClick={() => setIsModalOpen(!isModalOpen)}
             >
               <AddOutlinedIcon />
-              Add new client
+              {t("invoice:addNewClient")}
             </Button>
           </HelpWrap>
         )}
@@ -232,7 +232,7 @@ const index: FC<Client> = ({
       <Wrap>
         <Invoice>
           <Heading as="h5" weight="semiBold">
-            Invoice:
+            {t("invoice:invoice")}:
           </Heading>
 
           <Field
@@ -246,7 +246,7 @@ const index: FC<Client> = ({
         </Invoice>
 
         <Date>
-          <Heading as="p">Date from:</Heading>
+          <Heading as="p">{t("invoice:dateFrom")}:</Heading>
 
           <DatePicker
             selected={startDate}
@@ -259,7 +259,7 @@ const index: FC<Client> = ({
         </Date>
 
         <Date>
-          <Heading as="p">Date to:</Heading>
+          <Heading as="p">{t("invoice:dateTo")}:</Heading>
 
           <DatePicker
             selected={endDate}
@@ -272,7 +272,7 @@ const index: FC<Client> = ({
         </Date>
 
         <Date>
-          <Heading as="p">Payment deadline:</Heading>
+          <Heading as="p">{t("invoice:paymentDeadline")}:</Heading>
 
           <DatePicker
             selected={deadlineDate}

@@ -9,6 +9,7 @@ import { Button } from "@components";
 
 // Vendors
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // ICon
 import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOutlineOutlined";
@@ -106,6 +107,9 @@ interface Table {
 }
 
 const index: FC<Table> = ({ tableData, setTableData }) => {
+  // Translation
+  const { t } = useTranslation();
+
   // Function to handle input changes in each cell
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
@@ -159,10 +163,10 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
       {!isPhone ? (
         <Table>
           <Head>
-            <Item>Item</Item>
-            <Item>Cost</Item>
-            <Item>QTY</Item>
-            <Item>Price</Item>
+            <Item>{t("invoice:item")}</Item>
+            <Item>{t("invoice:cost")}</Item>
+            <Item>{t("invoice:qty")}</Item>
+            <Item>{t("invoice:price")}</Item>
           </Head>
 
           <Body>
@@ -172,7 +176,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                   <Field
                     type="text"
                     name="name"
-                    placeholder="Item"
+                    placeholder={t("invoice:item")}
                     onChange={(e) => handleInputChange(e, index, "name")}
                     value={row.name}
                   />
@@ -182,7 +186,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                   <Field
                     type="number"
                     name="cost"
-                    placeholder="Cost"
+                    placeholder={t("invoice:cost")}
                     onChange={(e) => handleInputChange(e, index, "cost")}
                     value={row.cost}
                   />
@@ -192,7 +196,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                   <Field
                     type="number"
                     name="qty"
-                    placeholder="QTY"
+                    placeholder={t("invoice:qty")}
                     onChange={(e) => handleInputChange(e, index, "qty")}
                     value={row.qty}
                   />
@@ -227,7 +231,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
             {tableData.map((row, index) => (
               <Wrap key={index}>
                 <Item>
-                  <Label>Item</Label>
+                  <Label>{t("invoice:item")}</Label>
                   <Field
                     type="text"
                     name="name"
@@ -238,7 +242,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                 </Item>
 
                 <Item>
-                  <Label>Cost</Label>
+                  <Label>{t("invoice:cost")}</Label>
                   <Field
                     type="number"
                     name="cost"
@@ -249,7 +253,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                 </Item>
 
                 <Item>
-                  <Label>Qty</Label>
+                  <Label>{t("invoice:qty")}</Label>
                   <Field
                     type="number"
                     name="qty"
@@ -260,7 +264,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                 </Item>
 
                 <Item>
-                  <Label>Price</Label>
+                  <Label>{t("invoice:price")}</Label>
                   <Field
                     type="number"
                     name="price"
@@ -296,7 +300,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
         }}
         onClick={addRow}
       >
-        Add new item
+        {t("invoice:addNewCta")}
       </Button>
     </>
   );
