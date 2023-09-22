@@ -15,6 +15,7 @@ import { Client, Invoice } from "@types";
 // Grid context
 import { GridContext } from "..";
 import { StoreContext } from "@context";
+import { NotFound } from "../NotFound";
 
 const Table = styled.table`
   width: 100%;
@@ -63,6 +64,10 @@ const index: FC<Table> = ({ tableHeader, path }) => {
   const { length, updatedItems, isLoading } = useContext(GridContext);
   // Store context
   const { isPhone } = useContext(StoreContext);
+
+  if (length === 0) {
+    return <NotFound />;
+  }
 
   if (isLoading || !updatedItems || length === 0)
     return <Placeholder items={tableHeader} />;

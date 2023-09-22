@@ -125,9 +125,35 @@ const index: FC<Download> = ({ invoice, type, isClient }) => {
     renderedContent;
   }
 
+  const content = {
+    taxNumber: t("form:taxNumber"),
+    trr: t("form:trr"),
+    bic: t("form:bic"),
+    email: t("form:emailLabel"),
+    phone: t("form:phoneLabel"),
+    dateFrom: t("invoice:dateFrom"),
+    dateTo: t("invoice:dateTo"),
+    paymentDeadline: t("invoice:paymentDeadline"),
+    item: t("invoice:item"),
+    cost: t("invoice:cost"),
+    qty: t("invoice:qty"),
+    price: t("invoice:price"),
+    invoice: t("invoice:invoice"),
+    subTotal: t("invoice:subtotal"),
+    tax: t("invoice:tax"),
+    total: t("invoice:total"),
+    ddvParagraph: t("invoice:ddvParagraph"),
+    footerParagrapOne: t("invoice:invoiceFooterOne"),
+    footerParagrapTwo: t("invoice:invoiceFooterTwo"),
+    footerParagrapThree: t("invoice:invoiceFooterThree"),
+    footerParagrapFour: t("invoice:invoiceFooterFour"),
+  };
+
   return (
     <PDFDownloadLink
-      document={<File myAccount={userData} invoice={invoice} />}
+      document={
+        <File myAccount={userData} invoice={invoice} content={content} />
+      }
       fileName={fileName}
     >
       {renderedContent}

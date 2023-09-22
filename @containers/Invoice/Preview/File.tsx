@@ -129,9 +129,32 @@ const styles = StyleSheet.create({
 interface File {
   invoice: Invoice;
   myAccount?: MyAccount;
+  content?: {
+    taxNumber: string;
+    trr: string;
+    bic: string;
+    email: string;
+    phone: string;
+    dateFrom: string;
+    dateTo: string;
+    paymentDeadline: string;
+    item: string;
+    cost: string;
+    qty: string;
+    price: string;
+    subTotal: string;
+    tax: string;
+    total: string;
+    invoice: string;
+    ddvParagraph: string;
+    footerParagrapOne: string;
+    footerParagrapTwo: string;
+    footerParagrapThree: string;
+    footerParagrapFour: string;
+  };
 }
 
-const index: FC<File> = ({ myAccount, invoice }) => {
+const index: FC<File> = ({ myAccount, invoice, content }) => {
   return (
     <Document>
       <Page size="A4" style={styles.newInvoice}>
@@ -142,14 +165,24 @@ const index: FC<File> = ({ myAccount, invoice }) => {
             <Text>
               {myAccount?.zipCode}, {myAccount?.city}, {myAccount?.country}
             </Text>
-            <Text>Davcna stevilka: {myAccount?.taxNumber}</Text>
+            <Text>
+              {content?.taxNumber}: {myAccount?.taxNumber}
+            </Text>
           </View>
 
           <View style={styles.col2}>
-            <Text>TRR: {myAccount?.trr}</Text>
-            <Text>BIC koda: {myAccount?.bic}</Text>
-            <Text>E-pošta: {myAccount?.email}</Text>
-            <Text>Telefon: {myAccount?.phoneNumber}</Text>
+            <Text>
+              {content?.trr}: {myAccount?.trr}
+            </Text>
+            <Text>
+              {content?.bic}: {myAccount?.bic}
+            </Text>
+            <Text>
+              {content?.email}: {myAccount?.email}
+            </Text>
+            <Text>
+              {content?.phone}: {myAccount?.phoneNumber}
+            </Text>
           </View>
         </View>
 
@@ -160,23 +193,33 @@ const index: FC<File> = ({ myAccount, invoice }) => {
             <Text>
               {myAccount?.zipCode}, {myAccount?.city}, {myAccount?.country}
             </Text>
-            <Text>Davcna stevilka: {invoice.client.taxNumber}</Text>
+            <Text>
+              {content?.taxNumber}: {invoice.client.taxNumber}
+            </Text>
           </View>
 
           <View style={styles.col2}>
-            <Text style={styles.name}>Invoice: #{invoice.invoiceNumber}</Text>
-            <Text>Date from: {formatDate(invoice.startDate)}</Text>
-            <Text>Date to: {formatDate(invoice.endDate)}</Text>
-            <Text>Payment deadline: {formatDate(invoice.paymentDeadline)}</Text>
+            <Text style={styles.name}>
+              {content?.invoice}: #{invoice.invoiceNumber}
+            </Text>
+            <Text>
+              {content?.dateFrom}: {formatDate(invoice.startDate)}
+            </Text>
+            <Text>
+              {content?.dateTo}: {formatDate(invoice.endDate)}
+            </Text>
+            <Text>
+              {content?.paymentDeadline}: {formatDate(invoice.paymentDeadline)}
+            </Text>
           </View>
         </View>
 
         <View>
           <View style={styles.itemsHeader}>
-            <Text style={styles.itemName}>Item</Text>
-            <Text style={styles.itemCost}>Cost</Text>
-            <Text style={styles.itemQty}>QTY</Text>
-            <Text style={styles.itemPrice}>Price</Text>
+            <Text style={styles.itemName}>{content?.item}</Text>
+            <Text style={styles.itemCost}>{content?.cost}</Text>
+            <Text style={styles.itemQty}>{content?.qty}</Text>
+            <Text style={styles.itemPrice}>{content?.price}</Text>
           </View>
 
           <View>
@@ -192,36 +235,32 @@ const index: FC<File> = ({ myAccount, invoice }) => {
         </View>
 
         <View style={styles.total}>
-          <Text>Subtotal: {getSubTotalPrice(invoice.items)}</Text>
-          <Text>Tax: {invoice.tax}%</Text>
-          <Text>Total: {getTotalPrice(invoice.items, invoice.tax)}</Text>
+          <Text>
+            {content?.subTotal}: {getSubTotalPrice(invoice.items)}
+          </Text>
+          <Text>
+            {content?.tax}: {invoice.tax}%
+          </Text>
+          <Text>
+            {content?.total}: {getTotalPrice(invoice.items, invoice.tax)}
+          </Text>
         </View>
 
         <View style={styles.note}>
-          <Text>
-            DDV ni obračunan na podlagi 1. Odstavka 94. Člena Zakona o davku na
-            dodano vrednost. (nisem zavezanec za DDV). PRI POSLOVANJU NE
-            UPORABLJAM ŽIGA.
-          </Text>
+          <Text>{content?.ddvParagraph}</Text>
 
           <Text>
-            Znesek računa poravnajte na transakcijski račun odprt pri{" "}
-            {" " + myAccount?.bankName}., številka {myAccount?.trr}. Pri plačilu
-            se sklicujte na številko računa.
-          </Text>
-
-          <Text>
-            {myAccount?.companyField}, {myAccount?.companyName}. Transakcijski
-            račun odprt pri {myAccount?.bankName} – {myAccount?.trr}
-            ., davčna številka: {myAccount?.taxNumber}.
+            {content?.footerParagrapOne} {" " + myAccount?.bankName}.,{" "}
+            {content?.footerParagrapTwo} {myAccount?.trr}.{" "}
+            {content?.footerParagrapThree}.
           </Text>
         </View>
 
         <View style={styles.footer}>
           <Text>
-            {myAccount?.companyField}, {myAccount?.companyName}. Transakcijski
-            račun odprt pri {myAccount?.bankName} – {myAccount?.trr}., davčna
-            številka: {myAccount?.taxNumber}.
+            {myAccount?.companyField}, {myAccount?.companyName}.{" "}
+            {content?.footerParagrapFour} {myAccount?.bankName} –{" "}
+            {myAccount?.trr}., {content?.taxNumber}: {myAccount?.taxNumber}.
           </Text>
         </View>
       </Page>

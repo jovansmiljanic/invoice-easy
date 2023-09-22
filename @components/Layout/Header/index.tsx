@@ -66,7 +66,7 @@ const Dropdown = styled.div`
   position: absolute;
   top: 105%;
   right: 0;
-  z-index: 100;
+  z-index: 999;
   border-radius: 5px;
   min-width: 200px;
   text-align: center;
@@ -80,9 +80,12 @@ const Dropdown = styled.div`
 const DropdownItem = styled.div<{ borderTop?: boolean }>`
   cursor: pointer;
   padding: 15px 0;
+
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
+  z-index: 999;
 
   ${({ borderTop, theme: { colors } }) => css`
     color: ${colors.textColor};

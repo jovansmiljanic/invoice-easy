@@ -1,15 +1,12 @@
 // Core types
-import { type FC } from "react";
-
-// Core
-import { useState } from "react";
+import { type FC, useState } from "react";
 
 // NextJS
 import { useRouter } from "next/router";
 import { signIn } from "next-auth/react";
 
 // Global components
-import { Button, Heading, Logo } from "@components";
+import { Button, ErrorWrap, Heading, Logo } from "@components";
 
 // Vendors
 import Link from "next/link";
@@ -54,11 +51,11 @@ const Wrap = styled.div`
 `;
 
 const Group = styled.div`
+  position: relative;
+
   display: flex;
   flex-direction: column;
   padding-bottom: 20px;
-
-  position: relative;
 `;
 
 const ButtonWrap = styled.div`
@@ -71,23 +68,12 @@ const ButtonWrap = styled.div`
   }
 `;
 
-const ErrorWrap = styled.div`
-  width: 100%;
-  font-size: 10px;
-  padding: 0 12px;
-
-  ${({ theme: { colors } }) => css`
-    background-color: ${colors.danger};
-    color: ${colors.white};
-  `}
-`;
-
 const EyeWrap = styled.div`
   position: absolute;
   top: 50%;
   right: 10px;
   transform: translate(0, -25%);
-  cursoir: pointer;
+  cursor: pointer;
 `;
 
 type Formvalues = {
@@ -110,7 +96,9 @@ const index: FC = () => {
   const [isEyeOpened, setIsEyeOpened] = useState(false);
 
   const SignInSchema = object().shape({
-    email: string().email("Invalid email").required(t("form:emailError")),
+    email: string()
+      .email(t("form:validEmailError"))
+      .required(t("form:emailError")),
     password: string().required(t("form:passwordError")),
   });
 

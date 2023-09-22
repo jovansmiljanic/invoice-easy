@@ -11,7 +11,7 @@ import { createGlobalStyle, css } from "styled-components";
 // Global types
 import type { Theme as ThemeType } from "@types";
 
-const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
+const GlobalStyle = createGlobalStyle<{ theme?: ThemeType }>`
   html, body, div, span, applet, object, iframe,
   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
   a, abbr, acronym, address, big, cite, code,

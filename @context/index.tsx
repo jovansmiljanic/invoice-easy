@@ -50,21 +50,21 @@ export const Store: FC<Props> = (props) => {
   const [isClientData, setIsClientData] = useState<Client>();
   const isClientDataMemo = useMemo(() => isClientData, [isClientData]);
 
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
     const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: light)"
     ).matches;
 
     if (prefersDark) {
       setCookie({
         name: "theme",
-        value: "dark",
+        value: "light",
         days: 30,
       });
 
-      setTheme("dark");
+      setTheme("light");
     }
 
     // Check if users device is smaller than 768px and enable Phone layout

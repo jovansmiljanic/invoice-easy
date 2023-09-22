@@ -1,11 +1,11 @@
 // Core types
-import { useState, type FC } from "react";
+import { type FC, useState } from "react";
 
 // NextJS
 import { useRouter } from "next/router";
 
 // Global components
-import { Button, Heading, Logo } from "@components";
+import { Button, ErrorWrap, Heading, Logo } from "@components";
 
 // Vendors
 import axios from "axios";
@@ -64,29 +64,19 @@ const Group = styled.div`
   padding-bottom: 10px;
 `;
 
-const ErrorWrap = styled.div`
-  width: 100%;
-  font-size: 10px;
-  padding: 0 12px;
-
-  ${({ theme: { colors } }) => css`
-    background-color: ${colors.danger};
-    color: ${colors.white};
-  `}
-`;
-
 const EyeWrap = styled.div`
   position: absolute;
   top: 50%;
   right: 10px;
   transform: translate(0, -10%);
-  cursoir: pointer;
+  cursor: pointer;
 `;
 
 const ButtonWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 
   button {
     width: 100%;
@@ -166,10 +156,7 @@ const index: FC = () => {
                 password: "",
               }}
               validationSchema={SignupSchema}
-              onSubmit={async (
-                data: Formvalues,
-                { setSubmitting }: FormikHelpers<Formvalues>
-              ) => {
+              onSubmit={async (data: Formvalues) => {
                 await axios({
                   method: "POST",
                   url: "/api/registration",
@@ -263,9 +250,9 @@ const index: FC = () => {
                       type="submit"
                       variant="secondary"
                       margin={{
-                        xs: { bottom: 2 },
-                        sm: { bottom: 2 },
-                        md: { bottom: 2 },
+                        xs: { top: 1, bottom: 2 },
+                        sm: { top: 1, bottom: 2 },
+                        md: { top: 1, bottom: 2 },
                       }}
                       isLoading={isSubmitting}
                     >
