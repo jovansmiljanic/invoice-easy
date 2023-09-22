@@ -12,6 +12,7 @@ import { Column, Container, Row } from "@components/Grid";
 
 // Vendors
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Client utils
 import { formatDate, getSubTotalPrice, getTotalPrice } from "@utils/client";
@@ -245,6 +246,9 @@ interface NewInvoice {
 }
 
 const index: FC<NewInvoice> = ({ invoice }) => {
+  // Translation
+  const { t } = useTranslation();
+
   // Store context
   const { isPhone, setIsClientData, setIsConfirmModal, isConfirmModal } =
     useContext(StoreContext);
@@ -291,13 +295,25 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="p">
                   {userData?.zipCode}, {userData?.city}, {userData?.country}
                 </Heading>
-                <Heading as="p">Davčna številka: {userData?.taxNumber}</Heading>
+                <Heading as="p">
+                  {" "}
+                  {t("form:taxNumber")}: {userData?.taxNumber}
+                </Heading>
               </Col1>
               <Col2>
-                <Heading as="p">TRR: {userData?.trr}</Heading>
-                <Heading as="p">BIC koda: {userData?.bic}</Heading>
-                <Heading as="p">E-pošta: {userData?.email}</Heading>
-                <Heading as="p">Telefon: {userData?.phoneNumber}</Heading>
+                <Heading as="p">
+                  {t("form:trr")}: {userData?.trr}
+                </Heading>
+                <Heading as="p">
+                  {" "}
+                  {t("form:bic")}: {userData?.bic}
+                </Heading>
+                <Heading as="p">
+                  {t("form:emailLabel")}: {userData?.email}
+                </Heading>
+                <Heading as="p">
+                  {t("form:phoneLabel")}: {userData?.phoneNumber}
+                </Heading>
               </Col2>
             </UserDetails>
 
@@ -312,29 +328,30 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                   {invoice.client.country}
                 </Heading>
                 <Heading as="p">
-                  Davčna številka: {invoice.client.taxNumber}
+                  {t("form:taxNumber")}: {invoice.client.taxNumber}
                 </Heading>
               </Col1>
 
               <Col2>
                 <Heading as="h5" weight="semiBold">
-                  Invoice #{invoice.invoiceNumber}
+                  {t("invoice:invoice")} #{invoice.invoiceNumber}
                 </Heading>
                 <StartDate>
                   <Heading as="p">
-                    Date from: {formatDate(invoice.startDate)}
+                    {t("invoice:dateFrom")}: {formatDate(invoice.startDate)}
                   </Heading>
                 </StartDate>
 
                 <EndDate>
                   <Heading as="p">
-                    Date to: {formatDate(invoice.endDate)}
+                    {t("invoice:dateTo")}: {formatDate(invoice.endDate)}
                   </Heading>
                 </EndDate>
 
                 <EndDate>
                   <Heading as="p">
-                    Payment deadline: {formatDate(invoice.paymentDeadline)}
+                    {t("invoice:paymentDeadline")}:{" "}
+                    {formatDate(invoice.paymentDeadline)}
                   </Heading>
                 </EndDate>
               </Col2>
@@ -343,10 +360,10 @@ const index: FC<NewInvoice> = ({ invoice }) => {
             {!isPhone ? (
               <Table>
                 <Head>
-                  <Item>Item</Item>
-                  <Item>Cost</Item>
-                  <Item>QTY</Item>
-                  <Item>Price</Item>
+                  <Item>{t("invoice:item")}</Item>
+                  <Item>{t("invoice:cost")}</Item>
+                  <Item>{t("invoice:qty")}</Item>
+                  <Item>{t("invoice:price")}</Item>
                 </Head>
 
                 <Body>
@@ -366,22 +383,22 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                   {invoice?.items?.map((row, index) => (
                     <Wrap key={index}>
                       <ItemWrap>
-                        <Label>Item</Label>
+                        <Label>{t("invoice:item")}</Label>
                         <Item>{row.name}</Item>
                       </ItemWrap>
 
                       <ItemWrap>
-                        <Label>Cost</Label>
+                        <Label>{t("invoice:cost")}</Label>
                         <Item>{row.cost} €</Item>
                       </ItemWrap>
 
                       <ItemWrap>
-                        <Label>Qty</Label>
+                        <Label>{t("invoice:qty")}</Label>
                         <Item>{row.qty}</Item>
                       </ItemWrap>
 
                       <ItemWrap>
-                        <Label>Price</Label>
+                        <Label>{t("invoice:price")}</Label>
                         <Item>{row.price} €</Item>
                       </ItemWrap>
                     </Wrap>
@@ -400,7 +417,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                     md: { right: 4 },
                   }}
                 >
-                  Subtotal:
+                  {t("invoice:subtotal")}:
                 </Heading>
                 <Heading as="p">{getSubTotalPrice(invoice.items)}</Heading>
               </TotalRow>
@@ -414,7 +431,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                     md: { right: 4 },
                   }}
                 >
-                  Tax:
+                  {t("invoice:tax")}:
                 </Heading>
                 <Heading as="p">{invoice.tax}%</Heading>
               </TotalRow>
@@ -428,7 +445,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                     md: { right: 4 },
                   }}
                 >
-                  Total:
+                  {t("invoice:total")}:
                 </Heading>
                 <Heading as="p">
                   {getTotalPrice(invoice.items, invoice.tax)}
@@ -445,23 +462,22 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                   md: { bottom: 3 },
                 }}
               >
-                DDV ni obračunan na podlagi 1. Odstavka 94. Člena Zakona o davku
-                na dodano vrednost. (nisem zavezanec za DDV). PRI POSLOVANJU NE
-                UPORABLJAM ŽIGA.
+                {t("invoice:ddvParagraph")}
               </Heading>
 
               <Heading as="p">
-                Znesek računa poravnajte na transakcijski račun odprt pri{" "}
-                {userData?.bankName}., številka {userData?.trr}. Pri plačilu se
-                sklicujte na številko računa
+                {t("invoice:invoiceFooterOne")}
+                {userData?.bankName}., {t("invoice:invoiceFooterTwo")}{" "}
+                {userData?.trr}. {t("invoice:invoiceFooterThree")}
               </Heading>
             </Note>
 
             <Footer>
               <p>
-                {userData?.companyField}, {userData?.companyName}. Transakcijski
-                račun odprt pri {userData?.bankName} – {userData?.trr}
-                ., davčna številka: {userData?.taxNumber}.
+                {userData?.companyField}, {userData?.companyName}.{" "}
+                {t("invoice:invoiceFooterThree")} {userData?.bankName} –{" "}
+                {userData?.trr}
+                ., {t("form:taxNumber")}: {userData?.taxNumber}.
               </p>
             </Footer>
           </NewInvoice>
