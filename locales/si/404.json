@@ -1,5 +1,7 @@
 {
   "title": "Opravičujemo se, zahtevane strani ni mogoče najti",
   "description": "Predlagamo, da se vrnete na domačo stran",
-  "cta": "Nazaj na domačo"
+  "cta": "Nazaj na domačo",
+  "confirmModalOne": "Ste prepričani, da želite izbrisati?",
+  "confirmModalTwo": "Te dejanje ni mogoče razveljaviti."
 }

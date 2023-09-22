@@ -10,6 +10,7 @@ import { deleteItem } from "@utils/client";
 // Vendors
 import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Global components
 import { Button, Heading } from "@components";
@@ -56,6 +57,9 @@ const ButtonsWrap = styled.div`
 `;
 
 const index: FC = () => {
+  // Translation
+  const { t } = useTranslation();
+
   // Router
   const router = useRouter();
 
@@ -95,12 +99,12 @@ const index: FC = () => {
       <Modal ref={modalPopupRef}>
         <div>
           <Heading as="h5" padding={{ md: { top: 6, bottom: 1, left: 4 } }}>
-            Are you sure you want to delete{" "}
+            {t("404:confirmModalOne")}{" "}
             {isClientData ? isClientData.clientName : "this invoice"}?
           </Heading>
 
           <Heading as="h6" padding={{ md: { left: 4 } }}>
-            This action cannot be undone.
+            {t("404:confirmModalTwo")}
           </Heading>
         </div>
 
@@ -111,7 +115,7 @@ const index: FC = () => {
             margin={{ md: { right: 1 } }}
             size="small"
           >
-            Cancel
+            {t("invoice:cancelCta")}
           </Button>
 
           <Button
@@ -123,7 +127,7 @@ const index: FC = () => {
             margin={{ md: { right: 1 } }}
             size="small"
           >
-            Delete
+            {t("invoice:deleteCta")}
           </Button>
         </ButtonsWrap>
       </Modal>

@@ -9,6 +9,7 @@ import styled, { css } from "styled-components";
 import { StoreContext } from "@context";
 import { getUserData } from "@utils/client/getUserData";
 import { MyAccount } from "@types";
+import useTranslation from "next-translate/useTranslation";
 
 const Note = styled.div`
   width: 60%;
@@ -45,6 +46,9 @@ const Footer = styled.div`
 interface Footer {}
 
 const index: FC<Footer> = () => {
+  // Translation
+  const { t } = useTranslation();
+
   const [userData, setUserData] = useState<MyAccount>();
 
   useEffect(() => {
@@ -58,28 +62,25 @@ const index: FC<Footer> = () => {
   }, []);
 
   if (!userData) {
-    return <>Loading</>; // Or you can render a loading indicator
+    return <>{t("form:loading")}</>; // Or you can render a loading indicator
   }
   return (
     <>
       <Note>
+        <Heading as="p">{t("invoice:ddvParagraph")}</Heading>
         <Heading as="p">
-          DDV ni obračunan na podlagi 1. Odstavka 94. Člena Zakona o davku na
-          dodano vrednost. (nisem zavezanec za DDV). PRI POSLOVANJU NE
-          UPORABLJAM ŽIGA.
-        </Heading>
-        <Heading as="p">
-          Znesek računa poravnajte na transakcijski račun odprt pri{" "}
-          {userData?.bankName}, številka {userData?.trr}. Pri plačilu se
-          sklicujte na številko računa
+          {t("invoice:invoiceFooterOne")} {userData?.bankName},{" "}
+          {t("invoice:invoiceFooterTwo")} {userData?.trr}.{" "}
+          {t("invoice:invoiceFooterThree")}
         </Heading>
       </Note>
 
       <Footer>
         <p>
-          {userData?.companyField}, {userData?.companyName}. Transakcijski račun
-          odprt pri {userData?.bankName} – {userData?.trr}
-          ., davčna številka: {userData?.taxNumber}.
+          {userData?.companyField}, {userData?.companyName}.{" "}
+          {t("invoice:invoiceFooterFour")} {userData?.bankName} –{" "}
+          {userData?.trr}
+          ., {t("form:taxNumber")}: {userData?.taxNumber}.
         </p>
       </Footer>
     </>

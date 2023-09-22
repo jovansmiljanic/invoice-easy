@@ -63,6 +63,14 @@
   "passwordPlaceholder": "*********",
   "passwordError": "Molimo unesite svoju lozinku",
 
+  "clientNameLabel": "Naziv klijenta",
+  "clientNamePlaceholder": "Naziv klijenta",
+  "clientNameError": "Molimo unesite naziv klijenta",
+
+  "clientAddressLabel": "Adresa klijenta",
+  "clientAddressPlaceholder": "Adresa klijenta",
+  "clientAddressError": "Molimo unesite adresu klijenta",
+
   "signUpCta": "Registracija",
   "signInCta": "Prijava",
 

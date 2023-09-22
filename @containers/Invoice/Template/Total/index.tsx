@@ -12,6 +12,7 @@ import { getTotalPrice, getSubTotalPrice } from "@utils/client";
 
 // Vendors
 import { FormikValues, useFormikContext } from "formik";
+import useTranslation from "next-translate/useTranslation";
 
 // Vendors
 import styled, { css } from "styled-components";
@@ -60,6 +61,9 @@ interface Total {
 }
 
 const index: FC<Total> = ({ tableData }) => {
+  // Translation
+  const { t } = useTranslation();
+
   const { handleBlur, handleChange, values } = useFormikContext<FormikValues>();
 
   return (
@@ -69,7 +73,7 @@ const index: FC<Total> = ({ tableData }) => {
           as="p"
           padding={{ xs: { right: 2 }, sm: { right: 2 }, md: { right: 4 } }}
         >
-          Subtotal:
+          {t("invoice:subtotal")}:
         </Heading>
 
         <Heading as="p">{getSubTotalPrice(tableData)}</Heading>
@@ -80,7 +84,7 @@ const index: FC<Total> = ({ tableData }) => {
           as="p"
           padding={{ xs: { right: 2 }, sm: { right: 2 }, md: { right: 4 } }}
         >
-          Tax:
+          {t("invoice:tax")}:
         </Heading>
 
         <Field
@@ -98,7 +102,7 @@ const index: FC<Total> = ({ tableData }) => {
           as="p"
           padding={{ xs: { right: 2 }, sm: { right: 2 }, md: { right: 4 } }}
         >
-          Total:
+          {t("invoice:total")}:
         </Heading>
 
         <Heading as="p">{getTotalPrice(tableData, values.tax)}</Heading>

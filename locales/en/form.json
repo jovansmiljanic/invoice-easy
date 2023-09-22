@@ -63,6 +63,14 @@
   "passwordPlaceholder": "*********",
   "passwordError": "Please enter your password",
 
+  "clientNameLabel": "Client name",
+  "clientNamePlaceholder": "Client name",
+  "clientNameError": "Please enter client name",
+
+  "clientAddressLabel": "Client address",
+  "clientAddressPlaceholder": "Client address",
+  "clientAddressError": "Please enter client address",
+
   "signUpCta": "Sign up",
   "signInCta": "Sign in",
 

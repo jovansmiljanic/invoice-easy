@@ -1,4 +1,24 @@
 {
   "cancelCta": "OTKAŽI",
-  "saveCta": "SAČUVAJ"
+  "saveCta": "SAČUVAJ",
+  "deleteCta": "Obriši",
+  "invoice": "Račun",
+  "dateFrom": "Datum od",
+  "dateTo": "Datum do",
+  "paymentDeadline": "Rok plaćanja",
+  "item": "Artikal",
+  "cost": "Cena",
+  "qty": "Količina",
+  "price": "Ukupna cena",
+  "subtotal": "Međuzbir",
+  "tax": "Porez",
+  "total": "Ukupno",
+  "ddvParagraph": "PDV nije obračunat na osnovu člana 94, stav 1. Zakona o porezu na dodatu vrednost. (Nisam obveznik PDV-a). PRI POSLOVANJU NE KORISTIM PEČAT.",
+  "invoiceFooterOne": "Iznos računa uplatite na transakcioni račun otvoren kod",
+  "invoiceFooterTwo": "broj",
+  "invoiceFooterThree": "Prilikom plaćanja, pozovite se na broj računa",
+  "invoiceFooterFour": "Transakcioni račun otvoren kod",
+  "addNewCta": "Dodaj novu stavku",
+  "addNewClient": "Dodaj novog klijenta",
+  "chooseClient": "Izaberite postojećeg"
 }
