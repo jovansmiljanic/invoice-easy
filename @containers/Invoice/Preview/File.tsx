@@ -10,7 +10,6 @@ import {
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
-import useTranslation from "next-translate/useTranslation";
 
 // Global types
 import { Invoice, MyAccount } from "@types";
@@ -91,6 +90,7 @@ const styles = StyleSheet.create({
 
   itemName: {
     flex: "0 0 55%",
+    paddingRight: 10,
   },
 
   itemCost: {
@@ -132,9 +132,6 @@ interface File {
 }
 
 const index: FC<File> = ({ myAccount, invoice }) => {
-  // Translation
-  const { t } = useTranslation();
-
   return (
     <Document>
       <Page size="A4" style={styles.newInvoice}>
@@ -145,24 +142,14 @@ const index: FC<File> = ({ myAccount, invoice }) => {
             <Text>
               {myAccount?.zipCode}, {myAccount?.city}, {myAccount?.country}
             </Text>
-            <Text>
-              {t("form:taxNumber")}: {myAccount?.taxNumber}
-            </Text>
+            <Text>Davcna stevilka: {myAccount?.taxNumber}</Text>
           </View>
 
           <View style={styles.col2}>
-            <Text>
-              {t("form:trr")}: {myAccount?.trr}
-            </Text>
-            <Text>
-              {t("form:bic")}: {myAccount?.bic}
-            </Text>
-            <Text>
-              {t("form:emailLabel")}: {myAccount?.email}
-            </Text>
-            <Text>
-              {t("form:phoneLabel")}: {myAccount?.phoneNumber}
-            </Text>
+            <Text>TRR: {myAccount?.trr}</Text>
+            <Text>BIC koda: {myAccount?.bic}</Text>
+            <Text>E-pošta: {myAccount?.email}</Text>
+            <Text>Telefon: {myAccount?.phoneNumber}</Text>
           </View>
         </View>
 
@@ -173,34 +160,23 @@ const index: FC<File> = ({ myAccount, invoice }) => {
             <Text>
               {myAccount?.zipCode}, {myAccount?.city}, {myAccount?.country}
             </Text>
-            <Text>
-              {t("form:taxNumber")}: {invoice.client.taxNumber}
-            </Text>
+            <Text>Davcna stevilka: {invoice.client.taxNumber}</Text>
           </View>
 
           <View style={styles.col2}>
-            <Text style={styles.name}>
-              {t("invoice:invoice")}: #{invoice.invoiceNumber}
-            </Text>
-            <Text>
-              {t("invoice:dateFrom")}: {formatDate(invoice.startDate)}
-            </Text>
-            <Text>
-              {t("invoice:dateTo")}: {formatDate(invoice.endDate)}
-            </Text>
-            <Text>
-              {t("invoice:paymentDeadline")}:{" "}
-              {formatDate(invoice.paymentDeadline)}
-            </Text>
+            <Text style={styles.name}>Invoice: #{invoice.invoiceNumber}</Text>
+            <Text>Date from: {formatDate(invoice.startDate)}</Text>
+            <Text>Date to: {formatDate(invoice.endDate)}</Text>
+            <Text>Payment deadline: {formatDate(invoice.paymentDeadline)}</Text>
           </View>
         </View>
 
         <View>
           <View style={styles.itemsHeader}>
-            <Text style={styles.itemName}>{t("invoice:item")}</Text>
-            <Text style={styles.itemCost}>{t("invoice:cost")}</Text>
-            <Text style={styles.itemQty}>{t("invoice:qty")}</Text>
-            <Text style={styles.itemPrice}>{t("invoice:price")}</Text>
+            <Text style={styles.itemName}>Item</Text>
+            <Text style={styles.itemCost}>Cost</Text>
+            <Text style={styles.itemQty}>QTY</Text>
+            <Text style={styles.itemPrice}>Price</Text>
           </View>
 
           <View>
@@ -216,39 +192,36 @@ const index: FC<File> = ({ myAccount, invoice }) => {
         </View>
 
         <View style={styles.total}>
-          <Text>
-            {t("invoice:subtotal")}: {getSubTotalPrice(invoice.items)}
-          </Text>
-          <Text>
-            {t("invoice:tax")}: {invoice.tax}%
-          </Text>
-          <Text>
-            {t("invoice:total")}: {getTotalPrice(invoice.items, invoice.tax)}
-          </Text>
+          <Text>Subtotal: {getSubTotalPrice(invoice.items)}</Text>
+          <Text>Tax: {invoice.tax}%</Text>
+          <Text>Total: {getTotalPrice(invoice.items, invoice.tax)}</Text>
         </View>
 
         <View style={styles.note}>
-          <Text>{t("invoice:ddvParagraph")}</Text>
-
           <Text>
-            {t("invoice:invoiceFooterOne")} {" " + myAccount?.bankName}.,
-            {t("invoice:invoiceFooterTwo")} {myAccount?.trr}.{" "}
-            {t("invoice:invoiceFooterThree")}
+            DDV ni obračunan na podlagi 1. Odstavka 94. Člena Zakona o davku na
+            dodano vrednost. (nisem zavezanec za DDV). PRI POSLOVANJU NE
+            UPORABLJAM ŽIGA.
           </Text>
 
           <Text>
-            {myAccount?.companyField}, {myAccount?.companyName}.{" "}
-            {t("invoice:invoiceFooterFour")} {myAccount?.bankName} –{" "}
-            {myAccount?.trr}
-            ., {t("form:taxNumber")}: {myAccount?.taxNumber}.
+            Znesek računa poravnajte na transakcijski račun odprt pri{" "}
+            {" " + myAccount?.bankName}., številka {myAccount?.trr}. Pri plačilu
+            se sklicujte na številko računa.
+          </Text>
+
+          <Text>
+            {myAccount?.companyField}, {myAccount?.companyName}. Transakcijski
+            račun odprt pri {myAccount?.bankName} – {myAccount?.trr}
+            ., davčna številka: {myAccount?.taxNumber}.
           </Text>
         </View>
 
         <View style={styles.footer}>
           <Text>
-            {myAccount?.companyField}, {myAccount?.companyName}.{" "}
-            {t("invoice:invoiceFooterFour")} {myAccount?.bankName} –{" "}
-            {myAccount?.trr}., {t("form:taxNumber")}: {myAccount?.taxNumber}.
+            {myAccount?.companyField}, {myAccount?.companyName}. Transakcijski
+            račun odprt pri {myAccount?.bankName} – {myAccount?.trr}., davčna
+            številka: {myAccount?.taxNumber}.
           </Text>
         </View>
       </Page>
