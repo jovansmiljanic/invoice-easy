@@ -291,12 +291,14 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="h6" weight="bold">
                   {userData?.companyName}
                 </Heading>
+
                 <Heading as="p">{userData?.companyAddress}</Heading>
+
                 <Heading as="p">
                   {userData?.zipCode}, {userData?.city}, {userData?.country}
                 </Heading>
+
                 <Heading as="p">
-                  {" "}
                   {t("form:taxNumber")}: {userData?.taxNumber}
                 </Heading>
               </Col1>
@@ -304,13 +306,15 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="p">
                   {t("form:trr")}: {userData?.trr}
                 </Heading>
+
                 <Heading as="p">
-                  {" "}
                   {t("form:bic")}: {userData?.bic}
                 </Heading>
+
                 <Heading as="p">
                   {t("form:emailLabel")}: {userData?.email}
                 </Heading>
+
                 <Heading as="p">
                   {t("form:phoneLabel")}: {userData?.phoneNumber}
                 </Heading>
@@ -466,9 +470,15 @@ const index: FC<NewInvoice> = ({ invoice }) => {
               </Heading>
 
               <Heading as="p">
-                {t("invoice:invoiceFooterOne")}
-                {userData?.bankName}., {t("invoice:invoiceFooterTwo")}{" "}
-                {userData?.trr}. {t("invoice:invoiceFooterThree")}
+                {t("invoice:invoiceFooterOne")} {userData?.bankName}.,{" "}
+                {t("invoice:invoiceFooterTwo")} {userData?.trr}.{" "}
+                {t("invoice:invoiceFooterThree")}.
+              </Heading>
+
+              <Heading as="p">
+                {userData?.companyField}, {userData?.companyName}.
+                {t("invoice:invoiceFooterFour")} {userData?.bankName} –{" "}
+                {userData?.trr}., {t("invoice:tax")}: {userData?.taxNumber}.
               </Heading>
             </Note>
 
@@ -504,7 +514,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 md: { bottom: 2 },
               }}
             >
-              Edit
+              {t("invoice:editCta")}
             </Button>
 
             <Button
@@ -519,7 +529,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 setIsConfirmModal(!isConfirmModal), setIsClientData(invoice);
               }}
             >
-              Delete
+              {t("invoice:deleteCta")}
             </Button>
           </Options>
         </Column>
