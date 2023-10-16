@@ -7,6 +7,9 @@ import { Button, Heading } from "@components";
 // SVG
 import { NotFoundIcon } from "public/svg";
 
+// NextJS
+import { useRouter } from "next/router";
+
 // Vendors
 import styled, { css } from "styled-components";
 
@@ -30,6 +33,7 @@ const NotFound = styled.div`
 interface NotFound {}
 
 const index: FC<NotFound> = () => {
+  const { locale } = useRouter();
   return (
     <NotFound>
       <div>
@@ -56,7 +60,7 @@ const index: FC<NotFound> = () => {
           Please click on create invoice to start generating
         </Heading>
 
-        <Button variant="secondary" as="a" href="/invoice/add">
+        <Button variant="secondary" as="a" href={`/${locale}/invoice/add`}>
           Create Invoice
         </Button>
       </div>
