@@ -151,7 +151,7 @@ const index: FC<Dashboard> = ({
   // Translation
   const { t } = useTranslation();
 
-  const { query, push } = useRouter();
+  const { query, push, locale } = useRouter();
 
   // Declare filters
   const [filters, setFilters] = useState<IFilters>({});
@@ -383,7 +383,7 @@ const index: FC<Dashboard> = ({
                     md: { left: 1 },
                   }}
                   as="a"
-                  href="/invoice/add"
+                  href={`/${locale}/invoice/add`}
                 >
                   <AddOutlinedIcon />
                   {t("table:createInvoiceCta")}

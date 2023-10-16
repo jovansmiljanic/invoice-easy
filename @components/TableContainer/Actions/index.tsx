@@ -62,11 +62,15 @@ const ModalItems = styled.div`
   display: flex;
   flex-direction: column;
 
-  ${({ theme: { colors } }) => css`
+  ${({ theme: { colors, breakpoints } }) => css`
     min-width: 160px;
     min-height: 50px;
     box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
     background-color: ${colors.background};
+
+    @media (max-width: ${breakpoints.md}px) {
+      left: 0;
+    }
   `}
 `;
 

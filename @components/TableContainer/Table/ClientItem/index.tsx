@@ -1,5 +1,5 @@
 // Core types
-import type { FC } from "react";
+import { useState, type FC } from "react";
 
 // Global components
 import { Client } from "@types";
@@ -9,6 +9,7 @@ import { copyText } from "@utils/shared";
 
 // Vendors
 import styled, { css } from "styled-components";
+import { ClientModal } from "@components/ClientModal";
 
 interface Item {
   updatedItems: Client;
@@ -17,9 +18,21 @@ interface Item {
 const TableCell = styled.td`
   padding: 8px;
   border-bottom: 1px solid #ddd;
+
+  ${({ theme: { colors } }) => css`
+    &:first-child {
+      cursor: pointer;
+      color: ${colors.primary};
+    }
+
+    &:last-child {
+      text-align: right;
+    }
+  `}
 `;
 
 const index: FC<Item> = ({ updatedItems }) => {
+  const [a, setA] = useState(false);
   return (
     <>
       <TableCell onClick={() => copyText(updatedItems._id.toString())}>
@@ -28,6 +41,11 @@ const index: FC<Item> = ({ updatedItems }) => {
       <TableCell>{updatedItems.clientName}</TableCell>
       <TableCell>{updatedItems.clientAddress}</TableCell>
       <TableCell>{updatedItems.country}</TableCell>
+      <TableCell>
+        <div onClick={() => setA(!a)}>aaa</div>
+
+        {a && <ClientModal />}
+      </TableCell>
     </>
   );
 };

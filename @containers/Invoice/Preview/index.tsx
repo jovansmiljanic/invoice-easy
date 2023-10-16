@@ -11,6 +11,7 @@ import { Button, Heading } from "@components";
 import { Column, Container, Row } from "@components/Grid";
 
 // Vendors
+import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
@@ -248,6 +249,8 @@ interface NewInvoice {
 const index: FC<NewInvoice> = ({ invoice }) => {
   // Translation
   const { t } = useTranslation();
+
+  const { locale } = useRouter();
 
   // Store context
   const { isPhone, setIsClientData, setIsConfirmModal, isConfirmModal } =
@@ -507,7 +510,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
               variant="warning"
               size="small"
               as="a"
-              href={`/invoice/edit/${invoice._id}`}
+              href={`/${locale}/invoice/edit/${invoice._id}`}
               margin={{
                 xs: { bottom: 2 },
                 sm: { bottom: 2 },

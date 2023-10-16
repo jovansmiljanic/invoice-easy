@@ -39,6 +39,11 @@ const TableCell = styled.td`
   ${({ theme: { colors, breakpoints } }) => css`
     border-bottom: 1px solid ${colors.lightGray};
 
+    &:first-child {
+      cursor: pointer;
+      color: ${colors.primary};
+    }
+
     @media (max-width: ${breakpoints.md}px) {
       border-bottom: none;
     }
