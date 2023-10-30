@@ -70,7 +70,7 @@ const index: FC<User> = ({ session }) => {
 
       {dropdown && (
         <Dropdown>
-          <DropdownItem>
+          <DropdownItem borderBottom>
             <Heading as="h6" weight="bold" textAlign={{ md: "center" }}>
               {session.user.firstName} {session.user.lastName}
             </Heading>
@@ -80,7 +80,10 @@ const index: FC<User> = ({ session }) => {
             <DropdownItem>
               <ManageAccountsOutlinedIcon />
 
-              <Heading as="h6" textAlign={{ md: "left" }}>
+              <Heading
+                as="h6"
+                textAlign={{ xs: "left", sm: "left", md: "left" }}
+              >
                 {t("home:myProfile")}
               </Heading>
             </DropdownItem>
@@ -90,7 +93,10 @@ const index: FC<User> = ({ session }) => {
             <DropdownItem>
               <ReceiptIcon />
 
-              <Heading as="h6" textAlign={{ md: "left" }}>
+              <Heading
+                as="h6"
+                textAlign={{ xs: "left", sm: "left", md: "left" }}
+              >
                 {t("home:invoices")}
               </Heading>
             </DropdownItem>
@@ -100,7 +106,10 @@ const index: FC<User> = ({ session }) => {
             <DropdownItem>
               <PeopleOutlineIcon />
 
-              <Heading as="h6" textAlign={{ md: "left" }}>
+              <Heading
+                as="h6"
+                textAlign={{ xs: "left", sm: "left", md: "left" }}
+              >
                 {t("home:clients")}
               </Heading>
             </DropdownItem>
@@ -109,7 +118,7 @@ const index: FC<User> = ({ session }) => {
           <DropdownItem onClick={handleSignOut} borderTop>
             <LogoutOutlinedIcon />
 
-            <Heading as="h6" textAlign={{ md: "left" }}>
+            <Heading as="h6" textAlign={{ xs: "left", sm: "left", md: "left" }}>
               {t("home:signOut")}
             </Heading>
           </DropdownItem>
@@ -159,14 +168,17 @@ const Dropdown = styled.div`
   `}
 `;
 
-const DropdownItem = styled.div<{ borderTop?: boolean }>`
+const DropdownItem = styled.div<{
+  borderTop?: boolean;
+  borderBottom?: boolean;
+}>`
   padding: 15px 25px;
 
   display: flex;
   justify-content: flex-start;
   align-items: center;
 
-  ${({ borderTop, theme: { colors } }) => css`
+  ${({ borderTop, borderBottom, theme: { colors } }) => css`
     color: ${colors.textColor};
 
     h6 {
@@ -188,6 +200,11 @@ const DropdownItem = styled.div<{ borderTop?: boolean }>`
     ${borderTop &&
     `
       border-top: 1px solid ${colors.lightGray};
+    `}
+
+    ${borderBottom &&
+    `
+      border-bottom: 1px solid ${colors.lightGray};
     `}
   `}
 `;

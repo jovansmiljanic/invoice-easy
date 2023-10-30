@@ -1,5 +1,5 @@
 // Core types
-import { useState, type FC } from "react";
+import { useState, type FC, useContext } from "react";
 
 // Global components
 import { Client } from "@types";
@@ -10,6 +10,8 @@ import { copyText } from "@utils/shared";
 // Vendors
 import styled, { css } from "styled-components";
 import { ClientModal } from "@components/ClientModal";
+import { StoreContext } from "@context";
+import useTranslation from "next-translate/useTranslation";
 
 interface Item {
   updatedItems: Client;
@@ -31,8 +33,33 @@ const TableCell = styled.td`
   `}
 `;
 
+const ModalItem = styled.div`
+  padding: 10px 0 10px 20px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+
+  ${({ theme: { colors } }) => css`
+    color: ${colors.textColor};
+
+    &:hover {
+      background-color: ${colors.hoverGray};
+    }
+
+    &:nth-child(4) {
+      color: ${colors.danger};
+      border-top: 1px solid ${colors.lightGray};
+    }
+  `}
+`;
+
 const index: FC<Item> = ({ updatedItems }) => {
-  const [a, setA] = useState(false);
+  // Translation
+  const { t } = useTranslation();
+
+  const { setIsClientData, setIsConfirmModal, isConfirmModal } =
+    useContext(StoreContext);
+
   return (
     <>
       <TableCell onClick={() => copyText(updatedItems._id.toString())}>
@@ -42,9 +69,16 @@ const index: FC<Item> = ({ updatedItems }) => {
       <TableCell>{updatedItems.clientAddress}</TableCell>
       <TableCell>{updatedItems.country}</TableCell>
       <TableCell>
-        <div onClick={() => setA(!a)}>aaa</div>
+        <ModalItem
+          onClick={() => {
+            // Edit client
+            setIsClientData(updatedItems);
 
-        {a && <ClientModal />}
+            setIsConfirmModal(!isConfirmModal);
+          }}
+        >
+          {t("table:delete")}
+        </ModalItem>
       </TableCell>
     </>
   );

@@ -94,7 +94,7 @@ const ToggleDiv = styled.div`
   position: relative;
 
   svg {
-    width: 40px;
+    width: 30px;
     height: auto;
   }
 `;
@@ -103,7 +103,7 @@ const CurrentFlag = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 15px;
   cursor: pointer;
 `;
 
@@ -116,10 +116,6 @@ const Dropdown = styled.div`
   min-width: 120px;
   box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
 
-  span {
-    margin-left: 8px;
-  }
-
   ${({ theme: { colors } }) => css`
     background-color: ${colors.background};
   `}
@@ -131,6 +127,11 @@ const DropdownItem = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
+  span {
+    margin-left: 8px;
+    font-size: 14px;
+  }
 
   ${({ theme: { colors } }) => css`
     color: ${colors.textColor};
