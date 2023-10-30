@@ -12,13 +12,14 @@ interface DeleteItem {
 }
 
 export const deleteItem = async ({ id, router, path }: DeleteItem) => {
+  console.log();
   await axios({
     method: "DELETE",
     url: `/api/${path}`,
     data: id,
   })
     .then((res: AxiosResponse) => {
-      router.push("/");
+      router.asPath === "/clients" ? router.push("/clients") : router.push("/");
     })
     .catch(({ response }) => {
       // Set error message

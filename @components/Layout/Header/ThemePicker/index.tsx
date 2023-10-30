@@ -24,7 +24,7 @@ const index: FC = () => {
 export { index as ThemePicker };
 
 const ToggleDiv = styled.div`
-  margin-right: 10px;
+  margin-right: 15px;
   cursor: pointer;
 
   display: flex;

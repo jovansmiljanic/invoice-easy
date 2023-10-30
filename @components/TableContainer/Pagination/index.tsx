@@ -112,7 +112,8 @@ const index: FC = () => {
   return (
     <Pagination>
       <div>
-        {t("table:paginationLabel")} {updatedItems.length} of {length}
+        {t("table:paginationLabel")} {updatedItems.length} {t("table:of")}{" "}
+        {length}
       </div>
 
       <Wrap>
