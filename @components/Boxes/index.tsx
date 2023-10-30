@@ -1,5 +1,5 @@
 // Core types
-import type { FC } from "react";
+import { type FC, useContext } from "react";
 
 // Vendors
 import styled, { css } from "styled-components";
@@ -17,6 +17,9 @@ import { Heading } from "@components";
 // Global types
 import { Invoice } from "@types";
 
+// Global context
+import { StoreContext } from "@context";
+
 const BoxWrapper = styled.div`
   height: 100%;
   display: flex;
@@ -24,7 +27,7 @@ const BoxWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Box = styled.div`
+const Box = styled.div<{ isPriceShown?: string }>`
   padding: 20px;
   border-radius: 5px;
   flex: 0 0 49%;
@@ -35,7 +38,14 @@ const Box = styled.div`
   align-items: flex-start;
   flex-direction: column;
 
-  ${({ theme: { colors, breakpoints } }) => css`
+  ${({ isPriceShown, theme: { colors, breakpoints } }) => css`
+    ${isPriceShown === "false" &&
+    `
+    h3{
+      filter: blur(10px);
+    }
+  `}
+
     border: 1px solid ${colors.lightGray};
 
     @media (max-width: ${breakpoints.md}px) {
@@ -72,6 +82,8 @@ interface Boxes {
 const index: FC<Boxes> = ({ items, invoicesLength, clientsLenght }) => {
   // Translation
   const { t } = useTranslation();
+
+  const { isPriceShown } = useContext(StoreContext);
 
   // Calculate the total sum of prices
   const totalPrice = items?.reduce((sum: number, invoice: Invoice) => {
@@ -146,7 +158,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, clientsLenght }) => {
         </Heading>
       </Box>
 
-      <Box>
+      <Box isPriceShown={isPriceShown}>
         <BoxWrap>
           <ReceiptOutlinedIcon />
 
@@ -171,7 +183,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, clientsLenght }) => {
         </Heading>
       </Box>
 
-      <Box>
+      <Box isPriceShown={isPriceShown}>
         <BoxWrap>
           <PaidOutlinedIcon />
 

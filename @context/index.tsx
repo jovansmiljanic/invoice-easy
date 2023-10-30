@@ -2,7 +2,7 @@
 import type { FC } from "react";
 
 // Core
-import { createContext, useMemo, useEffect, useState } from "react";
+import { createContext, useMemo, useEffect, useState, useContext } from "react";
 
 // Create Context base
 export const StoreContext = createContext({} as AppContext);
@@ -12,24 +12,37 @@ import { ThemeProvider } from "styled-components";
 
 // App context properties
 import { Theme } from "@context/theme";
-import { Client, Invoice, MyAccount } from "@types";
-import { getCookie, setCookie } from "@utils/shared";
+
+// Global types
+import { Client } from "@types";
 
 // Instruct component Props Types
 interface Props {
   children: React.ReactNode;
 }
 
+type Theme = "light" | "dark";
+type HiddenNumbers = "true" | "false";
+
 // Instruct component State Types
 interface AppContext {
   isPhone?: boolean;
   isTablet?: boolean;
-  theme: "light" | "dark";
-  setTheme: (theme: string) => void;
+
+  theme: Theme | string;
+  setTheme: (theme: Theme | string) => void;
+  toggleTheme: () => void;
+
+  isPriceShown: HiddenNumbers | string;
+  setIsPriceShown: (isPriceShown: HiddenNumbers | string) => void;
+  toggleIsPriceShown: () => void;
+
   isModalOpen: boolean;
   setIsModalOpen: (isModalOpen: boolean) => void;
+
   isConfirmModal: boolean;
   setIsConfirmModal: (isConformModal: boolean) => void;
+
   isClientData: Client;
   setIsClientData: (isClientData?: any) => void;
 }
@@ -37,9 +50,6 @@ interface AppContext {
 export const Store: FC<Props> = (props) => {
   const [isPhone, setIsPhone] = useState<boolean>();
   const isPhoneMemo = useMemo(() => isPhone, [isPhone]);
-
-  const [isTablet, setIsTablet] = useState<boolean>();
-  const isTabletMemo = useMemo(() => isTablet, [isTablet]);
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const isModalOpenMemo = useMemo(() => isModalOpen, [isModalOpen]);
@@ -50,32 +60,38 @@ export const Store: FC<Props> = (props) => {
   const [isClientData, setIsClientData] = useState<Client>();
   const isClientDataMemo = useMemo(() => isClientData, [isClientData]);
 
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<Theme | string>("light");
+  const [isPriceShown, setIsPriceShown] = useState<string>("false");
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  const toggleIsPriceShown = () => {
+    const numbersHidden = isPriceShown === "true" ? "false" : "true";
+    setIsPriceShown(numbersHidden);
+    localStorage.setItem("hiddenNumbers", numbersHidden);
+  };
 
   useEffect(() => {
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: light)"
-    ).matches;
+    // Check for the theme preference in localStorage
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      setTheme(storedTheme);
+    }
 
-    if (prefersDark) {
-      setCookie({
-        name: "theme",
-        value: "light",
-        days: 30,
-      });
-
-      setTheme("light");
+    // Check for the numbers preference in localStorage
+    const storedNumbers = localStorage.getItem("hiddenNumbers");
+    if (storedNumbers) {
+      setIsPriceShown(storedNumbers);
     }
 
     // Check if users device is smaller than 768px and enable Phone layout
     const isPhone = window.matchMedia("(max-width: 992px)").matches;
 
     if (isPhone) setIsPhone(isPhone);
-
-    // Check if users device is smaller than 1192px and enable Tablet layout
-    const isTablet = window.matchMedia("(max-width: 1192px)").matches;
-
-    if (isTablet) setIsTablet(isTablet);
 
     // Listen to window resize and resize layouts
     window.addEventListener("resize", detectLayout);
@@ -87,11 +103,6 @@ export const Store: FC<Props> = (props) => {
 
     // Act accordingly by enabling isPhone layout
     setIsPhone(isPhone);
-
-    const isTablet = window.matchMedia("(max-width: 1192px)").matches;
-
-    // Act accordingly by enabling Tablet layout
-    setIsTablet(isTablet);
   };
 
   return (
@@ -99,19 +110,29 @@ export const Store: FC<Props> = (props) => {
       value={
         {
           isPhone: isPhoneMemo,
-          isTablet: isTabletMemo,
+
           isModalOpen: isModalOpenMemo,
           setIsModalOpen,
+
           isClientData: isClientDataMemo,
           setIsClientData,
+
           isConfirmModal: isConfirmModalMemo,
           setIsConfirmModal,
+
           theme: theme,
           setTheme,
+          toggleTheme,
+
+          isPriceShown,
+          setIsPriceShown,
+          toggleIsPriceShown,
         } as AppContext
       }
     >
-      <ThemeProvider theme={Theme[theme]}>{props.children}</ThemeProvider>
+      <ThemeProvider theme={Theme[theme as Theme]}>
+        {props.children}
+      </ThemeProvider>
     </StoreContext.Provider>
   );
 };
