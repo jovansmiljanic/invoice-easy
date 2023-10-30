@@ -25,7 +25,7 @@ import { MyAccount } from "@types";
 import { getUserData } from "@utils/client/getUserData";
 
 // Shared utils
-import { updateCookie } from "@utils/shared/setCookie";
+import { setCookie } from "@utils/shared";
 
 const MyAccountContainer = styled.div`
   width: 100%;
@@ -176,7 +176,7 @@ const index: FC<IMyAccount> = () => {
             ) => {
               setSubmitting(true);
 
-              updateCookie({
+              setCookie({
                 name: "user",
                 value: JSON.stringify(data),
                 days: 30,

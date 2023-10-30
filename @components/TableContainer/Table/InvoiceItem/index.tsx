@@ -1,5 +1,5 @@
 // Core types
-import { type FC } from "react";
+import { type FC, useContext } from "react";
 
 // Global types
 import { Invoice } from "@types";
@@ -17,6 +17,7 @@ import useTranslation from "next-translate/useTranslation";
 
 // Table component
 import { Actions } from "@components/TableContainer/Actions";
+import { StoreContext } from "@context";
 
 const Status = styled.div<{ status: "danger" | "success" }>`
   width: fit-content;
@@ -33,10 +34,17 @@ const Status = styled.div<{ status: "danger" | "success" }>`
   `}
 `;
 
-const TableCell = styled.td`
+const TableCell = styled.td<{ isPriceShown?: string }>`
   padding: 8px;
 
-  ${({ theme: { colors, breakpoints } }) => css`
+  ${({ isPriceShown, theme: { colors, breakpoints } }) => css`
+    ${isPriceShown === "false" &&
+    `
+    
+      filter: blur(10px);
+    
+  `}
+
     border-bottom: 1px solid ${colors.lightGray};
 
     &:first-child {
@@ -57,6 +65,8 @@ interface Item {
 const index: FC<Item> = ({ updatedItems }) => {
   // Translation
   const { t } = useTranslation();
+
+  const { isPriceShown } = useContext(StoreContext);
 
   let status;
 
@@ -82,7 +92,7 @@ const index: FC<Item> = ({ updatedItems }) => {
       <TableCell>
         {daysLeft(updatedItems.paymentDeadline, updatedItems.issuedDate)}
       </TableCell>
-      <TableCell>
+      <TableCell isPriceShown={isPriceShown}>
         {getTotalPrice(updatedItems.items, updatedItems?.tax)}
       </TableCell>
       <TableCell>

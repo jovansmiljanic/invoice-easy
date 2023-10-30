@@ -5,6 +5,8 @@ import { type FC, useEffect, useRef, useState, useContext } from "react";
 import Link from "next/link";
 
 // Vendors
+import { useRouter } from "next/router";
+import type { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
@@ -15,8 +17,8 @@ import { Column, Container, Row } from "@components/Grid";
 // Global components
 import { Heading, Logo } from "@components";
 
-// Client utils
-import type { Session } from "next-auth";
+// Shared utils
+import { deleteCookie } from "@utils/shared";
 
 // Icons
 import DarkModeIcon from "@mui/icons-material/DarkMode";
@@ -25,10 +27,11 @@ import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import ReceiptIcon from "@mui/icons-material/Receipt";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
 // Store context
 import { StoreContext } from "@context";
-import { useRouter } from "next/router";
 
 const CustomLink = styled.span`
   padding: 0 5px;
@@ -42,7 +45,6 @@ const UserModal = styled.div`
   position: relative;
   width: 50px;
   height: 50px;
-  margin-left: 15px;
   cursor: pointer;
 `;
 
@@ -64,9 +66,10 @@ const User = styled.div`
 
 const Dropdown = styled.div`
   position: absolute;
-  top: 105%;
+  z-index: 10;
+
+  top: 115%;
   right: 0;
-  z-index: 999;
   border-radius: 5px;
   min-width: 200px;
   text-align: center;
@@ -84,8 +87,6 @@ const DropdownItem = styled.div<{ borderTop?: boolean }>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  position: relative;
-  z-index: 999;
 
   ${({ borderTop, theme: { colors } }) => css`
     color: ${colors.textColor};
@@ -98,9 +99,6 @@ const DropdownItem = styled.div<{ borderTop?: boolean }>`
     }
 
     h6 {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       width: 100%;
     }
 
@@ -131,7 +129,7 @@ const DropdownItem = styled.div<{ borderTop?: boolean }>`
 const Border = styled.div`
   width: 100%;
 
-  ${({ theme: { defaults, colors, font, ...theme } }) => css`
+  ${({ theme: { colors } }) => css`
     border-bottom: 1px solid ${colors.lightGray};
   `}
 `;
@@ -146,15 +144,19 @@ const Wrap = styled.div`
   }
 `;
 
-const LngWrap = styled.div`
+const ToggleDiv = styled.div`
   position: relative;
-  margin-right: 10px;
+  margin-right: 15px;
   cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const DropdownLng = styled.div`
   position: absolute;
-  top: 105%;
+  top: 35px;
   right: 0;
   z-index: 100;
   border-radius: 5px;
@@ -193,16 +195,19 @@ interface Header {
 }
 
 const index: FC<Header> = ({ session }) => {
-  // Hide dropdown when clicked outside it's Ref
-  const navPopupRef = useRef<HTMLDivElement>(null);
+  // Handle router
+  const router = useRouter();
 
-  // Hide dropdown when clicked outside it's Ref
-  const lngPopupRef = useRef<HTMLDivElement>(null);
+  // Translation
+  const { t } = useTranslation();
 
   // Toggle resources dropdown
   const [dropdown, setDropdown] = useState(false);
-
   const [lngDropdown, setlngDropdown] = useState(false);
+
+  // Hide dropdown when clicked outside it's Ref
+  const navPopupRef = useRef<HTMLDivElement>(null);
+  const lngPopupRef = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -216,7 +221,7 @@ const index: FC<Header> = ({ session }) => {
       lngPopupRef.current &&
       !lngPopupRef.current.contains(event.target as Node)
     ) {
-      setDropdown(false);
+      setlngDropdown(false);
     }
   };
 
@@ -227,15 +232,15 @@ const index: FC<Header> = ({ session }) => {
     };
   }, []);
 
-  const { theme, setTheme } = useContext(StoreContext);
-  const toggleTheme = () => {
-    setTheme(theme === "light" ? "dark" : "light");
+  const { theme, toggleTheme, isPriceShown, toggleIsPriceShown } =
+    useContext(StoreContext);
+
+  // Function that handles sign out
+  const handleSignOut = () => {
+    deleteCookie({ name: "user" });
+
+    signOut();
   };
-
-  const router = useRouter();
-
-  // Translation
-  const { t } = useTranslation();
 
   return (
     <Container>
@@ -269,13 +274,25 @@ const index: FC<Header> = ({ session }) => {
           padding={{ xs: { bottom: 2 }, sm: { bottom: 2 }, md: { bottom: 2 } }}
         >
           <Wrap>
-            <LngWrap ref={lngPopupRef}>
+            <ToggleDiv onClick={toggleIsPriceShown}>
+              {isPriceShown === "true" ? (
+                <VisibilityOutlinedIcon />
+              ) : (
+                <VisibilityOffOutlinedIcon />
+              )}
+            </ToggleDiv>
+
+            <ToggleDiv onClick={toggleTheme}>
+              {theme === "light" ? <LightModeIcon /> : <DarkModeIcon />}
+            </ToggleDiv>
+
+            <ToggleDiv ref={lngPopupRef}>
               <div onClick={() => setlngDropdown(!lngDropdown)}>
                 {router.locale?.toLocaleUpperCase()}
               </div>
 
               {lngDropdown && (
-                <DropdownLng>
+                <DropdownLng onClick={() => setlngDropdown(!lngDropdown)}>
                   <Link href={router.asPath} locale="sr">
                     <DropdownItemLng>Serbian</DropdownItemLng>
                   </Link>
@@ -289,13 +306,7 @@ const index: FC<Header> = ({ session }) => {
                   </Link>
                 </DropdownLng>
               )}
-            </LngWrap>
-
-            {theme === "light" ? (
-              <LightModeIcon onClick={toggleTheme} />
-            ) : (
-              <DarkModeIcon onClick={toggleTheme} />
-            )}
+            </ToggleDiv>
 
             {session && (
               <UserModal ref={navPopupRef}>
@@ -338,7 +349,7 @@ const index: FC<Header> = ({ session }) => {
                       </DropdownItem>
                     </Link>
 
-                    <DropdownItem onClick={() => signOut()} borderTop>
+                    <DropdownItem onClick={handleSignOut} borderTop>
                       <LogoutOutlinedIcon />
 
                       <span>{t("home:signOut")}</span>
