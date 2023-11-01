@@ -79,6 +79,7 @@ const Close = styled.div`
   top: 20px;
   right: 20px;
   padding: 5px;
+  cursor: pointer;
 `;
 
 interface Formvalues {
@@ -98,7 +99,7 @@ const index: FC = ({}) => {
   const router = useRouter();
 
   // Global context from store
-  const { isModalOpen, setIsModalOpen, isClientData, setIsClientData } =
+  const { isModalOpen, setIsModalOpen, clientData, setClientData } =
     useContext(StoreContext);
 
   // Hide dropdown when clicked outside it's Ref
@@ -139,12 +140,12 @@ const index: FC = ({}) => {
   };
 
   const editInitialValues = {
-    clientName: isClientData?.clientName,
-    clientAddress: isClientData?.clientAddress,
-    city: isClientData?.city,
-    country: isClientData?.country,
-    zipCode: isClientData?.zipCode,
-    taxNumber: isClientData?.taxNumber,
+    clientName: clientData?.clientName,
+    clientAddress: clientData?.clientAddress,
+    city: clientData?.city,
+    country: clientData?.country,
+    zipCode: clientData?.zipCode,
+    taxNumber: clientData?.taxNumber,
   };
 
   const addOnSubmit = (data: FormikValues) => {
@@ -162,7 +163,7 @@ const index: FC = ({}) => {
       method: "PUT",
       url: "/api/client",
       data: {
-        _id: isClientData?._id,
+        _id: clientData?._id,
         ...data,
       },
     };
@@ -173,14 +174,14 @@ const index: FC = ({}) => {
       <Modal ref={modalPopupRef}>
         <Formik
           autoComplete="off"
-          initialValues={isClientData ? editInitialValues : addInitialValues}
+          initialValues={clientData ? editInitialValues : addInitialValues}
           validationSchema={AddClientSchema}
           onSubmit={async (data: Formvalues) => {
-            await axios(isClientData ? editOnSubmit(data) : addOnSubmit(data))
+            await axios(clientData ? editOnSubmit(data) : addOnSubmit(data))
               .then((res) => {
                 setIsModalOpen(false);
 
-                setIsClientData(res.data);
+                setClientData(res.data);
                 router.asPath === "/invoice/add" ? "" : router.push("/clients");
               })
               .catch((err) => {
@@ -206,7 +207,9 @@ const index: FC = ({}) => {
                   md: { bottom: 4 },
                 }}
               >
-                {t("invoice:addNewClient")}
+                {clientData
+                  ? t("invoice:editClient")
+                  : t("invoice:addNewClient")}
               </Heading>
 
               <Group>
@@ -352,4 +355,4 @@ const index: FC = ({}) => {
   );
 };
 
-export { index as ClientModal };
+export { index as AddClientModal };

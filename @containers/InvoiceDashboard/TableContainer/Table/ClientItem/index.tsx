@@ -9,7 +9,7 @@ import { copyText } from "@utils/shared";
 
 // Vendors
 import styled, { css } from "styled-components";
-import { ClientModal } from "@components/ClientModal";
+import { AddClientModal } from "@components/AddClientModal";
 import { StoreContext } from "@context";
 import useTranslation from "next-translate/useTranslation";
 
@@ -57,7 +57,7 @@ const index: FC<Item> = ({ updatedItems }) => {
   // Translation
   const { t } = useTranslation();
 
-  const { setIsClientData, setIsConfirmModal, isConfirmModal } =
+  const { setClientData, setIsConfirmModal, isConfirmModal } =
     useContext(StoreContext);
 
   return (
@@ -72,7 +72,7 @@ const index: FC<Item> = ({ updatedItems }) => {
         <ModalItem
           onClick={() => {
             // Edit client
-            setIsClientData(updatedItems);
+            setClientData(updatedItems);
 
             setIsConfirmModal(!isConfirmModal);
           }}

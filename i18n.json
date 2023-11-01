@@ -2,6 +2,15 @@
   "locales": ["si", "sr", "en"],
   "defaultLocale": "sr",
   "pages": {
-    "*": ["home", "signUp", "signIn", "form", "table", "404", "invoice"]
+    "*": [
+      "home",
+      "signUp",
+      "signIn",
+      "form",
+      "table",
+      "404",
+      "invoice",
+      "clientDashboard"
+    ]
   }
 }

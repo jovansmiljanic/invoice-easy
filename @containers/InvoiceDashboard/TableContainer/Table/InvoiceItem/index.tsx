@@ -16,8 +16,8 @@ import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
 // Table component
-import { Actions } from "@components/TableContainer/Actions";
 import { StoreContext } from "@context";
+import { Actions } from "../../Actions";
 
 const Status = styled.div<{ status: "danger" | "success" }>`
   width: fit-content;

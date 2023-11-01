@@ -1,5 +1,5 @@
 // GLobal containers
-import { Clients } from "@containers";
+import { ClientsDashboard } from "@containers";
 
 // Global components
 import { Layout } from "@components";
@@ -12,15 +12,19 @@ import { getSession } from "next-auth/react";
 
 // core types
 import type { Session } from "next-auth";
+import useTranslation from "next-translate/useTranslation";
 
 interface ContentPageProps {
   session: Session;
 }
 
 export default function Page({ session }: ContentPageProps) {
+  // Translation
+  const { t } = useTranslation();
+
   return (
     <Layout title="Dashboard" session={session}>
-      <Clients />
+      <ClientsDashboard />
     </Layout>
   );
 }
