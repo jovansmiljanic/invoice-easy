@@ -1,5 +1,3 @@
-export { Dashboard } from "./Dashboard";
-
 export { SignIn } from "./SignIn";
 export { SignUp } from "./SignUp";
 
@@ -11,4 +9,5 @@ export { MyAccount } from "./MyAccount";
 
 export { NotFound } from "./404";
 
-export { Clients } from "./Clients";
+export { ClientsDashboard } from "./ClientsDashboard";
+export { InvoiceDashboard } from "./InvoiceDashboard";

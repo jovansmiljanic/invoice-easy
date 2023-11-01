@@ -69,7 +69,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
   // Handle router
   const router = useRouter();
 
-  const { isClientData } = useContext(StoreContext);
+  const { clientData } = useContext(StoreContext);
 
   const [startDate, setStartDate] = useState<Date | null>();
   const [endDate, setEndDate] = useState<Date | null>();
@@ -122,7 +122,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
         endDate: endDate,
         issuedDate: new Date(),
         paymentDeadline: deadlineDate,
-        client: isClientData,
+        client: clientData,
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
       },
@@ -140,7 +140,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
         endDate: endDate,
         issuedDate: new Date(),
         paymentDeadline: deadlineDate,
-        client: isClientData,
+        client: clientData,
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
       },

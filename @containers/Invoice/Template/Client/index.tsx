@@ -159,7 +159,7 @@ const index: FC<Client> = ({
   // Translation
   const { t } = useTranslation();
 
-  const { isModalOpen, setIsModalOpen, setIsClientData, isClientData } =
+  const { isModalOpen, setIsModalOpen, setClientData, clientData } =
     useContext(StoreContext);
 
   const { handleBlur, handleChange, values } = useFormikContext<FormikValues>();
@@ -170,24 +170,23 @@ const index: FC<Client> = ({
 
   // Handle types
   const handleChangeType = (selected: any) => {
-    setIsClientData(selected.value);
+    setClientData(selected.value);
   };
 
   return (
     <Client>
       <div>
-        {isClientData ? (
+        {clientData ? (
           <>
             <Heading as="h6" weight="bold">
-              {isClientData.clientName}
+              {clientData.clientName}
             </Heading>
-            <Heading as="p">{isClientData.clientAddress}</Heading>
+            <Heading as="p">{clientData.clientAddress}</Heading>
             <Heading as="p">
-              {isClientData.zipCode}, {isClientData.city},{" "}
-              {isClientData.country}
+              {clientData.zipCode}, {clientData.city}, {clientData.country}
             </Heading>
             <Heading as="p">
-              {t("form:taxNumber")}: {isClientData.taxNumber}
+              {t("form:taxNumber")}: {clientData.taxNumber}
             </Heading>
           </>
         ) : currentClient ? (

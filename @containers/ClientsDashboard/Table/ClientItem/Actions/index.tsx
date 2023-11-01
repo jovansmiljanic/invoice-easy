@@ -1,5 +1,5 @@
 // Core types
-import { type FC, useState, useContext } from "react";
+import { type FC, useState, useContext, useRef, useEffect } from "react";
 
 // Vendors
 import Link from "next/link";
@@ -10,15 +10,16 @@ import useTranslation from "next-translate/useTranslation";
 // SVG
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 // Global components
-import { DownloadInvoice } from "@components";
+import { Button, DownloadInvoice } from "@components";
 
 // Store context
 import { StoreContext } from "@context";
 
 // GLobal types
-import { Invoice } from "@types";
+import { Client, Invoice } from "@types";
 
 // Client utils
 import { invoicePaid } from "@utils/client";
@@ -104,58 +105,69 @@ const PopupModal = styled.div`
 `;
 
 interface Actions {
-  updatedItems: Invoice;
+  updatedItems: Client;
 }
 
 const index: FC<Actions> = ({ updatedItems }) => {
   // Translation
   const { t } = useTranslation();
 
-  const router = useRouter();
+  const {
+    setClientData,
+    setIsConfirmModal,
+    isConfirmModal,
+    setIsModalOpen,
+    isModalOpen,
+  } = useContext(StoreContext);
 
-  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  // Set state fot dropdown
+  const [lngDropdown, setlngDropdown] = useState(false);
 
-  const { setIsClientData, setIsConfirmModal, isConfirmModal } =
-    useContext(StoreContext);
+  // Set ref for dropdown
+  const lngPopupRef = useRef<HTMLDivElement>(null);
+
+  // Function for close dropdown
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      lngPopupRef.current &&
+      !lngPopupRef.current.contains(event.target as Node)
+    ) {
+      setlngDropdown(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
 
   return (
-    <Actions>
-      <Link href={`/invoice/preview/${updatedItems._id}`}>
-        <VisibilityOutlinedIcon fontSize="small" />
-      </Link>
-
-      <DownloadInvoice invoice={updatedItems} type="icon" />
-
+    <Actions ref={lngPopupRef}>
       <PopupModal>
         <MoreVertOutlinedIcon
           fontSize="small"
-          onClick={() => setIsOptionsOpen(!isOptionsOpen)}
+          onClick={() => setlngDropdown(!lngDropdown)}
         />
 
-        {isOptionsOpen && (
+        {lngDropdown && (
           <ModalItems>
-            <Link href={`/invoice/preview/${updatedItems._id}`}>
-              <ModalItem>{t("table:preview")}</ModalItem>
-            </Link>
+            <ModalItem
+              onClick={() => {
+                // Edit client
+                setClientData(updatedItems);
 
-            {updatedItems.status === "2" && (
-              <ModalItem
-                onClick={() => invoicePaid({ _id: updatedItems._id, router })}
-              >
-                {t("table:markAsPaid")}
-              </ModalItem>
-            )}
-
-            <DownloadInvoice invoice={updatedItems} type="modalItem" />
-
-            <Link href={`/invoice/edit/${updatedItems._id}`}>
-              <ModalItem>{t("table:edit")}</ModalItem>
-            </Link>
+                setIsModalOpen(!isModalOpen);
+              }}
+            >
+              {t("table:edit")}
+            </ModalItem>
 
             <ModalItem
               onClick={() => {
                 // Edit client
-                setIsClientData(updatedItems);
+                setClientData(updatedItems);
 
                 setIsConfirmModal(!isConfirmModal);
               }}

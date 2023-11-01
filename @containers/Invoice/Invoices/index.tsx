@@ -2,10 +2,10 @@
 import { type FC } from "react";
 
 // Global components
-import { TableContainer } from "@components";
 
 // Vendors
 import useTranslation from "next-translate/useTranslation";
+import { TableContainer } from "@containers/InvoiceDashboard/TableContainer";
 
 interface Dashboard {}
 

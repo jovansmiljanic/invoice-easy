@@ -253,7 +253,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
   const { locale } = useRouter();
 
   // Store context
-  const { isPhone, setIsClientData, setIsConfirmModal, isConfirmModal } =
+  const { isPhone, setClientData, setIsConfirmModal, isConfirmModal } =
     useContext(StoreContext);
 
   const [isClient, setIsClient] = useState(false);
@@ -529,7 +529,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 md: { bottom: 1 },
               }}
               onClick={() => {
-                setIsConfirmModal(!isConfirmModal), setIsClientData(invoice);
+                setIsConfirmModal(!isConfirmModal), setClientData(invoice);
               }}
             >
               {t("invoice:deleteCta")}

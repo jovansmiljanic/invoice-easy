@@ -7,8 +7,8 @@
   "amount": "Amount",
   "actions": "Actions",
   "clientName": "Client Name",
-  "clientAddress": "Client Address",
-  "clientCountry": "Client Country",
+  "clientAddress": "Address",
+  "clientCountry": "Country",
   "createInvoiceCta": "Create new Invoice",
   "searchLabel": "Search Invoices",
   "filterLabel": "Filter by status",
@@ -21,5 +21,6 @@
   "edit": "Edit",
   "delete": "Delete",
   "download": "Download",
-  "of": "of"
+  "of": "of",
+  "taxNumber": "Tax number"
 }

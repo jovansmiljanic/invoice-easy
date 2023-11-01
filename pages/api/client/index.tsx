@@ -69,8 +69,12 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
       .limit(Number(limit))
       .sort({ createdAt: -1 });
 
+    const allClients = await Client.find({
+      owner: session?.user._id,
+    });
+
     // Return the object
-    return res.send({ items: clients, length });
+    return res.send({ items: clients, length, allClients });
   }
 
   // Process a POST request

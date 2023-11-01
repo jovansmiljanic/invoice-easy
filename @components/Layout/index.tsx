@@ -11,9 +11,11 @@ import { Footer } from "./Footer";
 
 // Nextjs types
 import type { Session } from "next-auth";
+
+// Store context
 import { StoreContext } from "@context";
-import { ClientModal } from "@components/ClientModal";
-import { ConfirmModal } from "@components/ConfirmModal";
+
+import { AddClientModal, ConfirmDeleteModal } from "@components";
 
 interface Props {
   title?: string;
@@ -34,8 +36,8 @@ export const Layout: FC<Props> = ({ title, children, session }) => {
       {children}
       <Footer />
 
-      {isModalOpen && <ClientModal />}
-      {isConfirmModal && <ConfirmModal />}
+      {isModalOpen && <AddClientModal />}
+      {isConfirmModal && <ConfirmDeleteModal />}
     </>
   );
 };

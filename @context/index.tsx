@@ -14,7 +14,7 @@ import { ThemeProvider } from "styled-components";
 import { Theme } from "@context/theme";
 
 // Global types
-import { Client } from "@types";
+import { Client, Invoice } from "@types";
 
 // Instruct component Props Types
 interface Props {
@@ -43,8 +43,8 @@ interface AppContext {
   isConfirmModal: boolean;
   setIsConfirmModal: (isConformModal: boolean) => void;
 
-  isClientData: Client;
-  setIsClientData: (isClientData?: any) => void;
+  clientData: Client;
+  setClientData: (clientData?: Client | Invoice) => void;
 }
 
 export const Store: FC<Props> = (props) => {
@@ -57,11 +57,11 @@ export const Store: FC<Props> = (props) => {
   const [isConfirmModal, setIsConfirmModal] = useState(false);
   const isConfirmModalMemo = useMemo(() => isConfirmModal, [isConfirmModal]);
 
-  const [isClientData, setIsClientData] = useState<Client>();
-  const isClientDataMemo = useMemo(() => isClientData, [isClientData]);
+  const [clientData, setClientData] = useState<Client>();
+  const clientDataMemo = useMemo(() => clientData, [clientData]);
 
   const [theme, setTheme] = useState<Theme | string>("light");
-  const [isPriceShown, setIsPriceShown] = useState<string>("false");
+  const [isPriceShown, setIsPriceShown] = useState<string>("true");
 
   const toggleTheme = () => {
     const newTheme = theme === "light" ? "dark" : "light";
@@ -74,6 +74,8 @@ export const Store: FC<Props> = (props) => {
     setIsPriceShown(numbersHidden);
     localStorage.setItem("hiddenNumbers", numbersHidden);
   };
+
+  useEffect(() => {}, []);
 
   useEffect(() => {
     // Check for the theme preference in localStorage
@@ -114,8 +116,8 @@ export const Store: FC<Props> = (props) => {
           isModalOpen: isModalOpenMemo,
           setIsModalOpen,
 
-          isClientData: isClientDataMemo,
-          setIsClientData,
+          clientData: clientDataMemo,
+          setClientData,
 
           isConfirmModal: isConfirmModalMemo,
           setIsConfirmModal,

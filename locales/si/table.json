@@ -7,8 +7,8 @@
   "amount": "Znesek",
   "actions": "Dejanja",
   "clientName": "Ime stranke",
-  "clientAddress": "Naslov stranke",
-  "clientCountry": "Država stranke",
+  "clientAddress": "Naslov",
+  "clientCountry": "Država",
   "createInvoiceCta": "Ustvari nov račun",
   "searchLabel": "Išči račune",
   "filterLabel": "Filtriraj po statusu",
@@ -21,5 +21,6 @@
   "edit": "Uredi",
   "delete": "Izbriši",
   "download": "Prenesi",
-  "of": "od"
+  "of": "od",
+  "taxNumber": "Davcna stevilka"
 }

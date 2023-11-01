@@ -64,7 +64,7 @@ const index: FC = () => {
   const router = useRouter();
 
   // Global context from store
-  const { setIsConfirmModal, isClientData } = useContext(StoreContext);
+  const { setIsConfirmModal, clientData } = useContext(StoreContext);
 
   // Hide dropdown when clicked outside it's Ref
   const modalPopupRef = useRef<HTMLDivElement>(null);
@@ -100,7 +100,7 @@ const index: FC = () => {
         <div>
           <Heading as="h5" padding={{ md: { top: 6, bottom: 1, left: 4 } }}>
             {t("404:confirmModalOne")}{" "}
-            {isClientData ? isClientData.clientName : "this invoice"}?
+            {clientData ? clientData.clientName : "this invoice"}?
           </Heading>
 
           <Heading as="h6" padding={{ md: { left: 4 } }}>
@@ -121,7 +121,7 @@ const index: FC = () => {
           <Button
             variant="danger"
             onClick={() => (
-              deleteItem({ id: isClientData?._id, router, path }),
+              deleteItem({ id: clientData?._id, router, path }),
               setIsConfirmModal(false)
             )}
             margin={{ md: { right: 1 } }}
@@ -135,4 +135,4 @@ const index: FC = () => {
   );
 };
 
-export { index as ConfirmModal };
+export { index as ConfirmDeleteModal };

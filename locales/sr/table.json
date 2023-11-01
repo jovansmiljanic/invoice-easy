@@ -7,8 +7,8 @@
   "amount": "Iznos",
   "actions": "Akcije",
   "clientName": "Ime klijenta",
-  "clientAddress": "Adresa klijenta",
-  "clientCountry": "Drzava klijenta",
+  "clientAddress": "Adresa",
+  "clientCountry": "Drzava",
   "createInvoiceCta": "Napravi račun",
   "searchLabel": "Pretraži račune",
   "filterLabel": "Filtriraj po statusu",
@@ -21,5 +21,6 @@
   "edit": "Izmeni",
   "delete": "Obriši",
   "download": "Preuzmi",
-  "of": "od"
+  "of": "od",
+  "taxNumber": "Poreski broj"
 }

@@ -133,21 +133,12 @@ interface Dashboard {
   path: "invoice" | "client";
   tableHeader: string[];
   filterOptions?: Checkbox[];
-  lineChart?: boolean;
-  boxes?: boolean;
   title?: string;
 }
 
 export const GridContext = createContext({} as IGridContext);
 
-const index: FC<Dashboard> = ({
-  path,
-  tableHeader,
-  filterOptions,
-  lineChart,
-  boxes,
-  title,
-}) => {
+const index: FC<Dashboard> = ({ path, tableHeader, filterOptions, title }) => {
   // Translation
   const { t } = useTranslation();
 
@@ -165,7 +156,7 @@ const index: FC<Dashboard> = ({
   const [searchQuery, setSearchQuery] = useState<string | undefined>(undefined);
 
   // Store Original and Updated/Filtered items
-  const [updatedItems, setupdatedItems] = useState<Invoice[] | Client[]>([]);
+  const [updatedItems, setupdatedItems] = useState<Invoice[]>([]);
 
   // Store Original and Updated/Filtered items
   const [totalInvoices, setTotalInvoices] = useState<Invoice[]>();
@@ -326,28 +317,27 @@ const index: FC<Dashboard> = ({
           </Row>
         )}
 
-        {boxes && lineChart && (
-          <Row padding={{ md: { top: 2, bottom: 3 } }}>
-            <Column
-              responsivity={{ sm: 12, md: 6, xs: 6 }}
-              padding={{
-                xs: { bottom: 5 },
-                sm: { bottom: 5 },
-                md: { bottom: 0 },
-              }}
-            >
-              <Boxes
-                items={totalInvoices}
-                invoicesLength={length}
-                clientsLenght={clientsLength}
-              />
-            </Column>
+        <Row padding={{ md: { top: 2, bottom: 3 } }}>
+          <Column
+            responsivity={{ sm: 12, md: 6, xs: 6 }}
+            padding={{
+              xs: { bottom: 5 },
+              sm: { bottom: 5 },
+              md: { bottom: 0 },
+            }}
+          >
+            <Boxes
+              items={totalInvoices}
+              invoicesLength={length}
+              clientsLenght={clientsLength}
+              isLoading={isLoading}
+            />
+          </Column>
 
-            <Column responsivity={{ sm: 12, md: 6, xs: 6 }}>
-              <LineChart invoices={totalInvoices} />
-            </Column>
-          </Row>
-        )}
+          <Column responsivity={{ sm: 12, md: 6, xs: 6 }}>
+            <LineChart invoices={totalInvoices} />
+          </Column>
+        </Row>
 
         <Row
           padding={{
