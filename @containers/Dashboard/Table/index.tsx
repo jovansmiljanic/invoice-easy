@@ -5,17 +5,20 @@ import { useContext, type FC } from "react";
 import styled, { css } from "styled-components";
 
 // Local components
-import { ClientItem } from "./ClientItem";
 import { InvoiceItem } from "./InvoiceItem";
-import { Placeholder } from "../Placeholder";
 
 // Global types
-import { Client, Invoice } from "@types";
+import { Invoice } from "@types";
 
 // Grid context
-import { GridContext } from "..";
-import { StoreContext } from "@context";
+
+// Local components
 import { NotFound } from "../NotFound";
+
+// Store context
+import { StoreContext } from "@context";
+import { Placeholder } from "@components/Dashboard";
+import { GridContext } from "..";
 
 const Table = styled.table`
   width: 100%;
@@ -56,12 +59,12 @@ const TableHeader = styled.th`
 
 interface Table {
   tableHeader: string[];
-  path: "invoice" | "client";
 }
 
-const index: FC<Table> = ({ tableHeader, path }) => {
+const index: FC<Table> = ({ tableHeader }) => {
   // Grid context
-  const { length, updatedItems, isLoading } = useContext(GridContext);
+  const { length, updatedItems, isLoading, limit } = useContext(GridContext);
+
   // Store context
   const { isPhone } = useContext(StoreContext);
 
@@ -70,7 +73,7 @@ const index: FC<Table> = ({ tableHeader, path }) => {
   }
 
   if (isLoading || !updatedItems || length === 0)
-    return <Placeholder items={tableHeader} />;
+    return <Placeholder items={tableHeader} limit={limit} />;
 
   return (
     <>
@@ -89,13 +92,7 @@ const index: FC<Table> = ({ tableHeader, path }) => {
           {Array.isArray(updatedItems) &&
             updatedItems.map((item, i) => (
               <tr key={i}>
-                {path === "client" ? (
-                  <ClientItem updatedItems={item as Client} />
-                ) : path === "invoice" ? (
-                  <InvoiceItem updatedItems={item as Invoice} />
-                ) : (
-                  <></>
-                )}
+                <InvoiceItem updatedItems={item as Invoice} />
               </tr>
             ))}
         </tbody>

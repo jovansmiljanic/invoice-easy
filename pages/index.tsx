@@ -1,8 +1,8 @@
-// Global containers
-import { InvoiceDashboard } from "@containers";
-
 // Global components
 import { Layout } from "@components";
+
+// Global containers
+import { Dashboard } from "@containers";
 
 // Core
 import type { GetServerSideProps } from "next";
@@ -20,7 +20,7 @@ interface ContentPageProps {
 export default function Page({ session }: ContentPageProps) {
   return (
     <Layout title="Dashboard" session={session}>
-      <InvoiceDashboard />
+      <Dashboard />
     </Layout>
   );
 }

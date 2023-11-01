@@ -33,9 +33,9 @@ import { LineChart } from "@components/Charts";
 
 // Local components
 import { Table } from "./Table";
-import { Search } from "./Search";
-import { Filters } from "./Filters";
-import { Pagination } from "./Pagination";
+
+// Dashboard component
+import { Pagination, Search, Filters } from "@components/Dashboard";
 
 const Wrapper = styled.div`
   display: flex;
@@ -129,16 +129,11 @@ interface IGridContext {
   isLoading: boolean;
 }
 
-interface Dashboard {
-  path: "invoice" | "client";
-  tableHeader: string[];
-  filterOptions?: Checkbox[];
-  title?: string;
-}
+interface Dashboard {}
 
 export const GridContext = createContext({} as IGridContext);
 
-const index: FC<Dashboard> = ({ path, tableHeader, filterOptions, title }) => {
+const index: FC<Dashboard> = () => {
   // Translation
   const { t } = useTranslation();
 
@@ -202,7 +197,7 @@ const index: FC<Dashboard> = ({ path, tableHeader, filterOptions, title }) => {
     setIsLoading(true);
 
     // Call axios with filters and page as a string url
-    const invoiceUrl = `/api/${path}/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
+    const invoiceUrl = `/api/invoice/?${queryUrl}${searchUrl}&limit=${limit}&skip=${pageMemo}`;
 
     await axios
       .get(invoiceUrl)
@@ -286,6 +281,24 @@ const index: FC<Dashboard> = ({ path, tableHeader, filterOptions, title }) => {
     50
   );
 
+  const tableHeader = [
+    t("table:id"),
+    t("table:client"),
+    t("table:status"),
+    t("table:date"),
+    t("table:dueDate"),
+    t("table:amount"),
+    t("table:actions"),
+  ];
+
+  const filterOptions = [
+    { label: t("table:paidStatus"), value: "1" },
+    {
+      label: t("table:unPaidStatus"),
+      value: "2",
+    },
+  ];
+
   return (
     <GridContext.Provider
       value={{
@@ -301,22 +314,6 @@ const index: FC<Dashboard> = ({ path, tableHeader, filterOptions, title }) => {
       }}
     >
       <Container height={82}>
-        {title && (
-          <Row
-            padding={{
-              xs: { top: 4, bottom: 3 },
-              sm: { top: 4, bottom: 3 },
-              md: { top: 5, bottom: 4 },
-            }}
-          >
-            <Column responsivity={{ md: 12 }}>
-              <Heading as="h2" weight="semiBold" color="gray">
-                {title}
-              </Heading>
-            </Column>
-          </Row>
-        )}
-
         <Row padding={{ md: { top: 2, bottom: 3 } }}>
           <Column
             responsivity={{ sm: 12, md: 6, xs: 6 }}
@@ -381,8 +378,13 @@ const index: FC<Dashboard> = ({ path, tableHeader, filterOptions, title }) => {
               </Col1>
 
               <Col2>
-                <Search placeholder={t("table:searchLabel")} />
-
+                <Search
+                  placeholder={t("table:searchLabel")}
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  queryUrl={queryUrl}
+                  searchUrl={searchUrl}
+                />
                 {filterOptions && (
                   <Filters
                     name="status"
@@ -412,12 +414,19 @@ const index: FC<Dashboard> = ({ path, tableHeader, filterOptions, title }) => {
           </Column>
 
           <Column responsivity={{ md: 12 }}>
-            <Table tableHeader={tableHeader} path={path} />
+            <Table tableHeader={tableHeader} />
           </Column>
 
           {updatedItems && updatedItems.length > 0 && (
             <Column responsivity={{ md: 12 }}>
-              <Pagination />
+              <Pagination
+                length={length}
+                limit={limit}
+                page={page}
+                queryUrl={queryUrl}
+                searchUrl={searchUrl}
+                updatedItems={updatedItems}
+              />
             </Column>
           )}
         </Row>
@@ -426,4 +435,4 @@ const index: FC<Dashboard> = ({ path, tableHeader, filterOptions, title }) => {
   );
 };
 
-export { index as TableContainer };
+export { index as Dashboard };

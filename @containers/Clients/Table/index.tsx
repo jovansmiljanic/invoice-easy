@@ -8,7 +8,6 @@ import useTranslation from "next-translate/useTranslation";
 // Local components
 import { NotFound } from "../NotFound";
 import { ClientItem } from "./ClientItem";
-import { Placeholder } from "../Placeholder";
 
 // Global types
 import { Client } from "@types";
@@ -17,7 +16,8 @@ import { Client } from "@types";
 import { StoreContext } from "@context";
 
 // Grid context from Client
-import { GridContext } from "@containers/ClientsDashboard";
+import { Placeholder } from "@components/Dashboard/Placeholder";
+import { GridContext } from "..";
 
 const index: FC = () => {
   // Translation
@@ -27,7 +27,7 @@ const index: FC = () => {
   const [showNotFound, setShowNotFound] = useState(false);
 
   // Grid context
-  const { length, updatedItems, isLoading } = useContext(GridContext);
+  const { length, updatedItems, isLoading, limit } = useContext(GridContext);
 
   // Store context
   const { isPhone } = useContext(StoreContext);
@@ -53,7 +53,7 @@ const index: FC = () => {
   }, [length]);
 
   if (isLoading || !updatedItems || length === 0)
-    return <Placeholder items={tableHeader} />;
+    return <Placeholder items={tableHeader} limit={limit} />;
 
   if (showNotFound) {
     return <NotFound />;

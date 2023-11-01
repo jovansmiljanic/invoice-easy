@@ -1,6 +1,5 @@
 // Core types
-import { GridContext } from "@containers/ClientsDashboard";
-import { type FC, useContext } from "react";
+import { type FC } from "react";
 
 // Vendors
 import styled, { keyframes, css } from "styled-components";
@@ -48,10 +47,10 @@ const TableCell = styled.td`
 
 interface Placeholder {
   items?: string[];
+  limit: number;
 }
 
-const index: FC<Placeholder> = ({ items }) => {
-  const { limit } = useContext(GridContext);
+const index: FC<Placeholder> = ({ items, limit }) => {
   const arrayOfLengt = Array.from({ length: limit }, (_, index) => index);
 
   return (

@@ -10,7 +10,8 @@
       "table",
       "404",
       "invoice",
-      "clientDashboard"
+      "clientDashboard",
+      "invoiceDashboard"
     ]
   }
 }
