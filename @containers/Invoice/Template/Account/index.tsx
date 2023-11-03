@@ -75,6 +75,11 @@ const index: FC<Account> = () => {
             {t("form:taxNumber")}: {userData.taxNumber}
           </Heading>
         )}
+        {userData?.registrationNumber && (
+          <Heading as="p">
+            {t("form:registrationNumber")}: {userData.registrationNumber}
+          </Heading>
+        )}
       </div>
 
       <div>

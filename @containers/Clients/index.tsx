@@ -40,8 +40,9 @@ import { StoreContext } from "@context";
 
 // Local components
 import { Table } from "./Table";
-import { Search } from "./Search";
-import { Pagination } from "./Pagination";
+
+// Dashboard component
+import { Pagination, Search } from "@components/Dashboard";
 
 interface IFilters {}
 
@@ -238,7 +239,13 @@ const index: FC<Dashboard> = ({}) => {
               </OptionsWrap>
 
               <SearchWrap>
-                <Search placeholder={t("table:searchLabel")} />
+                <Search
+                  placeholder={t("table:searchLabel")}
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  queryUrl={queryUrl}
+                  searchUrl={searchUrl}
+                />
               </SearchWrap>
             </Wrapper>
           </Column>
@@ -249,7 +256,14 @@ const index: FC<Dashboard> = ({}) => {
 
           {updatedItems && updatedItems.length > 0 && (
             <Column responsivity={{ md: 12 }}>
-              <Pagination />
+              <Pagination
+                length={length}
+                limit={limit}
+                page={page}
+                queryUrl={queryUrl}
+                searchUrl={searchUrl}
+                updatedItems={updatedItems}
+              />
             </Column>
           )}
         </Row>
@@ -306,7 +320,7 @@ const CustomSelect = styled(Select)`
 
     * {
       flex-wrap: nowrap;
-      font-size: 14px;
+      font-size: 14px;length, limit, page, queryUrl, searchUrl, updatedItems
       border-radius: 5px !important;
       border-color: ${colors.lightGray} !important;
       color: ${colors.textColor} !important;

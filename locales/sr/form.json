@@ -15,6 +15,10 @@
   "taxNumberPlaceholder": "123456789",
   "taxNumberError": "Molimo unesite poreski broj",
 
+  "registrationNumber": "Matični broj",
+  "registrationNumberPlaceholder": "123456789",
+  "registrationNumberError": "Molimo unesite matični broj",
+
   "companyField": "Oblast delovanja",
   "companyFieldPlaceholder": "Oblast delovanja",
   "companyFieldError": "Molimo unesite oblast delovanja",

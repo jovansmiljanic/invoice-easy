@@ -71,6 +71,7 @@ interface Formvalues {
   email: string;
   phoneNumber: string;
   taxNumber: string;
+  registrationNumber: string;
 
   companyField: string;
   companyName: string;
@@ -115,6 +116,9 @@ const index: FC<IMyAccount> = () => {
     email: Yup.string().required(t("form:emailError")),
     phoneNumber: Yup.string().required(t("form:phoneError")),
     taxNumber: Yup.string().required(t("form:taxNumberError")),
+    registrationNumber: Yup.string().required(
+      t("form:registrationNumberError")
+    ),
 
     companyField: Yup.string().required(t("form:companyFieldError")),
     companyName: Yup.string().required(t("form:companyNameError")),
@@ -134,6 +138,9 @@ const index: FC<IMyAccount> = () => {
     email: userData?.email ? userData.email : "",
     phoneNumber: userData?.phoneNumber ? userData.phoneNumber : "",
     taxNumber: userData?.taxNumber ? userData.taxNumber : "",
+    registrationNumber: userData?.registrationNumber
+      ? userData.registrationNumber
+      : "",
 
     companyField: userData?.companyField ? userData.companyField : "",
     companyName: userData?.companyName ? userData.companyName : "",
@@ -323,6 +330,29 @@ const index: FC<IMyAccount> = () => {
                       <ErrorWrap>
                         {errors.taxNumber && touched.taxNumber ? (
                           <>{errors.taxNumber}</>
+                        ) : null}
+                      </ErrorWrap>
+                    </Group>
+
+                    <Group>
+                      <Label>{t("form:registrationNumber")}</Label>
+                      <Field
+                        type="text"
+                        name="registrationNumber"
+                        placeholder={t("form:registrationNumberPlaceholder")}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.registrationNumber}
+                        hasError={Boolean(
+                          errors.registrationNumber &&
+                            touched.registrationNumber
+                        )}
+                      />
+
+                      <ErrorWrap>
+                        {errors.registrationNumber &&
+                        touched.registrationNumber ? (
+                          <>{errors.registrationNumber}</>
                         ) : null}
                       </ErrorWrap>
                     </Group>

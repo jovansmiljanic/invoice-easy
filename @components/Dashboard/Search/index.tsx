@@ -12,7 +12,6 @@ import styled, { css } from "styled-components";
 
 // Icon
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import { GridContext } from "..";
 
 const SearchWrapper = styled.div`
   flex: 0 0 100%;
@@ -57,13 +56,19 @@ const Clear = styled.div`
 
 interface Search {
   placeholder: string;
+  searchQuery?: string;
+  setSearchQuery: (searchQuery: string) => void;
+  queryUrl: string;
+  searchUrl: string;
 }
 
-const index: FC<Search> = ({ placeholder }) => {
-  // Grid context
-  const { searchQuery, setSearchQuery, queryUrl, searchUrl } =
-    useContext(GridContext);
-
+const index: FC<Search> = ({
+  placeholder,
+  searchQuery,
+  setSearchQuery,
+  queryUrl,
+  searchUrl,
+}) => {
   const { push, query } = useRouter();
 
   const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {

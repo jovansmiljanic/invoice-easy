@@ -10,6 +10,7 @@ const Schema = new mongoose.Schema(
     country: { type: String, required: true },
     zipCode: { type: String, required: true },
     taxNumber: { type: String, required: true },
+    registrationNumber: { type: String, required: true },
   },
   { collection: "Client", timestamps: true }
 );

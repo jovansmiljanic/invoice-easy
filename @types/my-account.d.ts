@@ -9,6 +9,7 @@ export interface MyAccount {
   email: string;
   phoneNumber: string;
   taxNumber: string;
+  registrationNumber?: string;
 
   companyField: string;
   companyName: string;

@@ -9,5 +9,5 @@ export { MyAccount } from "./MyAccount";
 
 export { NotFound } from "./404";
 
-export { ClientsDashboard } from "./ClientsDashboard";
-export { InvoiceDashboard } from "./InvoiceDashboard";
+export { ClientsDashboard } from "./Clients";
+export { Dashboard } from "./Dashboard";

@@ -16,6 +16,7 @@ import { User } from "./User";
 import { ThemePicker } from "./ThemePicker";
 import { LanguagePicker } from "./LanguagePicker";
 import { VisibilityPicker } from "./VisibilityPicker";
+import Link from "next/link";
 
 const Border = styled.div`
   width: 100%;
@@ -57,6 +58,12 @@ const index: FC<Header> = ({ session }) => {
         >
           <Logo />
         </Column>
+
+        {/* <Column responsivity={{ md: 6 }} textAlign={{ md: "center" }}>
+          <Link href="/">Home</Link>
+          <Link href="/invoices">Invoices</Link>
+          <Link href="/clients">Clients</Link>
+        </Column> */}
 
         <Column
           responsivity={{ md: 9, sm: 4 }}

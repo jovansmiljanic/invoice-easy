@@ -9,6 +9,7 @@ const Schema = new mongoose.Schema(
     password: { type: String, required: true, select: false },
     phoneNumber: { type: String },
     taxNumber: { type: String },
+    registrationNumber: { type: String },
 
     companyField: { type: String },
     companyName: { type: String },

@@ -1,5 +1,5 @@
 // Core types
-import { type FC, useContext } from "react";
+import { type FC } from "react";
 
 // Nextjs
 import { useRouter } from "next/router";
@@ -10,9 +10,6 @@ import useTranslation from "next-translate/useTranslation";
 
 // Context
 import { Next, Prev } from "public/svg";
-
-// Grid context
-import { GridContext } from "..";
 
 const Pagination = styled.div`
   width: 100%;
@@ -92,10 +89,26 @@ const Wrap = styled.div`
   ${({ theme: { defaults, colors, font, ...theme } }) => css``}
 `;
 
-const index: FC = () => {
+interface IPagination {
+  length: number;
+  limit: number;
+  page: number;
+  queryUrl: string;
+  searchUrl: string;
+  updatedItems: any;
+}
+
+const index: FC<IPagination> = ({
+  length,
+  limit,
+  page,
+  queryUrl,
+  searchUrl,
+  updatedItems,
+}) => {
   // Grid context
-  const { length, limit, page, queryUrl, searchUrl, updatedItems } =
-    useContext(GridContext);
+  // const { length, limit, page, queryUrl, searchUrl, updatedItems } =
+  //   useContext(GridContext);
 
   const { push } = useRouter();
 

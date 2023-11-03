@@ -89,6 +89,7 @@ interface Formvalues {
   country?: string;
   zipCode?: string;
   taxNumber?: string;
+  registrationNumber?: string;
 }
 
 const index: FC = ({}) => {
@@ -128,6 +129,9 @@ const index: FC = ({}) => {
     city: Yup.string().required(t("form:cityError")),
     country: Yup.string().required(t("form:countryError")),
     taxNumber: Yup.string().required(t("form:taxNumberError")),
+    registrationNumber: Yup.string().required(
+      t("form:registrationNumberError")
+    ),
   });
 
   const addInitialValues = {
@@ -137,6 +141,7 @@ const index: FC = ({}) => {
     country: "",
     zipCode: "",
     taxNumber: "",
+    registrationNumber: "",
   };
 
   const editInitialValues = {
@@ -146,6 +151,7 @@ const index: FC = ({}) => {
     country: clientData?.country,
     zipCode: clientData?.zipCode,
     taxNumber: clientData?.taxNumber,
+    registrationNumber: clientData?.registrationNumber,
   };
 
   const addOnSubmit = (data: FormikValues) => {
@@ -324,6 +330,27 @@ const index: FC = ({}) => {
                 <ErrorWrap>
                   {errors.taxNumber && touched.taxNumber ? (
                     <>{errors.taxNumber}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:registrationNumber")}</Label>
+                <Field
+                  type="text"
+                  name="registrationNumber"
+                  placeholder={t("form:registrationNumberPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.registrationNumber}
+                  hasError={Boolean(
+                    errors.registrationNumber && touched.registrationNumber
+                  )}
+                />
+
+                <ErrorWrap>
+                  {errors.registrationNumber && touched.registrationNumber ? (
+                    <>{errors.registrationNumber}</>
                   ) : null}
                 </ErrorWrap>
               </Group>

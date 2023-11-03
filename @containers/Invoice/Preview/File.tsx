@@ -131,6 +131,7 @@ interface File {
   myAccount?: MyAccount;
   content?: {
     taxNumber: string;
+    registrationNumber: string;
     trr: string;
     bic: string;
     email: string;
@@ -146,7 +147,8 @@ interface File {
     tax: string;
     total: string;
     invoice: string;
-    ddvParagraph: string;
+    ddvParagraphOne: string;
+    ddvParagraphTwo: string;
     footerParagrapOne: string;
     footerParagrapTwo: string;
     footerParagrapThree: string;
@@ -168,6 +170,11 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
             <Text>
               {content?.taxNumber}: {myAccount?.taxNumber}
             </Text>
+            {myAccount?.registrationNumber && (
+              <Text>
+                {content?.registrationNumber}: {myAccount?.registrationNumber}
+              </Text>
+            )}
           </View>
 
           <View style={styles.col2}>
@@ -196,6 +203,12 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
             <Text>
               {content?.taxNumber}: {invoice.client.taxNumber}
             </Text>
+            {content?.registrationNumber && (
+              <Text>
+                {content?.registrationNumber}:{" "}
+                {invoice.client.registrationNumber}
+              </Text>
+            )}
           </View>
 
           <View style={styles.col2}>
@@ -247,7 +260,8 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
         </View>
 
         <View style={styles.note}>
-          <Text>{content?.ddvParagraph}</Text>
+          <Text>{content?.ddvParagraphOne}</Text>
+          <Text>{content?.ddvParagraphTwo}</Text>
 
           <Text>
             {content?.footerParagrapOne} {" " + myAccount?.bankName}.,{" "}
