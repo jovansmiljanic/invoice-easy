@@ -14,6 +14,7 @@ type Client = {
   clientAddress: string;
   zipCode: string;
   taxNumber: string;
+  registrationNumber?: string;
   city: string;
   country: string;
 };

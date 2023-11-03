@@ -188,6 +188,11 @@ const index: FC<Client> = ({
             <Heading as="p">
               {t("form:taxNumber")}: {clientData.taxNumber}
             </Heading>
+            {clientData.registrationNumber && (
+              <Heading as="p">
+                {t("form:registrationNumber")}: {clientData.registrationNumber}
+              </Heading>
+            )}
           </>
         ) : currentClient ? (
           <>
@@ -202,6 +207,12 @@ const index: FC<Client> = ({
             <Heading as="p">
               {t("form:taxNumber")}: {currentClient?.taxNumber}
             </Heading>
+            {currentClient?.registrationNumber && (
+              <Heading as="p">
+                {t("form:registrationNumber")}:{" "}
+                {currentClient?.registrationNumber}
+              </Heading>
+            )}
           </>
         ) : (
           <HelpWrap>

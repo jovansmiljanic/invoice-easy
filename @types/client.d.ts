@@ -11,5 +11,6 @@ export interface Client {
   city: string;
   country: string;
   taxNumber: string;
+  registrationNumber: string;
   client?: PopulatedDoc<Client>;
 }

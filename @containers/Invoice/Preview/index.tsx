@@ -76,7 +76,7 @@ const ClientDetails = styled.div`
 
 const Col1 = styled.div`
   padding-bottom: 10px;
-  flex: 0 0 60%;
+  flex: 0 0 55%;
 `;
 
 const Col2 = styled.div``;
@@ -304,6 +304,13 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="p">
                   {t("form:taxNumber")}: {userData?.taxNumber}
                 </Heading>
+
+                {userData?.registrationNumber && (
+                  <Heading as="p">
+                    {t("form:registrationNumber")}:{" "}
+                    {userData?.registrationNumber}
+                  </Heading>
+                )}
               </Col1>
               <Col2>
                 <Heading as="p">
@@ -337,6 +344,12 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="p">
                   {t("form:taxNumber")}: {invoice.client.taxNumber}
                 </Heading>
+                {invoice?.client?.registrationNumber && (
+                  <Heading as="p">
+                    {t("form:registrationNumber")}:{" "}
+                    {invoice.client.registrationNumber}
+                  </Heading>
+                )}
               </Col1>
 
               <Col2>
@@ -345,7 +358,8 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 </Heading>
                 <StartDate>
                   <Heading as="p">
-                    {t("invoice:dateFrom")}: {formatDate(invoice.startDate)}
+                    {t("invoice:dateFrom")}: {userData?.city},{" "}
+                    {formatDate(invoice.startDate)}
                   </Heading>
                 </StartDate>
 
@@ -461,6 +475,8 @@ const index: FC<NewInvoice> = ({ invoice }) => {
             </Total>
 
             <Note>
+              <Heading as="p">{t("invoice:ddvParagraphOne")}</Heading>
+
               <Heading
                 as="p"
                 padding={{
@@ -469,7 +485,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                   md: { bottom: 3 },
                 }}
               >
-                {t("invoice:ddvParagraph")}
+                {t("invoice:ddvParagraphTwo")}
               </Heading>
 
               <Heading as="p">
