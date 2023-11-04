@@ -2,7 +2,8 @@
 import { type FC, useEffect, useRef, useState } from "react";
 
 // Icons
-import { English, Serbia, Slovenia } from "public/svg";
+// import { English, Serbia, Slovenia } from "public/svg";
+import LanguageIcon from "@mui/icons-material/Language";
 
 // Vendors
 import Link from "next/link";
@@ -36,49 +37,27 @@ const index: FC = () => {
     };
   }, []);
 
-  let flag;
-  switch (router.locale) {
-    case "sr":
-      flag = <Serbia />;
-      break;
-
-    case "si":
-      flag = <Slovenia />;
-      break;
-
-    case "en":
-      flag = <English />;
-      break;
-
-    default:
-      <></>;
-  }
-
   return (
     <ToggleDiv ref={lngPopupRef}>
       <CurrentFlag onClick={() => setlngDropdown(!lngDropdown)}>
-        {flag}
+        <LanguageIcon />
       </CurrentFlag>
 
       {lngDropdown && (
         <Dropdown onClick={() => setlngDropdown(!lngDropdown)}>
           <Link href={router.asPath} locale="sr">
             <DropdownItem>
-              <Serbia />
               <span>Serbian</span>
             </DropdownItem>
           </Link>
 
           <Link href={router.asPath} locale="si">
             <DropdownItem>
-              <Slovenia />
               <span>Slovenian</span>
             </DropdownItem>
           </Link>
-
           <Link href={router.asPath} locale="en">
             <DropdownItem>
-              <English />
               <span>English</span>
             </DropdownItem>
           </Link>
@@ -105,6 +84,11 @@ const CurrentFlag = styled.div`
   align-items: center;
   margin-right: 15px;
   cursor: pointer;
+
+  svg {
+    width: 25px;
+    height: auto;
+  }
 `;
 
 const Dropdown = styled.div`

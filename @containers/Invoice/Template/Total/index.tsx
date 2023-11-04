@@ -16,6 +16,7 @@ import useTranslation from "next-translate/useTranslation";
 
 // Vendors
 import styled, { css } from "styled-components";
+import { IInvoiceItem } from "@types";
 
 const Total = styled.div`
   width: 90%;
@@ -49,15 +50,8 @@ const TotalRow = styled.div`
   }
 `;
 
-type Values = {
-  name: string;
-  cost: number;
-  qty: number;
-  price: number;
-};
-
 interface Total {
-  tableData: Values[];
+  tableData: IInvoiceItem[];
 }
 
 const index: FC<Total> = ({ tableData }) => {

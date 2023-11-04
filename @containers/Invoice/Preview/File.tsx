@@ -12,7 +12,7 @@ import {
 } from "@react-pdf/renderer";
 
 // Global types
-import { Invoice, MyAccount } from "@types";
+import { IContentValues, Invoice, MyAccount } from "@types";
 
 // Client utils
 import { formatDate, getSubTotalPrice, getTotalPrice } from "@utils/client";
@@ -139,32 +139,7 @@ const styles = StyleSheet.create({
 interface File {
   invoice: Invoice;
   myAccount?: MyAccount;
-  content?: {
-    taxNumber: string;
-    registrationNumber: string;
-    trr: string;
-    bic: string;
-    email: string;
-    phone: string;
-    dateFrom: string;
-    dateTo: string;
-    paymentDeadline: string;
-    item: string;
-    cost: string;
-    qty: string;
-    price: string;
-    subTotal: string;
-    tax: string;
-    total: string;
-    invoice: string;
-    ddvParagraphOne: string;
-    ddvParagraphTwo: string;
-    footerParagrapOne: string;
-    footerParagrapTwo: string;
-    footerParagrapThree: string;
-    footerParagrapFour: string;
-    currency: string;
-  };
+  content?: IContentValues;
 }
 
 const index: FC<File> = ({ myAccount, invoice, content }) => {

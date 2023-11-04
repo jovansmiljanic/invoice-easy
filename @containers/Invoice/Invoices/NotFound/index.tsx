@@ -4,9 +4,6 @@ import type { FC } from "react";
 // Global components
 import { Button, Heading } from "@components";
 
-// SVG
-import { NotFoundIcon } from "public/svg";
-
 // NextJS
 import { useRouter } from "next/router";
 
@@ -30,9 +27,7 @@ const NotFound = styled.div`
   `}
 `;
 
-interface NotFound {}
-
-const index: FC<NotFound> = () => {
+const index: FC = () => {
   const { locale } = useRouter();
   return (
     <NotFound>
@@ -63,10 +58,6 @@ const index: FC<NotFound> = () => {
         <Button variant="secondary" as="a" href={`/${locale}/invoice/add`}>
           Create Invoice
         </Button>
-      </div>
-
-      <div>
-        <NotFoundIcon />
       </div>
     </NotFound>
   );

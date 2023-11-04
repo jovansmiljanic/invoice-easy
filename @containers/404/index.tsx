@@ -4,9 +4,6 @@ import type { FC } from "react";
 // Global grid components
 import { Column, Container, Row } from "@components/Grid";
 
-// SVG
-import { NotFound404 } from "public/svg";
-
 // Global components
 import { Button, Heading } from "@components";
 
@@ -67,9 +64,6 @@ const index: FC = () => {
           <Button variant="secondary" as="a" href="/">
             {t("404:cta")}
           </Button>
-        </Column>
-        <Column responsivity={{ md: 6 }}>
-          <NotFound404 />
         </Column>
       </Row>
     </Container>

@@ -4,9 +4,6 @@ import { useContext, type FC } from "react";
 // Global components
 import { Button, Heading } from "@components";
 
-// SVG
-import { NotFoundIcon } from "public/svg";
-
 // NextJS
 import { useRouter } from "next/router";
 
@@ -35,9 +32,7 @@ const NotFound = styled.div`
   `}
 `;
 
-interface NotFound {}
-
-const index: FC<NotFound> = () => {
+const index: FC = () => {
   // Translation
   const { t } = useTranslation();
 
@@ -78,10 +73,6 @@ const index: FC<NotFound> = () => {
           <AddOutlinedIcon />
           {t("invoice:addNewClient")}
         </Button>
-      </div>
-
-      <div>
-        <NotFoundIcon />
       </div>
     </NotFound>
   );

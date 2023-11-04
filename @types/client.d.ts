@@ -1,10 +1,9 @@
 // Vendor types
-import type { PopulatedDoc } from "mongoose";
-import mongoose from "mongoose";
+import type { Types, Document } from "mongoose";
 
 export interface Client {
-  _id: mongoose.Types.ObjectId;
-  owner: mongoose.Types.ObjectId;
+  _id: Types.ObjectId;
+  owner: Types.ObjectId;
   clientName: string;
   clientAddress: string;
   zipCode: string;
@@ -12,5 +11,15 @@ export interface Client {
   country: string;
   taxNumber: string;
   registrationNumber: string;
-  client?: PopulatedDoc<Client>;
+  client?: Types.PopulatedDoc<Client & Document>;
+}
+
+export interface IClientFormValues {
+  clientName?: string;
+  clientAddress?: string;
+  city?: string;
+  country?: string;
+  zipCode?: string;
+  taxNumber?: string;
+  registrationNumber?: string;
 }

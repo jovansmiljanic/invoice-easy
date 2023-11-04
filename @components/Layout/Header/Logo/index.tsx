@@ -7,9 +7,7 @@ import Link from "next/link";
 // Global components
 import { Logo } from "@components";
 
-interface Logo {}
-
-const index: FC<Logo> = () => {
+const index: FC = () => {
   return (
     <Link href="/">
       <Logo $width="100" $height="50" $color="secondary" />

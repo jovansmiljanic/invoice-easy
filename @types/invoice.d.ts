@@ -1,13 +1,12 @@
 // Vendor types
-import type { PopulatedDoc } from "mongoose";
-import mongoose from "mongoose";
+import type { Types, Document } from "mongoose";
 
-type Item = {
+export interface IInvoiceItem {
   name: string;
   cost: number;
   qty: number;
   price: number;
-};
+}
 
 type Client = {
   clientName: string;
@@ -19,9 +18,9 @@ type Client = {
   country: string;
 };
 
-export interface Invoice {
-  _id: mongoose.Types.ObjectId;
-  items: Item[];
+export interface Invoice extends Document {
+  _id: Types.ObjectId;
+  items: IInvoiceItem[];
   client: Client;
   startDate: Date;
   endDate: Date;
@@ -34,5 +33,5 @@ export interface Invoice {
   invoiceNumber: number;
   createdAt?: number;
   updatedAt?: number;
-  invoice: PopulatedDoc<Invoice>;
+  invoice?: Types.PopulatedDoc<Invoice & Document>;
 }

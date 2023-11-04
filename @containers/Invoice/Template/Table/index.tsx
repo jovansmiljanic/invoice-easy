@@ -16,6 +16,7 @@ import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOut
 
 // Store context
 import { StoreContext } from "@context";
+import { IInvoiceItem } from "@types";
 
 const Table = styled.div``;
 
@@ -94,16 +95,9 @@ const Wrap = styled.div`
   `}
 `;
 
-type Values = {
-  name: string;
-  cost: number;
-  qty: number;
-  price: number;
-};
-
 interface Table {
-  tableData: Values[];
-  setTableData: (tableData: Values[]) => void;
+  tableData: IInvoiceItem[];
+  setTableData: (tableData: IInvoiceItem[]) => void;
 }
 
 const index: FC<Table> = ({ tableData, setTableData }) => {
@@ -114,9 +108,9 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
     index: number,
-    field: keyof Values
+    field: keyof IInvoiceItem
   ): void => {
-    const newData: Values[] = [...tableData];
+    const newData: IInvoiceItem[] = [...tableData];
 
     // Use type assertion to indicate the type of newData[index][field]
     (newData[index][field] as string) = e.target.value;

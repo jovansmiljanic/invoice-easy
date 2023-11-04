@@ -33,9 +33,7 @@ const Account = styled.div`
   `}
 `;
 
-interface Account {}
-
-const index: FC<Account> = () => {
+const index: FC = () => {
   // Translation
   const { t } = useTranslation();
 

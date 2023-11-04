@@ -19,7 +19,7 @@ import useTranslation from "next-translate/useTranslation";
 import { Field, Label } from "@styles/Form";
 
 // Global types
-import { MyAccount } from "@types";
+import { IMyAccountForm, MyAccount } from "@types";
 
 // Client utils
 import { getUserData } from "@utils/client/getUserData";
@@ -65,29 +65,7 @@ const Form = styled.form`
   align-items: center;
 `;
 
-interface Formvalues {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  taxNumber: string;
-  registrationNumber: string;
-
-  companyField: string;
-  companyName: string;
-  companyAddress: string;
-  zipCode: string;
-  city: string;
-  country: string;
-
-  bankName: string;
-  trr: string;
-  bic: string;
-}
-
-interface IMyAccount {}
-
-const index: FC<IMyAccount> = () => {
+const index: FC = () => {
   // Translation
   const { t } = useTranslation();
 
@@ -178,8 +156,8 @@ const index: FC<IMyAccount> = () => {
             initialValues={initialValue}
             validationSchema={MyAccountSchema}
             onSubmit={async (
-              data: Formvalues,
-              { setSubmitting }: FormikHelpers<Formvalues>
+              data: IMyAccountForm,
+              { setSubmitting }: FormikHelpers<IMyAccountForm>
             ) => {
               setSubmitting(true);
 

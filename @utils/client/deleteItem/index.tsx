@@ -3,16 +3,17 @@ import type { NextRouter } from "next/router";
 
 // Vendor
 import axios, { AxiosResponse } from "axios";
-import type mongoose from "mongoose";
+
+// Vendor types
+import type { Types } from "mongoose";
 
 interface DeleteItem {
-  id: mongoose.Types.ObjectId;
+  id: Types.ObjectId;
   router: NextRouter;
   path: string;
 }
 
 export const deleteItem = async ({ id, router, path }: DeleteItem) => {
-  console.log();
   await axios({
     method: "DELETE",
     url: `/api/${path}`,

@@ -1,15 +1,8 @@
 // Core
-import useTranslation from "next-translate/useTranslation";
+import { IInvoiceItem } from "@types";
 import { useState, useEffect } from "react";
 
-interface TableData {
-  name: string;
-  cost: number;
-  price: number;
-  qty: number;
-}
-
-export const getSubTotalPrice = (tableData: TableData[]) => {
+export const getSubTotalPrice = (tableData: IInvoiceItem[]) => {
   const subTotalPrice = tableData
     .reduce((acc, item) => acc + +item.price, 0)
     .toLocaleString(undefined, {
@@ -21,7 +14,7 @@ export const getSubTotalPrice = (tableData: TableData[]) => {
 };
 
 export const getTotalPrice = (
-  tableData: TableData[],
+  tableData: IInvoiceItem[],
   tax?: number,
   currency?: string
 ) => {
