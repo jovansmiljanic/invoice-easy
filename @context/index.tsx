@@ -75,8 +75,6 @@ export const Store: FC<Props> = (props) => {
     localStorage.setItem("hiddenNumbers", numbersHidden);
   };
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     // Check for the theme preference in localStorage
     const storedTheme = localStorage.getItem("theme");

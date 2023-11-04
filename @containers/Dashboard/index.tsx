@@ -26,7 +26,7 @@ import { Client, Invoice } from "@types";
 import { Container, Column, Row } from "@components/Grid";
 
 // Global components
-import { Button, Boxes, Heading } from "@components";
+import { Button, Boxes } from "@components";
 
 // Chart components
 import { LineChart } from "@components/Charts";

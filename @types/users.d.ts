@@ -1,9 +1,8 @@
 // Vendor types
-import type { PopulatedDoc } from "mongoose";
-import mongoose from "mongoose";
+import type { Types, Document } from "mongoose";
 
 export interface User {
-  _id: mongoose.Types.ObjectId;
+  _id: Types.ObjectId;
   firstName: string;
   lastName: string;
   email: string;
@@ -15,5 +14,5 @@ export interface User {
   trr?: string;
   bic?: string;
   phoneNumber?: string;
-  user: PopulatedDoc<User>;
+  user: Types.PopulatedDoc<User & Document>;
 }

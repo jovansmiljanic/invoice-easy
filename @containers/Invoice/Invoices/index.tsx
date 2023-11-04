@@ -114,7 +114,7 @@ interface IFilters {
   year?: string | string[];
 }
 
-export type IItem = Invoice | Client;
+export type IItem = Invoice;
 
 // Create Context base
 interface IGridContext {
@@ -125,15 +125,13 @@ interface IGridContext {
   limit: number;
   length: number;
   searchUrl: string;
-  updatedItems: Invoice[] | Client[];
+  updatedItems: Invoice[];
   isLoading: boolean;
 }
 
-interface Dashboard {}
-
 export const GridContext = createContext({} as IGridContext);
 
-const index: FC<Dashboard> = () => {
+const index: FC = () => {
   // Translation
   const { t } = useTranslation();
 

@@ -157,7 +157,7 @@ const index: FC<Boxes> = ({
           weight="semiBold"
           padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
         >
-          {totalPaidInvoices?.toLocaleString()} {t("invoice:currency")}
+          {totalPaidInvoices?.toLocaleString()}
         </Heading>
       </Box>
     </BoxWrapper>

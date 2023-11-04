@@ -20,6 +20,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 // Store context
 import { StoreContext } from "@context";
+import { IClientFormValues } from "@types";
 
 const Background = styled.div`
   position: fixed;
@@ -81,16 +82,6 @@ const Close = styled.div`
   padding: 5px;
   cursor: pointer;
 `;
-
-interface Formvalues {
-  clientName?: string;
-  clientAddress?: string;
-  city?: string;
-  country?: string;
-  zipCode?: string;
-  taxNumber?: string;
-  registrationNumber?: string;
-}
 
 const index: FC = ({}) => {
   // Translation
@@ -182,7 +173,7 @@ const index: FC = ({}) => {
           autoComplete="off"
           initialValues={clientData ? editInitialValues : addInitialValues}
           validationSchema={AddClientSchema}
-          onSubmit={async (data: Formvalues) => {
+          onSubmit={async (data: IClientFormValues) => {
             await axios(clientData ? editOnSubmit(data) : addOnSubmit(data))
               .then((res) => {
                 setIsModalOpen(false);

@@ -2,9 +2,19 @@ import { Colors } from "./theme/style";
 
 export type { Theme, ThemeContext } from "./theme";
 export type { User } from "./users";
-export type { Client } from "./client";
+
+// My account types
 export type { MyAccount } from "./my-account";
+export type { IMyAccountForm } from "./my-account";
+export type { IContentValues } from "./my-account";
+
+// Invoice types
 export type { Invoice } from "./invoice";
+export type { IInvoiceItem } from "./invoice";
+
+// Client types
+export type { Client } from "./client";
+export type { IClientFormValues } from "./client";
 
 export type {
   Breakpoints,

@@ -106,10 +106,6 @@ const index: FC<IPagination> = ({
   searchUrl,
   updatedItems,
 }) => {
-  // Grid context
-  // const { length, limit, page, queryUrl, searchUrl, updatedItems } =
-  //   useContext(GridContext);
-
   const { push } = useRouter();
 
   const scrollUp = () => {

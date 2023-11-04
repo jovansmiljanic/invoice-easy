@@ -43,9 +43,7 @@ const Footer = styled.div`
   `}
 `;
 
-interface Footer {}
-
-const index: FC<Footer> = () => {
+const index: FC = () => {
   // Translation
   const { t } = useTranslation();
 

@@ -44,8 +44,6 @@ import { Table } from "./Table";
 // Dashboard component
 import { Pagination, Search } from "@components/Dashboard";
 
-interface IFilters {}
-
 export type IItem = Client;
 
 // Create Context base
@@ -61,11 +59,9 @@ interface IGridContext {
   isLoading: boolean;
 }
 
-interface Dashboard {}
-
 export const GridContext = createContext({} as IGridContext);
 
-const index: FC<Dashboard> = ({}) => {
+const index: FC = ({}) => {
   // Translation
   const { t } = useTranslation();
 
@@ -75,7 +71,7 @@ const index: FC<Dashboard> = ({}) => {
   const { query, push } = useRouter();
 
   // Declare filters
-  const [filters, setFilters] = useState<IFilters>({});
+  const [filters, setFilters] = useState({});
   const filtersMemo = useMemo(() => filters, [filters]);
 
   // Declare pagination
@@ -107,7 +103,7 @@ const index: FC<Dashboard> = ({}) => {
     page: number;
   }
 
-  const queryUrl = objectToQuery<IFilters>({ query: filters });
+  const queryUrl = objectToQuery({ query: filters });
   const searchUrl =
     searchQuery !== undefined && searchQuery !== ""
       ? `&searchQuery=${searchQuery}`

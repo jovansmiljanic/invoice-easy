@@ -3,10 +3,12 @@ import type { NextRouter } from "next/router";
 
 // Vendors
 import axios from "axios";
-import type mongoose from "mongoose";
+
+// Vendor types
+import type { Types } from "mongoose";
 
 interface InvoicePaid {
-  _id: mongoose.Types.ObjectId;
+  _id: Types.ObjectId;
   router: NextRouter;
 }
 export const invoicePaid = async ({ _id, router }: InvoicePaid) => {

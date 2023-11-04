@@ -2,7 +2,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 
 // Core types
-import { Client, Invoice } from "@types";
+import { Client, IInvoiceItem, Invoice } from "@types";
 
 // Global components
 import { Button } from "@components";
@@ -45,15 +45,8 @@ const Options = styled.div`
 
 interface NewInvoice {
   client?: Client[];
-  invoiceNumber?: number;
   invoice?: Invoice;
-}
-
-interface Values {
-  name: string;
-  cost: number;
-  qty: number;
-  price: number;
+  invoiceNumber?: number;
 }
 
 const InvoiceSchema = Yup.object().shape({
@@ -75,7 +68,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
   const [endDate, setEndDate] = useState<Date | null>();
   const [deadlineDate, setDeadlineDate] = useState<Date | null>();
 
-  const [tableData, setTableData] = useState<Values[]>([
+  const [tableData, setTableData] = useState<IInvoiceItem[]>([
     {
       name: "",
       cost: 0,
