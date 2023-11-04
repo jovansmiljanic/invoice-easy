@@ -11,9 +11,9 @@
   "phonePlaceholder": "+123 45 678 910",
   "phoneError": "Molimo unesite broj telefona",
 
-  "taxNumber": "Poreski broj",
+  "taxNumber": "PIB",
   "taxNumberPlaceholder": "123456789",
-  "taxNumberError": "Molimo unesite poreski broj",
+  "taxNumberError": "Molimo unesite PIB",
 
   "registrationNumber": "Matični broj",
   "registrationNumberPlaceholder": "123456789",
@@ -85,10 +85,10 @@
   "signUpSwitchLabel": "Već imate nalog?",
   "signUpSwitchLink": "Prijavite se",
 
-  "signInSwitchLabel": "Novi ste na našoj platformi? ",
+  "signInSwitchLabel": "Novi ste na našoj platformi?",
   "signInSwitchLink": "Napravite nalog",
 
   "tooShort": "Prekratko!",
   "tooLong": "Predugačko!",
-  "validEmailError": "Molim vas unesite validnu email adresu!"
+  "validEmailError": "Molimo vas unesite validnu email adresu!"
 }
