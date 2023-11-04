@@ -149,6 +149,7 @@ const index: FC<Download> = ({ invoice, type, isClient }) => {
     footerParagrapTwo: t("invoice:invoiceFooterTwo"),
     footerParagrapThree: t("invoice:invoiceFooterThree"),
     footerParagrapFour: t("invoice:invoiceFooterFour"),
+    currency: t("invoice:currency"),
   };
 
   return (
