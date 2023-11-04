@@ -8,8 +8,8 @@ import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
-// Context
-import { Next, Prev } from "public/svg";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const Pagination = styled.div`
   width: 100%;
@@ -136,7 +136,7 @@ const index: FC<IPagination> = ({
           }}
           isHidden={!Boolean(page !== 0)}
         >
-          <Prev />
+          <ArrowBackIosIcon />
         </Button>
 
         <PageNumbers>
@@ -176,7 +176,7 @@ const index: FC<IPagination> = ({
             )
           }
         >
-          <Next />
+          <ArrowForwardIosIcon />
         </Button>
       </Wrap>
     </Pagination>

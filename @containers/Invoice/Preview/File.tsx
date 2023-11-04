@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   note: {
     width: "80%",
     margin: "auto",
-    fontSize: "6px",
+    fontSize: "10px",
   },
 
   bankInfo: {
@@ -131,8 +131,37 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    fontSize: "6px",
+    fontSize: "10px",
     textAlign: "center",
+  },
+
+  sign: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
+  colOne: {
+    width: "50%",
+    display: "flex",
+    margin: 10,
+    flexGrow: 1,
+    fontSize: "10px",
+  },
+
+  colSign: {
+    width: "50%",
+    display: "flex",
+    textAlign: "left",
+    margin: 10,
+    flexGrow: 1,
+    fontSize: "10px",
+  },
+
+  border: {
+    width: "200px",
+    borderBottom: "1px solid black",
+    marginBottom: "3px",
   },
 });
 
@@ -275,6 +304,18 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
             {content?.footerParagrapOne} {" " + myAccount?.bankName},{" "}
             {content?.footerParagrapTwo} {myAccount?.trr}.
           </Text>
+        </View>
+
+        <View style={styles.details}>
+          <View style={styles.colSign}>
+            <Text style={styles.border} />
+            <Text>Fakturu izdao</Text>
+          </View>
+
+          <View style={styles.colSign}>
+            <Text style={styles.border} />
+            <Text>Fakturu primio</Text>
+          </View>
         </View>
 
         <View style={styles.footer}>
