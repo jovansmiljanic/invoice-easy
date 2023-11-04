@@ -40,7 +40,7 @@ export const getTotalPrice = (
   const formattedTotalPrice = `${totalPrice.toLocaleString(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  })} ${currency} `;
+  })}  `;
 
   return formattedTotalPrice;
 };
