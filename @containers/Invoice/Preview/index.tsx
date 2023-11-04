@@ -354,6 +354,12 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="p">
                   {t("form:taxNumber")}: {invoice.client.taxNumber}
                 </Heading>
+                {invoice.client.registrationNumber && (
+                  <Heading as="p">
+                    {t("form:registrationNumber")}:{" "}
+                    {invoice.client.registrationNumber}
+                  </Heading>
+                )}
               </Col1>
 
               <Col2>
@@ -404,9 +410,21 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                   {invoice?.items?.map((row, index) => (
                     <Wrap key={index}>
                       <Item>{row.name}</Item>
-                      <Item>{row.cost}</Item>
+                      <Item>
+                        {isNaN(Number(row.cost))
+                          ? "Invalid cost"
+                          : Number(row.cost).toLocaleString(undefined, {
+                              minimumFractionDigits: 2,
+                              maximumFractionDigits: 2,
+                            })}
+                      </Item>
                       <Item>{row.qty}</Item>
-                      <Item>{row.price}</Item>
+                      <Item>
+                        {row.price.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2,
+                        })}
+                      </Item>
                     </Wrap>
                   ))}
                 </Body>
@@ -424,7 +442,11 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                       <ItemWrap>
                         <Label>{t("invoice:cost")}</Label>
                         <Item>
-                          {row.cost} {t("invoice:currency")}
+                          {row.cost.toLocaleString(undefined, {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2,
+                          })}{" "}
+                          {t("invoice:currency")}
                         </Item>
                       </ItemWrap>
 
@@ -488,11 +510,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                   {t("invoice:total")}:
                 </Heading>
                 <Heading as="p">
-                  {getTotalPrice(
-                    invoice.items,
-                    invoice.tax,
-                    t("invoice:currency")
-                  )}
+                  {getTotalPrice(invoice.items, invoice.tax)}
                 </Heading>
               </TotalRow>
             </Total>
@@ -512,24 +530,14 @@ const index: FC<NewInvoice> = ({ invoice }) => {
               </Heading>
 
               <Heading as="p">
-                {t("invoice:invoiceFooterOne")} {userData?.bankName}.,{" "}
+                {t("invoice:invoiceFooterOne")} {userData?.bankName},{" "}
                 {t("invoice:invoiceFooterTwo")} {userData?.trr}.{" "}
-                {t("invoice:invoiceFooterThree")}.
-              </Heading>
-
-              <Heading as="p">
-                {userData?.companyField}, {userData?.companyName}.
-                {t("invoice:invoiceFooterFour")} {userData?.bankName} –{" "}
-                {userData?.trr}., {t("invoice:tax")}: {userData?.taxNumber}.
               </Heading>
             </Note>
 
             <Footer>
               <p>
-                {userData?.companyField}, {userData?.companyName}.{" "}
-                {t("invoice:invoiceFooterThree")} {userData?.bankName} –{" "}
-                {userData?.trr}
-                ., {t("form:taxNumber")}: {userData?.taxNumber}.
+                {userData?.companyField}, {userData?.companyName}.
               </p>
             </Footer>
           </NewInvoice>

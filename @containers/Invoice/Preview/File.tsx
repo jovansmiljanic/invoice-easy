@@ -126,6 +126,10 @@ const styles = StyleSheet.create({
     fontSize: "6px",
   },
 
+  bankInfo: {
+    marginTop: 20,
+  },
+
   footer: {
     fontSize: "6px",
     textAlign: "center",
@@ -251,9 +255,21 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
             {invoice.items.map((item, i) => (
               <View key={i} style={styles.itemsTable}>
                 <Text style={styles.itemName}>{item.name}</Text>
-                <Text style={styles.itemCost}>{item.cost}</Text>
+                <Text style={styles.itemCost}>
+                  {isNaN(Number(item.cost))
+                    ? "Invalid cost"
+                    : Number(item.cost).toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                </Text>
                 <Text style={styles.itemQty}>{item.qty}</Text>
-                <Text style={styles.itemPrice}>{item.price}</Text>
+                <Text style={styles.itemPrice}>
+                  {item.price.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
+                </Text>
               </View>
             ))}
           </View>
@@ -280,18 +296,15 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
           <Text>{content?.ddvParagraphOne}</Text>
           <Text>{content?.ddvParagraphTwo}</Text>
 
-          <Text>
-            {content?.footerParagrapOne} {" " + myAccount?.bankName}.,{" "}
-            {content?.footerParagrapTwo} {myAccount?.trr}.{" "}
-            {content?.footerParagrapThree}.
+          <Text style={styles.bankInfo}>
+            {content?.footerParagrapOne} {" " + myAccount?.bankName},{" "}
+            {content?.footerParagrapTwo} {myAccount?.trr}.
           </Text>
         </View>
 
         <View style={styles.footer}>
           <Text>
-            {myAccount?.companyField}, {myAccount?.companyName}.{" "}
-            {content?.footerParagrapFour} {myAccount?.bankName} –{" "}
-            {myAccount?.trr}., {content?.taxNumber}: {myAccount?.taxNumber}.
+            {myAccount?.companyField}, {myAccount?.companyName}.
           </Text>
         </View>
       </Page>
