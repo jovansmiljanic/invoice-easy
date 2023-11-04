@@ -30,7 +30,7 @@ export interface Invoice {
   totalPrice: string;
   status: string;
   year?: string;
-  tax?: number;
+  tax?: any;
   invoiceNumber: number;
   createdAt?: number;
   updatedAt?: number;

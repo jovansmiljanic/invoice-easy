@@ -132,7 +132,7 @@ const index: FC<Boxes> = ({
           weight="semiBold"
           padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
         >
-          {totalInvoiced?.toLocaleString()} €
+          {totalInvoiced?.toLocaleString()}
         </Heading>
       </Box>
 
@@ -157,7 +157,7 @@ const index: FC<Boxes> = ({
           weight="semiBold"
           padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
         >
-          {totalPaidInvoices?.toLocaleString()} €
+          {totalPaidInvoices?.toLocaleString()} {t("invoice:currency")}
         </Heading>
       </Box>
     </BoxWrapper>

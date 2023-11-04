@@ -93,7 +93,11 @@ const index: FC<Item> = ({ updatedItems }) => {
         {daysLeft(updatedItems.paymentDeadline, updatedItems.issuedDate)}
       </TableCell>
       <TableCell isPriceShown={isPriceShown}>
-        {getTotalPrice(updatedItems.items, updatedItems?.tax)}
+        {getTotalPrice(
+          updatedItems.items,
+          updatedItems?.tax,
+          t("invoice:currency")
+        )}
       </TableCell>
       <TableCell>
         <Actions updatedItems={updatedItems} />

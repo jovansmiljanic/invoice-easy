@@ -23,5 +23,6 @@
   "addNewCta": "Dodaj novu stavku",
   "addNewClient": "Dodaj novog klijenta",
   "editClient": "Izmeni klijenta",
-  "chooseClient": "Izaberite postojećeg"
+  "chooseClient": "Izaberite postojećeg",
+  "currency": "RSD"
 }

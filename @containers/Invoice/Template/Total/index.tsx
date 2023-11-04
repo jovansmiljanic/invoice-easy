@@ -90,7 +90,7 @@ const index: FC<Total> = ({ tableData }) => {
         <Field
           type="number"
           name="tax"
-          placeholder="0.0 €"
+          placeholder="0.0"
           onChange={handleChange}
           onBlur={handleBlur}
           value={values.tax}
@@ -105,7 +105,9 @@ const index: FC<Total> = ({ tableData }) => {
           {t("invoice:total")}:
         </Heading>
 
-        <Heading as="p">{getTotalPrice(tableData, values.tax)}</Heading>
+        <Heading as="p">
+          {getTotalPrice(tableData, values.tax, t("invoice:currency"))}
+        </Heading>
       </TotalRow>
     </Total>
   );

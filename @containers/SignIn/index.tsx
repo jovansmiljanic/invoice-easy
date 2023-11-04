@@ -25,24 +25,6 @@ import { Column, Container, Row } from "@components/Grid";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
-const Wrapper = styled.div`
-  padding: 40px 20px;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-
-  ${({ theme: { colors, breakpoints } }) => css`
-    border: 1px solid ${colors.lightGray};
-
-    @media (max-width: ${breakpoints.md}px) {
-      padding: 40px 10px;
-    }
-
-    a {
-      color: ${colors.secondary};
-    }
-  `}
-`;
-
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
@@ -68,12 +50,21 @@ const ButtonWrap = styled.div`
   }
 `;
 
+const PassWrap = styled.div`
+  position: relative;
+`;
+
 const EyeWrap = styled.div`
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   position: absolute;
   top: 50%;
   right: 10px;
-  transform: translate(0, -25%);
-  cursor: pointer;
+  transform: translate(0, -50%);
 `;
 
 type Formvalues = {
@@ -93,6 +84,7 @@ const index: FC = () => {
     undefined
   );
 
+  // Handle password visibility
   const [isEyeOpened, setIsEyeOpened] = useState(false);
 
   const SignInSchema = object().shape({
@@ -203,15 +195,26 @@ const index: FC = () => {
 
                   <Group>
                     <Label>{t("form:passwordLabel")}</Label>
-                    <Field
-                      hasError={Boolean(errors.password && touched.password)}
-                      type={isEyeOpened ? "text" : "password"}
-                      name="password"
-                      placeholder={t("form:passwordPlaceholder")}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.password}
-                    />
+                    <PassWrap>
+                      <Field
+                        hasError={Boolean(errors.password && touched.password)}
+                        type={isEyeOpened ? "text" : "password"}
+                        name="password"
+                        placeholder={t("form:passwordPlaceholder")}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.password}
+                      />
+
+                      <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
+                        {isEyeOpened ? (
+                          <VisibilityOutlinedIcon />
+                        ) : (
+                          <VisibilityOffOutlinedIcon />
+                        )}
+                      </EyeWrap>
+                    </PassWrap>
+
                     <ErrorWrap>
                       {errors.password && touched.password ? (
                         <>{errors.password}</>
@@ -219,14 +222,6 @@ const index: FC = () => {
                         <>{errorMessage}</>
                       ) : null}
                     </ErrorWrap>
-
-                    <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
-                      {isEyeOpened ? (
-                        <VisibilityOutlinedIcon />
-                      ) : (
-                        <VisibilityOffOutlinedIcon />
-                      )}
-                    </EyeWrap>
                   </Group>
 
                   <ButtonWrap>
@@ -258,3 +253,17 @@ const index: FC = () => {
 };
 
 export { index as SignIn };
+
+const Wrapper = styled.div`
+  padding: 40px 20px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
+  ${({ theme: { colors } }) => css`
+    border: 1px solid ${colors.lightGray};
+
+    a {
+      color: ${colors.secondary};
+    }
+  `}
+`;

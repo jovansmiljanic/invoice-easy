@@ -23,5 +23,6 @@
   "addNewCta": "Add new item",
   "addNewClient": "Add new client",
   "editClient": "Edit client",
-  "chooseClient": "Choose an existing one"
+  "chooseClient": "Choose an existing one",
+  "currency": "€"
 }

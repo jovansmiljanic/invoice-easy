@@ -1,3 +1,5 @@
+// Core
+import useTranslation from "next-translate/useTranslation";
 import { useState, useEffect } from "react";
 
 interface TableData {
@@ -15,10 +17,14 @@ export const getSubTotalPrice = (tableData: TableData[]) => {
       maximumFractionDigits: 2,
     });
 
-  return `${subTotalPrice} €`;
+  return `${subTotalPrice}`;
 };
 
-export const getTotalPrice = (tableData: TableData[], tax?: number) => {
+export const getTotalPrice = (
+  tableData: TableData[],
+  tax?: number,
+  currency?: string
+) => {
   const subTotalPrice = tableData.reduce((acc, item) => acc + +item.price, 0);
   const [totalPrice, setTotalPrice] = useState(subTotalPrice);
 
@@ -34,7 +40,7 @@ export const getTotalPrice = (tableData: TableData[], tax?: number) => {
   const formattedTotalPrice = `${totalPrice.toLocaleString(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
-  })} €`;
+  })} ${currency} `;
 
   return formattedTotalPrice;
 };

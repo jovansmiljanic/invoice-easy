@@ -304,22 +304,17 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="p">
                   {t("form:taxNumber")}: {userData?.taxNumber}
                 </Heading>
-
-                {userData?.registrationNumber && (
-                  <Heading as="p">
-                    {t("form:registrationNumber")}:{" "}
-                    {userData?.registrationNumber}
-                  </Heading>
-                )}
               </Col1>
               <Col2>
                 <Heading as="p">
                   {t("form:trr")}: {userData?.trr}
                 </Heading>
 
-                <Heading as="p">
-                  {t("form:bic")}: {userData?.bic}
-                </Heading>
+                {userData?.bic && (
+                  <Heading as="p">
+                    {t("form:bic")}: {userData?.bic}
+                  </Heading>
+                )}
 
                 <Heading as="p">
                   {t("form:emailLabel")}: {userData?.email}
@@ -328,12 +323,27 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="p">
                   {t("form:phoneLabel")}: {userData?.phoneNumber}
                 </Heading>
+
+                {invoice?.client?.registrationNumber && (
+                  <Heading as="p">
+                    {t("form:registrationNumber")}:{" "}
+                    {invoice.client.registrationNumber}
+                  </Heading>
+                )}
               </Col2>
             </UserDetails>
 
             <ClientDetails>
               <Col1>
-                <Heading as="h6" weight="bold">
+                <Heading
+                  as="h6"
+                  weight="bold"
+                  padding={{
+                    xs: { right: 2 },
+                    sm: { right: 2 },
+                    md: { right: 4 },
+                  }}
+                >
                   {invoice.client.clientName}
                 </Heading>
                 <Heading as="p">{invoice.client.clientAddress}</Heading>
@@ -344,18 +354,21 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="p">
                   {t("form:taxNumber")}: {invoice.client.taxNumber}
                 </Heading>
-                {invoice?.client?.registrationNumber && (
-                  <Heading as="p">
-                    {t("form:registrationNumber")}:{" "}
-                    {invoice.client.registrationNumber}
-                  </Heading>
-                )}
               </Col1>
 
               <Col2>
-                <Heading as="h5" weight="semiBold">
+                <Heading
+                  as="h5"
+                  weight="bold"
+                  padding={{
+                    xs: { bottom: 1 },
+                    sm: { bottom: 1 },
+                    md: { bottom: 1 },
+                  }}
+                >
                   {t("invoice:invoice")} #{invoice.invoiceNumber}
                 </Heading>
+
                 <StartDate>
                   <Heading as="p">
                     {t("invoice:dateFrom")}: {userData?.city},{" "}
@@ -391,9 +404,9 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                   {invoice?.items?.map((row, index) => (
                     <Wrap key={index}>
                       <Item>{row.name}</Item>
-                      <Item>{row.cost} €</Item>
+                      <Item>{row.cost}</Item>
                       <Item>{row.qty}</Item>
-                      <Item>{row.price} €</Item>
+                      <Item>{row.price}</Item>
                     </Wrap>
                   ))}
                 </Body>
@@ -410,7 +423,9 @@ const index: FC<NewInvoice> = ({ invoice }) => {
 
                       <ItemWrap>
                         <Label>{t("invoice:cost")}</Label>
-                        <Item>{row.cost} €</Item>
+                        <Item>
+                          {row.cost} {t("invoice:currency")}
+                        </Item>
                       </ItemWrap>
 
                       <ItemWrap>
@@ -420,7 +435,9 @@ const index: FC<NewInvoice> = ({ invoice }) => {
 
                       <ItemWrap>
                         <Label>{t("invoice:price")}</Label>
-                        <Item>{row.price} €</Item>
+                        <Item>
+                          {row.price} {t("invoice:currency")}
+                        </Item>
                       </ItemWrap>
                     </Wrap>
                   ))}
@@ -433,9 +450,9 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading
                   as="p"
                   padding={{
-                    xs: { right: 2 },
-                    sm: { right: 2 },
-                    md: { right: 4 },
+                    xs: { right: 1 },
+                    sm: { right: 1 },
+                    md: { right: 2 },
                   }}
                 >
                   {t("invoice:subtotal")}:
@@ -443,33 +460,39 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="p">{getSubTotalPrice(invoice.items)}</Heading>
               </TotalRow>
 
-              <TotalRow>
-                <Heading
-                  as="p"
-                  padding={{
-                    xs: { right: 2 },
-                    sm: { right: 2 },
-                    md: { right: 4 },
-                  }}
-                >
-                  {t("invoice:tax")}:
-                </Heading>
-                <Heading as="p">{invoice.tax}%</Heading>
-              </TotalRow>
+              {invoice.tax === "0" && (
+                <TotalRow>
+                  <Heading
+                    as="p"
+                    padding={{
+                      xs: { right: 1 },
+                      sm: { right: 1 },
+                      md: { right: 2 },
+                    }}
+                  >
+                    {t("invoice:tax")}:
+                  </Heading>
+                  <Heading as="p">{invoice.tax}%</Heading>
+                </TotalRow>
+              )}
 
               <TotalRow>
                 <Heading
                   as="p"
                   padding={{
-                    xs: { right: 2 },
-                    sm: { right: 2 },
-                    md: { right: 4 },
+                    xs: { right: 1 },
+                    sm: { right: 1 },
+                    md: { right: 2 },
                   }}
                 >
                   {t("invoice:total")}:
                 </Heading>
                 <Heading as="p">
-                  {getTotalPrice(invoice.items, invoice.tax)}
+                  {getTotalPrice(
+                    invoice.items,
+                    invoice.tax,
+                    t("invoice:currency")
+                  )}
                 </Heading>
               </TotalRow>
             </Total>

@@ -68,6 +68,12 @@ const styles = StyleSheet.create({
     fontWeight: "ultrabold",
   },
 
+  invoiceName: {
+    fontSize: "12px",
+    fontWeight: "ultrabold",
+    marginBottom: 10,
+  },
+
   itemsHeader: {
     paddingHorizontal: 30,
     paddingVertical: 10,
@@ -153,6 +159,7 @@ interface File {
     footerParagrapTwo: string;
     footerParagrapThree: string;
     footerParagrapFour: string;
+    currency: string;
   };
 }
 
@@ -170,26 +177,31 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
             <Text>
               {content?.taxNumber}: {myAccount?.taxNumber}
             </Text>
-            {myAccount?.registrationNumber && (
-              <Text>
-                {content?.registrationNumber}: {myAccount?.registrationNumber}
-              </Text>
-            )}
           </View>
 
           <View style={styles.col2}>
             <Text>
               {content?.trr}: {myAccount?.trr}
             </Text>
-            <Text>
-              {content?.bic}: {myAccount?.bic}
-            </Text>
+
+            {content?.bic === "" && (
+              <Text>
+                {content?.bic}: {myAccount?.bic}
+              </Text>
+            )}
+
             <Text>
               {content?.email}: {myAccount?.email}
             </Text>
             <Text>
               {content?.phone}: {myAccount?.phoneNumber}
             </Text>
+
+            {myAccount?.registrationNumber && (
+              <Text>
+                {content?.registrationNumber}: {myAccount?.registrationNumber}
+              </Text>
+            )}
           </View>
         </View>
 
@@ -212,7 +224,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
           </View>
 
           <View style={styles.col2}>
-            <Text style={styles.name}>
+            <Text style={styles.invoiceName}>
               {content?.invoice}: #{invoice.invoiceNumber}
             </Text>
             <Text>
@@ -251,11 +263,16 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
           <Text>
             {content?.subTotal}: {getSubTotalPrice(invoice.items)}
           </Text>
+
+          {invoice.tax && (
+            <Text>
+              {content?.tax}: {invoice.tax}%
+            </Text>
+          )}
+
           <Text>
-            {content?.tax}: {invoice.tax}%
-          </Text>
-          <Text>
-            {content?.total}: {getTotalPrice(invoice.items, invoice.tax)}
+            {content?.total}:{" "}
+            {getTotalPrice(invoice.items, invoice.tax, content?.currency)}
           </Text>
         </View>
 
