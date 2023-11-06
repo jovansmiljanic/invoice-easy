@@ -64,7 +64,8 @@ const index: FC = () => {
   const router = useRouter();
 
   // Global context from store
-  const { setIsConfirmModal, clientData } = useContext(StoreContext);
+  const { setIsConfirmModal, clientData, productData } =
+    useContext(StoreContext);
 
   // Hide dropdown when clicked outside it's Ref
   const modalPopupRef = useRef<HTMLDivElement>(null);
@@ -90,6 +91,8 @@ const index: FC = () => {
       ? "client"
       : router.asPath === "/"
       ? "invoice"
+      : router.asPath === "/products"
+      ? "products"
       : router.pathname === "/invoice/preview/[client]"
       ? "invoice"
       : "";
@@ -121,7 +124,11 @@ const index: FC = () => {
           <Button
             variant="danger"
             onClick={() => (
-              deleteItem({ id: clientData?._id, router, path }),
+              deleteItem({
+                id: clientData ? clientData?._id : productData._id,
+                router,
+                path,
+              }),
               setIsConfirmModal(false)
             )}
             margin={{ md: { right: 1 } }}

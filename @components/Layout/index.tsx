@@ -16,6 +16,7 @@ import type { Session } from "next-auth";
 import { StoreContext } from "@context";
 
 import { AddClientModal, ConfirmDeleteModal } from "@components";
+import { AddProductModal } from "@components/AddProductsModal";
 
 interface Props {
   title?: string;
@@ -24,7 +25,8 @@ interface Props {
 }
 
 export const Layout: FC<Props> = ({ title, children, session }) => {
-  const { isModalOpen, isConfirmModal } = useContext(StoreContext);
+  const { isModalOpen, isConfirmModal, isProductModalOpen } =
+    useContext(StoreContext);
 
   return (
     <>
@@ -37,6 +39,7 @@ export const Layout: FC<Props> = ({ title, children, session }) => {
       <Footer />
 
       {isModalOpen && <AddClientModal />}
+      {isProductModalOpen && <AddProductModal />}
       {isConfirmModal && <ConfirmDeleteModal />}
     </>
   );
