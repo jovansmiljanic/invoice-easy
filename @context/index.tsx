@@ -14,7 +14,7 @@ import { ThemeProvider } from "styled-components";
 import { Theme } from "@context/theme";
 
 // Global types
-import { Client, Invoice } from "@types";
+import { Client, Invoice, Product } from "@types";
 
 // Instruct component Props Types
 interface Props {
@@ -40,11 +40,17 @@ interface AppContext {
   isModalOpen: boolean;
   setIsModalOpen: (isModalOpen: boolean) => void;
 
+  isProductModalOpen: boolean;
+  setIsProductModalOpen: (isProductModalOpen: boolean) => void;
+
   isConfirmModal: boolean;
   setIsConfirmModal: (isConformModal: boolean) => void;
 
   clientData: Client;
   setClientData: (clientData?: Client | Invoice) => void;
+
+  productData: Product;
+  setProductData: (productData?: Product) => void;
 }
 
 export const Store: FC<Props> = (props) => {
@@ -54,11 +60,20 @@ export const Store: FC<Props> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const isModalOpenMemo = useMemo(() => isModalOpen, [isModalOpen]);
 
+  const [isProductModalOpen, setIsProductModalOpen] = useState<boolean>(false);
+  const isProductModalOpenMemo = useMemo(
+    () => isProductModalOpen,
+    [isProductModalOpen]
+  );
+
   const [isConfirmModal, setIsConfirmModal] = useState(false);
   const isConfirmModalMemo = useMemo(() => isConfirmModal, [isConfirmModal]);
 
   const [clientData, setClientData] = useState<Client>();
   const clientDataMemo = useMemo(() => clientData, [clientData]);
+
+  const [productData, setProductData] = useState<Product>();
+  const productDataMemo = useMemo(() => productData, [productData]);
 
   const [theme, setTheme] = useState<Theme | string>("light");
   const [isPriceShown, setIsPriceShown] = useState<string>("true");
@@ -114,8 +129,14 @@ export const Store: FC<Props> = (props) => {
           isModalOpen: isModalOpenMemo,
           setIsModalOpen,
 
+          isProductModalOpen: isProductModalOpenMemo,
+          setIsProductModalOpen,
+
           clientData: clientDataMemo,
           setClientData,
+
+          productData: productDataMemo,
+          setProductData,
 
           isConfirmModal: isConfirmModalMemo,
           setIsConfirmModal,

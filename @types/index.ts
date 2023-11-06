@@ -16,6 +16,9 @@ export type { IInvoiceItem } from "./invoice";
 export type { Client } from "./client";
 export type { IClientFormValues } from "./client";
 
+// Product types
+export type { Product } from "./product";
+
 export type {
   Breakpoints,
   Alignments,

@@ -75,6 +75,14 @@
   "clientAddressPlaceholder": "Adresa klijenta",
   "clientAddressError": "Molimo unesite adresu klijenta",
 
+  "productNameLabel": "Ime produkta",
+  "productNamePlaceholder": "Ime produkta",
+  "productNameError": "Molimo unesite ime produkta",
+
+  "productPriceLabel": "Cena produkta",
+  "productPricePlaceholder": "Cena produkta",
+  "productPriceError": "Molimo unesite cenu produkta",
+
   "signUpCta": "Registracija",
   "signInCta": "Prijava",
 
