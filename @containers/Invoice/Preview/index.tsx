@@ -161,7 +161,7 @@ const TotalRow = styled.div`
 
   p {
     display: flex;
-    flex: 0 0 50%;
+    flex: 0 0 60%;
 
     &:not(:last-child) {
       justify-content: flex-end;
@@ -474,7 +474,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                   padding={{
                     xs: { right: 1 },
                     sm: { right: 1 },
-                    md: { right: 2 },
+                    md: { right: 1 },
                   }}
                 >
                   {t("invoice:subtotal")}:

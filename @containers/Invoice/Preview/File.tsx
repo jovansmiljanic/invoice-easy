@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   note: {
     width: "80%",
     margin: "auto",
-    fontSize: "10px",
+    fontSize: "9px",
   },
 
   bankInfo: {
@@ -192,10 +192,12 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
               {content?.trr}: {myAccount?.trr}
             </Text>
 
-            {content?.bic === "" && (
+            {myAccount?.bic ? (
               <Text>
                 {content?.bic}: {myAccount?.bic}
               </Text>
+            ) : (
+              <></>
             )}
 
             <Text>
@@ -205,10 +207,12 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
               {content?.phone}: {myAccount?.phoneNumber}
             </Text>
 
-            {myAccount?.registrationNumber && (
+            {myAccount?.registrationNumber ? (
               <Text>
                 {content?.registrationNumber}: {myAccount?.registrationNumber}
               </Text>
+            ) : (
+              <></>
             )}
           </View>
         </View>
@@ -223,11 +227,14 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
             <Text>
               {content?.taxNumber}: {invoice.client.taxNumber}
             </Text>
-            {content?.registrationNumber && (
+
+            {invoice.client.registrationNumber ? (
               <Text>
                 {content?.registrationNumber}:{" "}
                 {invoice.client.registrationNumber}
               </Text>
+            ) : (
+              <></>
             )}
           </View>
 
@@ -281,18 +288,22 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
 
         <View style={styles.total}>
           <Text>
-            {content?.subTotal}: {getSubTotalPrice(invoice.items)}
+            {content?.subTotal}: {getSubTotalPrice(invoice.items)}{" "}
+            {content?.currency}
           </Text>
 
-          {invoice.tax && (
+          {invoice.tax ? (
             <Text>
               {content?.tax}: {invoice.tax}%
             </Text>
+          ) : (
+            <></>
           )}
 
           <Text>
             {content?.total}:{" "}
             {getTotalPrice(invoice.items, invoice.tax, content?.currency)}
+            {content?.currency}
           </Text>
         </View>
 
@@ -306,17 +317,21 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
           </Text>
         </View>
 
-        <View style={styles.details}>
-          <View style={styles.colSign}>
-            <Text style={styles.border} />
-            <Text>Fakturu izdao</Text>
-          </View>
+        {myAccount?.signInvoice ? (
+          <View style={styles.details}>
+            <View style={styles.colSign}>
+              <Text style={styles.border} />
+              <Text>Fakturu izdao</Text>
+            </View>
 
-          <View style={styles.colSign}>
-            <Text style={styles.border} />
-            <Text>Fakturu primio</Text>
+            <View style={styles.colSign}>
+              <Text style={styles.border} />
+              <Text>Fakturu primio</Text>
+            </View>
           </View>
-        </View>
+        ) : (
+          <></>
+        )}
 
         <View style={styles.footer}>
           <Text>

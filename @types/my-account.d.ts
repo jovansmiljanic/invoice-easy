@@ -20,6 +20,9 @@ export interface MyAccount {
   bankName: string;
   trr: string;
   bic: string;
+
+  logo: boolean;
+  signInvoice: boolean;
   myAccount: Types.PopulatedDoc<MyAccount & Document>;
 }
 
