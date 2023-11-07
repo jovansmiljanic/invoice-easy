@@ -288,6 +288,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
             md: { top: 0, bottom: 10 },
           }}
         >
+          
           <NewInvoice>
             <UserDetails>
               <Col1>
