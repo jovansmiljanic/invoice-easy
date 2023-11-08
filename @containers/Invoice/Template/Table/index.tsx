@@ -36,11 +36,19 @@ const Head = styled.div`
   `}
 `;
 
+const W = styled.div`
+  position: relative;
+  width: 100%;
+
+  input {
+    width: 100%;
+  }
+  ${({ theme: { defaults, colors, font, ...theme } }) => css``}
+`;
 const Item = styled.div`
   padding: 15px;
 
   &:nth-child(1) {
-    position: relative;
     flex: 0 0 50%;
   }
 
@@ -79,6 +87,8 @@ const Body = styled.div`
     justify-content: center;
     align-items: center;
 
+    position: relative;
+
     ${({ theme: { breakpoints } }) => css`
       @media (max-width: ${breakpoints.md}px) {
         flex-direction: column;
@@ -103,9 +113,29 @@ const Wrap = styled.div`
 
 // Dropdown styled component
 const Dropdown = styled.div`
+  width: 100%;
   position: absolute;
   top: 100%;
-  background-color: white;
+  z-index: 100;
+  border-radius: 5px;
+  box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
+
+  ${({ theme: { defaults, colors, font, ...theme } }) => css`
+    background-color: ${colors.white};
+  `}
+`;
+
+const DropdownItem = styled.div`
+  padding: 10px;
+  cursor: pointer;
+
+  ${({ theme: { defaults, colors, font, ...theme } }) => css`
+    border-bottom: 1px solid ${colors.lightGray};
+
+    &:hover {
+      background-color: ${colors.lightGray};
+    }
+  `}
 `;
 
 interface Table {
@@ -117,6 +147,9 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
   const { t } = useTranslation();
   const [products, setProducts] = useState<Product[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [activeDropdownIndex, setActiveDropdownIndex] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -164,6 +197,10 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
 
     // Update the state with the new data
     setTableData(newData);
+
+    if (field === "name") {
+      setActiveDropdownIndex(index);
+    }
   };
 
   const handleSelectChange = (selectedProduct: Product, index: number) => {
@@ -178,6 +215,9 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
 
     setFilteredProducts([]);
     setTableData(newData);
+
+    // Close the dropdown after selection
+    setActiveDropdownIndex(null);
   };
 
   // Function to handle adding a new row
@@ -191,6 +231,9 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
         price: 0,
       },
     ]);
+
+    // Ensure the active dropdown index is not affected when adding a new row
+    setActiveDropdownIndex(null);
   };
 
   // Function to handle item removal
@@ -219,26 +262,28 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
             {tableData.map((row, index) => (
               <Wrap key={index}>
                 <Item>
-                  <Field
-                    type="text"
-                    name="name"
-                    placeholder={t("invoice:item")}
-                    onChange={e => handleInputChange(e, index, "name")}
-                    value={row.name}
-                  />
+                  <W>
+                    <Field
+                      type="text"
+                      name="name"
+                      placeholder={t("invoice:item")}
+                      onChange={e => handleInputChange(e, index, "name")}
+                      value={row.name}
+                    />
 
-                  {row.name && (
-                    <Dropdown>
-                      {filteredProducts.slice(0, 5).map((product, i) => (
-                        <div
-                          key={i}
-                          onClick={() => handleSelectChange(product, index)}
-                        >
-                          {product.name}
-                        </div>
-                      ))}
-                    </Dropdown>
-                  )}
+                    {row.name && activeDropdownIndex === index && (
+                      <Dropdown>
+                        {filteredProducts.slice(0, 5).map((product, i) => (
+                          <DropdownItem
+                            key={i}
+                            onClick={() => handleSelectChange(product, index)}
+                          >
+                            {product.name}
+                          </DropdownItem>
+                        ))}
+                      </Dropdown>
+                    )}
+                  </W>
                 </Item>
 
                 <Item>
