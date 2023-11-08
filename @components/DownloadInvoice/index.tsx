@@ -1,5 +1,5 @@
 // Core
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 
 // Download File
 import { File } from "@containers/Invoice/Preview/File";
@@ -10,17 +10,16 @@ import styled, { css, keyframes } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
 // GLobal types
-import { Invoice, MyAccount } from "@types";
+import { Invoice } from "@types";
 
 // FOrmat date
-import { formatDate } from "@utils/client/formatDate";
+import { formatDate, useFetchUserData } from "@utils/client";
 
 // GLobal components
 import { Button } from "@components";
 
 // Svg
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
-import { getUserData } from "@utils/client/getUserData";
 
 // Animation
 const Loading = keyframes`
@@ -68,24 +67,13 @@ const ModalItem = styled.div`
 interface Download {
   invoice: Invoice;
   type: "icon" | "button" | "modalItem";
-  isClient?: boolean;
 }
 
-const index: FC<Download> = ({ invoice, type, isClient }) => {
+const index: FC<Download> = ({ invoice, type }) => {
   // Translation
   const { t } = useTranslation();
 
-  const [userData, setUserData] = useState<MyAccount>();
-
-  useEffect(() => {
-    // Fetch user data when the component mounts
-    const fetchData = async () => {
-      const data = getUserData();
-      setUserData(data);
-    };
-
-    fetchData();
-  }, []);
+  const { userData, loading, error } = useFetchUserData();
 
   const fileName = `Invoice - ${
     userData?.firstName + " " + userData?.lastName
@@ -104,8 +92,8 @@ const index: FC<Download> = ({ invoice, type, isClient }) => {
             sm: { bottom: 2 },
             md: { bottom: 2 },
           }}
-          disabled={!isClient}
-          isLoading={!isClient}
+          disabled={!userData}
+          isLoading={!userData}
         >
           {t("table:download")}
         </Button>
@@ -121,7 +109,7 @@ const index: FC<Download> = ({ invoice, type, isClient }) => {
       renderedContent = <LoadingButton />;
   }
 
-  if (!isClient) {
+  if (!userData) {
     renderedContent;
   }
 
@@ -151,6 +139,8 @@ const index: FC<Download> = ({ invoice, type, isClient }) => {
     footerParagrapFour: t("invoice:invoiceFooterFour"),
     currency: t("invoice:currency"),
   };
+
+  if (loading) return <div>Loading....</div>;
 
   return (
     <PDFDownloadLink

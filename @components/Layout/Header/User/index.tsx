@@ -16,9 +16,6 @@ import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 
-// Shared utils
-import { deleteCookie } from "@utils/shared";
-
 // Vendor types
 import type { Session } from "next-auth";
 
@@ -54,8 +51,6 @@ const index: FC<User> = ({ session }) => {
 
   // Function that handles sign out
   const handleSignOut = () => {
-    deleteCookie({ name: "user" });
-
     signOut();
   };
 

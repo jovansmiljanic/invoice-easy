@@ -21,7 +21,7 @@ export interface MyAccount {
   trr: string;
   bic: string;
 
-  logo: boolean;
+  logo: string;
   signInvoice: boolean;
   myAccount: Types.PopulatedDoc<MyAccount & Document>;
 }

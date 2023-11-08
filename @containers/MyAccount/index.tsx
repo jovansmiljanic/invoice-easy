@@ -19,13 +19,10 @@ import useTranslation from "next-translate/useTranslation";
 import { Field, Label } from "@styles/Form";
 
 // Global types
-import { IMyAccountForm, MyAccount } from "@types";
+import { IMyAccountForm } from "@types";
 
 // Client utils
-import { getUserData } from "@utils/client/getUserData";
-
-// Shared utils
-import { setCookie } from "@utils/shared";
+import { useFetchUserData } from "@utils/client";
 
 const MyAccountContainer = styled.div`
   width: 100%;
@@ -66,27 +63,56 @@ const Form = styled.form`
 `;
 
 const index: FC = () => {
-  // Translation
   const { t } = useTranslation();
-
-  // Handle router
   const router = useRouter();
+  const { userData, loading, error } = useFetchUserData();
 
-  const [userData, setUserData] = useState<MyAccount>();
+  const initialValues: IMyAccountForm = {
+    firstName: userData?.firstName || "",
+    lastName: userData?.lastName || "",
+    email: userData?.email || "",
+    phoneNumber: userData?.phoneNumber || "",
+    taxNumber: userData?.taxNumber || "",
+    registrationNumber: userData?.registrationNumber || "",
 
-  useEffect(() => {
-    // Fetch user data when the component mounts
-    const fetchData = async () => {
-      const data = getUserData();
-      setUserData(data);
-    };
+    companyField: userData?.companyField || "",
+    companyName: userData?.companyName || "",
+    companyAddress: userData?.companyAddress || "",
+    zipCode: userData?.zipCode || "",
+    city: userData?.city || "",
+    country: userData?.country || "",
 
-    fetchData();
-  }, []);
+    bankName: userData?.bankName || "",
+    trr: userData?.trr || "",
+    bic: userData?.bic || "",
+  };
 
-  if (!userData) {
-    return <>Loading</>; // Or you can render a loading indicator
-  }
+  const handleSubmit = async (
+    data: IMyAccountForm,
+    setSubmitting: (isSubmitting: boolean) => void
+  ) => {
+    setSubmitting(true);
+
+    const id = userData?._id;
+
+    await axios({
+      method: "PUT",
+      url: `/api/registration`,
+      data: {
+        id,
+        ...data,
+      },
+    })
+      .then(res => {
+        setSubmitting(false);
+
+        router.push("/my-account");
+      })
+      .catch(err => {
+        setSubmitting(false);
+        console.log(err);
+      });
+  };
 
   const MyAccountSchema = Yup.object().shape({
     firstName: Yup.string().required(t("form:firstNameError")),
@@ -94,9 +120,7 @@ const index: FC = () => {
     email: Yup.string().required(t("form:emailError")),
     phoneNumber: Yup.string().required(t("form:phoneError")),
     taxNumber: Yup.string().required(t("form:taxNumberError")),
-    registrationNumber: Yup.string().required(
-      t("form:registrationNumberError")
-    ),
+    registrationNumber: Yup.string(),
 
     companyField: Yup.string().required(t("form:companyFieldError")),
     companyName: Yup.string().required(t("form:companyNameError")),
@@ -110,27 +134,9 @@ const index: FC = () => {
     bic: Yup.string().required(t("form:bicError")),
   });
 
-  const initialValue = {
-    firstName: userData?.firstName ? userData.firstName : "",
-    lastName: userData?.lastName ? userData.lastName : "",
-    email: userData?.email ? userData.email : "",
-    phoneNumber: userData?.phoneNumber ? userData.phoneNumber : "",
-    taxNumber: userData?.taxNumber ? userData.taxNumber : "",
-    registrationNumber: userData?.registrationNumber
-      ? userData.registrationNumber
-      : "",
-
-    companyField: userData?.companyField ? userData.companyField : "",
-    companyName: userData?.companyName ? userData.companyName : "",
-    companyAddress: userData?.companyAddress ? userData.companyAddress : "",
-    zipCode: userData?.zipCode ? userData.zipCode : "",
-    city: userData?.city ? userData.city : "",
-    country: userData?.country ? userData.country : "",
-
-    bankName: userData?.bankName ? userData.bankName : "",
-    trr: userData?.trr ? userData.trr : "",
-    bic: userData?.bic ? userData.bic : "",
-  };
+  if (loading) return <>Loading...</>;
+  if (error) return <ErrorWrap>{error}</ErrorWrap>;
+  if (!userData) return <ErrorWrap>No user data available.</ErrorWrap>;
 
   return (
     <Container>
@@ -153,38 +159,13 @@ const index: FC = () => {
         >
           <Formik
             autoComplete="off"
-            initialValues={initialValue}
+            initialValues={initialValues}
             validationSchema={MyAccountSchema}
             onSubmit={async (
               data: IMyAccountForm,
               { setSubmitting }: FormikHelpers<IMyAccountForm>
             ) => {
-              setSubmitting(true);
-
-              setCookie({
-                name: "user",
-                value: JSON.stringify(data),
-                days: 30,
-              });
-
-              const id = userData?._id;
-
-              await axios({
-                method: "PUT",
-                url: `/api/registration`,
-                data: {
-                  id,
-                  ...data,
-                },
-              })
-                .then((res) => {
-                  setSubmitting(false);
-                  router.push("/");
-                })
-                .catch((err) => {
-                  setSubmitting(false);
-                  console.log(err);
-                });
+              handleSubmit(data, setSubmitting);
             }}
           >
             {({

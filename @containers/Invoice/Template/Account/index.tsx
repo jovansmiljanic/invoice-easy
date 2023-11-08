@@ -1,5 +1,5 @@
 // Core types
-import { type FC, useEffect, useState } from "react";
+import { type FC } from "react";
 
 // Global components
 import { Heading } from "@components";
@@ -8,9 +8,8 @@ import { Heading } from "@components";
 import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
-// Store context
-import { MyAccount } from "@types";
-import { getUserData } from "@utils/client/getUserData";
+// CLient utils
+import { useFetchUserData } from "@utils/client";
 
 const Account = styled.div`
   display: flex;
@@ -37,21 +36,10 @@ const index: FC = () => {
   // Translation
   const { t } = useTranslation();
 
-  const [userData, setUserData] = useState<MyAccount>();
+  const { userData, loading, error } = useFetchUserData();
 
-  useEffect(() => {
-    // Fetch user data when the component mounts
-    const fetchData = async () => {
-      const data = getUserData();
-      setUserData(data);
-    };
-
-    fetchData();
-  }, []);
-
-  if (!userData) {
-    return <>{t("form:loading")}</>; // Or you can render a loading indicator
-  }
+  if (loading) return <>Loading....</>;
+  if (!userData) return <>{t("form:loading")}</>;
 
   return (
     <Account>

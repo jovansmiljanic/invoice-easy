@@ -17,7 +17,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 // Global types
 import type { User as UserType } from "@types";
-import { setCookie } from "@utils/shared";
 
 interface Configuration {
   res: NextApiResponse;
@@ -61,13 +60,6 @@ const nextAuthOptions = ({ res }: Configuration): NextAuthOptions => {
           }
 
           if (user) {
-            setCookie({
-              name: "user",
-              value: JSON.stringify(user),
-              days: 30,
-              res,
-            });
-
             return { ...user };
           }
         },

@@ -7,6 +7,7 @@ import {
   Page,
   Text,
   View,
+  Image,
   StyleSheet,
   Font,
 } from "@react-pdf/renderer";
@@ -15,7 +16,7 @@ import {
 import { IContentValues, Invoice, MyAccount } from "@types";
 
 // Client utils
-import { formatDate, getSubTotalPrice, getTotalPrice } from "@utils/client";
+import { formatDate, useSubTotalPrice, useTotalPrice } from "@utils/client";
 
 // Font
 Font.register({
@@ -49,18 +50,27 @@ const styles = StyleSheet.create({
   },
 
   col: {
-    width: "100%",
-    display: "flex",
+    // width: "100%",
+    // display: "flex",
     margin: 10,
-    flexGrow: 1,
+    // flexGrow: 1,
   },
 
   col2: {
-    width: "100%",
-    display: "flex",
-    textAlign: "right",
+    // width: "100%",
+    // display: "flex",
     margin: 10,
-    flexGrow: 1,
+    // flexGrow: 1,
+  },
+
+  col3: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  image: {
+    width: "90px",
   },
 
   name: {
@@ -167,11 +177,14 @@ const styles = StyleSheet.create({
 
 interface File {
   invoice: Invoice;
-  myAccount?: MyAccount;
+  myAccount?: MyAccount | null;
   content?: IContentValues;
 }
 
 const index: FC<File> = ({ myAccount, invoice, content }) => {
+  const totalPrice = useTotalPrice(invoice.items, invoice.tax);
+  const subTotalPrice = useSubTotalPrice(invoice.items);
+
   return (
     <Document>
       <Page size="A4" style={styles.newInvoice}>
@@ -186,6 +199,12 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
               {content?.taxNumber}: {myAccount?.taxNumber}
             </Text>
           </View>
+
+          {myAccount?.logo && (
+            <View style={styles.col3}>
+              <Image src={myAccount.logo} style={styles.image} />
+            </View>
+          )}
 
           <View style={styles.col2}>
             <Text>
@@ -288,8 +307,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
 
         <View style={styles.total}>
           <Text>
-            {content?.subTotal}: {getSubTotalPrice(invoice.items)}{" "}
-            {content?.currency}
+            {content?.subTotal}: {subTotalPrice} {content?.currency}
           </Text>
 
           {invoice.tax ? (
@@ -301,8 +319,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
           )}
 
           <Text>
-            {content?.total}:{" "}
-            {getTotalPrice(invoice.items, invoice.tax, content?.currency)}
+            {content?.total}: {totalPrice}
             {content?.currency}
           </Text>
         </View>

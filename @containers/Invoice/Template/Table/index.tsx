@@ -1,5 +1,8 @@
 // Core types
-import { useContext, type ChangeEvent, type FC } from "react";
+import type { FC, ChangeEvent } from "react";
+
+// Core
+import { useContext, useState } from "react";
 
 // Global styles
 import { Field, Label } from "@styles/Form";
@@ -16,7 +19,9 @@ import RemoveCircleOutlineOutlinedIcon from "@mui/icons-material/RemoveCircleOut
 
 // Store context
 import { StoreContext } from "@context";
-import { IInvoiceItem } from "@types";
+
+// Global types
+import { IInvoiceItem, Product } from "@types";
 
 const Table = styled.div``;
 
@@ -101,8 +106,17 @@ interface Table {
 }
 
 const index: FC<Table> = ({ tableData, setTableData }) => {
+  const [productSuggestions, setProductSuggestions] = useState<Product[]>([]);
+
   // Translation
   const { t } = useTranslation();
+
+  // Function to call the API and fetch products
+  const fetchProducts = async (searchTerm: string) => {
+    const response = await fetch(`/api/products?name=${searchTerm}`);
+    const products = await response.json();
+    setProductSuggestions(products);
+  };
 
   // Function to handle input changes in each cell
   const handleInputChange = (
@@ -126,7 +140,21 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
     }
 
     setTableData(newData);
+
+    // If the name field is changed, fetch products
+    if (field === "name") {
+      console.log(e.target.value);
+    }
   };
+
+  // const handleProductSelect = (product: Product, index: number): void => {
+  //   const newData = [...tableData];
+  //   newData[index].name = product.name;
+  //   newData[index].cost = product.price; // Assuming 'cost' should be filled with 'price' from the product
+  //   newData[index].price = product.price; // Assuming this is the correct field to update
+  //   // Call other functions if needed to update qty and calculate final price
+  //   setTableData(newData);
+  // };
 
   // Function to handle adding a new row
   const addRow = () => {
@@ -171,7 +199,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                     type="text"
                     name="name"
                     placeholder={t("invoice:item")}
-                    onChange={(e) => handleInputChange(e, index, "name")}
+                    onChange={e => handleInputChange(e, index, "name")}
                     value={row.name}
                   />
                 </Item>
@@ -181,7 +209,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                     type="number"
                     name="cost"
                     placeholder={t("invoice:cost")}
-                    onChange={(e) => handleInputChange(e, index, "cost")}
+                    onChange={e => handleInputChange(e, index, "cost")}
                     value={row.cost}
                   />
                 </Item>
@@ -191,7 +219,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                     type="number"
                     name="qty"
                     placeholder={t("invoice:qty")}
-                    onChange={(e) => handleInputChange(e, index, "qty")}
+                    onChange={e => handleInputChange(e, index, "qty")}
                     value={row.qty}
                   />
                 </Item>
@@ -202,7 +230,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                     name="price"
                     disabled
                     placeholder="00.00"
-                    onChange={(e) => handleInputChange(e, index, "price")}
+                    onChange={e => handleInputChange(e, index, "price")}
                     value={row.price}
                   />
                 </Item>
@@ -230,7 +258,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                     type="text"
                     name="name"
                     placeholder="Item"
-                    onChange={(e) => handleInputChange(e, index, "name")}
+                    onChange={e => handleInputChange(e, index, "name")}
                     value={row.name}
                   />
                 </Item>
@@ -241,7 +269,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                     type="number"
                     name="cost"
                     placeholder="Cost"
-                    onChange={(e) => handleInputChange(e, index, "cost")}
+                    onChange={e => handleInputChange(e, index, "cost")}
                     value={row.cost}
                   />
                 </Item>
@@ -252,7 +280,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                     type="number"
                     name="qty"
                     placeholder="QTY"
-                    onChange={(e) => handleInputChange(e, index, "qty")}
+                    onChange={e => handleInputChange(e, index, "qty")}
                     value={row.qty}
                   />
                 </Item>
@@ -264,7 +292,7 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                     name="price"
                     disabled
                     placeholder="00.00"
-                    onChange={(e) => handleInputChange(e, index, "price")}
+                    onChange={e => handleInputChange(e, index, "price")}
                     value={row.price}
                   />
                 </Item>

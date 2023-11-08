@@ -5,7 +5,7 @@ import { type FC, useContext } from "react";
 import { Invoice } from "@types";
 
 // Client utils
-import { daysLeft, formatDate, getTotalPrice } from "@utils/client";
+import { daysLeft, formatDate, useTotalPrice } from "@utils/client";
 
 // Shared utils
 import { copyText } from "@utils/shared";
@@ -81,6 +81,8 @@ const index: FC<Item> = ({ updatedItems }) => {
       status = <></>;
   }
 
+  const totalPrice = useTotalPrice(updatedItems.items, updatedItems?.tax);
+
   return (
     <>
       <TableCell onClick={() => copyText(updatedItems._id.toString())}>
@@ -93,7 +95,7 @@ const index: FC<Item> = ({ updatedItems }) => {
         {daysLeft(updatedItems.paymentDeadline, updatedItems.issuedDate)}
       </TableCell>
       <TableCell isPriceShown={isPriceShown}>
-        {getTotalPrice(updatedItems.items, updatedItems?.tax)}
+        {totalPrice}
         {t("invoice:currency")}
       </TableCell>
       <TableCell>

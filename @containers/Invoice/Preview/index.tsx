@@ -16,14 +16,18 @@ import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
 // Client utils
-import { formatDate, getSubTotalPrice, getTotalPrice } from "@utils/client";
+import {
+  formatDate,
+  useFetchUserData,
+  useSubTotalPrice,
+  useTotalPrice,
+} from "@utils/client";
 
 // Store context
 import { StoreContext } from "@context";
 
 // Clients download
 import { DownloadInvoice } from "@components/DownloadInvoice";
-import { getUserData } from "@utils/client/getUserData";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -46,8 +50,8 @@ const Options = styled.div`
 const UserDetails = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  padding: 50px 40px 30px 40px;
+  align-items: center;
+  padding: 40px;
 
   ${({ theme: { colors, breakpoints } }) => css`
     border-bottom: 1px solid ${colors.lightGray};
@@ -74,12 +78,21 @@ const ClientDetails = styled.div`
   `}
 `;
 
-const Col1 = styled.div`
+const Col1 = styled.div``;
+
+const Col2 = styled.div``;
+
+const Col3 = styled.div``;
+
+const UserCol1 = styled.div`
   padding-bottom: 10px;
   flex: 0 0 55%;
 `;
 
-const Col2 = styled.div``;
+const UserCol2 = styled.div`
+  padding-bottom: 10px;
+  flex: 0 0 45%;
+`;
 
 const Table = styled.div``;
 
@@ -242,6 +255,10 @@ const Label = styled.div`
   padding: 5px 15px;
 `;
 
+const Logo = styled.img`
+  width: 120px;
+`;
+
 interface NewInvoice {
   invoice: Invoice;
 }
@@ -256,21 +273,12 @@ const index: FC<NewInvoice> = ({ invoice }) => {
   const { isPhone, setClientData, setIsConfirmModal, isConfirmModal } =
     useContext(StoreContext);
 
-  const [isClient, setIsClient] = useState(false);
-  const [userData, setUserData] = useState<MyAccount>();
+  const { userData, loading, error } = useFetchUserData();
 
-  useEffect(() => {
-    setIsClient(true);
+  const totalPrice = useTotalPrice(invoice.items, invoice.tax);
+  const subTotalPrice = useSubTotalPrice(invoice.items);
 
-    // Fetch user data when the component mounts
-    const fetchData = async () => {
-      const data = getUserData();
-      setUserData(data);
-    };
-
-    fetchData();
-  }, []);
-
+  if (loading) return <>Loading...</>;
   return (
     <Container>
       <Row
@@ -288,10 +296,9 @@ const index: FC<NewInvoice> = ({ invoice }) => {
             md: { top: 0, bottom: 10 },
           }}
         >
-          
           <NewInvoice>
             <UserDetails>
-              <Col1>
+              <div>
                 <Heading as="h6" weight="bold">
                   {userData?.companyName}
                 </Heading>
@@ -305,8 +312,15 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Heading as="p">
                   {t("form:taxNumber")}: {userData?.taxNumber}
                 </Heading>
-              </Col1>
-              <Col2>
+              </div>
+
+              {userData?.logo && (
+                <div>
+                  <Logo src={userData?.logo} alt="" />
+                </div>
+              )}
+
+              <div>
                 <Heading as="p">
                   {t("form:trr")}: {userData?.trr}
                 </Heading>
@@ -331,11 +345,11 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                     {invoice.client.registrationNumber}
                   </Heading>
                 )}
-              </Col2>
+              </div>
             </UserDetails>
 
             <ClientDetails>
-              <Col1>
+              <UserCol1>
                 <Heading
                   as="h6"
                   weight="bold"
@@ -361,9 +375,9 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                     {invoice.client.registrationNumber}
                   </Heading>
                 )}
-              </Col1>
+              </UserCol1>
 
-              <Col2>
+              <UserCol2>
                 <Heading
                   as="h5"
                   weight="bold"
@@ -395,7 +409,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                     {formatDate(invoice.paymentDeadline)}
                   </Heading>
                 </EndDate>
-              </Col2>
+              </UserCol2>
             </ClientDetails>
 
             {!isPhone ? (
@@ -414,14 +428,16 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                       <Item>
                         {isNaN(Number(row.cost))
                           ? "Invalid cost"
-                          : Number(row.cost).toLocaleString(undefined, {
+                          : Number(row.cost).toLocaleString("en-US", {
+                              style: "decimal",
                               minimumFractionDigits: 2,
                               maximumFractionDigits: 2,
                             })}
                       </Item>
                       <Item>{row.qty}</Item>
                       <Item>
-                        {row.price.toLocaleString(undefined, {
+                        {row.price.toLocaleString("en-US", {
+                          style: "decimal",
                           minimumFractionDigits: 2,
                           maximumFractionDigits: 2,
                         })}
@@ -443,7 +459,8 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                       <ItemWrap>
                         <Label>{t("invoice:cost")}</Label>
                         <Item>
-                          {row.cost.toLocaleString(undefined, {
+                          {row.cost.toLocaleString("en-US", {
+                            style: "decimal",
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2,
                           })}{" "}
@@ -480,7 +497,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 >
                   {t("invoice:subtotal")}:
                 </Heading>
-                <Heading as="p">{getSubTotalPrice(invoice.items)}</Heading>
+                <Heading as="p">{subTotalPrice}</Heading>
               </TotalRow>
 
               {invoice.tax === "0" && (
@@ -510,9 +527,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 >
                   {t("invoice:total")}:
                 </Heading>
-                <Heading as="p">
-                  {getTotalPrice(invoice.items, invoice.tax)}
-                </Heading>
+                <Heading as="p">{totalPrice}</Heading>
               </TotalRow>
             </Total>
 
@@ -546,13 +561,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
 
         <Column responsivity={{ md: 3 }}>
           <Options>
-            {isClient && (
-              <DownloadInvoice
-                invoice={invoice}
-                type="button"
-                isClient={isClient}
-              />
-            )}
+            {userData && <DownloadInvoice invoice={invoice} type="button" />}
 
             <Button
               variant="warning"
