@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
 
   logoCol: {
-    flex: "0 0 50%",
+    flex: "0 0 40%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -434,9 +434,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
         )}
 
         <View style={styles.footer}>
-          <Text>
-            {myAccount?.companyField}, {myAccount?.companyName}.
-          </Text>
+          <Text>{myAccount?.companyName}.</Text>
         </View>
       </Page>
     </Document>

@@ -690,9 +690,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
             </Note>
 
             <Footer>
-              <p>
-                {userData?.companyField}, {userData?.companyName}.
-              </p>
+              <p>{userData?.companyName}.</p>
             </Footer>
           </NewInvoice>
         </Column>
