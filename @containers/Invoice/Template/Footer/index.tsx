@@ -58,20 +58,16 @@ const index: FC = () => {
   return (
     <>
       <Note>
-        <Heading as="p">{t("invoice:ddvParagraph")}</Heading>
+        <Heading as="p">{t("invoice:ddvParagraphOne")}</Heading>
         <Heading as="p">
           {t("invoice:invoiceFooterOne")} {userData?.bankName},{" "}
-          {t("invoice:invoiceFooterTwo")} {userData?.trr}.{" "}
-          {t("invoice:invoiceFooterThree")}
+          {t("invoice:invoiceFooterTwo")} {userData?.trr}.
         </Heading>
       </Note>
 
       <Footer>
         <p>
-          {userData?.companyField}, {userData?.companyName}.{" "}
-          {t("invoice:invoiceFooterFour")} {userData?.bankName} –{" "}
-          {userData?.trr}
-          ., {t("form:taxNumber")}: {userData?.taxNumber}.
+          {userData?.companyField}, {userData?.companyName}.
         </p>
       </Footer>
     </>

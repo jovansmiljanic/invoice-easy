@@ -50,7 +50,7 @@ const Options = styled.div`
 const UserDetails = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-end;
   padding: 40px;
 
   ${({ theme: { colors, breakpoints } }) => css`
@@ -78,11 +78,22 @@ const ClientDetails = styled.div`
   `}
 `;
 
-const Col1 = styled.div``;
+const Col1 = styled.div`
+  flex: 0 0 30%;
 
-const Col2 = styled.div``;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
-const Col3 = styled.div``;
+const Col2 = styled.div`
+  flex: 0 0 32%;
+`;
+
+const Col3 = styled.div`
+  flex: 0 0 40%;
+`;
 
 const UserCol1 = styled.div`
   padding-bottom: 10px;
@@ -130,11 +141,11 @@ const Item = styled.div`
   padding: 15px;
 
   &:nth-child(1) {
-    flex: 0 0 50%;
+    flex: 0 0 5%;
   }
 
   &:nth-child(2) {
-    flex: 0 0 15%;
+    flex: 0 0 45%;
   }
 
   &:nth-child(3) {
@@ -146,6 +157,10 @@ const Item = styled.div`
   }
 
   &:nth-child(5) {
+    flex: 0 0 15%;
+  }
+
+  &:nth-child(6) {
     padding: 0;
     flex: 0 0 5%;
     cursor: pointer;
@@ -257,6 +272,7 @@ const Label = styled.div`
 
 const Logo = styled.img`
   width: 120px;
+  margin-bottom: 10px;
 `;
 
 interface NewInvoice {
@@ -297,124 +313,245 @@ const index: FC<NewInvoice> = ({ invoice }) => {
           }}
         >
           <NewInvoice>
-            <UserDetails>
-              <div>
-                <Heading as="h6" weight="bold">
-                  {userData?.companyName}
-                </Heading>
+            {userData?.logo ? (
+              <>
+                <UserDetails>
+                  <Col1>
+                    {userData?.logo && <Logo src={userData?.logo} alt="" />}
 
-                <Heading as="p">{userData?.companyAddress}</Heading>
+                    <Heading as="h6" weight="bold">
+                      {userData?.companyName}
+                    </Heading>
+                  </Col1>
 
-                <Heading as="p">
-                  {userData?.zipCode}, {userData?.city}, {userData?.country}
-                </Heading>
+                  <Col3>
+                    <Heading as="p">
+                      {t("form:taxNumber")}: {userData?.taxNumber}
+                    </Heading>
 
-                <Heading as="p">
-                  {t("form:taxNumber")}: {userData?.taxNumber}
-                </Heading>
-              </div>
+                    {invoice?.client?.registrationNumber && (
+                      <Heading as="p">
+                        {t("form:registrationNumber")}:{" "}
+                        {invoice.client.registrationNumber}
+                      </Heading>
+                    )}
 
-              {userData?.logo && (
-                <div>
-                  <Logo src={userData?.logo} alt="" />
-                </div>
-              )}
+                    <Heading as="p">
+                      {t("form:trr")}: {userData?.trr}
+                    </Heading>
 
-              <div>
-                <Heading as="p">
-                  {t("form:trr")}: {userData?.trr}
-                </Heading>
+                    {userData?.bic && (
+                      <Heading as="p">
+                        {t("form:bic")}: {userData?.bic}
+                      </Heading>
+                    )}
 
-                {userData?.bic && (
-                  <Heading as="p">
-                    {t("form:bic")}: {userData?.bic}
-                  </Heading>
-                )}
+                    <Heading as="p">
+                      {userData?.companyAddress}, {userData?.zipCode},{" "}
+                      {userData?.city}, {userData?.country}
+                    </Heading>
 
-                <Heading as="p">
-                  {t("form:emailLabel")}: {userData?.email}
-                </Heading>
+                    <Heading as="p">
+                      {t("form:emailLabel")}: {userData?.email}
+                    </Heading>
 
-                <Heading as="p">
-                  {t("form:phoneLabel")}: {userData?.phoneNumber}
-                </Heading>
+                    <Heading as="p">
+                      {t("form:phoneLabel")}: {userData?.phoneNumber}
+                    </Heading>
+                  </Col3>
+                </UserDetails>
 
-                {invoice?.client?.registrationNumber && (
-                  <Heading as="p">
-                    {t("form:registrationNumber")}:{" "}
-                    {invoice.client.registrationNumber}
-                  </Heading>
-                )}
-              </div>
-            </UserDetails>
+                <ClientDetails>
+                  <UserCol1>
+                    <Heading
+                      as="h6"
+                      weight="bold"
+                      padding={{
+                        xs: { right: 2 },
+                        sm: { right: 2 },
+                        md: { right: 4 },
+                      }}
+                    >
+                      {invoice.client.clientName}
+                    </Heading>
 
-            <ClientDetails>
-              <UserCol1>
-                <Heading
-                  as="h6"
-                  weight="bold"
-                  padding={{
-                    xs: { right: 2 },
-                    sm: { right: 2 },
-                    md: { right: 4 },
-                  }}
-                >
-                  {invoice.client.clientName}
-                </Heading>
-                <Heading as="p">{invoice.client.clientAddress}</Heading>
-                <Heading as="p">
-                  {invoice.client.zipCode}, {invoice.client.city},
-                  {invoice.client.country}
-                </Heading>
-                <Heading as="p">
-                  {t("form:taxNumber")}: {invoice.client.taxNumber}
-                </Heading>
-                {invoice.client.registrationNumber && (
-                  <Heading as="p">
-                    {t("form:registrationNumber")}:{" "}
-                    {invoice.client.registrationNumber}
-                  </Heading>
-                )}
-              </UserCol1>
+                    <Heading as="p">{invoice.client.clientAddress}</Heading>
 
-              <UserCol2>
-                <Heading
-                  as="h5"
-                  weight="bold"
-                  padding={{
-                    xs: { bottom: 1 },
-                    sm: { bottom: 1 },
-                    md: { bottom: 1 },
-                  }}
-                >
-                  {t("invoice:invoice")} #{invoice.invoiceNumber}
-                </Heading>
+                    <Heading as="p">
+                      {invoice.client.zipCode}, {invoice.client.city},
+                      {invoice.client.country}
+                    </Heading>
 
-                <StartDate>
-                  <Heading as="p">
-                    {t("invoice:dateFrom")}: {userData?.city},{" "}
-                    {formatDate(invoice.startDate)}
-                  </Heading>
-                </StartDate>
+                    <Heading as="p">
+                      {t("form:taxNumber")}: {invoice.client.taxNumber}
+                    </Heading>
 
-                <EndDate>
-                  <Heading as="p">
-                    {t("invoice:dateTo")}: {formatDate(invoice.endDate)}
-                  </Heading>
-                </EndDate>
+                    {invoice.client.registrationNumber && (
+                      <Heading as="p">
+                        {t("form:registrationNumber")}:{" "}
+                        {invoice.client.registrationNumber}
+                      </Heading>
+                    )}
+                  </UserCol1>
 
-                <EndDate>
-                  <Heading as="p">
-                    {t("invoice:paymentDeadline")}:{" "}
-                    {formatDate(invoice.paymentDeadline)}
-                  </Heading>
-                </EndDate>
-              </UserCol2>
-            </ClientDetails>
+                  <UserCol2>
+                    <Heading
+                      as="h5"
+                      weight="bold"
+                      padding={{
+                        xs: { bottom: 1 },
+                        sm: { bottom: 1 },
+                        md: { bottom: 1 },
+                      }}
+                    >
+                      {t("invoice:invoice")} #{invoice.invoiceNumber}
+                    </Heading>
+
+                    <StartDate>
+                      <Heading as="p">
+                        {t("invoice:dateFrom")}: {userData?.city},{" "}
+                        {formatDate(invoice.startDate)}
+                      </Heading>
+                    </StartDate>
+
+                    <EndDate>
+                      <Heading as="p">
+                        {t("invoice:dateTo")}: {formatDate(invoice.endDate)}
+                      </Heading>
+                    </EndDate>
+
+                    <EndDate>
+                      <Heading as="p">
+                        {t("invoice:paymentDeadline")}:{" "}
+                        {formatDate(invoice.paymentDeadline)}
+                      </Heading>
+                    </EndDate>
+                  </UserCol2>
+                </ClientDetails>
+              </>
+            ) : (
+              <>
+                <UserDetails>
+                  <div>
+                    <Heading as="h6" weight="bold">
+                      {userData?.companyName}
+                    </Heading>
+
+                    <Heading as="p">{userData?.companyAddress}</Heading>
+
+                    <Heading as="p">
+                      {userData?.zipCode}, {userData?.city}, {userData?.country}
+                    </Heading>
+
+                    <Heading as="p">
+                      {t("form:taxNumber")}: {userData?.taxNumber}
+                    </Heading>
+                  </div>
+
+                  {userData?.logo && (
+                    <div>
+                      <Logo src={userData?.logo} alt="" />
+                    </div>
+                  )}
+
+                  <div>
+                    <Heading as="p">
+                      {t("form:trr")}: {userData?.trr}
+                    </Heading>
+
+                    {userData?.bic && (
+                      <Heading as="p">
+                        {t("form:bic")}: {userData?.bic}
+                      </Heading>
+                    )}
+
+                    <Heading as="p">
+                      {t("form:emailLabel")}: {userData?.email}
+                    </Heading>
+
+                    <Heading as="p">
+                      {t("form:phoneLabel")}: {userData?.phoneNumber}
+                    </Heading>
+
+                    {invoice?.client?.registrationNumber && (
+                      <Heading as="p">
+                        {t("form:registrationNumber")}:{" "}
+                        {invoice.client.registrationNumber}
+                      </Heading>
+                    )}
+                  </div>
+                </UserDetails>
+
+                <ClientDetails>
+                  <UserCol1>
+                    <Heading
+                      as="h6"
+                      weight="bold"
+                      padding={{
+                        xs: { right: 2 },
+                        sm: { right: 2 },
+                        md: { right: 4 },
+                      }}
+                    >
+                      {invoice.client.clientName}
+                    </Heading>
+                    <Heading as="p">{invoice.client.clientAddress}</Heading>
+                    <Heading as="p">
+                      {invoice.client.zipCode}, {invoice.client.city},
+                      {invoice.client.country}
+                    </Heading>
+                    <Heading as="p">
+                      {t("form:taxNumber")}: {invoice.client.taxNumber}
+                    </Heading>
+                    {invoice.client.registrationNumber && (
+                      <Heading as="p">
+                        {t("form:registrationNumber")}:{" "}
+                        {invoice.client.registrationNumber}
+                      </Heading>
+                    )}
+                  </UserCol1>
+
+                  <UserCol2>
+                    <Heading
+                      as="h5"
+                      weight="bold"
+                      padding={{
+                        xs: { bottom: 1 },
+                        sm: { bottom: 1 },
+                        md: { bottom: 1 },
+                      }}
+                    >
+                      {t("invoice:invoice")} #{invoice.invoiceNumber}
+                    </Heading>
+
+                    <StartDate>
+                      <Heading as="p">
+                        {t("invoice:dateFrom")}: {userData?.city},{" "}
+                        {formatDate(invoice.startDate)}
+                      </Heading>
+                    </StartDate>
+
+                    <EndDate>
+                      <Heading as="p">
+                        {t("invoice:dateTo")}: {formatDate(invoice.endDate)}
+                      </Heading>
+                    </EndDate>
+
+                    <EndDate>
+                      <Heading as="p">
+                        {t("invoice:paymentDeadline")}:{" "}
+                        {formatDate(invoice.paymentDeadline)}
+                      </Heading>
+                    </EndDate>
+                  </UserCol2>
+                </ClientDetails>
+              </>
+            )}
 
             {!isPhone ? (
               <Table>
                 <Head>
+                  <Item>No.</Item>
                   <Item>{t("invoice:item")}</Item>
                   <Item>{t("invoice:cost")}</Item>
                   <Item>{t("invoice:qty")}</Item>
@@ -424,6 +561,7 @@ const index: FC<NewInvoice> = ({ invoice }) => {
                 <Body>
                   {invoice?.items?.map((row, index) => (
                     <Wrap key={index}>
+                      <Item>{index + 1}</Item>
                       <Item>{row.name}</Item>
                       <Item>
                         {isNaN(Number(row.cost))

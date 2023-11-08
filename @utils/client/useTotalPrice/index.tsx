@@ -19,7 +19,8 @@ export const useTotalPrice = (tableData: IInvoiceItem[], tax?: number) => {
     setTotalPrice(price);
   }, [subTotalPrice, tax]);
 
-  const formattedTotalPrice = totalPrice.toLocaleString(undefined, {
+  const formattedTotalPrice = totalPrice.toLocaleString("en-US", {
+    style: "decimal",
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });

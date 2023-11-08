@@ -43,34 +43,33 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "flex-start",
+    alignItems: "flex-end",
     paddingHorizontal: 30,
     paddingVertical: 15,
     borderBottom: "1px solid black",
   },
 
   col: {
-    // width: "100%",
-    // display: "flex",
+    flex: "0 0 50%",
+    display: "flex",
     margin: 10,
-    // flexGrow: 1,
   },
 
-  col2: {
-    // width: "100%",
-    // display: "flex",
-    margin: 10,
-    // flexGrow: 1,
-  },
-
-  col3: {
+  logoCol: {
+    flex: "0 0 50%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    margin: 10,
+  },
+
+  col2: {
+    margin: 10,
   },
 
   image: {
-    width: "90px",
+    width: "80px",
+    marginBottom: 10,
   },
 
   name: {
@@ -188,90 +187,172 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
   return (
     <Document>
       <Page size="A4" style={styles.newInvoice}>
-        <View style={styles.details}>
-          <View style={styles.col}>
-            <Text style={styles.name}>{myAccount?.companyName}</Text>
-            <Text>{myAccount?.companyAddress}</Text>
-            <Text>
-              {myAccount?.zipCode}, {myAccount?.city}, {myAccount?.country}
-            </Text>
-            <Text>
-              {content?.taxNumber}: {myAccount?.taxNumber}
-            </Text>
-          </View>
+        {myAccount?.logo ? (
+          <>
+            <View style={styles.details}>
+              <View style={styles.logoCol}>
+                <Image src={myAccount.logo} style={styles.image} />
 
-          {myAccount?.logo && (
-            <View style={styles.col3}>
-              <Image src={myAccount.logo} style={styles.image} />
+                <Text style={styles.name}>{myAccount?.companyName}</Text>
+              </View>
+
+              <View style={styles.col2}>
+                <Text>
+                  {content?.taxNumber}: {myAccount?.taxNumber}
+                </Text>
+
+                {myAccount?.registrationNumber && (
+                  <Text>
+                    {content?.registrationNumber}:{" "}
+                    {myAccount?.registrationNumber}
+                  </Text>
+                )}
+
+                <Text>
+                  {content?.trr}: {myAccount?.trr}
+                </Text>
+
+                {myAccount?.bic && (
+                  <Text>
+                    {content?.bic}: {myAccount?.bic}
+                  </Text>
+                )}
+
+                <Text>
+                  {myAccount?.companyAddress}, {myAccount?.zipCode},{" "}
+                  {myAccount?.city}, {myAccount?.country}
+                </Text>
+
+                <Text>
+                  {content?.email}: {myAccount?.email}
+                </Text>
+
+                <Text>
+                  {content?.phone}: {myAccount?.phoneNumber}
+                </Text>
+              </View>
             </View>
-          )}
 
-          <View style={styles.col2}>
-            <Text>
-              {content?.trr}: {myAccount?.trr}
-            </Text>
+            <View style={styles.details}>
+              <View style={styles.col}>
+                <Text style={styles.name}>{invoice.client.clientName}</Text>
+                <Text>{invoice.client.clientAddress}</Text>
+                <Text>
+                  {myAccount?.zipCode}, {myAccount?.city}, {myAccount?.country}
+                </Text>
+                <Text>
+                  {content?.taxNumber}: {invoice.client.taxNumber}
+                </Text>
 
-            {myAccount?.bic ? (
-              <Text>
-                {content?.bic}: {myAccount?.bic}
-              </Text>
-            ) : (
-              <></>
-            )}
+                {invoice.client.registrationNumber ? (
+                  <Text>
+                    {content?.registrationNumber}:{" "}
+                    {invoice.client.registrationNumber}
+                  </Text>
+                ) : (
+                  <></>
+                )}
+              </View>
 
-            <Text>
-              {content?.email}: {myAccount?.email}
-            </Text>
-            <Text>
-              {content?.phone}: {myAccount?.phoneNumber}
-            </Text>
+              <View style={styles.col2}>
+                <Text style={styles.invoiceName}>
+                  {content?.invoice}: #{invoice.invoiceNumber}
+                </Text>
+                <Text>
+                  {content?.dateFrom}: {formatDate(invoice.startDate)}
+                </Text>
+                <Text>
+                  {content?.dateTo}: {formatDate(invoice.endDate)}
+                </Text>
+                <Text>
+                  {content?.paymentDeadline}:{" "}
+                  {formatDate(invoice.paymentDeadline)}
+                </Text>
+              </View>
+            </View>
+          </>
+        ) : (
+          <>
+            <View style={styles.details}>
+              <View style={styles.col}>
+                <Text style={styles.name}>{myAccount?.companyName}</Text>
+                <Text>{myAccount?.companyAddress}</Text>
+                <Text>
+                  {myAccount?.zipCode}, {myAccount?.city}, {myAccount?.country}
+                </Text>
+                <Text>
+                  {content?.taxNumber}: {myAccount?.taxNumber}
+                </Text>
+              </View>
 
-            {myAccount?.registrationNumber ? (
-              <Text>
-                {content?.registrationNumber}: {myAccount?.registrationNumber}
-              </Text>
-            ) : (
-              <></>
-            )}
-          </View>
-        </View>
+              <View style={styles.col2}>
+                <Text>
+                  {content?.trr}: {myAccount?.trr}
+                </Text>
 
-        <View style={styles.details}>
-          <View style={styles.col}>
-            <Text style={styles.name}>{invoice.client.clientName}</Text>
-            <Text>{invoice.client.clientAddress}</Text>
-            <Text>
-              {myAccount?.zipCode}, {myAccount?.city}, {myAccount?.country}
-            </Text>
-            <Text>
-              {content?.taxNumber}: {invoice.client.taxNumber}
-            </Text>
+                {myAccount?.bic ? (
+                  <Text>
+                    {content?.bic}: {myAccount?.bic}
+                  </Text>
+                ) : (
+                  <></>
+                )}
 
-            {invoice.client.registrationNumber ? (
-              <Text>
-                {content?.registrationNumber}:{" "}
-                {invoice.client.registrationNumber}
-              </Text>
-            ) : (
-              <></>
-            )}
-          </View>
+                <Text>
+                  {content?.email}: {myAccount?.email}
+                </Text>
+                <Text>
+                  {content?.phone}: {myAccount?.phoneNumber}
+                </Text>
 
-          <View style={styles.col2}>
-            <Text style={styles.invoiceName}>
-              {content?.invoice}: #{invoice.invoiceNumber}
-            </Text>
-            <Text>
-              {content?.dateFrom}: {formatDate(invoice.startDate)}
-            </Text>
-            <Text>
-              {content?.dateTo}: {formatDate(invoice.endDate)}
-            </Text>
-            <Text>
-              {content?.paymentDeadline}: {formatDate(invoice.paymentDeadline)}
-            </Text>
-          </View>
-        </View>
+                {myAccount?.registrationNumber ? (
+                  <Text>
+                    {content?.registrationNumber}:{" "}
+                    {myAccount?.registrationNumber}
+                  </Text>
+                ) : (
+                  <></>
+                )}
+              </View>
+            </View>
+
+            <View style={styles.details}>
+              <View style={styles.col}>
+                <Text style={styles.name}>{invoice.client.clientName}</Text>
+                <Text>{invoice.client.clientAddress}</Text>
+                <Text>
+                  {myAccount?.zipCode}, {myAccount?.city}, {myAccount?.country}
+                </Text>
+                <Text>
+                  {content?.taxNumber}: {invoice.client.taxNumber}
+                </Text>
+
+                {invoice.client.registrationNumber && (
+                  <Text>
+                    {content?.registrationNumber}:{" "}
+                    {invoice.client.registrationNumber}
+                  </Text>
+                )}
+              </View>
+
+              <View style={styles.col2}>
+                <Text style={styles.invoiceName}>
+                  {content?.invoice}: #{invoice.invoiceNumber}
+                </Text>
+                <Text>
+                  {content?.dateFrom}: {formatDate(invoice.startDate)}
+                </Text>
+                <Text>
+                  {content?.dateTo}: {formatDate(invoice.endDate)}
+                </Text>
+                <Text>
+                  {content?.paymentDeadline}:{" "}
+                  {formatDate(invoice.paymentDeadline)}
+                </Text>
+              </View>
+            </View>
+          </>
+        )}
 
         <View>
           <View style={styles.itemsHeader}>
@@ -288,14 +369,16 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
                 <Text style={styles.itemCost}>
                   {isNaN(Number(item.cost))
                     ? "Invalid cost"
-                    : Number(item.cost).toLocaleString(undefined, {
+                    : Number(item.cost).toLocaleString("en-US", {
+                        style: "decimal",
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 2,
                       })}
                 </Text>
                 <Text style={styles.itemQty}>{item.qty}</Text>
                 <Text style={styles.itemPrice}>
-                  {item.price.toLocaleString(undefined, {
+                  {item.price.toLocaleString("en-US", {
+                    style: "decimal",
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}

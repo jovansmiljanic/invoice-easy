@@ -2,7 +2,7 @@
 import type { FC, ChangeEvent } from "react";
 
 // Core
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 // Global styles
 import { Field, Label } from "@styles/Form";
@@ -40,6 +40,7 @@ const Item = styled.div`
   padding: 15px;
 
   &:nth-child(1) {
+    position: relative;
     flex: 0 0 50%;
   }
 
@@ -100,61 +101,84 @@ const Wrap = styled.div`
   `}
 `;
 
+// Dropdown styled component
+const Dropdown = styled.div`
+  position: absolute;
+  top: 100%;
+  background-color: white;
+`;
+
 interface Table {
   tableData: IInvoiceItem[];
   setTableData: (tableData: IInvoiceItem[]) => void;
 }
 
 const index: FC<Table> = ({ tableData, setTableData }) => {
-  const [productSuggestions, setProductSuggestions] = useState<Product[]>([]);
-
-  // Translation
   const { t } = useTranslation();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
 
-  // Function to call the API and fetch products
-  const fetchProducts = async (searchTerm: string) => {
-    const response = await fetch(`/api/products?name=${searchTerm}`);
-    const products = await response.json();
-    setProductSuggestions(products);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("/api/products");
+        const data = await response.json();
+        setProducts(data.items);
+      } catch (error) {
+        console.error("Failed to fetch products", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const filterProducts = (input: string) => {
+    const matchedProducts = products.filter(product =>
+      product.name.toLowerCase().includes(input.toLowerCase())
+    );
+    setFilteredProducts(matchedProducts);
   };
 
-  // Function to handle input changes in each cell
   const handleInputChange = (
     e: ChangeEvent<HTMLInputElement>,
     index: number,
     field: keyof IInvoiceItem
   ): void => {
-    const newData: IInvoiceItem[] = [...tableData];
+    const newData = [...tableData];
+    const newValue = e.target.value;
 
-    // Use type assertion to indicate the type of newData[index][field]
-    (newData[index][field] as string) = e.target.value;
+    // Check if the field is 'cost' or 'qty' and convert the input value to a number
+    if (field === "cost" || field === "qty") {
+      const numericValue = Number(newValue);
+      newData[index][field] = numericValue;
 
-    // Calculate the price
-    const cost = newData[index].cost;
-    const qty = newData[index].qty;
-
-    if (!isNaN(cost) && !isNaN(qty)) {
+      // Calculate the price if either cost or qty changes
+      const cost = newData[index].cost || 0; // Fallback to 0 if cost is not a number
+      const qty = newData[index].qty || 0; // Fallback to 0 if qty is not a number
       newData[index].price = cost * qty;
-    } else {
-      newData[index].price = 0;
-    }
+    } else if (field === "name") {
+      // If the field is 'name', we need to keep the string value
+      newData[index][field] = newValue;
+      filterProducts(newValue);
+    } // Add more else ifs here if there are other string fields
 
+    // Update the state with the new data
     setTableData(newData);
-
-    // If the name field is changed, fetch products
-    if (field === "name") {
-      console.log(e.target.value);
-    }
   };
 
-  // const handleProductSelect = (product: Product, index: number): void => {
-  //   const newData = [...tableData];
-  //   newData[index].name = product.name;
-  //   newData[index].cost = product.price; // Assuming 'cost' should be filled with 'price' from the product
-  //   newData[index].price = product.price; // Assuming this is the correct field to update
-  //   // Call other functions if needed to update qty and calculate final price
-  //   setTableData(newData);
-  // };
+  const handleSelectChange = (selectedProduct: Product, index: number) => {
+    const newData = [...tableData];
+    newData[index] = {
+      ...newData[index],
+      name: selectedProduct.name,
+      cost: +selectedProduct.price,
+      qty: newData[index].qty || 1, // Keep existing qty or default to 1
+      price: +selectedProduct.price, // Assuming price is the same as cost
+    };
+
+    setFilteredProducts([]);
+    setTableData(newData);
+  };
 
   // Function to handle adding a new row
   const addRow = () => {
@@ -202,6 +226,19 @@ const index: FC<Table> = ({ tableData, setTableData }) => {
                     onChange={e => handleInputChange(e, index, "name")}
                     value={row.name}
                   />
+
+                  {row.name && (
+                    <Dropdown>
+                      {filteredProducts.slice(0, 5).map((product, i) => (
+                        <div
+                          key={i}
+                          onClick={() => handleSelectChange(product, index)}
+                        >
+                          {product.name}
+                        </div>
+                      ))}
+                    </Dropdown>
+                  )}
                 </Item>
 
                 <Item>

@@ -19,7 +19,7 @@ export interface MyAccount {
 
   bankName: string;
   trr: string;
-  bic: string;
+  bic?: string;
 
   logo: string;
   signInvoice: boolean;
@@ -43,7 +43,7 @@ export interface IMyAccountForm {
 
   bankName: string;
   trr: string;
-  bic: string;
+  bic?: string;
 }
 
 export interface IContentValues {
