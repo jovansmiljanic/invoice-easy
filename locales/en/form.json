@@ -1,35 +1,47 @@
 {
-  "firstNameLabel": "First name",
+  "firstNameLabel": "First Name",
   "firstNamePlaceholder": "John",
-  "firstNameError": "Please enter first name",
+  "firstNameError": "Please enter a first name",
 
-  "lastNameLabel": "Last name",
+  "lastNameLabel": "Last Name",
   "lastNamePlaceholder": "Doe",
-  "lastNameError": "Please enter last name",
+  "lastNameError": "Please enter a last name",
 
-  "phoneLabel": "Phone number",
+  "fullNameLabel": "Full Name",
+  "fullNamePlaceholder": "John Doe",
+  "fullNameError": "Please enter your full name",
+
+  "emailLabel": "Email",
+  "emailPlaceholder": "john.doe@gmail.com",
+  "emailError": "Please enter your email address",
+
+  "phoneLabel": "Phone Number",
   "phonePlaceholder": "+123 45 678 910",
-  "phoneError": "Please enter phone number",
+  "phoneError": "Please enter a phone number",
 
-  "taxNumber": "Tax number",
+  "taxNumber": "Tax ID",
   "taxNumberPlaceholder": "123456789",
-  "taxNumberError": "Please enter tax number",
+  "taxNumberError": "Please enter Tax ID",
 
-  "companyField": "Company field",
-  "companyFieldPlaceholder": "Company field",
-  "companyFieldError": "Please enter company field",
+  "registrationNumber": "Registration Number",
+  "registrationNumberPlaceholder": "123456789",
+  "registrationNumberError": "Please enter registration number",
 
-  "companyName": "Company name",
-  "companyNamePlaceholder": "Company name",
+  "companyField": "Field of Operation",
+  "companyFieldPlaceholder": "Field of Operation",
+  "companyFieldError": "Please enter field of operation",
+
+  "companyName": "Company Name",
+  "companyNamePlaceholder": "Company Name",
   "companyNameError": "Please enter company name",
 
-  "companyAddress": "Company address",
-  "companyAddressPlaceholder": "Company address",
+  "companyAddress": "Company Address",
+  "companyAddressPlaceholder": "Company Address",
   "companyAddressError": "Please enter company address",
 
-  "zipCode": "Zip code",
-  "zipCodePlaceholder": "Zip code",
-  "zipCodeError": "Please enter zip code",
+  "zipCode": "ZIP Code",
+  "zipCodePlaceholder": "ZIP Code",
+  "zipCodeError": "Please enter ZIP code",
 
   "city": "City",
   "cityPlaceholder": "City",
@@ -39,52 +51,42 @@
   "countryPlaceholder": "Country",
   "countryError": "Please enter country",
 
-  "bankName": "Bank name",
-  "bankNamePlaceholder": "Bank name",
+  "bankName": "Bank Name",
+  "bankNamePlaceholder": "Bank Name",
   "bankNameError": "Please enter bank name",
 
-  "trr": "TRR",
-  "trrPlaceholder": "TRR (Transaction Reference Number)",
-  "trrError": "Please enter TRR",
+  "trr": "Account Number",
+  "trrPlaceholder": "Account Number",
+  "trrError": "Please enter account number",
 
   "bic": "BIC",
   "bicPlaceholder": "BIC (Bank Identifier Code)",
   "bicError": "Please enter BIC",
 
-  "fullNameLabel": "Full name",
-  "fullNamePlaceholder": "John Doe",
-  "fullNameError": "Please enter your full name",
-
-  "emailLabel": "Email",
-  "emailPlaceholder": "john.doe@gmail.com",
-  "emailError": "Please enter your email",
-
   "passwordLabel": "Password",
   "passwordPlaceholder": "*********",
   "passwordError": "Please enter your password",
 
-  "clientNameLabel": "Client name",
-  "clientNamePlaceholder": "Client name",
+  "clientNameLabel": "Client Name",
+  "clientNamePlaceholder": "Client Name",
   "clientNameError": "Please enter client name",
 
-  "clientAddressLabel": "Client address",
-  "clientAddressPlaceholder": "Client address",
+  "clientAddressLabel": "Client Address",
+  "clientAddressPlaceholder": "Client Address",
   "clientAddressError": "Please enter client address",
 
-  "signUpCta": "Sign up",
-  "signInCta": "Sign in",
+  "productNameLabel": "Product Name",
+  "productNamePlaceholder": "Product Name",
+  "productNameError": "Please enter product name",
 
-  "myAccountCta": "Submit",
+  "productPriceLabel": "Product Price",
+  "productPricePlaceholder": "Product Price",
+  "productPriceError": "Please enter product price",
+
+  "myAccountCta": "Confirm",
 
   "loading": "Loading...",
 
-  "signUpSwitchLabel": "Already have an account? ",
-  "signUpSwitchLink": "Sign in instead",
-
-  "signInSwitchLabel": "New on our platform?",
-  "signInSwitchLink": "Create account",
-
   "tooShort": "Too short!",
-  "tooLong": "Too long!",
-  "validEmailError": "Please enter a valid email address"
+  "tooLong": "Too long!"
 }

@@ -682,11 +682,6 @@ const index: FC<NewInvoice> = ({ invoice }) => {
               >
                 {t("invoice:ddvParagraphTwo")}
               </Heading>
-
-              <Heading as="p">
-                {t("invoice:invoiceFooterOne")} {userData?.bankName},{" "}
-                {t("invoice:invoiceFooterTwo")} {userData?.trr}.{" "}
-              </Heading>
             </Note>
 
             <Footer>

@@ -26,20 +26,8 @@ const index: FC = () => {
       >
         <Column responsivity={{ md: 6 }}>
           <Heading
-            as="h1"
+            as="h2"
             weight="bold"
-            padding={{
-              xs: { bottom: 1 },
-              sm: { bottom: 1 },
-              md: { bottom: 1 },
-            }}
-          >
-            404
-          </Heading>
-
-          <Heading
-            as="h4"
-            weight="semiBold"
             padding={{
               xs: { bottom: 1 },
               sm: { bottom: 1 },

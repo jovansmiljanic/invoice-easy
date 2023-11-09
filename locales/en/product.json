@@ -1,6 +1,5 @@
 {
-  "addNewCta": "Dodaj novi produkt",
-  "addNewClient": "Dodaj novi produkt",
-  "editClient": "Izmeni produkt",
-  "addNewProduct": "Dodaj novi produkt"
+  "title": "Products",
+  "addNewProduct": "Add New Product",
+  "searchLabel": "Search Products"
 }

@@ -2,24 +2,27 @@
   "cancelCta": "OTKAŽI",
   "saveCta": "SAČUVAJ",
   "deleteCta": "Obriši",
+
   "editCta": "Izmeni",
   "invoice": "Račun",
+
   "dateFrom": "Mesto i datum izdavanja računa",
   "dateTo": "Datum prometa dobara i usluga",
   "paymentDeadline": "Valuta dospeća",
+
   "item": "Artikal",
   "cost": "Cena",
   "qty": "Količina",
+  "unit": "JM",
   "price": "Ukupna cena",
+
   "subtotal": "Vrednost",
   "tax": "Porez",
   "total": "Ukupno",
+
   "ddvParagraphOne": "Napomena o poreskom oslobođenju:",
   "ddvParagraphTwo": "Oslobođeno plaćanja poreza na dodatu vrednost po članu 33. zakona o PDV-u",
-  "invoiceFooterOne": "Iznos računa uplatite na transakcioni račun otvoren kod",
-  "invoiceFooterTwo": "broj računa",
-  "invoiceFooterThree": "Prilikom plaćanja, pozovite se na broj računa",
-  "invoiceFooterFour": "Transakcioni račun otvoren kod",
+
   "addNewCta": "Dodaj novu stavku",
   "addNewClient": "Dodaj novog klijenta",
   "editClient": "Izmeni klijenta",

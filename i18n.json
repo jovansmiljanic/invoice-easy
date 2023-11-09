@@ -12,7 +12,8 @@
       "invoice",
       "clientDashboard",
       "invoiceDashboard",
-      "product"
+      "product",
+      "myAccount"
     ]
   }
 }

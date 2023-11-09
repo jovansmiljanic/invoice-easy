@@ -59,6 +59,7 @@ export interface IContentValues {
   item: string;
   cost: string;
   qty: string;
+  unit: string;
   price: string;
   subTotal: string;
   tax: string;
@@ -66,9 +67,5 @@ export interface IContentValues {
   invoice: string;
   ddvParagraphOne: string;
   ddvParagraphTwo: string;
-  footerParagrapOne: string;
-  footerParagrapTwo: string;
-  footerParagrapThree: string;
-  footerParagrapFour: string;
   currency: string;
 }

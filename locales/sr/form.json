@@ -1,102 +1,90 @@
 {
   "firstNameLabel": "Ime",
-  "firstNamePlaceholder": "John",
+  "firstNamePlaceholder": "Unesite ime",
   "firstNameError": "Molimo unesite ime",
 
   "lastNameLabel": "Prezime",
-  "lastNamePlaceholder": "Doe",
+  "lastNamePlaceholder": "Unesite prezime",
   "lastNameError": "Molimo unesite prezime",
 
-  "phoneLabel": "Broj telefona",
-  "phonePlaceholder": "+123 45 678 910",
-  "phoneError": "Molimo unesite broj telefona",
-
-  "taxNumber": "PIB",
-  "taxNumberPlaceholder": "123456789",
-  "taxNumberError": "Molimo unesite PIB",
-
-  "registrationNumber": "Matični broj",
-  "registrationNumberPlaceholder": "123456789",
-  "registrationNumberError": "Molimo unesite matični broj",
-
-  "companyField": "Oblast delovanja",
-  "companyFieldPlaceholder": "Oblast delovanja",
-  "companyFieldError": "Molimo unesite oblast delovanja",
-
-  "companyName": "Naziv kompanije",
-  "companyNamePlaceholder": "Naziv kompanije",
-  "companyNameError": "Molimo unesite naziv kompanije",
-
-  "companyAddress": "Adresa kompanije",
-  "companyAddressPlaceholder": "Adresa kompanije",
-  "companyAddressError": "Molimo unesite adresu kompanije",
-
-  "zipCode": "Poštanski broj",
-  "zipCodePlaceholder": "Poštanski broj",
-  "zipCodeError": "Molimo unesite poštanski broj",
-
-  "city": "Grad",
-  "cityPlaceholder": "Grad",
-  "cityError": "Molimo unesite grad",
-
-  "country": "Zemlja",
-  "countryPlaceholder": "Zemlja",
-  "countryError": "Molimo unesite zemlju",
-
-  "bankName": "Naziv banke",
-  "bankNamePlaceholder": "Naziv banke",
-  "bankNameError": "Molimo unesite naziv banke",
-
-  "trr": "TR",
-  "trrPlaceholder": "TR (Broj računa)",
-  "trrError": "Molimo unesite TR",
-
-  "bic": "BIC",
-  "bicPlaceholder": "BIC (Šifra banke)",
-  "bicError": "Molimo unesite BIC",
-
   "fullNameLabel": "Ime i prezime",
-  "fullNamePlaceholder": "John Doe",
+  "fullNamePlaceholder": "Unesite ime i prezime",
   "fullNameError": "Molimo unesite svoje ime i prezime",
 
   "emailLabel": "Email",
-  "emailPlaceholder": "john.doe@gmail.com",
+  "emailPlaceholder": "Unesite email",
   "emailError": "Molimo unesite svoju email adresu",
 
+  "phoneLabel": "Broj telefona",
+  "phonePlaceholder": "Unesite broj telefona",
+  "phoneError": "Molimo unesite broj telefona",
+
+  "taxNumber": "PIB",
+  "taxNumberPlaceholder": "Unesite PIB",
+  "taxNumberError": "Molimo unesite PIB",
+
+  "registrationNumber": "Matični broj",
+  "registrationNumberPlaceholder": "Unesite matični broj",
+  "registrationNumberError": "Molimo unesite matični broj",
+
+  "companyField": "Oblast delovanja",
+  "companyFieldPlaceholder": "Unesite oblast delovanja",
+  "companyFieldError": "Molimo unesite oblast delovanja",
+
+  "companyName": "Naziv kompanije",
+  "companyNamePlaceholder": "Unesite naziv kompanije",
+  "companyNameError": "Molimo unesite naziv kompanije",
+
+  "companyAddress": "Adresa kompanije",
+  "companyAddressPlaceholder": "Unesite adresu kompanije",
+  "companyAddressError": "Molimo unesite adresu kompanije",
+
+  "zipCode": "Poštanski broj",
+  "zipCodePlaceholder": "Unesite poštanski broj",
+  "zipCodeError": "Molimo unesite poštanski broj",
+
+  "city": "Grad",
+  "cityPlaceholder": "Unesite grad",
+  "cityError": "Molimo unesite grad",
+
+  "country": "Zemlja",
+  "countryPlaceholder": "Unesite zemlju",
+  "countryError": "Molimo unesite zemlju",
+
+  "bankName": "Naziv banke",
+  "bankNamePlaceholder": "Unesite naziv banke",
+  "bankNameError": "Molimo unesite naziv banke",
+
+  "trr": "TR",
+  "trrPlaceholder": "Unesite TR (Broj računa)",
+  "trrError": "Molimo unesite TR",
+
+  "bic": "BIC",
+  "bicPlaceholder": "Unesite BIC (Šifra banke)",
+  "bicError": "Molimo unesite BIC",
+
   "passwordLabel": "Lozinka",
-  "passwordPlaceholder": "*********",
+  "passwordPlaceholder": "Unesite lozinku",
   "passwordError": "Molimo unesite svoju lozinku",
 
   "clientNameLabel": "Naziv klijenta",
-  "clientNamePlaceholder": "Naziv klijenta",
+  "clientNamePlaceholder": "Unesite naziv klijenta",
   "clientNameError": "Molimo unesite naziv klijenta",
 
   "clientAddressLabel": "Adresa klijenta",
-  "clientAddressPlaceholder": "Adresa klijenta",
+  "clientAddressPlaceholder": "Unesite adresu klijenta",
   "clientAddressError": "Molimo unesite adresu klijenta",
 
   "productNameLabel": "Ime produkta",
-  "productNamePlaceholder": "Ime produkta",
+  "productNamePlaceholder": "Unesite ime produkta",
   "productNameError": "Molimo unesite ime produkta",
 
   "productPriceLabel": "Cena produkta",
-  "productPricePlaceholder": "Cena produkta",
+  "productPricePlaceholder": "Unesite cenu produkta",
   "productPriceError": "Molimo unesite cenu produkta",
 
-  "signUpCta": "Registracija",
-  "signInCta": "Prijava",
-
   "myAccountCta": "Potvrdi",
-
   "loading": "Učitavanje...",
-
-  "signUpSwitchLabel": "Već imate nalog?",
-  "signUpSwitchLink": "Prijavite se",
-
-  "signInSwitchLabel": "Novi ste na našoj platformi?",
-  "signInSwitchLink": "Napravite nalog",
-
   "tooShort": "Prekratko!",
-  "tooLong": "Predugačko!",
-  "validEmailError": "Molimo vas unesite validnu email adresu!"
+  "tooLong": "Predugačko!"
 }

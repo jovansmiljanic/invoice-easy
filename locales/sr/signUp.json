@@ -1,4 +1,8 @@
 {
   "title": "Avantura počinje ovde 🚀",
-  "description": "Učinite fakturisanje lakim i zabavnim!"
+  "description": "Učinite fakturisanje lakim i zabavnim!",
+  "signUpCta": "Registracija",
+
+  "signUpSwitchLabel": "Već imate nalog?",
+  "signUpSwitchLink": "Prijavite se"
 }

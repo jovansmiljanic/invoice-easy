@@ -125,6 +125,7 @@ const index: FC<Download> = ({ invoice, type }) => {
     item: t("invoice:item"),
     cost: t("invoice:cost"),
     qty: t("invoice:qty"),
+    unit: t("invoice:unit"),
     price: t("invoice:price"),
     invoice: t("invoice:invoice"),
     subTotal: t("invoice:subtotal"),
@@ -133,10 +134,6 @@ const index: FC<Download> = ({ invoice, type }) => {
     total: t("invoice:total"),
     ddvParagraphOne: t("invoice:ddvParagraphOne"),
     ddvParagraphTwo: t("invoice:ddvParagraphTwo"),
-    footerParagrapOne: t("invoice:invoiceFooterOne"),
-    footerParagrapTwo: t("invoice:invoiceFooterTwo"),
-    footerParagrapThree: t("invoice:invoiceFooterThree"),
-    footerParagrapFour: t("invoice:invoiceFooterFour"),
     currency: t("invoice:currency"),
   };
 

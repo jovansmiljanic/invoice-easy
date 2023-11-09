@@ -3,12 +3,9 @@
   "invoices": "Računi",
   "clients": "Klijenti",
   "signOut": "Odjava",
+
   "boxInvoices": "Računi",
   "boxClients": "Klijenti",
   "boxInvoiced": "Fakturisano",
-  "boxPaid": "Plaćeno",
-
-  "personalInformation": "Lični podaci",
-  "companyInformation": "Informacije o kompaniji",
-  "bankInformation": "Bankovne informacije"
+  "boxPaid": "Plaćeno"
 }

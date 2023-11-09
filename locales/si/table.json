@@ -9,11 +9,11 @@
   "clientName": "Ime stranke",
   "clientAddress": "Naslov",
   "clientCountry": "Država",
-  "createInvoiceCta": "Ustvari nov račun",
+  "createInvoiceCta": "Ustvari račun",
   "searchLabel": "Išči račune",
   "filterLabel": "Filtriraj po statusu",
-  "chartLabel": "Mesečni status",
-  "paginationLabel": "Prikazano je",
+  "chartLabel": "Mesečni pregled",
+  "paginationLabel": "Prikazano",
   "paidStatus": "Plačano",
   "unPaidStatus": "Neplačano",
   "preview": "Predogled",
@@ -22,5 +22,5 @@
   "delete": "Izbriši",
   "download": "Prenesi",
   "of": "od",
-  "taxNumber": "Davcna stevilka"
+  "taxNumber": "Davčna številka"
 }

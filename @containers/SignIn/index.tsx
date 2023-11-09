@@ -89,7 +89,7 @@ const index: FC = () => {
 
   const SignInSchema = object().shape({
     email: string()
-      .email(t("form:validEmailError"))
+      .email(t("form:emailError"))
       .required(t("form:emailError")),
     password: string().required(t("form:passwordError")),
   });

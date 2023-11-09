@@ -1,7 +1,7 @@
 {
-  "title": "Sorry, page you requested was not found",
-  "description": "We suggest you go back to home",
-  "cta": "BACK TO HOME",
-  "confirmModalOne": "Are you sure you want to delete",
+  "title": "We're sorry, the page you were looking for was not found",
+  "description": "We suggest you return to the homepage",
+  "cta": "Back to homepage",
+  "confirmModalOne": "Are you sure you want to delete?",
   "confirmModalTwo": "This action cannot be undone."
 }

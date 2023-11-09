@@ -2,27 +2,30 @@
   "cancelCta": "PREKLIČI",
   "saveCta": "SHRANI",
   "deleteCta": "Izbriši",
+
   "editCta": "Uredi",
   "invoice": "Račun",
-  "dateFrom": "Datum od",
-  "dateTo": "Datum do",
+
+  "dateFrom": "Kraj in datum izdaje računa",
+  "dateTo": "Datum opravljanja storitev ali dobave blaga",
   "paymentDeadline": "Rok plačila",
+
   "item": "Artikel",
   "cost": "Cena",
   "qty": "Količina",
+  "unit": "EM",
   "price": "Skupna cena",
-  "subtotal": "Skupni znesek",
-  "tax": "Davčna obveznost",
+
+  "subtotal": "Vrednost",
+  "tax": "Davek",
   "total": "Skupaj",
-  "ddvParagraphOne": "DDV ni obračunan na podlagi 1. odstavka 94. člena Zakona o davku na dodano vrednost. (Nisem zavezanec za DDV). PRI POSLOVANJU NE UPORABLJAM ŽIGA.",
-  "ddvParagraphTwo": "",
-  "invoiceFooterOne": "Znesek računa poravnajte na transakcijski račun odprt pri",
-  "invoiceFooterTwo": "številka",
-  "invoiceFooterThree": "Pri plačilu se sklicujte na številko računa",
-  "invoiceFooterFour": "Transakcijski račun odprt pri",
-  "addNewCta": "Dodaj novo postavko",
-  "addNewClient": "Dodaj novo stranko",
+
+  "ddvParagraphOne": "Opomba o davčni oprostitvi:",
+  "ddvParagraphTwo": "DDV ni obračunan na podlagi 1. odstavka 94. člena Zakona o davku na dodano vrednost. (Nisem zavezanec za DDV). PRI POSLOVANJU NE UPORABLJAM ŽIGA.",
+
+  "addNewCta": "Dodaj nov artikel",
+  "addNewClient": "Dodaj novega stranko",
   "editClient": "Uredi stranko",
   "chooseClient": "Izberite obstoječega",
-  "currency": "€"
+  "currency": "Valuta"
 }

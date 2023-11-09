@@ -359,6 +359,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
             <Text style={styles.itemName}>{content?.item}</Text>
             <Text style={styles.itemCost}>{content?.cost}</Text>
             <Text style={styles.itemQty}>{content?.qty}</Text>
+            <Text style={styles.itemQty}>{content?.unit}</Text>
             <Text style={styles.itemPrice}>{content?.price}</Text>
           </View>
 
@@ -376,6 +377,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
                       })}
                 </Text>
                 <Text style={styles.itemQty}>{item.qty}</Text>
+                <Text style={styles.itemQty}>Kom</Text>
                 <Text style={styles.itemPrice}>
                   {item.price.toLocaleString("en-US", {
                     style: "decimal",
@@ -410,11 +412,6 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
         <View style={styles.note}>
           <Text>{content?.ddvParagraphOne}</Text>
           <Text>{content?.ddvParagraphTwo}</Text>
-
-          <Text style={styles.bankInfo}>
-            {content?.footerParagrapOne} {" " + myAccount?.bankName},{" "}
-            {content?.footerParagrapTwo} {myAccount?.trr}.
-          </Text>
         </View>
 
         {myAccount?.signInvoice ? (

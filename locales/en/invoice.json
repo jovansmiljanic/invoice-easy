@@ -2,27 +2,30 @@
   "cancelCta": "CANCEL",
   "saveCta": "SAVE",
   "deleteCta": "Delete",
-  "editCta": "Izmeni",
+
+  "editCta": "Edit",
   "invoice": "Invoice",
-  "dateFrom": "Date from",
-  "dateTo": "Date to",
-  "paymentDeadline": "Payment deadline",
+
+  "dateFrom": "Place and date of invoice issue",
+  "dateTo": "Date of goods and services transaction",
+  "paymentDeadline": "Payment due date",
+
   "item": "Item",
   "cost": "Cost",
-  "qty": "Qty",
+  "qty": "Quantity",
+  "unit": "UoM",
   "price": "Total price",
+
   "subtotal": "Subtotal",
   "tax": "Tax",
   "total": "Total",
-  "ddvParagraphOne": "DDV ni obračunan na podlagi 1. Odstavka 94. Člena Zakona o davku na dodano vrednost. (nisem zavezanec za DDV). PRI POSLOVANJU NE UPORABLJAM ŽIGA.",
-  "ddvParagraphTwo": "",
-  "invoiceFooterOne": "Please settle the invoice amount to the bank account opened at",
-  "invoiceFooterTwo": "number",
-  "invoiceFooterThree": "When making the payment, refer to the invoice number",
-  "invoiceFooterFour": "Bank account opened at",
+
+  "ddvParagraphOne": "Note on tax exemption:",
+  "ddvParagraphTwo": "Exempted from VAT payment under Article 33 of the VAT Act",
+
   "addNewCta": "Add new item",
   "addNewClient": "Add new client",
   "editClient": "Edit client",
-  "chooseClient": "Choose an existing one",
-  "currency": "€"
+  "chooseClient": "Choose existing",
+  "currency": "Currency"
 }

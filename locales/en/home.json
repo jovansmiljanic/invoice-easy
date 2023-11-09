@@ -3,12 +3,9 @@
   "invoices": "Invoices",
   "clients": "Clients",
   "signOut": "Sign Out",
+
   "boxInvoices": "Invoices",
   "boxClients": "Clients",
   "boxInvoiced": "Invoiced",
-  "boxPaid": "Paid",
-
-  "personalInformation": "Personal Information",
-  "companyInformation": "Company information",
-  "bankInformation": "Bank information"
+  "boxPaid": "Paid"
 }

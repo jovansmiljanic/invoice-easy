@@ -108,7 +108,7 @@ const index: FC = () => {
         t("form:fullNameError")
       ),
     email: Yup.string()
-      .email(t("form:validEmailError"))
+      .email(t("form:emailError"))
       .required(t("form:emailError")),
     password: Yup.string()
       .min(8, t("form:tooShort"))
@@ -162,10 +162,10 @@ const index: FC = () => {
                   url: "/api/registration",
                   data,
                 })
-                  .then((res) => {
+                  .then(res => {
                     router.push("/");
                   })
-                  .catch((err) => {
+                  .catch(err => {
                     console.log(err);
                   });
               }}
@@ -256,7 +256,7 @@ const index: FC = () => {
                       }}
                       isLoading={isSubmitting}
                     >
-                      {isSubmitting ? t("form:loading") : t("form:signUpCta")}
+                      {isSubmitting ? t("form:loading") : t("signUp:signUpCta")}
                     </Button>
                   </ButtonWrap>
                 </Form>
@@ -268,8 +268,8 @@ const index: FC = () => {
               textAlign={{ xs: "center", sm: "center", md: "center" }}
               padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
             >
-              {t("form:signUpSwitchLabel")}{" "}
-              <Link href="/">{t("form:signUpSwitchLink")}</Link>
+              {t("signUp:signUpSwitchLabel")}{" "}
+              <Link href="/">{t("signUp:signUpSwitchLink")}</Link>
             </Heading>
           </Wrapper>
         </Column>
