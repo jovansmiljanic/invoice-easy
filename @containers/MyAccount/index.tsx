@@ -35,8 +35,12 @@ const MyAccountContainer = styled.div`
   padding: 40px 20px;
   margin: 10px 0;
 
-  ${({ theme: { colors } }) => css`
+  ${({ theme: { colors, breakpoints } }) => css`
     background-color: ${colors.white};
+
+    @media (max-width: ${breakpoints.md}px) {
+      flex: 0 0 100%;
+    }
   `}
 `;
 

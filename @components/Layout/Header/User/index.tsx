@@ -1,5 +1,5 @@
 // Core types
-import { type FC } from "react";
+import { useContext, type FC } from "react";
 
 // Global components
 import { Heading, UserDropdown } from "@components";
@@ -15,6 +15,7 @@ import { useDropdown } from "@utils/client";
 
 // Icons
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
+import { StoreContext } from "@context";
 
 interface User {
   session: Session;
@@ -22,6 +23,8 @@ interface User {
 
 const index: FC<User> = ({ session }) => {
   const { isOpen, setIsOpen, ref } = useDropdown();
+
+  const { isPhone } = useContext(StoreContext);
 
   return (
     <UserModal ref={ref}>
@@ -33,9 +36,11 @@ const index: FC<User> = ({ session }) => {
           </Heading>
         </User>
 
-        <Wrap>
-          <Heading as="h6">Hello, {session.user.firstName}</Heading>
-        </Wrap>
+        {!isPhone && (
+          <Wrap>
+            <Heading as="h6">Hello, {session.user.firstName}</Heading>
+          </Wrap>
+        )}
 
         <KeyboardArrowDownOutlinedIcon />
       </Wrapper>

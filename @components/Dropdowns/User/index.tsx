@@ -19,6 +19,7 @@ import useTranslation from "next-translate/useTranslation";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 
 interface Dropdown {
@@ -63,6 +64,16 @@ const index: FC<Dropdown> = ({ session }) => {
 
           <Heading as="h6" textAlign={{ xs: "left", sm: "left", md: "left" }}>
             {t("home:clients")}
+          </Heading>
+        </DropdownItem>
+      </Link>
+
+      <Link href="/products">
+        <DropdownItem>
+          <Inventory2OutlinedIcon />
+
+          <Heading as="h6" textAlign={{ xs: "left", sm: "left", md: "left" }}>
+            Produkti
           </Heading>
         </DropdownItem>
       </Link>

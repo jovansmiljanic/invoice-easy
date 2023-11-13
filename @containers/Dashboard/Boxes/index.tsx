@@ -202,6 +202,10 @@ const Box = styled.div<{ isPriceShown?: string; isLoading?: boolean }>`
       &:nth-child(2) {
         margin-bottom: 10px;
       }
+
+      &:nth-child(3) {
+        margin-bottom: 10px;
+      }
     }
   `}
 `;

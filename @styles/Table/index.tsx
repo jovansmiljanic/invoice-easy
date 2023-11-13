@@ -4,20 +4,21 @@ import styled, { css } from "styled-components";
 export const Table = styled.table`
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 10px; // Creates separation between rows
+  border-spacing: 0 30px;
 
   ${({ theme: { colors, breakpoints } }) => css`
     thead {
       background-color: white;
       color: ${colors.textColor};
       border-radius: 5px;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
       tr {
         th {
           text-align: left;
           padding: 15px;
           font-weight: 700;
+
           &:last-child {
             text-align: right;
           }

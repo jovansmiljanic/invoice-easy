@@ -16,7 +16,7 @@ import type { Session } from "next-auth";
 import { StoreContext } from "@context";
 
 // Vendors
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 // Local components
 import { Sidebar } from "./Sidebar";
@@ -35,6 +35,12 @@ const Layout = styled.div`
   grid-template-columns: 250px 1fr;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
+
+  ${({ theme: { defaults, breakpoints } }) => css`
+    @media (max-width: ${breakpoints.md}px) {
+      grid-template-columns:  1fr;
+    }
+  `}
 `;
 
 const Main = styled.div`
@@ -47,7 +53,7 @@ const Main = styled.div`
 `;
 
 export const index: FC<Props> = ({ title, children, session }) => {
-  const { isModalOpen, isConfirmModal, isProductModalOpen } =
+  const { isPhone, isModalOpen, isConfirmModal, isProductModalOpen } =
     useContext(StoreContext);
 
   return (
@@ -58,11 +64,12 @@ export const index: FC<Props> = ({ title, children, session }) => {
 
       <Header session={session} />
 
-      <Sidebar />
+      {!isPhone && <Sidebar />}
 
       <Main>{children}</Main>
 
       <Footer />
+
       {isModalOpen && <AddClientModal />}
       {isProductModalOpen && <AddProductModal />}
       {isConfirmModal && <ConfirmDeleteModal />}
