@@ -17,7 +17,7 @@ import useTranslation from "next-translate/useTranslation";
 
 // Table component
 import { StoreContext } from "@context";
-import { Actions } from "../../Actions";
+import { ActionItems } from "./Actions";
 
 const Status = styled.div<{ status: "danger" | "success" }>`
   width: fit-content;
@@ -99,7 +99,7 @@ const index: FC<Item> = ({ updatedItems }) => {
         {t("invoice:currency")}
       </TableCell>
       <TableCell>
-        <Actions updatedItems={updatedItems} />
+        <ActionItems updatedItems={updatedItems} />
       </TableCell>
     </>
   );

@@ -25,6 +25,20 @@ import { Column, Container, Row } from "@components/Grid";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
+const Wrapper = styled.div`
+  padding: 40px 20px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
+  ${({ theme: { colors } }) => css`
+    background-color: ${colors.white};
+
+    a {
+      color: ${colors.secondary};
+    }
+  `}
+`;
+
 const Wrap = styled.div`
   display: flex;
   justify-content: center;
@@ -88,9 +102,7 @@ const index: FC = () => {
   const [isEyeOpened, setIsEyeOpened] = useState(false);
 
   const SignInSchema = object().shape({
-    email: string()
-      .email(t("form:emailError"))
-      .required(t("form:emailError")),
+    email: string().email(t("form:emailError")).required(t("form:emailError")),
     password: string().required(t("form:passwordError")),
   });
 
@@ -105,7 +117,7 @@ const index: FC = () => {
           md: { top: 0, bottom: 0 },
         }}
       >
-        <Column responsivity={{ md: 4 }}>
+        <Column responsivity={{ md: 5 }}>
           <Wrapper>
             <Wrap>
               <Logo $width="100" $height="50" $color="secondary" />
@@ -230,7 +242,9 @@ const index: FC = () => {
                       type="submit"
                       isLoading={isSubmitting}
                     >
-                      {isSubmitting ? t("form:loading") : t("form:signInCta")}
+                      {isSubmitting
+                        ? t("signIn:loading")
+                        : t("signIn:signInCta")}
                     </Button>
                   </ButtonWrap>
                 </form>
@@ -242,8 +256,8 @@ const index: FC = () => {
               textAlign={{ xs: "center", sm: "center", md: "center" }}
               padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
             >
-              {t("form:signInSwitchLabel")}{" "}
-              <Link href="/signup">{t("form:signInSwitchLink")}</Link>
+              {t("signIn:signInSwitchLabel")}{" "}
+              <Link href="/signup">{t("signIn:signInSwitchLink")}</Link>
             </Heading>
           </Wrapper>
         </Column>
@@ -253,17 +267,3 @@ const index: FC = () => {
 };
 
 export { index as SignIn };
-
-const Wrapper = styled.div`
-  padding: 40px 20px;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-
-  ${({ theme: { colors } }) => css`
-    border: 1px solid ${colors.lightGray};
-
-    a {
-      color: ${colors.secondary};
-    }
-  `}
-`;

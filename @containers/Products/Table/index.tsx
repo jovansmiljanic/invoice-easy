@@ -5,9 +5,6 @@ import { type FC, useContext, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
-// Local components
-import { ClientItem } from "./ClientItem";
-
 // Global types
 import { Product } from "@types";
 
@@ -16,9 +13,18 @@ import { StoreContext } from "@context";
 
 // Grid context from Client
 import { Placeholder } from "@components/Dashboard/Placeholder";
-import { GridContext } from "..";
+import { Table } from "@styles/Table";
+import { GridContext } from "@components/MainTable";
+import { copyText } from "@utils/shared";
+import { Actions } from "./Actions";
+import { DashboardFilters } from "../DashboardFilters";
+import { NotFound } from "../NotFound";
 
-const index: FC = () => {
+interface ProductTable {
+  setSearchQuery: any;
+}
+
+const index: FC<ProductTable> = ({ setSearchQuery }) => {
   // Translation
   const { t } = useTranslation();
 
@@ -44,21 +50,19 @@ const index: FC = () => {
     }
   }, [length]);
 
-  if (isLoading || !updatedItems || length === 0)
-    return <Placeholder items={tableHeader} limit={limit} />;
-
-  // if (showNotFound) {
-  //   return <NotFound />;
-  // }
+  if (isLoading) return <Placeholder items={tableHeader} limit={limit} />;
+  if (!isLoading && length === 0) return <NotFound />;
 
   return (
     <>
+      <DashboardFilters setSearchQuery={setSearchQuery} />
+
       <Table>
         {!isPhone && (
           <thead>
             <tr>
               {tableHeader.map((item, i) => (
-                <TableHeader key={i}>{item}</TableHeader>
+                <th key={i}>{item}</th>
               ))}
             </tr>
           </thead>
@@ -66,9 +70,16 @@ const index: FC = () => {
 
         <tbody>
           {Array.isArray(updatedItems) &&
-            updatedItems.map((item, i) => (
+            (updatedItems as Product[]).map((item, i) => (
               <tr key={i}>
-                <ClientItem updatedItems={item as Product} />
+                <td onClick={() => copyText(item._id.toString())}>
+                  #{item._id.toString().slice(19)}
+                </td>
+                <td>{item.name}</td>
+                <td>{item.price}</td>
+                <td>
+                  <Actions updatedItems={item as Product} />{" "}
+                </td>
               </tr>
             ))}
         </tbody>
@@ -77,41 +88,4 @@ const index: FC = () => {
   );
 };
 
-export { index as Table };
-
-const Table = styled.table`
-  width: 100%;
-
-  ${({ theme: { colors, breakpoints } }) => css`
-    border: 1px solid ${colors.lightGray};
-
-    thead {
-      border-bottom: 1px solid ${colors.lightGray};
-    }
-
-    @media (max-width: ${breakpoints.md}px) {
-      tr {
-        display: flex;
-        flex-direction: column;
-        border-bottom: 1px solid ${colors.lightGray};
-      }
-    }
-  `}
-`;
-
-const TableHeader = styled.th`
-  padding: 8px;
-  text-align: left;
-
-  &:last-child {
-    text-align: right;
-  }
-
-  ${({ theme: { breakpoints } }) => css`
-    @media (max-width: ${breakpoints.md}px) {
-      &:last-child {
-        text-align: left;
-      }
-    }
-  `}
-`;
+export { index as ProductTable };

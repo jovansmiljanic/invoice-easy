@@ -8,23 +8,12 @@ import { Button, Heading } from "@components";
 import { useRouter } from "next/router";
 
 // Vendors
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 const NotFound = styled.div`
+  padding: 40px 0;
   display: flex;
   justify-content: center;
-  align-items: center;
-
-  ${({ theme: { breakpoints } }) => css`
-    @media (max-width: ${breakpoints.md}px) {
-      text-align: center;
-      flex-direction: column;
-
-      svg {
-        width: 100%;
-      }
-    }
-  `}
 `;
 
 const index: FC = () => {
@@ -36,8 +25,8 @@ const index: FC = () => {
           as="h4"
           weight="bold"
           padding={{
-            xs: { bottom: 1, top: 4 },
-            sm: { bottom: 1, top: 4 },
+            xs: { bottom: 1 },
+            sm: { bottom: 1 },
             md: { bottom: 1 },
           }}
         >

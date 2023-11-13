@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { IInvoiceItem } from "@types";
 
 export const useSubTotalPrice = (tableData: IInvoiceItem[]) => {
-  return tableData.reduce((acc, item) => acc + +item.price, 0);
+  return tableData?.reduce((acc, item) => acc + +item.price, 0);
 };
 
 export const useTotalPrice = (tableData: IInvoiceItem[], tax?: number) => {

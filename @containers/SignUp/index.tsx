@@ -11,7 +11,7 @@ import { Button, ErrorWrap, Heading, Logo } from "@components";
 import axios from "axios";
 import * as Yup from "yup";
 import Link from "next/link";
-import { Formik, FormikHelpers } from "formik";
+import { Formik } from "formik";
 import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
   ${({ theme: { colors, breakpoints } }) => css`
-    border: 1px solid ${colors.lightGray};
+    background-color: ${colors.white};
 
     @media (max-width: ${breakpoints.md}px) {
       padding: 40px 10px;
@@ -127,7 +127,7 @@ const index: FC = () => {
           md: { top: 0, bottom: 0 },
         }}
       >
-        <Column responsivity={{ md: 4 }}>
+        <Column responsivity={{ md: 5 }}>
           <Wrapper>
             <Wrap>
               <Logo $width="100" $height="50" $color="secondary" />

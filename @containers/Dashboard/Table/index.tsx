@@ -1,88 +1,62 @@
 // Core types
-import { useContext, type FC } from "react";
-
-// Vendors
-import styled, { css } from "styled-components";
+import { type FC, useContext } from "react";
 
 // Local components
+import { NotFound } from "../NotFound";
 import { InvoiceItem } from "./InvoiceItem";
+import { DashboardFilters } from "../DashboardFilters";
 
 // Global types
 import { Invoice } from "@types";
 
-// Grid context
-
-// Local components
-import { NotFound } from "../NotFound";
-
 // Store context
 import { StoreContext } from "@context";
-import { Placeholder } from "@components/Dashboard";
-import { GridContext } from "..";
 
-const Table = styled.table`
-  width: 100%;
+// Global components
+import { Placeholder } from "@components";
 
-  ${({ theme: { colors, breakpoints } }) => css`
-    border: 1px solid ${colors.lightGray};
+// Global styles
+import { Table } from "@styles/Table";
 
-    thead {
-      border-bottom: 1px solid ${colors.lightGray};
-    }
-
-    @media (max-width: ${breakpoints.md}px) {
-      tr {
-        display: flex;
-        flex-direction: column;
-        border-bottom: 1px solid ${colors.lightGray};
-      }
-    }
-  `}
-`;
-
-const TableHeader = styled.th`
-  padding: 8px;
-  text-align: left;
-
-  &:last-child {
-    text-align: right;
-  }
-
-  ${({ theme: { breakpoints } }) => css`
-    @media (max-width: ${breakpoints.md}px) {
-      &:last-child {
-        text-align: left;
-      }
-    }
-  `}
-`;
+// Grid
+import { GridContext } from "@components/MainTable";
 
 interface Table {
   tableHeader: string[];
+  filterOptions: any;
+  statusSelected: any;
+  setSearchQuery: any;
 }
 
-const index: FC<Table> = ({ tableHeader }) => {
+const index: FC<Table> = ({
+  tableHeader,
+  filterOptions,
+  statusSelected,
+  setSearchQuery,
+}) => {
   // Grid context
   const { length, updatedItems, isLoading, limit } = useContext(GridContext);
 
   // Store context
   const { isPhone } = useContext(StoreContext);
 
-  if (length === 0) {
-    return <NotFound />;
-  }
-
-  if (isLoading || !updatedItems || length === 0)
-    return <Placeholder items={tableHeader} limit={limit} />;
+  if (isLoading) return <Placeholder items={tableHeader} limit={limit} />;
+  if (!isLoading && length === 0) return <NotFound />;
 
   return (
     <>
+      <DashboardFilters
+        filterOptions={filterOptions}
+        statusSelected={statusSelected}
+        setSearchQuery={setSearchQuery}
+      />
+
       <Table>
         {!isPhone && (
           <thead>
             <tr>
               {tableHeader.map((item, i) => (
-                <TableHeader key={i}>{item}</TableHeader>
+                <th key={i}>{item}</th>
               ))}
             </tr>
           </thead>
@@ -101,4 +75,4 @@ const index: FC<Table> = ({ tableHeader }) => {
   );
 };
 
-export { index as Table };
+export { index as DashboardTable };

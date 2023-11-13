@@ -1,41 +1,37 @@
-// GLobal types
 import { Invoice } from "@types";
 
 export const getTotalAmountsByMonth = (invoices?: Invoice[]) => {
+  if (!invoices) {
+    return {};
+  }
+
   const totalAmountsByMonth: Record<string, number> = {};
-
   const currentDate = new Date();
+  const sixMonthsAgo = new Date(
+    currentDate.setMonth(currentDate.getMonth() - 9)
+  );
 
-  invoices?.forEach((invoice) => {
-    const date = new Date(invoice.startDate);
+  invoices.forEach(invoice => {
+    const invoiceDate = new Date(invoice.startDate);
 
-    // Check if the invoice's start date is within the last 6 months from the current date
-    const sixMonthsAgo = new Date(currentDate);
-    sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 12);
-
-    if (date >= sixMonthsAgo) {
-      const yearMonth = `${date.getFullYear()}-${date.getMonth() + 1}`;
+    if (invoiceDate >= sixMonthsAgo) {
+      const yearMonth = `${invoiceDate.getFullYear()}-${String(
+        invoiceDate.getMonth() + 1
+      ).padStart(2, "0")}`;
 
       const totalAmount = invoice.items.reduce(
-        (total, item) => +total + +item.price,
+        (total, item) => total + Number(item.price),
         0
       );
 
-      if (totalAmountsByMonth.hasOwnProperty(yearMonth)) {
-        totalAmountsByMonth[yearMonth] += totalAmount;
-      } else {
-        totalAmountsByMonth[yearMonth] = totalAmount;
-      }
+      totalAmountsByMonth[yearMonth] =
+        (totalAmountsByMonth[yearMonth] || 0) + totalAmount;
     }
   });
 
-  // Custom sorting to sort months chronologically
-  const sortedTotalAmountsByMonth: Record<string, number> = {};
-  Object.keys(totalAmountsByMonth)
-    .sort((a, b) => new Date(a).valueOf() - new Date(b).valueOf())
-    .forEach((key) => {
-      sortedTotalAmountsByMonth[key] = totalAmountsByMonth[key];
-    });
-
-  return sortedTotalAmountsByMonth;
+  return Object.fromEntries(
+    Object.entries(totalAmountsByMonth).sort(
+      (a, b) => new Date(a[0]).getTime() - new Date(b[0]).getTime()
+    )
+  );
 };

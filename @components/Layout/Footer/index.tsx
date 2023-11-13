@@ -4,17 +4,31 @@ import type { FC } from "react";
 // Global components
 import { Heading, Logo } from "@components";
 
-// Global grid components
-import { Column, Container, Row } from "@components/Grid";
-
 // Vendors
+import Link from "next/link";
 import styled, { css } from "styled-components";
 
-const Border = styled.div`
-  width: 100%;
+const Footer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  padding: 25px;
+
+  grid-column: 2 / 3;
+  grid-row: 3;
+`;
+
+const Wrap = styled.div`
+  display: flex;
+  padding-top: 15px;
 
   ${({ theme: { colors } }) => css`
-    border-bottom: 1px solid ${colors.lightGray};
+    a {
+      margin: 0 5px;
+      color: ${colors.secondary};
+    }
   `}
 `;
 
@@ -23,26 +37,24 @@ const index: FC = () => {
   let year = date.getFullYear();
 
   return (
-    <Container>
-      <Border />
-      <Row
-        justifyContent={{ md: "center" }}
-        alignItems={{ md: "center" }}
-        padding={{
-          xs: { top: 3, bottom: 1 },
-          sm: { top: 3, bottom: 1 },
-          md: { top: 3, bottom: 1 },
-        }}
-      >
-        <Column responsivity={{ md: 6 }} textAlign={{ md: "right" }}>
-          <Logo $width="80" $height="35" $color="secondary" />
-        </Column>
+    <Footer>
+      <Logo $width="80" $height="35" $color="secondary" />
 
-        <Column responsivity={{ md: 6 }} textAlign={{ md: "left" }}>
-          <Heading as="p">© {year} Invoice easy. All rights reserved.</Heading>
-        </Column>
-      </Row>
-    </Container>
+      <Wrap>
+        <Link href="/">Home</Link>
+        <Link href="/invoices">Invoices</Link>
+        <Link href="/clients">Clients</Link>
+        <Link href="/products">Products</Link>
+        <Link href="/my-account">Settings</Link>
+      </Wrap>
+
+      <Heading
+        as="p"
+        padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
+      >
+        © {year} Invoice easy. All rights reserved.
+      </Heading>
+    </Footer>
   );
 };
 

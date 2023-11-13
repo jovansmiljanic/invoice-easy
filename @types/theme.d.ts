@@ -17,6 +17,8 @@ export interface Theme {
     warning: string;
     textColor: string;
     lightGray: string;
+    darkGray: string;
+    lighterGray: string;
     hoverGray: string;
     background: string;
     gray: string;

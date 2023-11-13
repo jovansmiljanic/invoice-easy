@@ -1,124 +1,46 @@
 // Core types
-import { type FC, useState, useRef, useEffect } from "react";
+import { type FC } from "react";
 
 // Global components
-import { Heading } from "@components";
+import { Heading, UserDropdown } from "@components";
 
 // Vendors
-import Link from "next/link";
-import { signOut } from "next-auth/react";
 import styled, { css } from "styled-components";
-import useTranslation from "next-translate/useTranslation";
-
-// Icons
-import ReceiptIcon from "@mui/icons-material/Receipt";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 
 // Vendor types
 import type { Session } from "next-auth";
+
+// CLient utils
+import { useDropdown } from "@utils/client";
+
+// Icons
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 
 interface User {
   session: Session;
 }
 
 const index: FC<User> = ({ session }) => {
-  // Translation
-  const { t } = useTranslation();
-
-  // Toggle resources dropdown
-  const [dropdown, setDropdown] = useState(false);
-
-  // Hide dropdown when clicked outside it's Ref
-  const navPopupRef = useRef<HTMLDivElement>(null);
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      navPopupRef.current &&
-      !navPopupRef.current.contains(event.target as Node)
-    ) {
-      setDropdown(false);
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, []);
-
-  // Function that handles sign out
-  const handleSignOut = () => {
-    signOut();
-  };
+  const { isOpen, setIsOpen, ref } = useDropdown();
 
   return (
-    <UserModal ref={navPopupRef}>
-      <User onClick={() => setDropdown(!dropdown)}>
-        <Heading as="h6" weight="semiBold">
-          {session.user.firstName.substring(0, 1)}
-          {session.user.lastName.substring(0, 1)}
-        </Heading>
-      </User>
+    <UserModal ref={ref}>
+      <Wrapper onClick={() => setIsOpen(!isOpen)}>
+        <User>
+          <Heading as="h6" weight="medium">
+            {session.user.firstName.substring(0, 1)}
+            {session.user.lastName.substring(0, 1)}
+          </Heading>
+        </User>
 
-      {dropdown && (
-        <Dropdown>
-          <DropdownItem borderBottom>
-            <Heading as="h6" weight="bold" textAlign={{ md: "center" }}>
-              {session.user.firstName} {session.user.lastName}
-            </Heading>
-          </DropdownItem>
+        <Wrap>
+          <Heading as="h6">Hello, {session.user.firstName}</Heading>
+        </Wrap>
 
-          <Link href="/my-account">
-            <DropdownItem>
-              <ManageAccountsOutlinedIcon />
+        <KeyboardArrowDownOutlinedIcon />
+      </Wrapper>
 
-              <Heading
-                as="h6"
-                textAlign={{ xs: "left", sm: "left", md: "left" }}
-              >
-                {t("home:myProfile")}
-              </Heading>
-            </DropdownItem>
-          </Link>
-
-          <Link href="/invoice">
-            <DropdownItem>
-              <ReceiptIcon />
-
-              <Heading
-                as="h6"
-                textAlign={{ xs: "left", sm: "left", md: "left" }}
-              >
-                {t("home:invoices")}
-              </Heading>
-            </DropdownItem>
-          </Link>
-
-          <Link href="/clients">
-            <DropdownItem>
-              <PeopleOutlineIcon />
-
-              <Heading
-                as="h6"
-                textAlign={{ xs: "left", sm: "left", md: "left" }}
-              >
-                {t("home:clients")}
-              </Heading>
-            </DropdownItem>
-          </Link>
-
-          <DropdownItem onClick={handleSignOut} borderTop>
-            <LogoutOutlinedIcon />
-
-            <Heading as="h6" textAlign={{ xs: "left", sm: "left", md: "left" }}>
-              {t("home:signOut")}
-            </Heading>
-          </DropdownItem>
-        </Dropdown>
-      )}
+      {isOpen && <UserDropdown session={session} />}
     </UserModal>
   );
 };
@@ -128,78 +50,32 @@ export { index as User };
 const UserModal = styled.div`
   position: relative;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 8px;
 `;
 
 const User = styled.div`
   width: 100%;
   height: 100%;
+  width: 43px;
+  height: 43px;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
+  border-radius: 10px;
 
   ${({ theme: { colors } }) => css`
     color: ${colors.white};
     background-color: ${colors.secondary};
-  `}
-`;
-
-const Dropdown = styled.div`
-  position: absolute;
-  top: 115%;
-  right: 0;
-  z-index: 100;
-
-  border-radius: 5px;
-  min-width: 200px;
-  text-align: center;
-  box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
-
-  ${({ theme: { colors } }) => css`
-    background-color: ${colors.background};
-  `}
-`;
-
-const DropdownItem = styled.div<{
-  borderTop?: boolean;
-  borderBottom?: boolean;
-}>`
-  padding: 15px 25px;
-
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-
-  ${({ borderTop, borderBottom, theme: { colors } }) => css`
-    color: ${colors.textColor};
-
-    h6 {
-      width: 100%;
-    }
-
-    svg {
-      margin-right: 10px;
-
-      path {
-        fill: ${colors.textColor};
-      }
-    }
-
-    &:hover {
-      background-color: ${colors.hoverGray};
-    }
-
-    ${borderTop &&
-    `
-      border-top: 1px solid ${colors.lightGray};
-    `}
-
-    ${borderBottom &&
-    `
-      border-bottom: 1px solid ${colors.lightGray};
-    `}
   `}
 `;

@@ -5,9 +5,10 @@ import { type FC, useState, useEffect } from "react";
 import { Invoice } from "@types";
 
 // Vendors
-import { Line } from "react-chartjs-2";
-import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
+
+// Chart js
+import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,10 +22,6 @@ import {
 
 // Client utils
 import { getTotalAmountsByMonth } from "@utils/client";
-
-const Wrap = styled.div`
-  width: 100%;
-`;
 
 interface LineChart {
   invoices?: Invoice[];
@@ -54,7 +51,7 @@ const index: FC<LineChart> = ({ invoices }) => {
   }, [invoices]);
 
   const labels = Object.keys(totalAmountsByMonth).sort();
-  const totalAmounts = labels.map((key) => totalAmountsByMonth[key]);
+  const totalAmounts = labels.map(key => totalAmountsByMonth[key]);
 
   const chartData = {
     labels,
@@ -69,11 +66,7 @@ const index: FC<LineChart> = ({ invoices }) => {
     ],
   };
 
-  return (
-    <Wrap>
-      <Line data={chartData} />
-    </Wrap>
-  );
+  return <Line data={chartData} />;
 };
 
 export { index as LineChart };

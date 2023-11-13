@@ -94,7 +94,7 @@ const GlobalStyle = createGlobalStyle<{ theme?: ThemeType }>`
       font-style: normal;
       font-feature-settings: "kern";
       font-size: ${size}px;
-      background-color: ${colors.background};
+      background-color: ${colors.white};
       color: ${colors.textColor};
       line-height: ${size * 1.5}px;
       font-family: ${family};

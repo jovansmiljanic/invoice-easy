@@ -8,6 +8,8 @@ export type Colors =
   | "warning"
   | "textColor"
   | "lightGray"
+  | "lighterGray"
+  | "darkGray"
   | "hoverGray"
   | "background"
   | "gray";

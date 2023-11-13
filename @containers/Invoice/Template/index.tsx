@@ -34,7 +34,7 @@ const NewInvoice = styled.div`
   box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
 
   ${({ theme: { colors } }) => css`
-    border: 1px solid ${colors.lightGray};
+    background-color: ${colors.white};
   `}
 `;
 
@@ -150,11 +150,11 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
       validationSchema={InvoiceSchema}
       onSubmit={async (data: FormikValues) => {
         await axios(invoice ? editOnSubmit(data) : addOnSubmit(data))
-          .then((res) => {
+          .then(res => {
             console.log(res);
             router.push("/");
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
           });
       }}
@@ -162,21 +162,8 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
       {({ handleSubmit, values, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
           <Container>
-            <Row
-              padding={{
-                xs: { top: 6, bottom: 6 },
-                sm: { top: 6, bottom: 6 },
-                md: { top: 10, bottom: 10 },
-              }}
-            >
-              <Column
-                responsivity={{ md: 9 }}
-                padding={{
-                  xs: { top: 4, bottom: 4 },
-                  sm: { top: 4, bottom: 4 },
-                  md: { top: 0, bottom: 10 },
-                }}
-              >
+            <Row padding={{ xs: { top: 4 }, sm: { top: 4 }, md: { top: 6 } }}>
+              <Column responsivity={{ md: 9 }}>
                 <NewInvoice>
                   <AccountDetails />
 
@@ -200,7 +187,10 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
                 </NewInvoice>
               </Column>
 
-              <Column responsivity={{ md: 3 }}>
+              <Column
+                responsivity={{ md: 3 }}
+                padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 4 } }}
+              >
                 <Options>
                   <Button
                     variant="secondary"

@@ -38,6 +38,8 @@ const index: FC = () => {
 
   const { userData, loading, error } = useFetchUserData();
 
+  console.log(userData);
+
   if (loading) return <>Loading....</>;
   if (!userData) return <>{t("form:loading")}</>;
 

@@ -11,6 +11,7 @@ import useTranslation from "next-translate/useTranslation";
 // SVG
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
+import { useDropdown } from "@utils/client";
 
 // Dropdown container
 const Container = styled.div`
@@ -104,8 +105,8 @@ const Item: FC<Item> = ({ label, value, setSelected, selected }) => {
   return (
     <Checkbox
       onClick={() => {
-        if (selected && selected.find((i) => i.value === value)) {
-          setSelected(selected.filter((i) => i.value !== value));
+        if (selected && selected.find(i => i.value === value)) {
+          setSelected(selected.filter(i => i.value !== value));
         } else {
           if (selected) {
             setSelected([{ value, label }, ...selected]);
@@ -116,7 +117,7 @@ const Item: FC<Item> = ({ label, value, setSelected, selected }) => {
       }}
     >
       <Check
-        active={Boolean(selected && selected.find((i) => i.value === value))}
+        active={Boolean(selected && selected.find(i => i.value === value))}
       />
       {label}
     </Checkbox>
@@ -168,42 +169,20 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
     setSelected(obj);
   };
 
-  // Toggle dropdown
-  const [isDropdownActive, setDropdown] = useState<boolean>(false);
-
-  // Hide dropdown when clicked outside it's Ref
-  const accountDropdownRef = useRef<HTMLDivElement>(null);
-
-  // Handle click outside it's Ref
-  const handleClickOutside = (event: MouseEvent) => {
-    if (
-      accountDropdownRef.current &&
-      !accountDropdownRef.current.contains(event.target as Node)
-    ) {
-      setDropdown(false);
-    }
-  };
-
-  // Detect click outside it's Ref
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, []);
+  const { isOpen, setIsOpen, ref } = useDropdown();
 
   // Translation
   const { t } = useTranslation();
 
   return (
-    <Filter ref={accountDropdownRef}>
+    <Filter ref={ref}>
       <Label
-        onClick={() => setDropdown(!isDropdownActive)}
+        onClick={() => setIsOpen(!isOpen)}
         active={Boolean(selected && selected?.length >= 1)}
       >
         <span>
           {selected && selected?.length > 0
-            ? selected?.map((select) =>
+            ? selected?.map(select =>
                 select.value === "1" ? (
                   <Status status={select.value}>{t("table:paidStatus")}</Status>
                 ) : select.value === "2" ? (
@@ -217,14 +196,10 @@ const index: FC<Filter> = ({ label, options, callback, preSelected }) => {
             : label}
         </span>
 
-        {isDropdownActive ? (
-          <ExpandLessOutlinedIcon />
-        ) : (
-          <ExpandMoreOutlinedIcon />
-        )}
+        {isOpen ? <ExpandLessOutlinedIcon /> : <ExpandMoreOutlinedIcon />}
       </Label>
 
-      {isDropdownActive && (
+      {isOpen && (
         <Dropdown
           selected={selected}
           setSelected={handleSelection}

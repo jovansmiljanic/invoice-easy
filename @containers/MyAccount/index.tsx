@@ -1,11 +1,8 @@
 // Core types
-import { type FC, useState, useEffect } from "react";
+import { type FC } from "react";
 
 // Global components
 import { Button, ErrorWrap, Heading } from "@components";
-
-// GLobal grid components
-import { Column, Container, Row } from "@components/Grid";
 
 // Vendors
 import axios from "axios";
@@ -24,15 +21,22 @@ import { IMyAccountForm } from "@types";
 // Client utils
 import { useFetchUserData } from "@utils/client";
 
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`;
+
 const MyAccountContainer = styled.div`
-  width: 100%;
-  border-radius: 5px;
+  flex: 0 0 49%;
+  border-radius: 10px;
   box-shadow: 0 2px 6px 0 rgba(67, 89, 113, 0.12);
   padding: 40px 20px;
   margin: 10px 0;
 
   ${({ theme: { colors } }) => css`
-    border: 1px solid ${colors.lightGray};
+    background-color: ${colors.white};
   `}
 `;
 
@@ -55,16 +59,14 @@ const Group = styled.div`
   padding-bottom: 10px;
 `;
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
 const index: FC = () => {
+  // Translation
   const { t } = useTranslation();
+
+  // Router
   const router = useRouter();
+
+  // User data
   const { userData, loading, error } = useFetchUserData();
 
   const initialValues: IMyAccountForm = {
@@ -139,414 +141,395 @@ const index: FC = () => {
   if (!userData) return <ErrorWrap>No user data available.</ErrorWrap>;
 
   return (
-    <Container>
-      <Row
-        padding={{
-          xs: { top: 6, bottom: 6 },
-          sm: { top: 6, bottom: 6 },
-          md: { top: 10, bottom: 6 },
-        }}
-        justifyContent={{ md: "center" }}
-        alignItems={{ md: "center" }}
-      >
-        <Column
-          responsivity={{ md: 9 }}
-          padding={{
-            xs: { top: 4, bottom: 4 },
-            sm: { top: 4, bottom: 4 },
-            md: { top: 0, bottom: 10 },
-          }}
-        >
-          <Formik
-            autoComplete="off"
-            initialValues={initialValues}
-            validationSchema={MyAccountSchema}
-            onSubmit={async (
-              data: IMyAccountForm,
-              { setSubmitting }: FormikHelpers<IMyAccountForm>
-            ) => {
-              handleSubmit(data, setSubmitting);
+    <Formik
+      autoComplete="off"
+      initialValues={initialValues}
+      validationSchema={MyAccountSchema}
+      onSubmit={async (
+        data: IMyAccountForm,
+        { setSubmitting }: FormikHelpers<IMyAccountForm>
+      ) => {
+        handleSubmit(data, setSubmitting);
+      }}
+    >
+      {({
+        handleChange,
+        handleSubmit,
+        handleBlur,
+        values,
+        errors,
+        touched,
+        isSubmitting,
+      }) => (
+        <Form id="myForm" onSubmit={handleSubmit}>
+          <MyAccountContainer>
+            <Heading
+              as="h5"
+              weight="semiBold"
+              padding={{
+                xs: { bottom: 6 },
+                sm: { bottom: 6 },
+                md: { bottom: 6 },
+              }}
+            >
+              {t("myAccount:personalInformation")}
+            </Heading>
+
+            <Wrapper>
+              <Group>
+                <Label>{t("form:firstNameLabel")}</Label>
+                <Field
+                  hasError={Boolean(errors.firstName && touched.firstName)}
+                  type="text"
+                  name="firstName"
+                  placeholder={t("form:firstNamePlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.firstName}
+                />
+
+                <ErrorWrap>
+                  {errors.firstName && touched.firstName ? (
+                    <>{errors.firstName}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:lastNameLabel")}</Label>
+                <Field
+                  hasError={Boolean(errors.lastName && touched.lastName)}
+                  type="text"
+                  name="lastName"
+                  placeholder={t("form:lastNamePlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.lastName}
+                />
+
+                <ErrorWrap>
+                  {errors.lastName && touched.lastName ? (
+                    <>{errors.lastName}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:emailLabel")}</Label>
+                <Field
+                  type="text"
+                  name="email"
+                  placeholder={t("form:emailPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  hasError={Boolean(errors.email && touched.email)}
+                />
+
+                <ErrorWrap>
+                  {errors.email && touched.email ? <>{errors.email}</> : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:phoneLabel")}</Label>
+                <Field
+                  type="text"
+                  name="phoneNumber"
+                  placeholder={t("form:phonePlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.phoneNumber}
+                  hasError={Boolean(errors.phoneNumber && touched.phoneNumber)}
+                />
+
+                <ErrorWrap>
+                  {errors.phoneNumber && touched.phoneNumber ? (
+                    <>{errors.phoneNumber}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+            </Wrapper>
+          </MyAccountContainer>
+
+          <MyAccountContainer>
+            <Heading
+              as="h5"
+              weight="semiBold"
+              padding={{
+                xs: { bottom: 6 },
+                sm: { bottom: 6 },
+                md: { bottom: 6 },
+              }}
+            >
+              {t("myAccount:companyInformation")}
+            </Heading>
+
+            <Wrapper>
+              <Group>
+                <Label>{t("form:companyField")}</Label>
+                <Field
+                  hasError={Boolean(
+                    errors.companyField && touched.companyField
+                  )}
+                  type="text"
+                  name="companyField"
+                  placeholder={t("form:companyFieldPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.companyField}
+                />
+
+                <ErrorWrap>
+                  {errors.companyField && touched.companyField ? (
+                    <>{errors.companyField}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:companyName")}</Label>
+                <Field
+                  hasError={Boolean(errors.companyName && touched.companyName)}
+                  type="text"
+                  name="companyName"
+                  placeholder={t("form:companyNamePlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.companyName}
+                />
+
+                <ErrorWrap>
+                  {errors.companyName && touched.companyName ? (
+                    <>{errors.companyName}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:taxNumber")}</Label>
+                <Field
+                  type="text"
+                  name="taxNumber"
+                  placeholder={t("form:taxNumberPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.taxNumber}
+                  hasError={Boolean(errors.taxNumber && touched.taxNumber)}
+                />
+
+                <ErrorWrap>
+                  {errors.taxNumber && touched.taxNumber ? (
+                    <>{errors.taxNumber}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:registrationNumber")}</Label>
+                <Field
+                  type="text"
+                  name="registrationNumber"
+                  placeholder={t("form:registrationNumberPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.registrationNumber}
+                  hasError={Boolean(
+                    errors.registrationNumber && touched.registrationNumber
+                  )}
+                />
+
+                <ErrorWrap>
+                  {errors.registrationNumber && touched.registrationNumber ? (
+                    <>{errors.registrationNumber}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+            </Wrapper>
+          </MyAccountContainer>
+
+          <MyAccountContainer>
+            <Heading
+              as="h5"
+              weight="semiBold"
+              padding={{
+                xs: { bottom: 6 },
+                sm: { bottom: 6 },
+                md: { bottom: 6 },
+              }}
+            >
+              {t("myAccount:companyInformation")}
+            </Heading>
+
+            <Wrapper>
+              <Group>
+                <Label>{t("form:companyAddress")}</Label>
+                <Field
+                  type="companyAddress"
+                  name="companyAddress"
+                  placeholder={t("form:companyAddressPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.companyAddress}
+                  hasError={
+                    errors.companyAddress && touched.companyAddress
+                      ? true
+                      : false
+                  }
+                />
+
+                <ErrorWrap>
+                  {errors.companyAddress && touched.companyAddress ? (
+                    <>{errors.companyAddress}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:zipCode")}</Label>
+                <Field
+                  type="text"
+                  name="zipCode"
+                  placeholder={t("form:zipCodePlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.zipCode}
+                  hasError={Boolean(errors.zipCode && touched.zipCode)}
+                />
+
+                <ErrorWrap>
+                  {errors.zipCode && touched.zipCode ? (
+                    <>{errors.zipCode}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:city")}</Label>
+                <Field
+                  type="text"
+                  name="city"
+                  placeholder={t("form:cityPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.city}
+                  hasError={Boolean(errors.city && touched.city)}
+                />
+
+                <ErrorWrap>
+                  {errors.city && touched.city ? <>{errors.city}</> : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:country")}</Label>
+                <Field
+                  type="text"
+                  name="country"
+                  placeholder={t("form:countryPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.country}
+                  hasError={Boolean(errors.country && touched.country)}
+                />
+
+                <ErrorWrap>
+                  {errors.country && touched.country ? (
+                    <>{errors.country}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+            </Wrapper>
+          </MyAccountContainer>
+
+          <MyAccountContainer>
+            <Heading
+              as="h5"
+              weight="semiBold"
+              padding={{
+                xs: { bottom: 6 },
+                sm: { bottom: 6 },
+                md: { bottom: 6 },
+              }}
+            >
+              {t("myAccount:bankInformation")}
+            </Heading>
+
+            <Wrapper>
+              <Group>
+                <Label>{t("form:bankName")}</Label>
+                <Field
+                  type="text"
+                  name="bankName"
+                  placeholder={t("form:bankNamePlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.bankName}
+                  hasError={Boolean(errors.bankName && touched.bankName)}
+                />
+
+                <ErrorWrap>
+                  {errors.bankName && touched.bankName ? (
+                    <ErrorWrap>{errors.bankName}</ErrorWrap>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:trr")}</Label>
+                <Field
+                  type="text"
+                  name="trr"
+                  placeholder={t("form:trrPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.trr}
+                  hasError={Boolean(errors.trr && touched.trr)}
+                />
+
+                <ErrorWrap>
+                  {errors.trr && touched.trr ? (
+                    <ErrorWrap>{errors.trr}</ErrorWrap>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+
+              <Group>
+                <Label>{t("form:bic")}</Label>
+                <Field
+                  type="text"
+                  name="bic"
+                  placeholder={t("form:bicPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.bic}
+                  hasError={Boolean(errors.bic && touched.bic)}
+                />
+
+                <ErrorWrap>
+                  {errors.bic && touched.bic ? (
+                    <ErrorWrap>{errors.bic}</ErrorWrap>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
+            </Wrapper>
+          </MyAccountContainer>
+
+          <Button
+            type="submit"
+            variant="secondary"
+            margin={{
+              xs: { top: 2 },
+              sm: { top: 2 },
+              md: { top: 2 },
             }}
+            isLoading={isSubmitting}
           >
-            {({
-              handleChange,
-              handleSubmit,
-              handleBlur,
-              values,
-              errors,
-              touched,
-              isSubmitting,
-            }) => (
-              <Form id="myForm" onSubmit={handleSubmit}>
-                <MyAccountContainer>
-                  <Heading
-                    as="h5"
-                    weight="semiBold"
-                    padding={{
-                      xs: { bottom: 6 },
-                      sm: { bottom: 6 },
-                      md: { bottom: 6 },
-                    }}
-                  >
-                    {t("home:personalInformation")}
-                  </Heading>
-
-                  <Wrapper>
-                    <Group>
-                      <Label>{t("form:firstNameLabel")}</Label>
-                      <Field
-                        hasError={Boolean(
-                          errors.firstName && touched.firstName
-                        )}
-                        type="text"
-                        name="firstName"
-                        placeholder={t("form:firstNamePlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.firstName}
-                      />
-
-                      <ErrorWrap>
-                        {errors.firstName && touched.firstName ? (
-                          <>{errors.firstName}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:lastNameLabel")}</Label>
-                      <Field
-                        hasError={Boolean(errors.lastName && touched.lastName)}
-                        type="text"
-                        name="lastName"
-                        placeholder={t("form:lastNamePlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.lastName}
-                      />
-
-                      <ErrorWrap>
-                        {errors.lastName && touched.lastName ? (
-                          <>{errors.lastName}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:emailLabel")}</Label>
-                      <Field
-                        type="text"
-                        name="email"
-                        placeholder={t("form:emailPlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.email}
-                        hasError={Boolean(errors.email && touched.email)}
-                      />
-
-                      <ErrorWrap>
-                        {errors.email && touched.email ? (
-                          <>{errors.email}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:phoneLabel")}</Label>
-                      <Field
-                        type="text"
-                        name="phoneNumber"
-                        placeholder={t("form:phonePlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.phoneNumber}
-                        hasError={Boolean(
-                          errors.phoneNumber && touched.phoneNumber
-                        )}
-                      />
-
-                      <ErrorWrap>
-                        {errors.phoneNumber && touched.phoneNumber ? (
-                          <>{errors.phoneNumber}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:taxNumber")}</Label>
-                      <Field
-                        type="text"
-                        name="taxNumber"
-                        placeholder={t("form:taxNumberPlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.taxNumber}
-                        hasError={Boolean(
-                          errors.taxNumber && touched.taxNumber
-                        )}
-                      />
-
-                      <ErrorWrap>
-                        {errors.taxNumber && touched.taxNumber ? (
-                          <>{errors.taxNumber}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:registrationNumber")}</Label>
-                      <Field
-                        type="text"
-                        name="registrationNumber"
-                        placeholder={t("form:registrationNumberPlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.registrationNumber}
-                        hasError={Boolean(
-                          errors.registrationNumber &&
-                            touched.registrationNumber
-                        )}
-                      />
-
-                      <ErrorWrap>
-                        {errors.registrationNumber &&
-                        touched.registrationNumber ? (
-                          <>{errors.registrationNumber}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-                  </Wrapper>
-                </MyAccountContainer>
-
-                <MyAccountContainer>
-                  <Heading
-                    as="h5"
-                    weight="semiBold"
-                    padding={{
-                      xs: { bottom: 6 },
-                      sm: { bottom: 6 },
-                      md: { bottom: 6 },
-                    }}
-                  >
-                    {t("home:companyInformation")}
-                  </Heading>
-
-                  <Wrapper>
-                    <Group>
-                      <Label>{t("form:companyField")}</Label>
-                      <Field
-                        hasError={Boolean(
-                          errors.companyField && touched.companyField
-                        )}
-                        type="text"
-                        name="companyField"
-                        placeholder={t("form:companyFieldPlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.companyField}
-                      />
-
-                      <ErrorWrap>
-                        {errors.companyField && touched.companyField ? (
-                          <>{errors.companyField}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:companyName")}</Label>
-                      <Field
-                        hasError={Boolean(
-                          errors.companyName && touched.companyName
-                        )}
-                        type="text"
-                        name="companyName"
-                        placeholder={t("form:companyNamePlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.companyName}
-                      />
-
-                      <ErrorWrap>
-                        {errors.companyName && touched.companyName ? (
-                          <>{errors.companyName}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:companyAddress")}</Label>
-                      <Field
-                        type="companyAddress"
-                        name="companyAddress"
-                        placeholder={t("form:companyAddressPlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.companyAddress}
-                        hasError={
-                          errors.companyAddress && touched.companyAddress
-                            ? true
-                            : false
-                        }
-                      />
-
-                      <ErrorWrap>
-                        {errors.companyAddress && touched.companyAddress ? (
-                          <>{errors.companyAddress}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:zipCode")}</Label>
-                      <Field
-                        type="text"
-                        name="zipCode"
-                        placeholder={t("form:zipCodePlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.zipCode}
-                        hasError={Boolean(errors.zipCode && touched.zipCode)}
-                      />
-
-                      <ErrorWrap>
-                        {errors.zipCode && touched.zipCode ? (
-                          <>{errors.zipCode}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:city")}</Label>
-                      <Field
-                        type="text"
-                        name="city"
-                        placeholder={t("form:cityPlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.city}
-                        hasError={Boolean(errors.city && touched.city)}
-                      />
-
-                      <ErrorWrap>
-                        {errors.city && touched.city ? (
-                          <>{errors.city}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:country")}</Label>
-                      <Field
-                        type="text"
-                        name="country"
-                        placeholder={t("form:countryPlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.country}
-                        hasError={Boolean(errors.country && touched.country)}
-                      />
-
-                      <ErrorWrap>
-                        {errors.country && touched.country ? (
-                          <>{errors.country}</>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-                  </Wrapper>
-                </MyAccountContainer>
-
-                <MyAccountContainer>
-                  <Heading
-                    as="h5"
-                    weight="semiBold"
-                    padding={{
-                      xs: { bottom: 6 },
-                      sm: { bottom: 6 },
-                      md: { bottom: 6 },
-                    }}
-                  >
-                    {t("home:bankInformation")}
-                  </Heading>
-
-                  <Wrapper>
-                    <Group>
-                      <Label>{t("form:bankName")}</Label>
-                      <Field
-                        type="text"
-                        name="bankName"
-                        placeholder={t("form:bankNamePlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.bankName}
-                        hasError={Boolean(errors.bankName && touched.bankName)}
-                      />
-
-                      <ErrorWrap>
-                        {errors.bankName && touched.bankName ? (
-                          <ErrorWrap>{errors.bankName}</ErrorWrap>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:trr")}</Label>
-                      <Field
-                        type="text"
-                        name="trr"
-                        placeholder={t("form:trrPlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.trr}
-                        hasError={Boolean(errors.trr && touched.trr)}
-                      />
-
-                      <ErrorWrap>
-                        {errors.trr && touched.trr ? (
-                          <ErrorWrap>{errors.trr}</ErrorWrap>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-
-                    <Group>
-                      <Label>{t("form:bic")}</Label>
-                      <Field
-                        type="text"
-                        name="bic"
-                        placeholder={t("form:bicPlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.bic}
-                        hasError={Boolean(errors.bic && touched.bic)}
-                      />
-
-                      <ErrorWrap>
-                        {errors.bic && touched.bic ? (
-                          <ErrorWrap>{errors.bic}</ErrorWrap>
-                        ) : null}
-                      </ErrorWrap>
-                    </Group>
-                  </Wrapper>
-                </MyAccountContainer>
-
-                <Button
-                  type="submit"
-                  variant="secondary"
-                  margin={{
-                    xs: { top: 2 },
-                    sm: { top: 2 },
-                    md: { top: 2 },
-                  }}
-                  isLoading={isSubmitting}
-                >
-                  {isSubmitting ? t("form:loading") : t("form:myAccountCta")}
-                </Button>
-              </Form>
-            )}
-          </Formik>
-        </Column>
-      </Row>
-    </Container>
+            {isSubmitting ? t("form:loading") : t("form:myAccountCta")}
+          </Button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

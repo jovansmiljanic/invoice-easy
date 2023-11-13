@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
 
   itemsTable: {
     paddingHorizontal: 30,
-    paddingVertical: 10,
+    paddingVertical: 6,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",

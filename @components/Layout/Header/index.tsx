@@ -1,90 +1,58 @@
 // Core types
 import type { FC } from "react";
 
-// Vendors
-import styled, { css } from "styled-components";
-
-// Vendor types
+// Next types
 import type { Session } from "next-auth";
 
-// Global grid components
-import { Column, Container, Row } from "@components/Grid";
+// Vendors
+import styled from "styled-components";
 
 // Local components
-import { Logo } from "./Logo";
 import { User } from "./User";
-import { ThemePicker } from "./ThemePicker";
-import { LanguagePicker } from "./LanguagePicker";
-import { VisibilityPicker } from "./VisibilityPicker";
-import Link from "next/link";
+import { Settings } from "./Settings";
+import { Notification } from "./Notification";
 
-const Border = styled.div`
-  width: 100%;
+// Global components
+import { Heading } from "@components";
 
-  ${({ theme: { colors } }) => css`
-    border-bottom: 1px solid ${colors.lightGray};
-  `}
+interface Header {
+  session?: Session;
+}
+
+const index: FC<Header> = ({ session }) => {
+  return (
+    <Header>
+      <Heading as="h4">Dashboard Overview</Heading>
+
+      <Wrap>
+        <Notification />
+
+        <Settings />
+
+        {session && <User session={session} />}
+      </Wrap>
+    </Header>
+  );
+};
+
+export { index as Header };
+
+const Header = styled.div`
+  grid-column: 2 / 3;
+  grid-row: 1;
+
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const Wrap = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+
+  svg {
+    margin-right: 12px;
+  }
 `;
-
-interface Header {
-  session?: Session | null;
-}
-
-const index: FC<Header> = ({ session }) => {
-  return (
-    <Container>
-      <Row
-        justifyContent={{
-          xs: "space-between",
-          sm: "space-between",
-          md: "space-between",
-        }}
-        alignItems={{ xs: "center", sm: "center", md: "center" }}
-        padding={{
-          xs: { top: 2, bottom: 2 },
-          sm: { top: 2, bottom: 2 },
-          md: { top: 2, bottom: 2 },
-        }}
-      >
-        <Column
-          responsivity={{ md: 3, sm: 4 }}
-          padding={{ xs: { bottom: 2 }, sm: { bottom: 2 }, md: { bottom: 2 } }}
-        >
-          <Logo />
-        </Column>
-
-        {/* <Column responsivity={{ md: 6 }} textAlign={{ md: "center" }}>
-          <Link href="/">Home</Link>
-          <Link href="/invoices">Invoices</Link>
-          <Link href="/clients">Clients</Link>
-        </Column> */}
-
-        <Column
-          responsivity={{ md: 9, sm: 4 }}
-          textAlign={{ md: "right" }}
-          padding={{ xs: { bottom: 2 }, sm: { bottom: 2 }, md: { bottom: 2 } }}
-        >
-          <Wrap>
-            <VisibilityPicker />
-
-            <ThemePicker />
-
-            <LanguagePicker />
-
-            {session && <User session={session} />}
-          </Wrap>
-        </Column>
-
-        <Border />
-      </Row>
-    </Container>
-  );
-};
-
-export { index as Header };

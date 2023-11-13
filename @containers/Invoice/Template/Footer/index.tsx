@@ -59,6 +59,7 @@ const index: FC = () => {
     <>
       <Note>
         <Heading as="p">{t("invoice:ddvParagraphOne")}</Heading>
+        <Heading as="p">{t("invoice:ddvParagraphTwo")}</Heading>
       </Note>
 
       <Footer>
