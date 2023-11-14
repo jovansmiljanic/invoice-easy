@@ -104,8 +104,9 @@ const styles = StyleSheet.create({
   },
 
   itemName: {
-    flex: "0 0 55%",
-    paddingRight: 10,
+    flex: "0 0 50%",
+    paddingRight: 20,
+    paddingLeft: 5,
   },
 
   itemCost: {
@@ -113,11 +114,18 @@ const styles = StyleSheet.create({
   },
 
   itemQty: {
-    flex: "0 0 15%",
+    flex: "0 0 12.5%",
+    textAlign: "center",
+  },
+
+  itemNo: {
+    flex: "0 0 5%",
+    textAlign: "left",
   },
 
   itemPrice: {
     flex: "0 0 15%",
+    paddingLeft: 10,
   },
 
   total: {
@@ -356,6 +364,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
 
         <View>
           <View style={styles.itemsHeader}>
+            <Text style={styles.itemNo}>Br.</Text>
             <Text style={styles.itemName}>{content?.item}</Text>
             <Text style={styles.itemCost}>{content?.cost}</Text>
             <Text style={styles.itemQty}>{content?.qty}</Text>
@@ -366,6 +375,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
           <View>
             {invoice.items.map((item, i) => (
               <View key={i} style={styles.itemsTable}>
+                <Text style={styles.itemNo}>{i + 1}</Text>
                 <Text style={styles.itemName}>{item.name}</Text>
                 <Text style={styles.itemCost}>
                   {isNaN(Number(item.cost))

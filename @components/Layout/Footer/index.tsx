@@ -22,6 +22,7 @@ const Footer = styled.div`
 
 const Wrap = styled.div`
   display: flex;
+  flex-wrap: wrap;
   padding-top: 15px;
 
   ${({ theme: { colors } }) => css`

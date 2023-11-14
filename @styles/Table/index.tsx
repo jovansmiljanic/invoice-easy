@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 export const Table = styled.table`
   width: 100%;
   border-collapse: separate;
-  border-spacing: 0 30px;
+  border-spacing: 0 10px;
 
   ${({ theme: { colors, breakpoints } }) => css`
     thead {
