@@ -5,7 +5,11 @@ export const formatDate = (date: Date) => {
     day: "2-digit",
   };
 
-  const formattedDate = new Date(date).toLocaleDateString("en-GB", options);
+  // Format the date to a YYYY-MM-DD format
+  const isoDate = new Date(date).toLocaleDateString("en-CA", options);
+
+  // Split the date, reverse the components, and join them with dots
+  const formattedDate = isoDate.split("-").reverse().join(".");
 
   return formattedDate;
 };

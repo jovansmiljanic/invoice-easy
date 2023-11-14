@@ -16,6 +16,7 @@ const Wrapper = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+
 const index: FC = () => {
   // Translation
   const { t } = useTranslation();

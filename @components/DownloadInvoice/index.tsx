@@ -1,9 +1,6 @@
 // Core
 import { FC } from "react";
 
-// Download File
-import { File } from "@containers/Invoice/Preview/File";
-
 // Vendors
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import styled, { css, keyframes } from "styled-components";
@@ -20,6 +17,7 @@ import { Button } from "@components";
 
 // Svg
 import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
+import { File } from "./File";
 
 // Animation
 const Loading = keyframes`

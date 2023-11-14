@@ -30,15 +30,18 @@ interface Props {
   session?: Session;
 }
 
-const Layout = styled.div`
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  grid-template-rows: auto 1fr auto;
-  min-height: 100vh;
+const Layout = styled.div<{ session?: Session }>`
+  ${({ session, theme: { breakpoints } }) => css`
+    ${session
+      ? `grid-template-columns: 250px 1fr;`
+      : `grid-template-columns: 0 1fr;`}
 
-  ${({ theme: { defaults, breakpoints } }) => css`
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+
     @media (max-width: ${breakpoints.md}px) {
-      grid-template-columns:  1fr;
+      grid-template-columns: 1fr;
     }
   `}
 `;
@@ -57,14 +60,14 @@ export const index: FC<Props> = ({ title, children, session }) => {
     useContext(StoreContext);
 
   return (
-    <Layout>
+    <Layout session={session}>
       <Head>
         <title>{`${title ? title + " - " : ""}Invoice easy`}</title>
       </Head>
 
-      <Header session={session} />
+      <Header session={session} title={title} />
 
-      {!isPhone && <Sidebar />}
+      {!isPhone && session && <Sidebar />}
 
       <Main>{children}</Main>
 

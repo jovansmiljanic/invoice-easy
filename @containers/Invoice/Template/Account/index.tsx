@@ -38,8 +38,6 @@ const index: FC = () => {
 
   const { userData, loading, error } = useFetchUserData();
 
-  console.log(userData);
-
   if (loading) return <>Loading....</>;
   if (!userData) return <>{t("form:loading")}</>;
 
@@ -55,14 +53,17 @@ const index: FC = () => {
         {userData?.companyAddress && (
           <Heading as="p">{userData.companyAddress}</Heading>
         )}
+
         <Heading as="p">
           {userData?.zipCode}, {userData?.city}, {userData?.country}
         </Heading>
+
         {userData?.taxNumber && (
           <Heading as="p">
             {t("form:taxNumber")}: {userData.taxNumber}
           </Heading>
         )}
+
         {userData?.registrationNumber && (
           <Heading as="p">
             {t("form:registrationNumber")}: {userData.registrationNumber}
@@ -76,16 +77,19 @@ const index: FC = () => {
             {t("form:trr")}: {userData.trr}
           </Heading>
         )}
+
         {userData?.bic && (
           <Heading as="p">
             {t("form:bic")}: {userData.bic}
           </Heading>
         )}
+
         {userData?.email && (
           <Heading as="p">
             {t("form:emailLabel")}: {userData.email}
           </Heading>
         )}
+
         {userData?.phoneNumber && (
           <Heading as="p">
             {t("form:phoneLabel")}: {userData.phoneNumber}

@@ -1,8 +1,12 @@
 // Core types
 import type { FC } from "react";
+import { useContext } from "react";
 
 // Next types
 import type { Session } from "next-auth";
+
+// NExtjs
+import Link from "next/link";
 
 // Vendors
 import styled from "styled-components";
@@ -13,16 +17,26 @@ import { Settings } from "./Settings";
 import { Notification } from "./Notification";
 
 // Global components
-import { Heading } from "@components";
+import { Heading, Logo } from "@components";
+import { StoreContext } from "@context";
 
 interface Header {
   session?: Session;
+  title?: string;
 }
 
-const index: FC<Header> = ({ session }) => {
+const index: FC<Header> = ({ session, title }) => {
+  const { isPhone, isTablet } = useContext(StoreContext);
+
   return (
     <Header>
-      <Heading as="h4">Dashboard Overview</Heading>
+      {isPhone ? (
+        <Link href="/">
+          <Logo $width="100" $height="60" $color="secondary" />
+        </Link>
+      ) : (
+        title && <Heading as="h4">{title}</Heading>
+      )}
 
       <Wrap>
         <Notification />

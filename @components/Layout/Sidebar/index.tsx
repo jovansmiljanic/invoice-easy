@@ -120,7 +120,9 @@ const index: FC = () => {
 
   return (
     <Sidebar>
-      <Logo $width="100" $height="50" $color="secondary" />
+      <Link href="/">
+        <Logo $width="100" $height="50" $color="secondary" />
+      </Link>
 
       <Wrap>
         {links.map((link, i) => (
