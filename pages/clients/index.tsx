@@ -23,13 +23,13 @@ export default function Page({ session }: ContentPageProps) {
   const { t } = useTranslation();
 
   return (
-    <Layout title="Dashboard" session={session}>
+    <Layout title={t("home:clientsTitle")} session={session}>
       <ClientsDashboard />
     </Layout>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async ctx => {
   // Check session
   const session = await getSession(ctx);
 

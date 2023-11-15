@@ -1,5 +1,8 @@
 {
   "title": "Produkti",
   "addNewProduct": "Dodaj novi produkt",
-  "searchLabel": "Pretrazi produkte"
+  "searchLabel": "Pretrazi produkte",
+
+  "notFoundTitle": "Produkti nisu pronađeni!",
+  "notFoundDescription": "Molimo kliknite na 'Dodaj novi produkt' da biste dodali ili promenite filtere."
 }

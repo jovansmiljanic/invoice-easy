@@ -7,9 +7,6 @@ import { Client, IInvoiceItem, Invoice } from "@types";
 // Global components
 import { Button } from "@components";
 
-// GLobal grid components
-import { Column, Container, Row } from "@components/Grid";
-
 // Vendors
 import axios from "axios";
 import * as Yup from "yup";
@@ -161,67 +158,55 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
     >
       {({ handleSubmit, values, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
-          <Container>
-            <Row padding={{ xs: { top: 4 }, sm: { top: 4 }, md: { top: 6 } }}>
-              <Column responsivity={{ md: 9 }}>
-                <NewInvoice>
-                  <AccountDetails />
+          <NewInvoice>
+            <AccountDetails />
 
-                  <ClientDetails
-                    client={client}
-                    currentClient={invoice?.client}
-                    startDate={startDate}
-                    setStartDate={setStartDate}
-                    endDate={endDate}
-                    setEndDate={setEndDate}
-                    deadlineDate={deadlineDate}
-                    setDeadlineDate={setDeadlineDate}
-                    invoice={invoice}
-                  />
+            <ClientDetails
+              client={client}
+              currentClient={invoice?.client}
+              startDate={startDate}
+              setStartDate={setStartDate}
+              endDate={endDate}
+              setEndDate={setEndDate}
+              deadlineDate={deadlineDate}
+              setDeadlineDate={setDeadlineDate}
+              invoice={invoice}
+            />
 
-                  <Table tableData={tableData} setTableData={setTableData} />
+            <Table tableData={tableData} setTableData={setTableData} />
 
-                  <Total tableData={tableData} />
+            <Total tableData={tableData} />
 
-                  <Footer />
-                </NewInvoice>
-              </Column>
+            <Footer />
+          </NewInvoice>
+          <Options>
+            <Button
+              variant="secondary"
+              type="submit"
+              disabled={isSubmitting}
+              margin={{
+                xs: { bottom: 1 },
+                sm: { bottom: 1 },
+                md: { bottom: 1 },
+              }}
+            >
+              {t("invoice:saveCta")}
+            </Button>
 
-              <Column
-                responsivity={{ md: 3 }}
-                padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 4 } }}
-              >
-                <Options>
-                  <Button
-                    variant="secondary"
-                    type="submit"
-                    disabled={isSubmitting}
-                    margin={{
-                      xs: { bottom: 1 },
-                      sm: { bottom: 1 },
-                      md: { bottom: 1 },
-                    }}
-                  >
-                    {t("invoice:saveCta")}
-                  </Button>
-
-                  <Button
-                    variant="danger"
-                    as="a"
-                    href="/"
-                    size="small"
-                    margin={{
-                      xs: { bottom: 1 },
-                      sm: { bottom: 1 },
-                      md: { bottom: 1 },
-                    }}
-                  >
-                    {t("invoice:cancelCta")}
-                  </Button>
-                </Options>
-              </Column>
-            </Row>
-          </Container>
+            <Button
+              variant="danger"
+              as="a"
+              href="/"
+              size="small"
+              margin={{
+                xs: { bottom: 1 },
+                sm: { bottom: 1 },
+                md: { bottom: 1 },
+              }}
+            >
+              {t("invoice:cancelCta")}
+            </Button>
+          </Options>
         </form>
       )}
     </Formik>

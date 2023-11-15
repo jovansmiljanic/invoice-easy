@@ -42,13 +42,13 @@ const LoadingButton = styled.div`
   margin-left: 8px;
 `;
 
-const ModalItem = styled.div`
+const ModalItem = styled.div<{ isLoading: boolean }>`
   padding: 10px 0 10px 20px;
   width: 100%;
   text-align: left;
   cursor: pointer;
 
-  ${({ theme: { colors } }) => css`
+  ${({ isLoading, theme: { colors } }) => css`
     color: ${colors.textColor};
 
     &:hover {
@@ -59,6 +59,23 @@ const ModalItem = styled.div`
       color: ${colors.danger};
       border-top: 1px solid ${colors.lightGray};
     }
+
+    ${isLoading &&
+    `
+        cursor: not-allowed;
+      `}
+  `}
+`;
+
+const Icon = styled.div<{ isLoading: boolean }>`
+  display: flex;
+  align-items: center;
+
+  ${({ isLoading, theme: {} }) => css`
+    ${isLoading &&
+    `
+      cursor: not-allowed;
+    `}
   `}
 `;
 
@@ -90,19 +107,28 @@ const index: FC<Download> = ({ invoice, type }) => {
             sm: { bottom: 2 },
             md: { bottom: 2 },
           }}
-          disabled={!userData}
-          isLoading={!userData}
+          disabled={loading}
+          isLoading={loading}
         >
           {t("table:download")}
         </Button>
       );
       break;
+
     case "icon":
-      renderedContent = <FileDownloadOutlinedIcon fontSize="small" />;
+      renderedContent = (
+        <Icon isLoading={loading}>
+          <FileDownloadOutlinedIcon fontSize="small" />
+        </Icon>
+      );
       break;
+
     case "modalItem":
-      renderedContent = <ModalItem>{t("table:download")}</ModalItem>;
+      renderedContent = (
+        <ModalItem isLoading={loading}>{t("table:download")}</ModalItem>
+      );
       break;
+
     default:
       renderedContent = <LoadingButton />;
   }
@@ -134,8 +160,6 @@ const index: FC<Download> = ({ invoice, type }) => {
     ddvParagraphTwo: t("invoice:ddvParagraphTwo"),
     currency: t("invoice:currency"),
   };
-
-  if (loading) return <div>Loading....</div>;
 
   return (
     <PDFDownloadLink

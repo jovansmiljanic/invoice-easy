@@ -10,6 +10,7 @@ export const Table = styled.table`
     thead {
       background-color: white;
       color: ${colors.textColor};
+      background-color: ${colors.white};
       border-radius: 5px;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -36,7 +37,7 @@ export const Table = styled.table`
         background-color: ${colors.white};
 
         &:hover {
-          background-color: ${colors.lighterGray};
+          background-color: ${colors.hoverGray};
           box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
         }
 

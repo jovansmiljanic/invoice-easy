@@ -15,7 +15,6 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Search, Filters } from "@components/Dashboard";
 import { Button } from "@components";
 import useTranslation from "next-translate/useTranslation";
-import { objectToQuery } from "@utils/shared";
 import { GridContext } from "@components/MainTable";
 import { StoreContext } from "@context";
 
@@ -27,6 +26,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  ${({ theme: { colors } }) => css`
+    background-color: ${colors.white};
+  `}
 `;
 
 const Col1 = styled.div`
@@ -101,7 +104,8 @@ const index: FC<Actions> = ({ setSearchQuery }) => {
   // Grid context
   const { searchQuery, limit, queryUrl, searchUrl } = useContext(GridContext);
 
-  const { setIsModalOpen, isModalOpen } = useContext(StoreContext);
+  const { setIsProductModalOpen, isProductModalOpen } =
+    useContext(StoreContext);
 
   // Handle types
   const handleChangeType = (selected: any) => {
@@ -135,16 +139,17 @@ const index: FC<Actions> = ({ setSearchQuery }) => {
             md: { left: 1 },
           }}
           as="a"
-          onClick={() => setIsModalOpen(!isModalOpen)}
+          onClick={() => setIsProductModalOpen(!isProductModalOpen)}
         >
           <AddOutlinedIcon />
-          {t("table:createInvoiceCta")}
+
+          {t("table:createProductCta")}
         </Button>
       </Col1>
 
       <Col2>
         <Search
-          placeholder={t("table:searchLabel")}
+          placeholder={t("table:productSearchLabel")}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           queryUrl={queryUrl}

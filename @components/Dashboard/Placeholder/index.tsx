@@ -2,7 +2,7 @@
 import { type FC } from "react";
 
 // Vendors
-import styled, { keyframes, css } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 // Create the keyframes
 const animate = keyframes`
@@ -28,46 +28,25 @@ export const Animation = styled.div`
   animation-name: ${animate};
 `;
 
-const Table = styled.table`
+const Table = styled.div`
   width: 100%;
-
-  thead {
-    height: 41px;
-  }
-
-  ${({ theme: { colors } }) => css`
-    border: 1px solid ${colors.lightGray};
-  `}
 `;
 
-const TableCell = styled.td`
-  padding: 8px;
+const Item = styled.div`
   height: 45px;
+  margin-bottom: 10px;
 `;
 
-interface Placeholder {
-  items?: string[];
-  limit: number;
-}
-
-const index: FC<Placeholder> = ({ items, limit }) => {
-  const arrayOfLengt = Array.from({ length: limit }, (_, index) => index);
+const index: FC = () => {
+  const arrayOfLengt = Array.from({ length: 12 }, (_, index) => index);
 
   return (
     <Table>
-      <thead></thead>
-
-      <tbody>
-        {arrayOfLengt.map((_, i) => (
-          <tr key={i}>
-            {items?.map((item, i) => (
-              <TableCell key={i}>
-                <Animation />
-              </TableCell>
-            ))}
-          </tr>
-        ))}
-      </tbody>
+      {arrayOfLengt.map((_, i) => (
+        <Item key={i}>
+          <Animation />
+        </Item>
+      ))}
     </Table>
   );
 };

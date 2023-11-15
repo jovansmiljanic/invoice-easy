@@ -2,7 +2,7 @@
   "title": "Dobrodošli na Invoice Easy! 👋",
   "description": "Molimo prijavite se na svoj nalog i započnite avanturu",
   "signInCta": "Prijava",
-
+  "loading": "Učitavanje...",
   "signInSwitchLabel": "Novi ste na našoj platformi?",
   "signInSwitchLink": "Napravite nalog"
 }

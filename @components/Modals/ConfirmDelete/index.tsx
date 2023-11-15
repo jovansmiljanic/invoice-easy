@@ -102,8 +102,7 @@ const index: FC = () => {
       <Modal ref={modalPopupRef}>
         <div>
           <Heading as="h5" padding={{ md: { top: 6, bottom: 1, left: 4 } }}>
-            {t("404:confirmModalOne")}{" "}
-            {clientData ? clientData.clientName : "this invoice"}?
+            {t("404:confirmModalOne")}
           </Heading>
 
           <Heading as="h6" padding={{ md: { left: 4 } }}>

@@ -29,10 +29,11 @@ const index: FC<ProductTable> = ({ setSearchQuery }) => {
   const { t } = useTranslation();
 
   // Sets state for not found icon
+  const [isLoading, setIsLoading] = useState(false);
   const [showNotFound, setShowNotFound] = useState(false);
 
   // Grid context
-  const { length, updatedItems, isLoading, limit } = useContext(GridContext);
+  const { length, updatedItems } = useContext(GridContext);
 
   // Store context
   const { isPhone } = useContext(StoreContext);
@@ -41,24 +42,27 @@ const index: FC<ProductTable> = ({ setSearchQuery }) => {
 
   useEffect(() => {
     if (length === 0) {
+      setIsLoading(true);
+
       const timer = setTimeout(() => {
         setShowNotFound(true);
-      }, 4000);
+        setIsLoading(false);
+      }, 3000);
       return () => clearTimeout(timer);
     } else {
       setShowNotFound(false);
+      setIsLoading(false);
     }
   }, [length]);
-
-  if (isLoading) return <Placeholder items={tableHeader} limit={limit} />;
-  if (!isLoading && length === 0) return <NotFound />;
 
   return (
     <>
       <DashboardFilters setSearchQuery={setSearchQuery} />
 
+      {isLoading ? <Placeholder /> : showNotFound && <NotFound />}
+
       <Table>
-        {!isPhone && (
+        {!isPhone && !showNotFound && !isLoading && (
           <thead>
             <tr>
               {tableHeader.map((item, i) => (

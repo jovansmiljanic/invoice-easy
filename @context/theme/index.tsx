@@ -23,7 +23,7 @@ const defaultTheme: ThemeType = {
     lighterGray: "#E0E0E0",
     darkGray: "#404040",
     hoverGray: "#4359710A",
-    background: "#FAFAFA",
+    background: "#f2f4fc",
     gray: "#64748B",
   },
   font: {
@@ -70,7 +70,7 @@ const darkTheme: ThemeType = {
     },
   },
   colors: {
-    white: "#FFFFFF",
+    white: "#1E1E1E",
     black: "#000000",
     primary: "#4BA3D9",
     secondary: "#7A7DFF",
@@ -82,7 +82,7 @@ const darkTheme: ThemeType = {
     lighterGray: "#BDBDBD",
     darkGray: "#303030",
     hoverGray: "#4359710A",
-    background: "#282C35",
+    background: "#2D2D2D",
     gray: "#64748B",
   },
   font: {

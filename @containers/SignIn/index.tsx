@@ -18,26 +18,9 @@ import useTranslation from "next-translate/useTranslation";
 // Global styles
 import { Field, Label } from "@styles/Form";
 
-// GLobal grid components
-import { Column, Container, Row } from "@components/Grid";
-
 // Icon
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-
-const Wrapper = styled.div`
-  padding: 40px 20px;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-
-  ${({ theme: { colors } }) => css`
-    background-color: ${colors.white};
-
-    a {
-      color: ${colors.secondary};
-    }
-  `}
-`;
 
 const Wrap = styled.div`
   display: flex;
@@ -107,163 +90,178 @@ const index: FC = () => {
   });
 
   return (
-    <Container height={82} alignCenter>
-      <Row
-        justifyContent={{ xs: "center", sm: "center", md: "center" }}
-        alignItems={{ xs: "center", sm: "center", md: "center" }}
-        padding={{
-          xs: { top: 10, bottom: 10 },
-          sm: { top: 10, bottom: 10 },
-          md: { top: 0, bottom: 0 },
-        }}
-      >
-        <Column responsivity={{ md: 5 }}>
-          <Wrapper>
-            <Wrap>
-              <Logo $width="100" $height="50" $color="secondary" />
-            </Wrap>
+    <Container>
+      <Wrapper>
+        <Wrap>
+          <Logo $width="100" $height="50" $color="secondary" />
+        </Wrap>
 
-            <Heading as="h4" weight="semiBold">
-              {t("signIn:title")}
-            </Heading>
+        <Heading as="h4" weight="semiBold">
+          {t("signIn:title")}
+        </Heading>
 
-            <Heading
-              as="h6"
-              padding={{
-                xs: { top: 1, bottom: 4 },
-                sm: { top: 1, bottom: 4 },
-                md: { top: 1, bottom: 4 },
-              }}
-            >
-              {t("signIn:description")}
-            </Heading>
+        <Heading
+          as="h6"
+          padding={{
+            xs: { top: 1, bottom: 4 },
+            sm: { top: 1, bottom: 4 },
+            md: { top: 1, bottom: 4 },
+          }}
+        >
+          {t("signIn:description")}
+        </Heading>
 
-            <Formik
-              autoComplete="off"
-              initialValues={{
-                email: "",
-                password: "",
-              }}
-              validationSchema={SignInSchema}
-              onSubmit={async (
-                values: Formvalues,
-                { setSubmitting }: FormikHelpers<Formvalues>
-              ) => {
-                await signIn("credentials", {
-                  email: values.email,
-                  password: values.password,
-                  redirect: false,
-                }).then(({ error }: any) => {
-                  if (error === "Verification failed") {
-                    setErrorMessage("Failed");
-                  } else {
-                    if (error) {
-                      // Alert error
-                      setErrorMessage(error);
+        <Formik
+          autoComplete="off"
+          initialValues={{
+            email: "",
+            password: "",
+          }}
+          validationSchema={SignInSchema}
+          onSubmit={async (
+            values: Formvalues,
+            { setSubmitting }: FormikHelpers<Formvalues>
+          ) => {
+            await signIn("credentials", {
+              email: values.email,
+              password: values.password,
+              redirect: false,
+            }).then(({ error }: any) => {
+              if (error === "Verification failed") {
+                setErrorMessage("Failed");
+              } else {
+                if (error) {
+                  // Alert error
+                  setErrorMessage(error);
 
-                      // Disable submitting
-                      setTimeout(() => {
-                        setSubmitting(false);
-                      }, 500);
-                    } else {
-                      // Set error to false
-                      setErrorMessage("");
+                  // Disable submitting
+                  setTimeout(() => {
+                    setSubmitting(false);
+                  }, 500);
+                } else {
+                  // Set error to false
+                  setErrorMessage("");
 
-                      // Reroute user to the dashboard
-                      router.push("/");
-                    }
-                  }
-                });
-              }}
-            >
-              {({
-                values,
-                touched,
-                errors,
-                handleChange,
-                handleSubmit,
-                isSubmitting,
-                handleBlur,
-              }) => (
-                <form onSubmit={handleSubmit}>
-                  <Group>
-                    <Label>{t("form:emailLabel")}</Label>
-                    <Field
-                      hasError={Boolean(errors.email && touched.email)}
-                      type="text"
-                      name="email"
-                      placeholder={t("form:emailPlaceholder")}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                    />
+                  // Reroute user to the dashboard
+                  router.push("/");
+                }
+              }
+            });
+          }}
+        >
+          {({
+            values,
+            touched,
+            errors,
+            handleChange,
+            handleSubmit,
+            isSubmitting,
+            handleBlur,
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <Group>
+                <Label>{t("form:emailLabel")}</Label>
+                <Field
+                  hasError={Boolean(errors.email && touched.email)}
+                  type="text"
+                  name="email"
+                  placeholder={t("form:emailPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                />
 
-                    <ErrorWrap>
-                      {errors.email && touched.email ? (
-                        <>{errors.email}</>
-                      ) : null}
-                    </ErrorWrap>
-                  </Group>
+                <ErrorWrap>
+                  {errors.email && touched.email ? (
+                    <ErrorWrap>{errors.email}</ErrorWrap>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
 
-                  <Group>
-                    <Label>{t("form:passwordLabel")}</Label>
-                    <PassWrap>
-                      <Field
-                        hasError={Boolean(errors.password && touched.password)}
-                        type={isEyeOpened ? "text" : "password"}
-                        name="password"
-                        placeholder={t("form:passwordPlaceholder")}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        value={values.password}
-                      />
+              <Group>
+                <Label>{t("form:passwordLabel")}</Label>
+                <PassWrap>
+                  <Field
+                    hasError={Boolean(errors.password && touched.password)}
+                    type={isEyeOpened ? "text" : "password"}
+                    name="password"
+                    placeholder={t("form:passwordPlaceholder")}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    value={values.password}
+                  />
 
-                      <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
-                        {isEyeOpened ? (
-                          <VisibilityOutlinedIcon />
-                        ) : (
-                          <VisibilityOffOutlinedIcon />
-                        )}
-                      </EyeWrap>
-                    </PassWrap>
+                  <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
+                    {isEyeOpened ? (
+                      <VisibilityOutlinedIcon />
+                    ) : (
+                      <VisibilityOffOutlinedIcon />
+                    )}
+                  </EyeWrap>
+                </PassWrap>
 
-                    <ErrorWrap>
-                      {errors.password && touched.password ? (
-                        <>{errors.password}</>
-                      ) : errorMessage ? (
-                        <>{errorMessage}</>
-                      ) : null}
-                    </ErrorWrap>
-                  </Group>
+                <ErrorWrap>
+                  {errors.password && touched.password ? (
+                    <>{errors.password}</>
+                  ) : errorMessage ? (
+                    <>{errorMessage}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
 
-                  <ButtonWrap>
-                    <Button
-                      variant="secondary"
-                      type="submit"
-                      isLoading={isSubmitting}
-                    >
-                      {isSubmitting
-                        ? t("signIn:loading")
-                        : t("signIn:signInCta")}
-                    </Button>
-                  </ButtonWrap>
-                </form>
-              )}
-            </Formik>
+              <ButtonWrap>
+                <Button
+                  variant="secondary"
+                  type="submit"
+                  isLoading={isSubmitting}
+                >
+                  {isSubmitting ? t("signIn:loading") : t("signIn:signInCta")}
+                </Button>
+              </ButtonWrap>
+            </form>
+          )}
+        </Formik>
 
-            <Heading
-              as="h6"
-              textAlign={{ xs: "center", sm: "center", md: "center" }}
-              padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
-            >
-              {t("signIn:signInSwitchLabel")}{" "}
-              <Link href="/signup">{t("signIn:signInSwitchLink")}</Link>
-            </Heading>
-          </Wrapper>
-        </Column>
-      </Row>
+        <Heading
+          as="h6"
+          textAlign={{ xs: "center", sm: "center", md: "center" }}
+          padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
+        >
+          {t("signIn:signInSwitchLabel")}{" "}
+          <Link href="/signup">{t("signIn:signInSwitchLink")}</Link>
+        </Heading>
+      </Wrapper>
     </Container>
   );
 };
 
 export { index as SignIn };
+
+const Container = styled.div`
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Wrapper = styled.div`
+  flex: 0 0 40%;
+
+  border-radius: 5px;
+  padding: 40px 20px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
+  ${({ theme: { colors, breakpoints } }) => css`
+    background-color: ${colors.white};
+
+    a {
+      color: ${colors.secondary};
+    }
+
+    @media (max-width: ${breakpoints.md}px) {
+      flex: 0 0 100%;
+    }
+  `}
+`;

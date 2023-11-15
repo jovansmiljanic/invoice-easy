@@ -26,7 +26,7 @@ interface Header {
 }
 
 const index: FC<Header> = ({ session, title }) => {
-  const { isPhone, isTablet } = useContext(StoreContext);
+  const { isPhone } = useContext(StoreContext);
 
   return (
     <Header>

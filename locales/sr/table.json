@@ -16,11 +16,18 @@
   "paginationLabel": "Prikazano je",
   "paidStatus": "Plaćeno",
   "unPaidStatus": "Neplaćeno",
+  "dueDateValue": "Isteklo",
+  "dayLeft": "Dan",
+  "daysLeft": "Dana",
   "preview": "Pregled",
   "markAsPaid": "Označi kao plaćeno",
   "edit": "Izmeni",
   "delete": "Obriši",
   "download": "Preuzmi",
   "of": "od",
-  "taxNumber": "Poreski broj"
+  "taxNumber": "Poreski broj",
+  "createClientCta": "Dodaj klijenta",
+  "clientSearchLabel": "Pretraži klijente",
+  "createProductCta": "Dodaj novi produkt",
+  "productSearchLabel": "Pretraži proizvode"
 }

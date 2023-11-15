@@ -1,11 +1,28 @@
 {
+  "home": "Početna",
   "myProfile": "Moj profil",
   "invoices": "Računi",
   "clients": "Klijenti",
+  "products": "Produkti",
   "signOut": "Odjava",
+
+  "greeting": "Zdravo",
+
+  "notificationTitle": "Obaveštenja",
+  "notificationContent": "Trenutno nemate ni jedno obaveštenje!",
+
+  "theme": "Tema:",
+  "visibility": "Vidljivost:",
+  "language": "Jezik:",
 
   "boxInvoices": "Računi",
   "boxClients": "Klijenti",
   "boxInvoiced": "Fakturisano",
-  "boxPaid": "Plaćeno"
+  "boxPaid": "Plaćeno",
+
+  "homeTitle": "Početna Strana",
+  "clientsTitle": "Klijenti",
+  "invoicesTitle": "Računi",
+  "productsTitle": "Produkti",
+  "myProfileTitle": "Moj Profil"
 }

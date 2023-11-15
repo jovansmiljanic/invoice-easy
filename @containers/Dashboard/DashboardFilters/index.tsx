@@ -26,13 +26,22 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  ${({ theme: { colors } }) => css`
+    background-color: ${colors.white};
+  `}
 `;
 
 const Col1 = styled.div`
   display: flex;
   align-items: center;
 
-  ${({ theme: { breakpoints } }) => css`
+  ${({ theme: { breakpoints, colors } }) => css`
+
+  a{
+color ${colors.textColor};
+  }
+
     @media (max-width: ${breakpoints.md}px) {
       width: 100%;
 

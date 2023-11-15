@@ -1,26 +1,14 @@
 // Core
-import { FC, useContext } from "react";
+import { FC } from "react";
 
 // Core types
 import { Invoice } from "@types";
 
-// Global components
-import { Heading } from "@components";
-
 // Vendors
 import styled, { css } from "styled-components";
-import useTranslation from "next-translate/useTranslation";
 
 // Client utils
-import {
-  formatDate,
-  useFetchUserData,
-  useSubTotalPrice,
-  useTotalPrice,
-} from "@utils/client";
-
-// Store context
-import { StoreContext } from "@context";
+import { useFetchUserData } from "@utils/client";
 
 // Clients download
 import { Actions } from "./Actions";

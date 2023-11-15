@@ -16,6 +16,7 @@ import { useDropdown } from "@utils/client";
 // Icons
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import { StoreContext } from "@context";
+import useTranslation from "next-translate/useTranslation";
 
 interface User {
   session: Session;
@@ -25,6 +26,9 @@ const index: FC<User> = ({ session }) => {
   const { isOpen, setIsOpen, ref } = useDropdown();
 
   const { isPhone } = useContext(StoreContext);
+
+  // Translation
+  const { t } = useTranslation();
 
   return (
     <UserModal ref={ref}>
@@ -38,7 +42,9 @@ const index: FC<User> = ({ session }) => {
 
         {!isPhone && (
           <Wrap>
-            <Heading as="h6">Hello, {session.user.firstName}</Heading>
+            <Heading as="h6">
+              {t("home:greeting")}, {session.user.firstName}
+            </Heading>
           </Wrap>
         )}
 

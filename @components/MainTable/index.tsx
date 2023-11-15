@@ -48,6 +48,7 @@ interface IGridContext {
   searchUrl: string;
   updatedItems: Invoice[] | Client[] | Product[];
   isLoading: boolean;
+  setIsLoading: any;
 }
 
 export const GridContext = createContext({} as IGridContext);
@@ -230,6 +231,7 @@ const index: FC<Dashboard> = ({ path, boxes }) => {
         searchUrl,
         updatedItems,
         isLoading,
+        setIsLoading,
       }}
     >
       {boxes && (

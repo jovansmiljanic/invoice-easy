@@ -15,7 +15,7 @@ import useTranslation from "next-translate/useTranslation";
 const NotFound = styled.div`
   padding: 40px 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 const index: FC = () => {
@@ -23,6 +23,7 @@ const index: FC = () => {
   const { t } = useTranslation();
 
   const { setIsModalOpen, isModalOpen } = useContext(StoreContext);
+
   return (
     <NotFound>
       <div>
@@ -54,10 +55,9 @@ const index: FC = () => {
           type="button"
           size="small"
           onClick={() => setIsModalOpen(!isModalOpen)}
-          margin={{ md: { left: 2 } }}
         >
           <AddOutlinedIcon />
-          {t("invoice:addNewClient")}
+          {t("table:createClientCta")}
         </Button>
       </div>
     </NotFound>

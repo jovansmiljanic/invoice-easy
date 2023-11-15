@@ -20,7 +20,7 @@ export const deleteItem = async ({ id, router, path }: DeleteItem) => {
     data: id,
   })
     .then((res: AxiosResponse) => {
-      router.asPath === "/clients" ? router.push("/clients") : router.push("/");
+      router.push(router.asPath);
     })
     .catch(({ response }) => {
       // Set error message

@@ -19,6 +19,7 @@ import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import useTranslation from "next-translate/useTranslation";
 
 const Sidebar = styled.div`
   grid-column: 1 / 2;
@@ -36,7 +37,7 @@ const Sidebar = styled.div`
   align-items: flex-start;
 
   ${({ theme: { colors } }) => css`
-    background-color: ${colors.background};
+    background-color: ${colors.white};
   `}
 `;
 
@@ -88,31 +89,35 @@ const SignOut = styled.div`
 `;
 
 const index: FC = () => {
+  // Translation
+  const { t } = useTranslation();
+
+  // Router
   const router = useRouter();
 
   const links = [
     {
-      label: "Home",
+      label: t("home:home"),
       href: "/",
       icon: <HomeOutlinedIcon />,
     },
     {
-      label: "Invoices",
+      label: t("home:invoices"),
       href: "/invoice",
       icon: <FileCopyOutlinedIcon />,
     },
     {
-      label: "Clients",
+      label: t("home:clients"),
       href: "/clients",
       icon: <PeopleAltOutlinedIcon />,
     },
     {
-      label: "Products",
+      label: t("home:products"),
       href: "/products",
       icon: <Inventory2OutlinedIcon />,
     },
     {
-      label: "My account",
+      label: t("home:myProfile"),
       href: "/my-account",
       icon: <ManageAccountsOutlinedIcon />,
     },
@@ -138,7 +143,7 @@ const index: FC = () => {
 
       <SignOut onClick={() => signOut()}>
         <LogoutOutlinedIcon />
-        <span>Sign out</span>
+        <span>{t("home:signOut")}</span>
       </SignOut>
     </Sidebar>
   );

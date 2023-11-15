@@ -9,15 +9,20 @@ import { useRouter } from "next/router";
 
 // Vendors
 import styled from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 const NotFound = styled.div`
   padding: 40px 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 const index: FC = () => {
   const { locale } = useRouter();
+
+  // Translation
+  const { t } = useTranslation();
+
   return (
     <NotFound>
       <div>
@@ -30,7 +35,7 @@ const index: FC = () => {
             md: { bottom: 1 },
           }}
         >
-          No invoices found!
+          {t("invoice:notFoundTitle")}
         </Heading>
 
         <Heading
@@ -41,11 +46,11 @@ const index: FC = () => {
             md: { bottom: 2 },
           }}
         >
-          Please click on create invoice to start generating
+          {t("invoice:notFoundDescription")}
         </Heading>
 
         <Button variant="secondary" as="a" href={`/${locale}/invoice/add`}>
-          Create Invoice
+          {t("table:createInvoiceCta")}
         </Button>
       </div>
     </NotFound>

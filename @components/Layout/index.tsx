@@ -50,9 +50,13 @@ const Main = styled.div`
   grid-column: 2 / 3;
   grid-row: 2;
 
-  background-color: #f2f4fc;
+  background-color: ;
   border-radius: 10px;
   padding: 20px;
+
+  ${({ theme: { colors } }) => css`
+    background-color: ${colors.background};
+  `}
 `;
 
 export const index: FC<Props> = ({ title, children, session }) => {

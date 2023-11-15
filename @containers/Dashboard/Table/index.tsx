@@ -1,5 +1,5 @@
 // Core types
-import { type FC, useContext } from "react";
+import { type FC, useContext, useState, useEffect } from "react";
 
 // Local components
 import { NotFound } from "../NotFound";
@@ -35,13 +35,28 @@ const index: FC<Table> = ({
   setSearchQuery,
 }) => {
   // Grid context
-  const { length, updatedItems, isLoading, limit } = useContext(GridContext);
+  const { length, updatedItems } = useContext(GridContext);
+
+  // Sets state for not found icon
+  const [isLoading, setIsLoading] = useState(false);
+  const [showNotFound, setShowNotFound] = useState(false);
 
   // Store context
   const { isPhone } = useContext(StoreContext);
+  useEffect(() => {
+    if (length === 0) {
+      setIsLoading(true);
 
-  if (isLoading) return <Placeholder items={tableHeader} limit={limit} />;
-  if (!isLoading && length === 0) return <NotFound />;
+      const timer = setTimeout(() => {
+        setShowNotFound(true);
+        setIsLoading(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    } else {
+      setShowNotFound(false);
+      setIsLoading(false);
+    }
+  }, [length]);
 
   return (
     <>
@@ -51,8 +66,10 @@ const index: FC<Table> = ({
         setSearchQuery={setSearchQuery}
       />
 
+      {isLoading ? <Placeholder /> : showNotFound && <NotFound />}
+
       <Table>
-        {!isPhone && (
+        {!isPhone && !showNotFound && !isLoading && (
           <thead>
             <tr>
               {tableHeader.map((item, i) => (

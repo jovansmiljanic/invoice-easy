@@ -18,14 +18,21 @@ import useTranslation from "next-translate/useTranslation";
 // Form styles
 import { Field, Label } from "@styles/Form";
 
-// Global grid components
-import { Column, Container, Row } from "@components/Grid";
-
 // Icon
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
+const Container = styled.div`
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const Wrapper = styled.div`
+  flex: 0 0 40%;
+  
   padding: 40px 20px;
   border-radius: 5px;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
@@ -117,163 +124,151 @@ const index: FC = () => {
   });
 
   return (
-    <Container height={82} alignCenter>
-      <Row
-        justifyContent={{ xs: "center", sm: "center", md: "center" }}
-        alignItems={{ xs: "center", sm: "center", md: "center" }}
-        padding={{
-          xs: { top: 10, bottom: 10 },
-          sm: { top: 10, bottom: 10 },
-          md: { top: 0, bottom: 0 },
-        }}
-      >
-        <Column responsivity={{ md: 5 }}>
-          <Wrapper>
-            <Wrap>
-              <Logo $width="100" $height="50" $color="secondary" />
-            </Wrap>
+    <Container>
+      <Wrapper>
+        <Wrap>
+          <Logo $width="100" $height="50" $color="secondary" />
+        </Wrap>
 
-            <Heading as="h4" weight="semiBold">
-              {t("signUp:title")}
-            </Heading>
+        <Heading as="h4" weight="semiBold">
+          {t("signUp:title")}
+        </Heading>
 
-            <Heading
-              as="h6"
-              padding={{
-                xs: { top: 1, bottom: 4 },
-                sm: { top: 1, bottom: 4 },
-                md: { top: 1, bottom: 4 },
-              }}
-            >
-              {t("signUp:description")}
-            </Heading>
+        <Heading
+          as="h6"
+          padding={{
+            xs: { top: 1, bottom: 4 },
+            sm: { top: 1, bottom: 4 },
+            md: { top: 1, bottom: 4 },
+          }}
+        >
+          {t("signUp:description")}
+        </Heading>
 
-            <Formik
-              autoComplete="off"
-              initialValues={{
-                fullName: "",
-                email: "",
-                password: "",
-              }}
-              validationSchema={SignupSchema}
-              onSubmit={async (data: Formvalues) => {
-                await axios({
-                  method: "POST",
-                  url: "/api/registration",
-                  data,
-                })
-                  .then(res => {
-                    router.push("/");
-                  })
-                  .catch(err => {
-                    console.log(err);
-                  });
-              }}
-            >
-              {({
-                handleChange,
-                handleSubmit,
-                handleBlur,
-                values,
-                errors,
-                touched,
-                isSubmitting,
-              }) => (
-                <Form id="myForm" onSubmit={handleSubmit}>
-                  <Group>
-                    <Label>{t("form:fullNameLabel")}</Label>
-                    <Field
-                      hasError={Boolean(errors.fullName && touched.fullName)}
-                      type="text"
-                      name="fullName"
-                      placeholder={t("form:fullNamePlaceholder")}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.fullName}
-                    />
+        <Formik
+          autoComplete="off"
+          initialValues={{
+            fullName: "",
+            email: "",
+            password: "",
+          }}
+          validationSchema={SignupSchema}
+          onSubmit={async (data: Formvalues) => {
+            await axios({
+              method: "POST",
+              url: "/api/registration",
+              data,
+            })
+              .then(res => {
+                router.push("/");
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }}
+        >
+          {({
+            handleChange,
+            handleSubmit,
+            handleBlur,
+            values,
+            errors,
+            touched,
+            isSubmitting,
+          }) => (
+            <Form id="myForm" onSubmit={handleSubmit}>
+              <Group>
+                <Label>{t("form:fullNameLabel")}</Label>
+                <Field
+                  hasError={Boolean(errors.fullName && touched.fullName)}
+                  type="text"
+                  name="fullName"
+                  placeholder={t("form:fullNamePlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.fullName}
+                />
 
-                    <ErrorWrap>
-                      {errors.fullName && touched.fullName ? (
-                        <>{errors.fullName}</>
-                      ) : null}
-                    </ErrorWrap>
-                  </Group>
+                <ErrorWrap>
+                  {errors.fullName && touched.fullName ? (
+                    <>{errors.fullName}</>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
 
-                  <Group>
-                    <Label>{t("form:emailLabel")}</Label>
-                    <Field
-                      type="email"
-                      name="email"
-                      placeholder={t("form:emailPlaceholder")}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.email}
-                      hasError={errors.email && touched.email ? true : false}
-                    />
+              <Group>
+                <Label>{t("form:emailLabel")}</Label>
+                <Field
+                  type="email"
+                  name="email"
+                  placeholder={t("form:emailPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.email}
+                  hasError={errors.email && touched.email ? true : false}
+                />
 
-                    <ErrorWrap>
-                      {errors.email && touched.email ? (
-                        <>{errors.email}</>
-                      ) : null}
-                    </ErrorWrap>
-                  </Group>
+                <ErrorWrap>
+                  {errors.email && touched.email ? (
+                    <ErrorWrap>{errors.email}</ErrorWrap>
+                  ) : null}
+                </ErrorWrap>
+              </Group>
 
-                  <Group>
-                    <Label>{t("form:passwordLabel")}</Label>
-                    <Field
-                      type="password"
-                      name="password"
-                      placeholder={t("form:passwordPlaceholder")}
-                      onChange={handleChange}
-                      onBlur={handleBlur}
-                      value={values.password}
-                      hasError={Boolean(errors.password && touched.password)}
-                    />
+              <Group>
+                <Label>{t("form:passwordLabel")}</Label>
+                <Field
+                  type="password"
+                  name="password"
+                  placeholder={t("form:passwordPlaceholder")}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.password}
+                  hasError={Boolean(errors.password && touched.password)}
+                />
 
-                    <ErrorWrap>
-                      {errors.password && touched.password ? (
-                        <>{errors.password}</>
-                      ) : null}
-                    </ErrorWrap>
+                <ErrorWrap>
+                  {errors.password && touched.password ? (
+                    <>{errors.password}</>
+                  ) : null}
+                </ErrorWrap>
 
-                    <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
-                      {isEyeOpened ? (
-                        <VisibilityOutlinedIcon />
-                      ) : (
-                        <VisibilityOffOutlinedIcon />
-                      )}
-                    </EyeWrap>
-                  </Group>
+                <EyeWrap onClick={() => setIsEyeOpened(!isEyeOpened)}>
+                  {isEyeOpened ? (
+                    <VisibilityOutlinedIcon />
+                  ) : (
+                    <VisibilityOffOutlinedIcon />
+                  )}
+                </EyeWrap>
+              </Group>
 
-                  <ButtonWrap>
-                    <Button
-                      type="submit"
-                      variant="secondary"
-                      margin={{
-                        xs: { top: 1, bottom: 2 },
-                        sm: { top: 1, bottom: 2 },
-                        md: { top: 1, bottom: 2 },
-                      }}
-                      isLoading={isSubmitting}
-                    >
-                      {isSubmitting ? t("form:loading") : t("signUp:signUpCta")}
-                    </Button>
-                  </ButtonWrap>
-                </Form>
-              )}
-            </Formik>
+              <ButtonWrap>
+                <Button
+                  type="submit"
+                  variant="secondary"
+                  margin={{
+                    xs: { top: 1, bottom: 2 },
+                    sm: { top: 1, bottom: 2 },
+                    md: { top: 1, bottom: 2 },
+                  }}
+                  isLoading={isSubmitting}
+                >
+                  {isSubmitting ? t("form:loading") : t("signUp:signUpCta")}
+                </Button>
+              </ButtonWrap>
+            </Form>
+          )}
+        </Formik>
 
-            <Heading
-              as="h6"
-              textAlign={{ xs: "center", sm: "center", md: "center" }}
-              padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
-            >
-              {t("signUp:signUpSwitchLabel")}{" "}
-              <Link href="/">{t("signUp:signUpSwitchLink")}</Link>
-            </Heading>
-          </Wrapper>
-        </Column>
-      </Row>
+        <Heading
+          as="h6"
+          textAlign={{ xs: "center", sm: "center", md: "center" }}
+          padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
+        >
+          {t("signUp:signUpSwitchLabel")}{" "}
+          <Link href="/">{t("signUp:signUpSwitchLink")}</Link>
+        </Heading>
+      </Wrapper>
     </Container>
   );
 };

@@ -27,6 +27,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+
+  ${({ theme: { colors } }) => css`
+    background-color: ${colors.white};
+  `}
 `;
 
 const Col1 = styled.div`
@@ -137,13 +141,13 @@ const index: FC<Actions> = ({ setSearchQuery }) => {
           onClick={() => setIsModalOpen(!isModalOpen)}
         >
           <AddOutlinedIcon />
-          {t("table:createInvoiceCta")}
+          {t("table:createClientCta")}
         </Button>
       </Col1>
 
       <Col2>
         <Search
-          placeholder={t("table:searchLabel")}
+          placeholder={t("table:clientSearchLabel")}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
           queryUrl={queryUrl}

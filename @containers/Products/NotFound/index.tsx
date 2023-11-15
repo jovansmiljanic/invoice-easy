@@ -4,20 +4,21 @@ import { useContext, type FC } from "react";
 // Global components
 import { Button, Heading } from "@components";
 
-// NextJS
-import { useRouter } from "next/router";
-
 // Vendors
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { StoreContext } from "@context";
+import useTranslation from "next-translate/useTranslation";
 
 const NotFound = styled.div`
   padding: 40px 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 
 const index: FC = () => {
+  // Translation
+  const { t } = useTranslation();
+
   const { isProductModalOpen, setIsProductModalOpen } =
     useContext(StoreContext);
 
@@ -33,7 +34,7 @@ const index: FC = () => {
             md: { bottom: 1 },
           }}
         >
-          No products found!
+          {t("product:notFoundTitle")}
         </Heading>
 
         <Heading
@@ -44,14 +45,14 @@ const index: FC = () => {
             md: { bottom: 2 },
           }}
         >
-          Please click on create product to add first one!
+          {t("product:notFoundDescription")}
         </Heading>
 
         <Button
           variant="secondary"
           onClick={() => setIsProductModalOpen(!isProductModalOpen)}
         >
-          Create Invoice
+          {t("product:addNewProduct")}
         </Button>
       </div>
     </NotFound>

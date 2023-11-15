@@ -10,11 +10,10 @@ import { GetServerSideProps } from "next";
 // Vendors
 import { getSession } from "next-auth/react";
 
-// Global types
-import { Invoice } from "@types";
-
 // Vendor types
 import type { Session } from "next-auth";
+import useTranslation from "next-translate/useTranslation";
+
 import { ProductDashboard } from "@containers/Products";
 
 interface ContentPageProps {
@@ -22,14 +21,17 @@ interface ContentPageProps {
 }
 
 export default function Page({ session }: ContentPageProps) {
+  // Translation
+  const { t } = useTranslation();
+
   return (
-    <Layout title="Create new invoice" session={session}>
+    <Layout title={t("home:productsTitle")} session={session}>
       <ProductDashboard />
     </Layout>
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps = async ctx => {
   // Check session
   const session = await getSession(ctx);
 

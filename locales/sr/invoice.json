@@ -27,5 +27,8 @@
   "addNewClient": "Dodaj novog klijenta",
   "editClient": "Izmeni klijenta",
   "chooseClient": "Izaberite postojećeg",
-  "currency": ""
+  "currency": "",
+
+  "notFoundTitle": "Racuni nisu pronađeni!",
+  "notFoundDescription": "Molimo kliknite na 'NAPRAVI RAČUN' da biste dodali racun ili promenite filtere."
 }

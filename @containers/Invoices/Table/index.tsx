@@ -36,8 +36,7 @@ const index: FC<Table> = ({ tableHeader }) => {
     return <NotFound />;
   }
 
-  if (isLoading || !updatedItems || length === 0)
-    return <Placeholder items={tableHeader} limit={limit} />;
+  if (isLoading || !updatedItems || length === 0) return <Placeholder />;
 
   return (
     <>
