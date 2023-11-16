@@ -3,7 +3,7 @@
   "client": "Client",
   "status": "Status",
   "date": "Issue Date",
-  "dueDate": "Payment Due",
+  "dueDate": "Payment Deadline",
   "amount": "Amount",
   "actions": "Actions",
   "clientName": "Client Name",
@@ -16,11 +16,18 @@
   "paginationLabel": "Showing",
   "paidStatus": "Paid",
   "unPaidStatus": "Unpaid",
+  "dueDateValue": "Expired",
+  "dayLeft": "Day",
+  "daysLeft": "Days",
   "preview": "Preview",
   "markAsPaid": "Mark as Paid",
   "edit": "Edit",
   "delete": "Delete",
   "download": "Download",
   "of": "of",
-  "taxNumber": "Tax Number"
+  "taxNumber": "Tax Number",
+  "createClientCta": "Add Client",
+  "clientSearchLabel": "Search Clients",
+  "createProductCta": "Add New Product",
+  "productSearchLabel": "Search Products"
 }

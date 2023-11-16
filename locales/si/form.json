@@ -1,92 +1,90 @@
 {
   "firstNameLabel": "Ime",
-  "firstNamePlaceholder": "John",
-  "firstNameError": "Prosimo, vnesite ime",
+  "firstNamePlaceholder": "Vnesite ime",
+  "firstNameError": "Prosim vnesite ime",
 
   "lastNameLabel": "Priimek",
-  "lastNamePlaceholder": "Doe",
-  "lastNameError": "Prosimo, vnesite priimek",
+  "lastNamePlaceholder": "Vnesite priimek",
+  "lastNameError": "Prosim vnesite priimek",
 
-  "fullNameLabel": "Polno ime",
-  "fullNamePlaceholder": "John Doe",
-  "fullNameError": "Prosimo, vnesite svoje polno ime",
+  "fullNameLabel": "Celotno ime",
+  "fullNamePlaceholder": "Vnesite celotno ime",
+  "fullNameError": "Prosim vnesite svoje celotno ime",
 
   "emailLabel": "E-pošta",
-  "emailPlaceholder": "john.doe@gmail.com",
-  "emailError": "Prosimo, vnesite svoj e-poštni naslov",
+  "emailPlaceholder": "Vnesite e-pošto",
+  "emailError": "Prosim vnesite svoj e-poštni naslov",
 
   "phoneLabel": "Telefonska številka",
-  "phonePlaceholder": "+123 45 678 910",
-  "phoneError": "Prosimo, vnesite telefonsko številko",
+  "phonePlaceholder": "Vnesite telefonsko številko",
+  "phoneError": "Prosim vnesite telefonsko številko",
 
   "taxNumber": "Davčna številka",
-  "taxNumberPlaceholder": "123456789",
-  "taxNumberError": "Prosimo, vnesite davčno številko",
+  "taxNumberPlaceholder": "Vnesite davčno številko",
+  "taxNumberError": "Prosim vnesite davčno številko",
 
-  "registrationNumber": "Matična številka",
-  "registrationNumberPlaceholder": "123456789",
-  "registrationNumberError": "Prosimo, vnesite matično številko",
+  "registrationNumber": "Registrska številka",
+  "registrationNumberPlaceholder": "Vnesite registrsko številko",
+  "registrationNumberError": "Prosim vnesite registrsko številko",
 
   "companyField": "Področje delovanja",
-  "companyFieldPlaceholder": "Področje delovanja",
-  "companyFieldError": "Prosimo, vnesite področje delovanja",
+  "companyFieldPlaceholder": "Vnesite področje delovanja",
+  "companyFieldError": "Prosim vnesite področje delovanja",
 
   "companyName": "Ime podjetja",
-  "companyNamePlaceholder": "Ime podjetja",
-  "companyNameError": "Prosimo, vnesite ime podjetja",
+  "companyNamePlaceholder": "Vnesite ime podjetja",
+  "companyNameError": "Prosim vnesite ime podjetja",
 
   "companyAddress": "Naslov podjetja",
-  "companyAddressPlaceholder": "Naslov podjetja",
-  "companyAddressError": "Prosimo, vnesite naslov podjetja",
+  "companyAddressPlaceholder": "Vnesite naslov podjetja",
+  "companyAddressError": "Prosim vnesite naslov podjetja",
 
   "zipCode": "Poštna številka",
-  "zipCodePlaceholder": "Poštna številka",
-  "zipCodeError": "Prosimo, vnesite poštno številko",
+  "zipCodePlaceholder": "Vnesite poštno številko",
+  "zipCodeError": "Prosim vnesite poštno številko",
 
   "city": "Mesto",
-  "cityPlaceholder": "Mesto",
-  "cityError": "Prosimo, vnesite mesto",
+  "cityPlaceholder": "Vnesite mesto",
+  "cityError": "Prosim vnesite mesto",
 
   "country": "Država",
-  "countryPlaceholder": "Država",
-  "countryError": "Prosimo, vnesite državo",
+  "countryPlaceholder": "Vnesite državo",
+  "countryError": "Prosim vnesite državo",
 
   "bankName": "Ime banke",
-  "bankNamePlaceholder": "Ime banke",
-  "bankNameError": "Prosimo, vnesite ime banke",
+  "bankNamePlaceholder": "Vnesite ime banke",
+  "bankNameError": "Prosim vnesite ime banke",
 
-  "trr": "TRR",
-  "trrPlaceholder": "TRR (Transakcijski račun)",
-  "trrError": "Prosimo, vnesite TRR",
+  "trr": "TR",
+  "trrPlaceholder": "Vnesite TR (številko računa)",
+  "trrError": "Prosim vnesite TR",
 
   "bic": "BIC",
-  "bicPlaceholder": "BIC (Koda banke)",
-  "bicError": "Prosimo, vnesite BIC",
+  "bicPlaceholder": "Vnesite BIC (koda banke)",
+  "bicError": "Prosim vnesite BIC",
 
   "passwordLabel": "Geslo",
-  "passwordPlaceholder": "*********",
-  "passwordError": "Prosimo, vnesite svoje geslo",
+  "passwordPlaceholder": "Vnesite geslo",
+  "passwordError": "Prosim vnesite svoje geslo",
 
   "clientNameLabel": "Ime stranke",
-  "clientNamePlaceholder": "Ime stranke",
-  "clientNameError": "Prosimo, vnesite ime stranke",
+  "clientNamePlaceholder": "Vnesite ime stranke",
+  "clientNameError": "Prosim vnesite ime stranke",
 
   "clientAddressLabel": "Naslov stranke",
-  "clientAddressPlaceholder": "Naslov stranke",
-  "clientAddressError": "Prosimo, vnesite naslov stranke",
+  "clientAddressPlaceholder": "Vnesite naslov stranke",
+  "clientAddressError": "Prosim vnesite naslov stranke",
 
   "productNameLabel": "Ime izdelka",
-  "productNamePlaceholder": "Ime izdelka",
-  "productNameError": "Prosimo, vnesite ime izdelka",
+  "productNamePlaceholder": "Vnesite ime izdelka",
+  "productNameError": "Prosim vnesite ime izdelka",
 
   "productPriceLabel": "Cena izdelka",
-  "productPricePlaceholder": "Cena izdelka",
-  "productPriceError": "Prosimo, vnesite ceno izdelka",
+  "productPricePlaceholder": "Vnesite ceno izdelka",
+  "productPriceError": "Prosim vnesite ceno izdelka",
 
   "myAccountCta": "Potrdi",
-
   "loading": "Nalaganje...",
-
   "tooShort": "Prekratko!",
   "tooLong": "Predolgo!"
 }

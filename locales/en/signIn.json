@@ -1,4 +1,8 @@
 {
   "title": "Welcome to Invoice Easy! 👋",
-  "description": "Please sign-in to your account and start the adventure"
+  "description": "Please log in to your account and start the adventure",
+  "signInCta": "Sign In",
+  "loading": "Loading...",
+  "signInSwitchLabel": "New to our platform?",
+  "signInSwitchLink": "Create an account"
 }

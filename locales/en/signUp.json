@@ -1,4 +1,8 @@
 {
-  "title": "Adventure starts here 🚀",
-  "description": "Make your invoicing easy and fun!"
+  "title": "The Adventure Begins Here 🚀",
+  "description": "Make invoicing easy and fun!",
+  "signUpCta": "Register",
+
+  "signUpSwitchLabel": "Already have an account?",
+  "signUpSwitchLink": "Sign In"
 }

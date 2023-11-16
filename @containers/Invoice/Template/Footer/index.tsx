@@ -8,9 +8,6 @@ import { Heading } from "@components";
 import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
-// Client utils
-import { useFetchUserData } from "@utils/client";
-
 // Global types
 import { MyAccount } from "@types";
 
@@ -46,14 +43,14 @@ const Footer = styled.div`
   `}
 `;
 
-const index: FC = () => {
+interface Template {
+  currentUser: MyAccount;
+}
+const index: FC<Template> = ({ currentUser }) => {
   // Translation
   const { t } = useTranslation();
 
-  const { userData, loading, error } = useFetchUserData();
-
-  if (loading) return <>Loading....</>;
-  if (!userData) return <>{t("form:loading")}</>;
+  if (!currentUser) return <>Loading....</>;
 
   return (
     <>
@@ -64,7 +61,7 @@ const index: FC = () => {
 
       <Footer>
         <p>
-          {userData?.companyField}, {userData?.companyName}.
+          {currentUser?.companyField}, {currentUser?.companyName}.
         </p>
       </Footer>
     </>

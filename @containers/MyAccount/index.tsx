@@ -16,10 +16,7 @@ import useTranslation from "next-translate/useTranslation";
 import { Field, Label } from "@styles/Form";
 
 // Global types
-import { IMyAccountForm } from "@types";
-
-// Client utils
-import { useFetchUserData } from "@utils/client";
+import { MyAccount as MyAcoountType, IMyAccountForm } from "@types";
 
 const Form = styled.form`
   display: flex;
@@ -63,34 +60,37 @@ const Group = styled.div`
   padding-bottom: 10px;
 `;
 
-const index: FC = () => {
+interface MyAccount {
+  currentUser: MyAcoountType;
+}
+
+const index: FC<MyAccount> = ({ currentUser }) => {
   // Translation
   const { t } = useTranslation();
 
   // Router
   const router = useRouter();
 
-  // User data
-  const { userData, loading, error } = useFetchUserData();
+  if (!currentUser) return <ErrorWrap>No user data available.</ErrorWrap>;
 
   const initialValues: IMyAccountForm = {
-    firstName: userData?.firstName || "",
-    lastName: userData?.lastName || "",
-    email: userData?.email || "",
-    phoneNumber: userData?.phoneNumber || "",
-    taxNumber: userData?.taxNumber || "",
-    registrationNumber: userData?.registrationNumber || "",
+    firstName: currentUser.firstName || "",
+    lastName: currentUser.lastName || "",
+    email: currentUser.email || "",
+    phoneNumber: currentUser.phoneNumber || "",
+    taxNumber: currentUser.taxNumber || "",
+    registrationNumber: currentUser.registrationNumber || "",
 
-    companyField: userData?.companyField || "",
-    companyName: userData?.companyName || "",
-    companyAddress: userData?.companyAddress || "",
-    zipCode: userData?.zipCode || "",
-    city: userData?.city || "",
-    country: userData?.country || "",
+    companyField: currentUser.companyField || "",
+    companyName: currentUser.companyName || "",
+    companyAddress: currentUser.companyAddress || "",
+    zipCode: currentUser.zipCode || "",
+    city: currentUser.city || "",
+    country: currentUser.country || "",
 
-    bankName: userData?.bankName || "",
-    trr: userData?.trr || "",
-    bic: userData?.bic || "",
+    bankName: currentUser.bankName || "",
+    trr: currentUser.trr || "",
+    bic: currentUser.bic || "",
   };
 
   const handleSubmit = async (
@@ -99,7 +99,7 @@ const index: FC = () => {
   ) => {
     setSubmitting(true);
 
-    const id = userData?._id;
+    const id = currentUser?._id;
 
     await axios({
       method: "PUT",
@@ -139,10 +139,6 @@ const index: FC = () => {
     trr: Yup.string().required(t("form:trrError")),
     bic: Yup.string().required(t("form:bicError")),
   });
-
-  if (loading) return <>Loading...</>;
-  if (error) return <ErrorWrap>{error}</ErrorWrap>;
-  if (!userData) return <ErrorWrap>No user data available.</ErrorWrap>;
 
   return (
     <Formik

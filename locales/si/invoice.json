@@ -7,13 +7,13 @@
   "invoice": "Račun",
 
   "dateFrom": "Kraj in datum izdaje računa",
-  "dateTo": "Datum opravljanja storitev ali dobave blaga",
+  "dateTo": "Datum transakcije blaga in storitev",
   "paymentDeadline": "Rok plačila",
 
   "no": "Št.",
-  "item": "Artikel",
+  "item": "Opis blaga/storitev",
   "cost": "Cena",
-  "qty": "Količina",
+  "qty": "Kol",
   "unit": "EM",
   "price": "Skupna cena",
 
@@ -22,11 +22,14 @@
   "total": "Skupaj",
 
   "ddvParagraphOne": "Opomba o davčni oprostitvi:",
-  "ddvParagraphTwo": "DDV ni obračunan na podlagi 1. odstavka 94. člena Zakona o davku na dodano vrednost. (Nisem zavezanec za DDV). PRI POSLOVANJU NE UPORABLJAM ŽIGA.",
+  "ddvParagraphTwo": "Oproščeno plačila davka na dodano vrednost po 33. členu zakona o DDV",
 
-  "addNewCta": "Dodaj nov artikel",
+  "addNewCta": "Dodaj novo postavko",
   "addNewClient": "Dodaj novega stranko",
   "editClient": "Uredi stranko",
   "chooseClient": "Izberite obstoječega",
-  "currency": "€"
+  "currency": "",
+
+  "notFoundTitle": "Računi niso najdeni!",
+  "notFoundDescription": "Kliknite na 'USTVARI RAČUN', da dodate račun ali spremenite filtre."
 }

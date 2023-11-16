@@ -71,7 +71,7 @@ const darkTheme: ThemeType = {
   },
   colors: {
     white: "#1E1E1E",
-    black: "#000000",
+    black: "#FFFFFF",
     primary: "#4BA3D9",
     secondary: "#7A7DFF",
     success: "#37C864",

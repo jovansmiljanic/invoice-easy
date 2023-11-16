@@ -1,5 +1,5 @@
 {
   "title": "Clients",
-  "notFoundTitle": "No clients found!",
-  "notFoundDescription": "Please click on 'Create Client' to add your first client."
+  "notFoundTitle": "Clients Not Found!",
+  "notFoundDescription": "Please click on 'Add Client' to add your first client or change the filters."
 }

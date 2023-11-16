@@ -2,7 +2,7 @@
 import { FC, useContext, useEffect, useState } from "react";
 
 // Core types
-import { Client, IInvoiceItem, Invoice } from "@types";
+import { Client, IInvoiceItem, Invoice, MyAccount } from "@types";
 
 // Global components
 import { Button } from "@components";
@@ -45,6 +45,7 @@ interface NewInvoice {
   client?: Client[];
   invoice?: Invoice;
   invoiceNumber?: number;
+  currentUser: MyAccount;
 }
 
 const InvoiceSchema = Yup.object().shape({
@@ -56,7 +57,15 @@ const InvoiceSchema = Yup.object().shape({
   invoiceNumber: Yup.number(),
 });
 
-const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
+const index: FC<NewInvoice> = ({
+  client,
+  invoiceNumber,
+  invoice,
+  currentUser,
+}) => {
+  // Translation
+  const { t } = useTranslation();
+
   // Handle router
   const router = useRouter();
 
@@ -138,9 +147,6 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
     };
   };
 
-  // Translation
-  const { t } = useTranslation();
-
   return (
     <Formik
       autoComplete="off"
@@ -160,7 +166,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
       {({ handleSubmit, values, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
           <NewInvoice>
-            <AccountDetails />
+            <AccountDetails currentUser={currentUser} />
 
             <ClientDetails
               client={client}
@@ -178,7 +184,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
 
             <Total tableData={tableData} />
 
-            <Footer />
+            <Footer currentUser={currentUser} />
           </NewInvoice>
           <Options>
             <Button

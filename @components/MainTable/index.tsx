@@ -12,10 +12,9 @@ import { useDebouncedEffect } from "@utils/client";
 
 // Vendors
 import axios from "axios";
-import useTranslation from "next-translate/useTranslation";
 
 // Global types
-import { Client, Invoice, Product } from "@types";
+import { Client, Invoice, MyAccount, Product } from "@types";
 
 // Dashboard component
 import { Pagination } from "@components/Dashboard";
@@ -66,9 +65,10 @@ export const GridContext = createContext({} as IGridContext);
 interface Dashboard {
   path: string;
   boxes: boolean;
+  currentUser?: MyAccount;
 }
 
-const index: FC<Dashboard> = ({ path, boxes }) => {
+const index: FC<Dashboard> = ({ path, boxes, currentUser }) => {
   const { query } = useRouter();
 
   // Declare filters
@@ -90,9 +90,6 @@ const index: FC<Dashboard> = ({ path, boxes }) => {
 
   // Declare length
   const [length, setLength] = useState<number>(0);
-
-  // Declare length
-  const [clientsLength, setClientsLength] = useState<number>(0);
 
   // Indicate that new items are loading
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -145,17 +142,6 @@ const index: FC<Dashboard> = ({ path, boxes }) => {
         // Set loader
         setIsLoading(false);
       });
-
-    // Call axios with filters and page as a string url
-    const clientUrl = `/api/client/`;
-
-    await axios.get(clientUrl).then(({ data: { length } }) => {
-      // Length
-      setClientsLength(length);
-
-      // Set loader
-      setIsLoading(false);
-    });
   };
 
   useEffect(() => {
@@ -237,7 +223,6 @@ const index: FC<Dashboard> = ({ path, boxes }) => {
         <Boxes
           items={totalInvoices}
           invoicesLength={length}
-          clientsLenght={clientsLength}
           isLoading={isLoading}
         />
       )}
@@ -246,6 +231,7 @@ const index: FC<Dashboard> = ({ path, boxes }) => {
         <DashboardTable
           statusSelected={statusSelected}
           setSearchQuery={setSearchQuery}
+          currentUser={currentUser}
         />
       ) : path === "client" ? (
         <ClientTable setSearchQuery={setSearchQuery} />

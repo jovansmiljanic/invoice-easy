@@ -8,25 +8,28 @@
 
   "dateFrom": "Place and date of invoice issue",
   "dateTo": "Date of goods and services transaction",
-  "paymentDeadline": "Payment due date",
+  "paymentDeadline": "Due date",
 
   "no": "No.",
-  "item": "Item",
-  "cost": "Cost",
-  "qty": "Quantity",
-  "unit": "UoM",
+  "item": "Description of goods/services",
+  "cost": "Price",
+  "qty": "Qty",
+  "unit": "Unit",
   "price": "Total price",
 
-  "subtotal": "Subtotal",
+  "subtotal": "Value",
   "tax": "Tax",
   "total": "Total",
 
   "ddvParagraphOne": "Note on tax exemption:",
-  "ddvParagraphTwo": "Exempted from VAT payment under Article 33 of the VAT Act",
+  "ddvParagraphTwo": "Exempt from VAT as per Article 33 of the VAT Act",
 
   "addNewCta": "Add new item",
   "addNewClient": "Add new client",
   "editClient": "Edit client",
   "chooseClient": "Choose existing",
-  "currency": "€"
+  "currency": "",
+
+  "notFoundTitle": "Invoices Not Found!",
+  "notFoundDescription": "Please click on 'CREATE INVOICE' to add an invoice or change filters."
 }

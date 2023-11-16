@@ -109,7 +109,7 @@ ${({ theme: { defaults, breakpoints } }) => css`
       ${({ theme: { colors, font } }) => css`
         background-color: ${colors[p.variant as Colors]};
         border-color: ${colors[p.variant as Colors]};
-        color: ${colors.white};
+        color: ${colors.textColor};
         font-weight: ${font.weight.semiBold};
       `}
     `}

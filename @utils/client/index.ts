@@ -11,8 +11,5 @@ export { useDebouncedEffect } from "./useDebounceEffect";
 export { useTotalPrice } from "./useTotalPrice";
 export { useSubTotalPrice } from "./useTotalPrice";
 
-// User data
-export { useFetchUserData } from "./useFetchUserData";
-
 // Dropdown
 export { useDropdown } from "./useDropdown";

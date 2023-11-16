@@ -14,9 +14,6 @@ import useTranslation from "next-translate/useTranslation";
 // Nextjs
 import { useRouter } from "next/router";
 
-// Store context
-import { StoreContext } from "@context";
-
 // Global types
 import { Invoice, MyAccount } from "@types";
 import { GridContext } from "@components/MainTable";
@@ -38,7 +35,9 @@ const index: FC<Actions> = ({ invoice, userData }) => {
 
   return (
     <Actions>
-      {userData && <DownloadInvoice invoice={invoice} type="button" />}
+      {userData && (
+        <DownloadInvoice invoice={invoice} userData={userData} type="button" />
+      )}
 
       <Button
         variant="warning"

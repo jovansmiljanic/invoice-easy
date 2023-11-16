@@ -1,5 +1,8 @@
 {
   "title": "Izdelki",
   "addNewProduct": "Dodaj nov izdelek",
-  "searchLabel": "Išči izdelke"
+  "searchLabel": "Išči izdelke",
+
+  "notFoundTitle": "Izdelki niso najdeni!",
+  "notFoundDescription": "Prosimo, kliknite na 'Dodaj nov izdelek' za dodajanje ali spremembo filtrov."
 }

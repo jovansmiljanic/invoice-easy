@@ -1,5 +1,8 @@
 {
   "title": "Products",
   "addNewProduct": "Add New Product",
-  "searchLabel": "Search Products"
+  "searchLabel": "Search products",
+
+  "notFoundTitle": "Products Not Found!",
+  "notFoundDescription": "Please click on 'Add New Product' to add or change filters."
 }

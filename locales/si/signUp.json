@@ -1,4 +1,8 @@
 {
   "title": "Pustolovščina se začne tukaj 🚀",
-  "description": "Naredite izdajanje računov preprosto in zabavno!"
+  "description": "Naredite fakturiranje enostavno in zabavno!",
+  "signUpCta": "Registracija",
+
+  "signUpSwitchLabel": "Že imate račun?",
+  "signUpSwitchLink": "Prijavite se"
 }

@@ -1,4 +1,8 @@
 {
-  "title": "Dobrodošli v Invoice Easy! 👋",
-  "description": "Prosim, prijavite se v svoj račun in začnite pustolovščino"
+  "title": "Dobrodošli na Invoice Easy! 👋",
+  "description": "Prosimo, prijavite se na svoj račun in začnite pustolovščino",
+  "signInCta": "Prijava",
+  "loading": "Nalaganje...",
+  "signInSwitchLabel": "Novi na naši platformi?",
+  "signInSwitchLink": "Ustvarite račun"
 }

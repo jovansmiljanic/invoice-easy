@@ -1,7 +1,7 @@
 {
-  "title": "Žal nam je, strani, ki ste jo iskali, ni bilo mogoče najti",
-  "description": "Predlagamo, da se vrnete na domačo stran",
-  "cta": "Nazaj na domačo stran",
-  "confirmModalOne": "Ste prepričani, da želite izbrisati?",
+  "title": "Oprostite, strani, ki ste jo iskali, ni bilo mogoče najti",
+  "description": "Predlagamo, da se vrnete na začetno stran",
+  "cta": "Vrni se na začetno stran",
+  "confirmModalOne": "Ali ste prepričani, da želite izbrisati?",
   "confirmModalTwo": "Tega dejanja ni mogoče razveljaviti."
 }

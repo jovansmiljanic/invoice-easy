@@ -7,7 +7,7 @@ import useTranslation from "next-translate/useTranslation";
 
 // Icons
 import PaidOutlinedIcon from "@mui/icons-material/PaidOutlined";
-import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
+import RequestPageOutlinedIcon from "@mui/icons-material/RequestPageOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 
@@ -23,16 +23,10 @@ import { StoreContext } from "@context";
 interface Boxes {
   items?: Invoice[];
   invoicesLength: number;
-  clientsLenght: number;
   isLoading?: boolean;
 }
 
-const index: FC<Boxes> = ({
-  items,
-  invoicesLength,
-  clientsLenght,
-  isLoading,
-}) => {
+const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
   // Translation
   const { t } = useTranslation();
 
@@ -58,6 +52,26 @@ const index: FC<Boxes> = ({
     },
     0
   );
+
+  const getTotalInvoicedPriceThisYear = (
+    invoices: Invoice[] | undefined
+  ): number => {
+    const currentYear = new Date().getFullYear();
+    return (
+      invoices?.reduce((sum, invoice) => {
+        const startDate = new Date(invoice.startDate);
+        if (startDate.getFullYear() === currentYear) {
+          const items = invoice.items;
+          const prices = items.map(item => parseInt(item.price.toString()));
+          const total = prices.reduce((subtotal, price) => subtotal + price, 0);
+          return sum + total;
+        }
+        return sum;
+      }, 0) ?? 0
+    );
+  };
+
+  const totalInvoicedThisYear = getTotalInvoicedPriceThisYear(items);
 
   return (
     <BoxWrapper>
@@ -86,31 +100,6 @@ const index: FC<Boxes> = ({
         </Heading>
       </Box>
 
-      <Box isLoading={isLoading}>
-        <BoxWrap>
-          <GroupOutlinedIcon />
-
-          <Heading
-            as="h6"
-            padding={{
-              xs: { left: 1 },
-              sm: { left: 1 },
-              md: { left: 1 },
-            }}
-          >
-            {t("home:boxClients")}
-          </Heading>
-        </BoxWrap>
-
-        <Heading
-          as="h3"
-          weight="semiBold"
-          padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
-        >
-          {clientsLenght}
-        </Heading>
-      </Box>
-
       <Box isPriceShown={isPriceShown} isLoading={isLoading}>
         <BoxWrap>
           <ReceiptOutlinedIcon />
@@ -133,6 +122,31 @@ const index: FC<Boxes> = ({
           padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
         >
           {totalInvoiced?.toLocaleString()}
+        </Heading>
+      </Box>
+
+      <Box isPriceShown={isPriceShown} isLoading={isLoading}>
+        <BoxWrap>
+          <RequestPageOutlinedIcon />
+
+          <Heading
+            as="h6"
+            padding={{
+              xs: { left: 1 },
+              sm: { left: 1 },
+              md: { left: 1 },
+            }}
+          >
+            {t("home:boxInvoicedThisYear")}{" "}
+          </Heading>
+        </BoxWrap>
+
+        <Heading
+          as="h3"
+          weight="semiBold"
+          padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
+        >
+          {totalInvoicedThisYear.toLocaleString()}
         </Heading>
       </Box>
 

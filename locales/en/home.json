@@ -1,11 +1,29 @@
 {
+  "home": "Home",
   "myProfile": "My Profile",
   "invoices": "Invoices",
   "clients": "Clients",
+  "products": "Products",
   "signOut": "Sign Out",
+
+  "greeting": "Hello",
+
+  "notificationTitle": "Notifications",
+  "notificationContent": "You currently have no notifications!",
+
+  "theme": "Theme:",
+  "visibility": "Visibility:",
+  "language": "Language:",
 
   "boxInvoices": "Invoices",
   "boxClients": "Clients",
   "boxInvoiced": "Invoiced",
-  "boxPaid": "Paid"
+  "boxPaid": "Paid",
+  "boxInvoicedThisYear": "Invoiced This Year",
+
+  "homeTitle": "Home Page",
+  "clientsTitle": "Clients",
+  "invoicesTitle": "Invoices",
+  "productsTitle": "Products",
+  "myProfileTitle": "My Profile"
 }

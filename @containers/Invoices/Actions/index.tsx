@@ -14,9 +14,6 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 // Global components
 import { DownloadInvoice } from "@components";
 
-// Store context
-import { StoreContext } from "@context";
-
 // GLobal types
 import { Invoice } from "@types";
 

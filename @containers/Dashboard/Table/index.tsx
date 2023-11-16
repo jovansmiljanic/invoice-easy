@@ -7,7 +7,7 @@ import { InvoiceItem } from "./InvoiceItem";
 import { DashboardFilters } from "../DashboardFilters";
 
 // Global types
-import { Invoice } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // Store context
 import { StoreContext } from "@context";
@@ -25,9 +25,10 @@ import useTranslation from "next-translate/useTranslation";
 interface Table {
   statusSelected: any;
   setSearchQuery: any;
+  currentUser?:MyAccount
 }
 
-const index: FC<Table> = ({ statusSelected, setSearchQuery }) => {
+const index: FC<Table> = ({ statusSelected, setSearchQuery,currentUser }) => {
   // Translation
   const { t } = useTranslation();
 
@@ -99,7 +100,7 @@ const index: FC<Table> = ({ statusSelected, setSearchQuery }) => {
           {Array.isArray(updatedItems) &&
             updatedItems.map((item, i) => (
               <tr key={i}>
-                <InvoiceItem updatedItems={item as Invoice} />
+                <InvoiceItem updatedItems={item as Invoice} currentUser={currentUser} />
               </tr>
             ))}
         </tbody>

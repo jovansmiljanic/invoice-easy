@@ -7,9 +7,7 @@ import { Heading } from "@components";
 // Vendors
 import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
-
-// CLient utils
-import { useFetchUserData } from "@utils/client";
+import { MyAccount } from "@types";
 
 const Account = styled.div`
   display: flex;
@@ -32,67 +30,68 @@ const Account = styled.div`
   `}
 `;
 
-const index: FC = () => {
+interface Template {
+  currentUser: MyAccount;
+}
+
+const index: FC<Template> = ({ currentUser }) => {
   // Translation
   const { t } = useTranslation();
 
-  const { userData, loading, error } = useFetchUserData();
-
-  if (loading) return <>Loading....</>;
-  if (!userData) return <>{t("form:loading")}</>;
+  if (!currentUser) return <>Loading....</>;
 
   return (
     <Account>
       <div>
-        {userData?.companyName && (
+        {currentUser?.companyName && (
           <Heading as="h6" weight="bold">
-            {userData.companyName}
+            {currentUser.companyName}
           </Heading>
         )}
 
-        {userData?.companyAddress && (
-          <Heading as="p">{userData.companyAddress}</Heading>
+        {currentUser?.companyAddress && (
+          <Heading as="p">{currentUser.companyAddress}</Heading>
         )}
 
         <Heading as="p">
-          {userData?.zipCode}, {userData?.city}, {userData?.country}
+          {currentUser?.zipCode}, {currentUser?.city}, {currentUser?.country}
         </Heading>
 
-        {userData?.taxNumber && (
+        {currentUser?.taxNumber && (
           <Heading as="p">
-            {t("form:taxNumber")}: {userData.taxNumber}
+            {t("form:taxNumber")}: {currentUser.taxNumber}
           </Heading>
         )}
 
-        {userData?.registrationNumber && (
+        {currentUser?.registrationNumber && (
           <Heading as="p">
-            {t("form:registrationNumber")}: {userData.registrationNumber}
+            {t("form:registrationNumber")}: {currentUser.registrationNumber}
           </Heading>
         )}
       </div>
 
       <div>
-        {userData?.trr && (
+        {currentUser?.trr && (
           <Heading as="p">
-            {t("form:trr")}: {userData.trr}
+            {t("form:trr")}: {currentUser.trr}
           </Heading>
         )}
 
-        {userData?.bic && (
+        {currentUser?.bic && (
           <Heading as="p">
-            {t("form:bic")}: {userData.bic}
+            {t("form:bic")}: {currentUser.bic}
           </Heading>
         )}
 
-        {userData?.email && (
+        {currentUser?.email && (
           <Heading as="p">
-            {t("form:emailLabel")}: {userData.email}
+            {t("form:emailLabel")}: {currentUser.email}
           </Heading>
         )}
 
-        {userData?.phoneNumber && (
+        {currentUser?.phoneNumber && (
           <Heading as="p">
-            {t("form:phoneLabel")}: {userData.phoneNumber}
+            {t("form:phoneLabel")}: {currentUser.phoneNumber}
           </Heading>
         )}
       </div>

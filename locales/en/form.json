@@ -1,92 +1,90 @@
 {
   "firstNameLabel": "First Name",
-  "firstNamePlaceholder": "John",
-  "firstNameError": "Please enter a first name",
+  "firstNamePlaceholder": "Enter first name",
+  "firstNameError": "Please enter first name",
 
   "lastNameLabel": "Last Name",
-  "lastNamePlaceholder": "Doe",
-  "lastNameError": "Please enter a last name",
+  "lastNamePlaceholder": "Enter last name",
+  "lastNameError": "Please enter last name",
 
   "fullNameLabel": "Full Name",
-  "fullNamePlaceholder": "John Doe",
+  "fullNamePlaceholder": "Enter full name",
   "fullNameError": "Please enter your full name",
 
   "emailLabel": "Email",
-  "emailPlaceholder": "john.doe@gmail.com",
+  "emailPlaceholder": "Enter email",
   "emailError": "Please enter your email address",
 
   "phoneLabel": "Phone Number",
-  "phonePlaceholder": "+123 45 678 910",
-  "phoneError": "Please enter a phone number",
+  "phonePlaceholder": "Enter phone number",
+  "phoneError": "Please enter phone number",
 
   "taxNumber": "Tax ID",
-  "taxNumberPlaceholder": "123456789",
+  "taxNumberPlaceholder": "Enter Tax ID",
   "taxNumberError": "Please enter Tax ID",
 
   "registrationNumber": "Registration Number",
-  "registrationNumberPlaceholder": "123456789",
+  "registrationNumberPlaceholder": "Enter registration number",
   "registrationNumberError": "Please enter registration number",
 
   "companyField": "Field of Operation",
-  "companyFieldPlaceholder": "Field of Operation",
+  "companyFieldPlaceholder": "Enter field of operation",
   "companyFieldError": "Please enter field of operation",
 
   "companyName": "Company Name",
-  "companyNamePlaceholder": "Company Name",
+  "companyNamePlaceholder": "Enter company name",
   "companyNameError": "Please enter company name",
 
   "companyAddress": "Company Address",
-  "companyAddressPlaceholder": "Company Address",
+  "companyAddressPlaceholder": "Enter company address",
   "companyAddressError": "Please enter company address",
 
-  "zipCode": "ZIP Code",
-  "zipCodePlaceholder": "ZIP Code",
-  "zipCodeError": "Please enter ZIP code",
+  "zipCode": "Zip Code",
+  "zipCodePlaceholder": "Enter zip code",
+  "zipCodeError": "Please enter zip code",
 
   "city": "City",
-  "cityPlaceholder": "City",
+  "cityPlaceholder": "Enter city",
   "cityError": "Please enter city",
 
   "country": "Country",
-  "countryPlaceholder": "Country",
+  "countryPlaceholder": "Enter country",
   "countryError": "Please enter country",
 
   "bankName": "Bank Name",
-  "bankNamePlaceholder": "Bank Name",
+  "bankNamePlaceholder": "Enter bank name",
   "bankNameError": "Please enter bank name",
 
   "trr": "Account Number",
-  "trrPlaceholder": "Account Number",
-  "trrError": "Please enter account number",
+  "trrPlaceholder": "Enter Account Number",
+  "trrError": "Please enter Account Number",
 
   "bic": "BIC",
-  "bicPlaceholder": "BIC (Bank Identifier Code)",
+  "bicPlaceholder": "Enter BIC (Bank Identifier Code)",
   "bicError": "Please enter BIC",
 
   "passwordLabel": "Password",
-  "passwordPlaceholder": "*********",
+  "passwordPlaceholder": "Enter password",
   "passwordError": "Please enter your password",
 
   "clientNameLabel": "Client Name",
-  "clientNamePlaceholder": "Client Name",
+  "clientNamePlaceholder": "Enter client name",
   "clientNameError": "Please enter client name",
 
   "clientAddressLabel": "Client Address",
-  "clientAddressPlaceholder": "Client Address",
+  "clientAddressPlaceholder": "Enter client address",
   "clientAddressError": "Please enter client address",
 
   "productNameLabel": "Product Name",
-  "productNamePlaceholder": "Product Name",
+  "productNamePlaceholder": "Enter product name",
   "productNameError": "Please enter product name",
 
   "productPriceLabel": "Product Price",
-  "productPricePlaceholder": "Product Price",
+  "productPricePlaceholder": "Enter product price",
   "productPriceError": "Please enter product price",
 
   "myAccountCta": "Confirm",
-
   "loading": "Loading...",
-
-  "tooShort": "Too short!",
-  "tooLong": "Too long!"
+  "tooShort": "Too Short!",
+  "tooLong": "Too Long!"
 }

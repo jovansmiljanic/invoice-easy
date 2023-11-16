@@ -2,13 +2,10 @@
 import { FC } from "react";
 
 // Core types
-import { Invoice } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // Vendors
 import styled, { css } from "styled-components";
-
-// Client utils
-import { useFetchUserData } from "@utils/client";
 
 // Clients download
 import { Actions } from "./Actions";
@@ -19,26 +16,29 @@ import { Total } from "./Total";
 
 interface NewInvoice {
   invoice: Invoice;
+  currentUser: MyAccount;
 }
 
-const index: FC<NewInvoice> = ({ invoice }) => {
-  const { userData, loading, error } = useFetchUserData();
-
-  if (loading) return <>Loading...</>;
+const index: FC<NewInvoice> = ({ invoice, currentUser }) => {
+  if (!currentUser) return <>Loading...</>;
 
   return (
     <Container>
       <NewInvoice>
-        <UserData userData={userData} invoice={invoice} logo={userData?.logo} />
+        <UserData
+          userData={currentUser}
+          invoice={invoice}
+          logo={currentUser?.logo}
+        />
 
-        <ClientData invoice={invoice} city={userData?.city} />
+        <ClientData invoice={invoice} city={currentUser?.city} />
 
         <Table invoice={invoice} />
 
-        <Total invoice={invoice} companyName={userData?.companyName} />
+        <Total invoice={invoice} companyName={currentUser?.companyName} />
       </NewInvoice>
 
-      <Actions invoice={invoice} userData={userData} />
+      <Actions invoice={invoice} userData={currentUser} />
     </Container>
   );
 };

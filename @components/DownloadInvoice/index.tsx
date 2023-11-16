@@ -7,10 +7,10 @@ import styled, { css, keyframes } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
 // GLobal types
-import { Invoice } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // FOrmat date
-import { formatDate, useFetchUserData } from "@utils/client";
+import { formatDate } from "@utils/client";
 
 // GLobal components
 import { Button } from "@components";
@@ -82,13 +82,12 @@ const Icon = styled.div<{ isLoading: boolean }>`
 interface Download {
   invoice: Invoice;
   type: "icon" | "button" | "modalItem";
+  userData?: MyAccount;
 }
 
-const index: FC<Download> = ({ invoice, type }) => {
+const index: FC<Download> = ({ invoice, type, userData }) => {
   // Translation
   const { t } = useTranslation();
-
-  const { userData, loading, error } = useFetchUserData();
 
   const fileName = `Invoice - ${
     userData?.firstName + " " + userData?.lastName
@@ -107,8 +106,8 @@ const index: FC<Download> = ({ invoice, type }) => {
             sm: { bottom: 2 },
             md: { bottom: 2 },
           }}
-          disabled={loading}
-          isLoading={loading}
+          disabled={!userData}
+          isLoading={!userData}
         >
           {t("table:download")}
         </Button>
@@ -117,7 +116,7 @@ const index: FC<Download> = ({ invoice, type }) => {
 
     case "icon":
       renderedContent = (
-        <Icon isLoading={loading}>
+        <Icon isLoading={!userData}>
           <FileDownloadOutlinedIcon fontSize="small" />
         </Icon>
       );
@@ -125,7 +124,7 @@ const index: FC<Download> = ({ invoice, type }) => {
 
     case "modalItem":
       renderedContent = (
-        <ModalItem isLoading={loading}>{t("table:download")}</ModalItem>
+        <ModalItem isLoading={!userData}>{t("table:download")}</ModalItem>
       );
       break;
 
