@@ -104,8 +104,7 @@ const index: FC<Actions> = ({ setSearchQuery }) => {
   // Grid context
   const { searchQuery, limit, queryUrl, searchUrl } = useContext(GridContext);
 
-  const { setIsProductModalOpen, isProductModalOpen } =
-    useContext(StoreContext);
+  const { setIsModalOpen, isModalOpen } = useContext(GridContext);
 
   // Handle types
   const handleChangeType = (selected: any) => {
@@ -139,7 +138,7 @@ const index: FC<Actions> = ({ setSearchQuery }) => {
             md: { left: 1 },
           }}
           as="a"
-          onClick={() => setIsProductModalOpen(!isProductModalOpen)}
+          onClick={() => setIsModalOpen(!isModalOpen)}
         >
           <AddOutlinedIcon />
 

@@ -19,6 +19,7 @@ import { copyText } from "@utils/shared";
 import { Actions } from "./Actions";
 import { DashboardFilters } from "../DashboardFilters";
 import { NotFound } from "../NotFound";
+import { AddProductModal } from "@components";
 
 interface ProductTable {
   setSearchQuery: any;
@@ -33,7 +34,7 @@ const index: FC<ProductTable> = ({ setSearchQuery }) => {
   const [showNotFound, setShowNotFound] = useState(false);
 
   // Grid context
-  const { length, updatedItems } = useContext(GridContext);
+  const { length, updatedItems, isModalOpen } = useContext(GridContext);
 
   // Store context
   const { isPhone } = useContext(StoreContext);
@@ -88,6 +89,8 @@ const index: FC<ProductTable> = ({ setSearchQuery }) => {
             ))}
         </tbody>
       </Table>
+
+      {isModalOpen && <AddProductModal />}
     </>
   );
 };

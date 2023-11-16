@@ -348,14 +348,15 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
                   {content?.invoice}: #{invoice.invoiceNumber}
                 </Text>
                 <Text>
-                  {content?.dateFrom}: {formatDate(invoice.startDate)}
+                  {content?.dateFrom}: {myAccount?.city},{" "}
+                  {formatDate(invoice.startDate)}.
                 </Text>
                 <Text>
-                  {content?.dateTo}: {formatDate(invoice.endDate)}
+                  {content?.dateTo}: {formatDate(invoice.endDate)}.
                 </Text>
                 <Text>
                   {content?.paymentDeadline}:{" "}
-                  {formatDate(invoice.paymentDeadline)}
+                  {formatDate(invoice.paymentDeadline)}.
                 </Text>
               </View>
             </View>
@@ -364,7 +365,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
 
         <View>
           <View style={styles.itemsHeader}>
-            <Text style={styles.itemNo}>Br.</Text>
+            <Text style={styles.itemNo}>{content?.no}</Text>
             <Text style={styles.itemName}>{content?.item}</Text>
             <Text style={styles.itemCost}>{content?.cost}</Text>
             <Text style={styles.itemQty}>{content?.qty}</Text>
@@ -414,8 +415,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
           )}
 
           <Text>
-            {content?.total}: {totalPrice}
-            {content?.currency}
+            {content?.total}: {totalPrice} {content?.currency}
           </Text>
         </View>
 

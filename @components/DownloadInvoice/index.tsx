@@ -159,6 +159,7 @@ const index: FC<Download> = ({ invoice, type }) => {
     ddvParagraphOne: t("invoice:ddvParagraphOne"),
     ddvParagraphTwo: t("invoice:ddvParagraphTwo"),
     currency: t("invoice:currency"),
+    no: t("invoice:no"),
   };
 
   return (

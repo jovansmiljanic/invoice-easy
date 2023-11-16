@@ -23,6 +23,7 @@ import { Client, Invoice, Product } from "@types";
 
 // Client utils
 import { invoicePaid, useDropdown } from "@utils/client";
+import { GridContext } from "@components/MainTable";
 
 const Actions = styled.div`
   display: flex;
@@ -113,12 +114,12 @@ const index: FC<Actions> = ({ updatedItems }) => {
   const { t } = useTranslation();
 
   const {
-    setProductData,
-    setIsConfirmModal,
-    isConfirmModal,
-    setIsProductModalOpen,
-    isProductModalOpen,
-  } = useContext(StoreContext);
+    setModalData,
+    setIsModalOpen,
+    isModalOpen,
+    isConfirmModalOpen,
+    setIsConfirmModalOpen,
+  } = useContext(GridContext);
 
   const { isOpen, setIsOpen, ref } = useDropdown();
 
@@ -135,9 +136,9 @@ const index: FC<Actions> = ({ updatedItems }) => {
             <ModalItem
               onClick={() => {
                 // Edit client
-                setProductData(updatedItems);
+                setModalData(updatedItems);
 
-                setIsProductModalOpen(!isProductModalOpen);
+                setIsModalOpen(!isModalOpen);
               }}
             >
               {t("table:edit")}
@@ -146,9 +147,9 @@ const index: FC<Actions> = ({ updatedItems }) => {
             <ModalItem
               onClick={() => {
                 // Edit client
-                setProductData(updatedItems);
+                setModalData(updatedItems);
 
-                setIsConfirmModal(!isConfirmModal);
+                setIsConfirmModalOpen(!isConfirmModalOpen);
               }}
             >
               {t("table:delete")}

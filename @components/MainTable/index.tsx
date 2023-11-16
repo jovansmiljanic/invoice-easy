@@ -24,6 +24,7 @@ import { DashboardTable } from "@containers/Dashboard/Table";
 import { ClientTable } from "@containers/Clients/Table";
 import { ProductTable } from "@containers/Products/Table";
 import { Boxes } from "@containers/Dashboard/Boxes";
+import { ConfirmDeleteModal } from "@components/Modals/ConfirmDelete";
 
 interface Checkbox {
   label: string;
@@ -48,7 +49,16 @@ interface IGridContext {
   searchUrl: string;
   updatedItems: Invoice[] | Client[] | Product[];
   isLoading: boolean;
-  setIsLoading: any;
+  setIsLoading: (isLoading: boolean) => void;
+
+  isModalOpen: boolean;
+  setIsModalOpen: (isModalOpen: boolean) => void;
+
+  isConfirmModalOpen: boolean;
+  setIsConfirmModalOpen: (isConfirmModalOpen: boolean) => void;
+
+  modalData: any;
+  setModalData: any;
 }
 
 export const GridContext = createContext({} as IGridContext);
@@ -59,9 +69,6 @@ interface Dashboard {
 }
 
 const index: FC<Dashboard> = ({ path, boxes }) => {
-  // Translation
-  const { t } = useTranslation();
-
   const { query } = useRouter();
 
   // Declare filters
@@ -100,6 +107,10 @@ const index: FC<Dashboard> = ({ path, boxes }) => {
 
   // Set selected value
   const [yearSelected, setYearSelected] = useState<Checkbox[] | undefined>();
+
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<any>();
 
   // Fetch items
   interface IFetch {
@@ -201,24 +212,6 @@ const index: FC<Dashboard> = ({ path, boxes }) => {
     50
   );
 
-  const tableHeader = [
-    t("table:id"),
-    t("table:client"),
-    t("table:status"),
-    t("table:date"),
-    t("table:dueDate"),
-    t("table:amount"),
-    t("table:actions"),
-  ];
-
-  const filterOptions = [
-    { label: t("table:paidStatus"), value: "1" },
-    {
-      label: t("table:unPaidStatus"),
-      value: "2",
-    },
-  ];
-
   return (
     <GridContext.Provider
       value={{
@@ -232,6 +225,12 @@ const index: FC<Dashboard> = ({ path, boxes }) => {
         updatedItems,
         isLoading,
         setIsLoading,
+        isModalOpen,
+        setIsModalOpen,
+        isConfirmModalOpen,
+        setIsConfirmModalOpen,
+        modalData,
+        setModalData,
       }}
     >
       {boxes && (
@@ -245,9 +244,7 @@ const index: FC<Dashboard> = ({ path, boxes }) => {
 
       {path === "invoice" ? (
         <DashboardTable
-          tableHeader={tableHeader}
           statusSelected={statusSelected}
-          filterOptions={filterOptions}
           setSearchQuery={setSearchQuery}
         />
       ) : path === "client" ? (
@@ -266,6 +263,8 @@ const index: FC<Dashboard> = ({ path, boxes }) => {
           updatedItems={updatedItems}
         />
       )}
+
+      {isConfirmModalOpen && <ConfirmDeleteModal />}
     </GridContext.Provider>
   );
 };

@@ -20,20 +20,17 @@ import { Table } from "@styles/Table";
 
 // Grid
 import { GridContext } from "@components/MainTable";
+import useTranslation from "next-translate/useTranslation";
 
 interface Table {
-  tableHeader: string[];
-  filterOptions: any;
   statusSelected: any;
   setSearchQuery: any;
 }
 
-const index: FC<Table> = ({
-  tableHeader,
-  filterOptions,
-  statusSelected,
-  setSearchQuery,
-}) => {
+const index: FC<Table> = ({ statusSelected, setSearchQuery }) => {
+  // Translation
+  const { t } = useTranslation();
+
   // Grid context
   const { length, updatedItems } = useContext(GridContext);
 
@@ -43,6 +40,25 @@ const index: FC<Table> = ({
 
   // Store context
   const { isPhone } = useContext(StoreContext);
+
+  const tableHeader = [
+    t("table:id"),
+    t("table:client"),
+    t("table:status"),
+    t("table:date"),
+    t("table:dueDate"),
+    t("table:amount"),
+    t("table:actions"),
+  ];
+
+  const filterOptions = [
+    { label: t("table:paidStatus"), value: "1" },
+    {
+      label: t("table:unPaidStatus"),
+      value: "2",
+    },
+  ];
+
   useEffect(() => {
     if (length === 0) {
       setIsLoading(true);

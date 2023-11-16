@@ -21,6 +21,7 @@ import { GridContext } from "@components/MainTable";
 import { copyText } from "@utils/shared";
 import { Actions } from "./Actions";
 import { DashboardFilters } from "../ClientFilters";
+import { AddClientModal } from "@components";
 
 interface ClientTable {
   setSearchQuery: any;
@@ -35,7 +36,7 @@ const index: FC<ClientTable> = ({ setSearchQuery }) => {
   const [showNotFound, setShowNotFound] = useState(false);
 
   // Grid context
-  const { length, updatedItems } = useContext(GridContext);
+  const { length, updatedItems, isModalOpen } = useContext(GridContext);
 
   // Store context
   const { isPhone } = useContext(StoreContext);
@@ -99,6 +100,8 @@ const index: FC<ClientTable> = ({ setSearchQuery }) => {
             ))}
         </tbody>
       </Table>
+
+      {isModalOpen && <AddClientModal />}
     </>
   );
 };

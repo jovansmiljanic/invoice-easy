@@ -10,6 +10,7 @@
   "dateTo": "Datum opravljanja storitev ali dobave blaga",
   "paymentDeadline": "Rok plačila",
 
+  "no": "Št.",
   "item": "Artikel",
   "cost": "Cena",
   "qty": "Količina",
@@ -27,5 +28,5 @@
   "addNewClient": "Dodaj novega stranko",
   "editClient": "Uredi stranko",
   "chooseClient": "Izberite obstoječega",
-  "currency": "Valuta"
+  "currency": "€"
 }

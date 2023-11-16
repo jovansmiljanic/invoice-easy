@@ -103,9 +103,14 @@ const index: FC<Actions> = ({ setSearchQuery }) => {
   const { push } = useRouter();
 
   // Grid context
-  const { searchQuery, limit, queryUrl, searchUrl } = useContext(GridContext);
-
-  const { setIsModalOpen, isModalOpen } = useContext(StoreContext);
+  const {
+    searchQuery,
+    limit,
+    queryUrl,
+    searchUrl,
+    isModalOpen,
+    setIsModalOpen,
+  } = useContext(GridContext);
 
   // Handle types
   const handleChangeType = (selected: any) => {

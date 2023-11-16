@@ -22,6 +22,7 @@ import { Invoice } from "@types";
 
 // Client utils
 import { invoicePaid } from "@utils/client";
+import { GridContext } from "@components/MainTable";
 
 const Actions = styled.div`
   display: flex;
@@ -115,8 +116,8 @@ const index: FC<Actions> = ({ updatedItems }) => {
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
-  const { setClientData, setIsConfirmModal, isConfirmModal } =
-    useContext(StoreContext);
+  const { setModalData, isConfirmModalOpen, setIsConfirmModalOpen } =
+    useContext(GridContext);
 
   return (
     <Actions>
@@ -155,9 +156,9 @@ const index: FC<Actions> = ({ updatedItems }) => {
             <ModalItem
               onClick={() => {
                 // Edit client
-                setClientData(updatedItems);
+                setModalData(updatedItems);
 
-                setIsConfirmModal(!isConfirmModal);
+                setIsConfirmModalOpen(!isConfirmModalOpen);
               }}
             >
               {t("table:delete")}

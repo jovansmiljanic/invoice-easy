@@ -20,6 +20,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 // Store context
 import { StoreContext } from "@context";
+import { GridContext } from "@components/MainTable";
 
 const Background = styled.div`
   position: fixed;
@@ -89,13 +90,8 @@ const index: FC = () => {
   // Router
   const router = useRouter();
 
-  // Global context from store
-  const {
-    isProductModalOpen,
-    setIsProductModalOpen,
-    productData,
-    setProductData,
-  } = useContext(StoreContext);
+  const { isModalOpen, setIsModalOpen, modalData, setModalData } =
+    useContext(GridContext);
 
   // Hide dropdown when clicked outside it's Ref
   const modalPopupRef = useRef<HTMLDivElement>(null);
@@ -112,7 +108,7 @@ const index: FC = () => {
       modalPopupRef.current &&
       !modalPopupRef.current.contains(event.target as Node)
     ) {
-      setIsProductModalOpen(false);
+      setIsModalOpen(false);
     }
   };
 
@@ -127,8 +123,8 @@ const index: FC = () => {
   };
 
   const editInitialValues = {
-    name: productData?.name,
-    price: productData?.price,
+    name: modalData?.name,
+    price: modalData?.price,
   };
 
   const addOnSubmit = (data: FormikValues) => {
@@ -146,7 +142,7 @@ const index: FC = () => {
       method: "PUT",
       url: "/api/products",
       data: {
-        _id: productData?._id,
+        _id: modalData?._id,
         ...data,
       },
     };
@@ -157,14 +153,14 @@ const index: FC = () => {
       <Modal ref={modalPopupRef}>
         <Formik
           autoComplete="off"
-          initialValues={productData ? editInitialValues : addInitialValues}
+          initialValues={modalData ? editInitialValues : addInitialValues}
           validationSchema={AddProductSchema}
           onSubmit={async (data: { name: string; price: string }) => {
-            await axios(productData ? editOnSubmit(data) : addOnSubmit(data))
+            await axios(modalData ? editOnSubmit(data) : addOnSubmit(data))
               .then(res => {
-                setIsProductModalOpen(false);
+                setIsModalOpen(false);
 
-                setProductData(res.data);
+                setModalData(res.data);
 
                 router.push("/products");
               })
@@ -191,7 +187,7 @@ const index: FC = () => {
                   md: { bottom: 4 },
                 }}
               >
-                {productData
+                {modalData
                   ? t("product:editProduct")
                   : t("product:addNewProduct")}
               </Heading>
@@ -253,7 +249,7 @@ const index: FC = () => {
         <Close>
           <CloseOutlinedIcon
             fontSize="large"
-            onClick={() => setIsProductModalOpen(!isProductModalOpen)}
+            onClick={() => setIsModalOpen(!isModalOpen)}
           />
         </Close>
       </Modal>

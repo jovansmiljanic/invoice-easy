@@ -10,6 +10,7 @@
   "dateTo": "Date of goods and services transaction",
   "paymentDeadline": "Payment due date",
 
+  "no": "No.",
   "item": "Item",
   "cost": "Cost",
   "qty": "Quantity",
@@ -27,5 +28,5 @@
   "addNewClient": "Add new client",
   "editClient": "Edit client",
   "chooseClient": "Choose existing",
-  "currency": "Currency"
+  "currency": "€"
 }

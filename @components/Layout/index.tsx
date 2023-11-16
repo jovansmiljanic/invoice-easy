@@ -20,9 +20,6 @@ import styled, { css } from "styled-components";
 
 // Local components
 import { Sidebar } from "./Sidebar";
-import { AddProductModal } from "@components/Modals/AddProduct";
-import { ConfirmDeleteModal } from "@components/Modals/ConfirmDelete";
-import { AddClientModal } from "@components/Modals/AddClient";
 
 interface Props {
   title?: string;
@@ -60,8 +57,7 @@ const Main = styled.div`
 `;
 
 export const index: FC<Props> = ({ title, children, session }) => {
-  const { isPhone, isModalOpen, isConfirmModal, isProductModalOpen } =
-    useContext(StoreContext);
+  const { isPhone } = useContext(StoreContext);
 
   return (
     <Layout session={session}>
@@ -76,10 +72,6 @@ export const index: FC<Props> = ({ title, children, session }) => {
       <Main>{children}</Main>
 
       <Footer />
-
-      {isModalOpen && <AddClientModal />}
-      {isProductModalOpen && <AddProductModal />}
-      {isConfirmModal && <ConfirmDeleteModal />}
     </Layout>
   );
 };

@@ -14,6 +14,7 @@ import useTranslation from "next-translate/useTranslation";
 
 // Global components
 import { Button, Heading } from "@components";
+import { GridContext } from "@components/MainTable";
 
 const Background = styled.div`
   position: fixed;
@@ -63,9 +64,7 @@ const index: FC = () => {
   // Router
   const router = useRouter();
 
-  // Global context from store
-  const { setIsConfirmModal, clientData, productData } =
-    useContext(StoreContext);
+  const { modalData, setIsConfirmModalOpen } = useContext(GridContext);
 
   // Hide dropdown when clicked outside it's Ref
   const modalPopupRef = useRef<HTMLDivElement>(null);
@@ -82,7 +81,7 @@ const index: FC = () => {
       modalPopupRef.current &&
       !modalPopupRef.current.contains(event.target as Node)
     ) {
-      setIsConfirmModal(false);
+      setIsConfirmModalOpen(false);
     }
   };
 
@@ -113,7 +112,7 @@ const index: FC = () => {
         <ButtonsWrap>
           <Button
             variant="secondary"
-            onClick={() => setIsConfirmModal(false)}
+            onClick={() => setIsConfirmModalOpen(false)}
             margin={{ md: { right: 1 } }}
             size="small"
           >
@@ -124,11 +123,11 @@ const index: FC = () => {
             variant="danger"
             onClick={() => (
               deleteItem({
-                id: clientData ? clientData?._id : productData._id,
+                id: modalData._id,
                 router,
                 path,
               }),
-              setIsConfirmModal(false)
+              setIsConfirmModalOpen(false)
             )}
             margin={{ md: { right: 1 } }}
             size="small"

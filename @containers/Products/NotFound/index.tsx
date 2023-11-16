@@ -8,6 +8,7 @@ import { Button, Heading } from "@components";
 import styled from "styled-components";
 import { StoreContext } from "@context";
 import useTranslation from "next-translate/useTranslation";
+import { GridContext } from "@components/MainTable";
 
 const NotFound = styled.div`
   padding: 40px 0;
@@ -19,8 +20,7 @@ const index: FC = () => {
   // Translation
   const { t } = useTranslation();
 
-  const { isProductModalOpen, setIsProductModalOpen } =
-    useContext(StoreContext);
+  const { isModalOpen, setIsModalOpen } = useContext(GridContext);
 
   return (
     <NotFound>
@@ -50,7 +50,7 @@ const index: FC = () => {
 
         <Button
           variant="secondary"
-          onClick={() => setIsProductModalOpen(!isProductModalOpen)}
+          onClick={() => setIsModalOpen(!isModalOpen)}
         >
           {t("product:addNewProduct")}
         </Button>

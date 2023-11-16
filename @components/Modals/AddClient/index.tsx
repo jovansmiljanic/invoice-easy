@@ -21,6 +21,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 // Store context
 import { StoreContext } from "@context";
 import { IClientFormValues } from "@types";
+import { GridContext } from "@components/MainTable";
 
 const Background = styled.div`
   position: fixed;
@@ -92,8 +93,8 @@ const index: FC = ({}) => {
   const router = useRouter();
 
   // Global context from store
-  const { isModalOpen, setIsModalOpen, clientData, setClientData } =
-    useContext(StoreContext);
+  const { modalData, setModalData, isModalOpen, setIsModalOpen } =
+    useContext(GridContext);
 
   // Hide dropdown when clicked outside it's Ref
   const modalPopupRef = useRef<HTMLDivElement>(null);
@@ -137,13 +138,13 @@ const index: FC = ({}) => {
   };
 
   const editInitialValues = {
-    clientName: clientData?.clientName,
-    clientAddress: clientData?.clientAddress,
-    city: clientData?.city,
-    country: clientData?.country,
-    zipCode: clientData?.zipCode,
-    taxNumber: clientData?.taxNumber,
-    registrationNumber: clientData?.registrationNumber,
+    clientName: modalData?.clientName,
+    clientAddress: modalData?.clientAddress,
+    city: modalData?.city,
+    country: modalData?.country,
+    zipCode: modalData?.zipCode,
+    taxNumber: modalData?.taxNumber,
+    registrationNumber: modalData?.registrationNumber,
   };
 
   const addOnSubmit = (data: FormikValues) => {
@@ -161,7 +162,7 @@ const index: FC = ({}) => {
       method: "PUT",
       url: "/api/client",
       data: {
-        _id: clientData?._id,
+        _id: modalData?._id,
         ...data,
       },
     };
@@ -172,14 +173,14 @@ const index: FC = ({}) => {
       <Modal ref={modalPopupRef}>
         <Formik
           autoComplete="off"
-          initialValues={clientData ? editInitialValues : addInitialValues}
+          initialValues={modalData ? editInitialValues : addInitialValues}
           validationSchema={AddClientSchema}
           onSubmit={async (data: IClientFormValues) => {
-            await axios(clientData ? editOnSubmit(data) : addOnSubmit(data))
+            await axios(modalData ? editOnSubmit(data) : addOnSubmit(data))
               .then(res => {
                 setIsModalOpen(false);
 
-                setClientData(res.data);
+                setModalData(res.data);
                 router.asPath === "/invoice/add" ? "" : router.push("/clients");
               })
               .catch(err => {
@@ -205,7 +206,7 @@ const index: FC = ({}) => {
                   md: { bottom: 4 },
                 }}
               >
-                {clientData
+                {modalData
                   ? t("invoice:editClient")
                   : t("invoice:addNewClient")}
               </Heading>

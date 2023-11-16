@@ -19,6 +19,7 @@ import { StoreContext } from "@context";
 
 // Global types
 import { Invoice, MyAccount } from "@types";
+import { GridContext } from "@components/MainTable";
 
 interface Actions {
   invoice: Invoice;
@@ -32,9 +33,8 @@ const index: FC<Actions> = ({ invoice, userData }) => {
   // Router
   const { locale } = useRouter();
 
-  // Store context
-  const { setClientData, setIsConfirmModal, isConfirmModal } =
-    useContext(StoreContext);
+  const { setModalData, isConfirmModalOpen, setIsConfirmModalOpen } =
+    useContext(GridContext);
 
   return (
     <Actions>
@@ -63,7 +63,7 @@ const index: FC<Actions> = ({ invoice, userData }) => {
           md: { bottom: 1 },
         }}
         onClick={() => {
-          setIsConfirmModal(!isConfirmModal), setClientData(invoice);
+          setIsConfirmModalOpen(!isConfirmModalOpen), setModalData(invoice);
         }}
       >
         {t("invoice:deleteCta")}

@@ -25,6 +25,7 @@ import { StoreContext } from "@context";
 
 // Icons
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { GridContext } from "@components/MainTable";
 
 const Client = styled.div`
   display: flex;
@@ -159,38 +160,38 @@ const index: FC<Client> = ({
   // Translation
   const { t } = useTranslation();
 
-  const { isModalOpen, setIsModalOpen, setClientData, clientData } =
-    useContext(StoreContext);
+  const { isModalOpen, setIsModalOpen, modalData, setModalData } =
+    useContext(GridContext);
 
   const { handleBlur, handleChange, values } = useFormikContext<FormikValues>();
 
-  const clientOptions = client?.map((item) => {
+  const clientOptions = client?.map(item => {
     return { value: item, label: item.clientName };
   });
 
   // Handle types
   const handleChangeType = (selected: any) => {
-    setClientData(selected.value);
+    setModalData(selected.value);
   };
 
   return (
     <Client>
       <div>
-        {clientData ? (
+        {modalData ? (
           <>
             <Heading as="h6" weight="bold">
-              {clientData.clientName}
+              {modalData.clientName}
             </Heading>
-            <Heading as="p">{clientData.clientAddress}</Heading>
+            <Heading as="p">{modalData.clientAddress}</Heading>
             <Heading as="p">
-              {clientData.zipCode}, {clientData.city}, {clientData.country}
+              {modalData.zipCode}, {modalData.city}, {modalData.country}
             </Heading>
             <Heading as="p">
-              {t("form:taxNumber")}: {clientData.taxNumber}
+              {t("form:taxNumber")}: {modalData.taxNumber}
             </Heading>
-            {clientData.registrationNumber && (
+            {modalData.registrationNumber && (
               <Heading as="p">
-                {t("form:registrationNumber")}: {clientData.registrationNumber}
+                {t("form:registrationNumber")}: {modalData.registrationNumber}
               </Heading>
             )}
           </>
@@ -220,7 +221,7 @@ const index: FC<Client> = ({
               instanceId="newClient"
               options={clientOptions}
               placeholder={t("invoice:chooseClient")}
-              onChange={(selected) => handleChangeType(selected)}
+              onChange={selected => handleChangeType(selected)}
               onBlur={handleBlur}
             />
 
@@ -260,7 +261,7 @@ const index: FC<Client> = ({
 
           <DatePicker
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={date => setStartDate(date)}
             placeholderText={
               invoice ? formatDate(invoice.startDate) : "DD/MM/YYYY"
             }
@@ -273,7 +274,7 @@ const index: FC<Client> = ({
 
           <DatePicker
             selected={endDate}
-            onChange={(date) => setEndDate(date)}
+            onChange={date => setEndDate(date)}
             placeholderText={
               invoice ? formatDate(invoice.endDate) : "DD/MM/YYYY"
             }
@@ -286,7 +287,7 @@ const index: FC<Client> = ({
 
           <DatePicker
             selected={deadlineDate}
-            onChange={(date) => setDeadlineDate(date)}
+            onChange={date => setDeadlineDate(date)}
             placeholderText={
               invoice ? formatDate(invoice.paymentDeadline) : "DD/MM/YYYY"
             }

@@ -16,6 +16,7 @@ import { Client } from "@types";
 
 // Client utils
 import { useDropdown } from "@utils/client";
+import { GridContext } from "@components/MainTable";
 
 const Actions = styled.div`
   display: flex;
@@ -105,15 +106,15 @@ const index: FC<Actions> = ({ updatedItems }) => {
   // Translation
   const { t } = useTranslation();
 
-  const {
-    setClientData,
-    setIsConfirmModal,
-    isConfirmModal,
-    setIsModalOpen,
-    isModalOpen,
-  } = useContext(StoreContext);
-
   const { isOpen, ref, setIsOpen } = useDropdown();
+
+  const {
+    setModalData,
+    isModalOpen,
+    setIsModalOpen,
+    isConfirmModalOpen,
+    setIsConfirmModalOpen,
+  } = useContext(GridContext);
 
   return (
     <>
@@ -129,7 +130,7 @@ const index: FC<Actions> = ({ updatedItems }) => {
               <ModalItem
                 onClick={() => {
                   // Edit client
-                  setClientData(updatedItems);
+                  setModalData(updatedItems);
 
                   setIsModalOpen(!isModalOpen);
                 }}
@@ -139,10 +140,10 @@ const index: FC<Actions> = ({ updatedItems }) => {
 
               <ModalItem
                 onClick={() => {
-                  // Edit client
-                  setClientData(updatedItems);
+                  // Delete client
+                  setModalData(updatedItems);
 
-                  setIsConfirmModal(!isConfirmModal);
+                  setIsConfirmModalOpen(!isConfirmModalOpen);
                 }}
               >
                 {t("table:delete")}

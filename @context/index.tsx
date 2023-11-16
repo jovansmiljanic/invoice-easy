@@ -13,9 +13,6 @@ import { ThemeProvider } from "styled-components";
 // App context properties
 import { Theme } from "@context/theme";
 
-// Global types
-import { Client, Invoice, Product } from "@types";
-
 // Instruct component Props Types
 interface Props {
   children: React.ReactNode;
@@ -36,46 +33,14 @@ interface AppContext {
   isPriceShown: HiddenNumbers | string;
   setIsPriceShown: (isPriceShown: HiddenNumbers | string) => void;
   toggleIsPriceShown: () => void;
-
-  isModalOpen: boolean;
-  setIsModalOpen: (isModalOpen: boolean) => void;
-
-  isProductModalOpen: boolean;
-  setIsProductModalOpen: (isProductModalOpen: boolean) => void;
-
-  isConfirmModal: boolean;
-  setIsConfirmModal: (isConformModal: boolean) => void;
-
-  clientData: Client;
-  setClientData: (clientData?: Client | Invoice) => void;
-
-  productData: Product;
-  setProductData: (productData?: Product) => void;
 }
 
-export const Store: FC<Props> = (props) => {
+export const Store: FC<Props> = props => {
   const [isPhone, setIsPhone] = useState<boolean>();
   const isPhoneMemo = useMemo(() => isPhone, [isPhone]);
 
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const isModalOpenMemo = useMemo(() => isModalOpen, [isModalOpen]);
-
-  const [isProductModalOpen, setIsProductModalOpen] = useState<boolean>(false);
-  const isProductModalOpenMemo = useMemo(
-    () => isProductModalOpen,
-    [isProductModalOpen]
-  );
-
-  const [isConfirmModal, setIsConfirmModal] = useState(false);
-  const isConfirmModalMemo = useMemo(() => isConfirmModal, [isConfirmModal]);
-
-  const [clientData, setClientData] = useState<Client>();
-  const clientDataMemo = useMemo(() => clientData, [clientData]);
-
-  const [productData, setProductData] = useState<Product>();
-  const productDataMemo = useMemo(() => productData, [productData]);
-
   const [theme, setTheme] = useState<Theme | string>("light");
+
   const [isPriceShown, setIsPriceShown] = useState<string>("true");
 
   const toggleTheme = () => {
@@ -125,21 +90,6 @@ export const Store: FC<Props> = (props) => {
       value={
         {
           isPhone: isPhoneMemo,
-
-          isModalOpen: isModalOpenMemo,
-          setIsModalOpen,
-
-          isProductModalOpen: isProductModalOpenMemo,
-          setIsProductModalOpen,
-
-          clientData: clientDataMemo,
-          setClientData,
-
-          productData: productDataMemo,
-          setProductData,
-
-          isConfirmModal: isConfirmModalMemo,
-          setIsConfirmModal,
 
           theme: theme,
           setTheme,

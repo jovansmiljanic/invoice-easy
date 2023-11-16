@@ -25,6 +25,7 @@ import { AccountDetails } from "./Account";
 
 // Store context
 import { StoreContext } from "@context";
+import { GridContext } from "@components/MainTable";
 
 const NewInvoice = styled.div`
   border-radius: 5px;
@@ -59,7 +60,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
   // Handle router
   const router = useRouter();
 
-  const { clientData } = useContext(StoreContext);
+  const { modalData } = useContext(GridContext);
 
   const [startDate, setStartDate] = useState<Date | null>();
   const [endDate, setEndDate] = useState<Date | null>();
@@ -112,7 +113,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
         endDate: endDate,
         issuedDate: new Date(),
         paymentDeadline: deadlineDate,
-        client: clientData,
+        client: modalData,
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
       },
@@ -130,7 +131,7 @@ const index: FC<NewInvoice> = ({ client, invoiceNumber, invoice }) => {
         endDate: endDate,
         issuedDate: new Date(),
         paymentDeadline: deadlineDate,
-        client: clientData,
+        client: modalData,
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
       },

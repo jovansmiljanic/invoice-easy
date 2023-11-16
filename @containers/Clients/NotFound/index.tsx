@@ -6,11 +6,11 @@ import { Button, Heading } from "@components";
 
 // Vendors
 import styled, { css } from "styled-components";
-import { StoreContext } from "@context";
 
 // Icons
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import useTranslation from "next-translate/useTranslation";
+import { GridContext } from "@components/MainTable";
 
 const NotFound = styled.div`
   padding: 40px 0;
@@ -22,7 +22,7 @@ const index: FC = () => {
   // Translation
   const { t } = useTranslation();
 
-  const { setIsModalOpen, isModalOpen } = useContext(StoreContext);
+  const { setIsModalOpen, isModalOpen } = useContext(GridContext);
 
   return (
     <NotFound>
