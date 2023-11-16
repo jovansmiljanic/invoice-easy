@@ -15,7 +15,7 @@ import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import { DownloadInvoice } from "@components";
 
 // GLobal types
-import { Invoice } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // Client utils
 import { invoicePaid } from "@utils/client";
@@ -103,9 +103,10 @@ const PopupModal = styled.div`
 
 interface Actions {
   updatedItems: Invoice;
+  currentUser: MyAccount | null;
 }
 
-const index: FC<Actions> = ({ updatedItems }) => {
+const index: FC<Actions> = ({ updatedItems, currentUser }) => {
   // Translation
   const { t } = useTranslation();
 
@@ -116,13 +117,19 @@ const index: FC<Actions> = ({ updatedItems }) => {
   const { setModalData, isConfirmModalOpen, setIsConfirmModalOpen } =
     useContext(GridContext);
 
+  if (!currentUser) return <>Loading...</>;
+
   return (
     <Actions>
       <Link href={`/invoice/preview/${updatedItems._id}`}>
         <VisibilityOutlinedIcon fontSize="small" />
       </Link>
 
-      <DownloadInvoice invoice={updatedItems} type="icon" />
+      <DownloadInvoice
+        invoice={updatedItems}
+        userData={currentUser}
+        type="icon"
+      />
 
       <PopupModal>
         <MoreVertOutlinedIcon
@@ -144,7 +151,11 @@ const index: FC<Actions> = ({ updatedItems }) => {
               </ModalItem>
             )}
 
-            <DownloadInvoice invoice={updatedItems} type="modalItem" />
+            <DownloadInvoice
+              invoice={updatedItems}
+              userData={currentUser}
+              type="modalItem"
+            />
 
             <Link href={`/invoice/edit/${updatedItems._id}`}>
               <ModalItem>{t("table:edit")}</ModalItem>

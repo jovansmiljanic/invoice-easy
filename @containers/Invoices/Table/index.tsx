@@ -1,14 +1,11 @@
 // Core types
 import { useContext, type FC } from "react";
 
-// Vendors
-import styled, { css } from "styled-components";
-
 // Local components
 import { InvoiceItem } from "./InvoiceItem";
 
 // Global types
-import { Invoice } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // Grid context
 
@@ -20,12 +17,16 @@ import { StoreContext } from "@context";
 import { Placeholder } from "@components/Dashboard";
 import { Table } from "@styles/Table";
 import { GridContext } from "@components/MainTable";
+import useTranslation from "next-translate/useTranslation";
 
 interface Table {
-  tableHeader: string[];
+  currentUser: MyAccount | null;
 }
 
-const index: FC<Table> = ({ tableHeader }) => {
+const index: FC<Table> = ({ currentUser }) => {
+  // Translation
+  const { t } = useTranslation();
+
   // Grid context
   const { length, updatedItems, isLoading, limit } = useContext(GridContext);
 
@@ -37,6 +38,16 @@ const index: FC<Table> = ({ tableHeader }) => {
   }
 
   if (isLoading || !updatedItems || length === 0) return <Placeholder />;
+
+  const tableHeader = [
+    t("table:id"),
+    t("table:client"),
+    t("table:status"),
+    t("table:date"),
+    t("table:dueDate"),
+    t("table:amount"),
+    t("table:actions"),
+  ];
 
   return (
     <>
@@ -55,7 +66,10 @@ const index: FC<Table> = ({ tableHeader }) => {
           {Array.isArray(updatedItems) &&
             updatedItems.map((item, i) => (
               <tr key={i}>
-                <InvoiceItem updatedItems={item as Invoice} />
+                <InvoiceItem
+                  updatedItems={item as Invoice}
+                  currentUser={currentUser}
+                />
               </tr>
             ))}
         </tbody>
@@ -64,4 +78,4 @@ const index: FC<Table> = ({ tableHeader }) => {
   );
 };
 
-export { index as Table };
+export { index as InvoicesTable };

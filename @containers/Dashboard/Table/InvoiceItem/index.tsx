@@ -60,7 +60,7 @@ const TableCell = styled.td<{ isPriceShown?: string }>`
 
 interface Item {
   updatedItems: Invoice;
-  currentUser?: MyAccount;
+  currentUser: MyAccount | null;
 }
 
 const index: FC<Item> = ({ updatedItems, currentUser }) => {

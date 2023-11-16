@@ -103,7 +103,7 @@ const PopupModal = styled.div`
 
 interface Actions {
   updatedItems: Invoice;
-  currentUser?: MyAccount;
+  currentUser: MyAccount | null;
 }
 
 const index: FC<Actions> = ({ updatedItems, currentUser }) => {
@@ -116,6 +116,8 @@ const index: FC<Actions> = ({ updatedItems, currentUser }) => {
 
   const { setModalData, isConfirmModalOpen, setIsConfirmModalOpen } =
     useContext(GridContext);
+
+  if (!currentUser) return <>Loading....</>;
 
   return (
     <Actions>

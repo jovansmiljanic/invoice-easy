@@ -65,7 +65,7 @@ export const GridContext = createContext({} as IGridContext);
 interface Dashboard {
   path: string;
   boxes: boolean;
-  currentUser?: MyAccount;
+  currentUser: MyAccount | null;
 }
 
 const index: FC<Dashboard> = ({ path, boxes, currentUser }) => {

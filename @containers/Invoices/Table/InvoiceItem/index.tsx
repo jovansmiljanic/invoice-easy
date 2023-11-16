@@ -2,7 +2,7 @@
 import { type FC, useContext } from "react";
 
 // Global types
-import { Invoice } from "@types";
+import { Invoice, MyAccount } from "@types";
 
 // Client utils
 import { daysLeft, formatDate, useTotalPrice } from "@utils/client";
@@ -45,9 +45,10 @@ const TableCell = styled.td<{ isPriceShown?: string }>`
 
 interface Item {
   updatedItems: Invoice;
+  currentUser: MyAccount | null;
 }
 
-const index: FC<Item> = ({ updatedItems }) => {
+const index: FC<Item> = ({ updatedItems, currentUser }) => {
   // Translation
   const { t } = useTranslation();
 
@@ -81,7 +82,7 @@ const index: FC<Item> = ({ updatedItems }) => {
       </TableCell>
       <TableCell isPriceShown={isPriceShown}>{totalPrice}</TableCell>
       <TableCell>
-        <Actions updatedItems={updatedItems} />
+        <Actions updatedItems={updatedItems} currentUser={currentUser} />
       </TableCell>
     </>
   );

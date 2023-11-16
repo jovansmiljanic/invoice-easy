@@ -1,28 +1,18 @@
 // Core types
-import { type FC, useState, useContext, useRef, useEffect } from "react";
+import { type FC, useContext } from "react";
 
 // Vendors
-import Link from "next/link";
-import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
 // SVG
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-
-// Global components
-import { Button, DownloadInvoice } from "@components";
-
-// Store context
-import { StoreContext } from "@context";
 
 // GLobal types
-import { Client, Invoice, Product } from "@types";
+import { Product } from "@types";
 
 // Client utils
-import { invoicePaid, useDropdown } from "@utils/client";
+import { useDropdown } from "@utils/client";
 import { GridContext } from "@components/MainTable";
 
 const Actions = styled.div`

@@ -25,10 +25,10 @@ import useTranslation from "next-translate/useTranslation";
 interface Table {
   statusSelected: any;
   setSearchQuery: any;
-  currentUser?:MyAccount
+  currentUser: MyAccount | null;
 }
 
-const index: FC<Table> = ({ statusSelected, setSearchQuery,currentUser }) => {
+const index: FC<Table> = ({ statusSelected, setSearchQuery, currentUser }) => {
   // Translation
   const { t } = useTranslation();
 
@@ -100,7 +100,10 @@ const index: FC<Table> = ({ statusSelected, setSearchQuery,currentUser }) => {
           {Array.isArray(updatedItems) &&
             updatedItems.map((item, i) => (
               <tr key={i}>
-                <InvoiceItem updatedItems={item as Invoice} currentUser={currentUser} />
+                <InvoiceItem
+                  updatedItems={item as Invoice}
+                  currentUser={currentUser}
+                />
               </tr>
             ))}
         </tbody>
