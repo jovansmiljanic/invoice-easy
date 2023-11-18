@@ -25,49 +25,13 @@ type HiddenNumbers = "true" | "false";
 interface AppContext {
   isPhone?: boolean;
   isTablet?: boolean;
-
-  theme: Theme | string;
-  setTheme: (theme: Theme | string) => void;
-  toggleTheme: () => void;
-
-  isPriceShown: HiddenNumbers | string;
-  setIsPriceShown: (isPriceShown: HiddenNumbers | string) => void;
-  toggleIsPriceShown: () => void;
 }
 
 export const Store: FC<Props> = props => {
   const [isPhone, setIsPhone] = useState<boolean>();
   const isPhoneMemo = useMemo(() => isPhone, [isPhone]);
 
-  const [theme, setTheme] = useState<Theme | string>("light");
-
-  const [isPriceShown, setIsPriceShown] = useState<string>("true");
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-  };
-
-  const toggleIsPriceShown = () => {
-    const numbersHidden = isPriceShown === "true" ? "false" : "true";
-    setIsPriceShown(numbersHidden);
-    localStorage.setItem("hiddenNumbers", numbersHidden);
-  };
-
   useEffect(() => {
-    // Check for the theme preference in localStorage
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme) {
-      setTheme(storedTheme);
-    }
-
-    // Check for the numbers preference in localStorage
-    const storedNumbers = localStorage.getItem("hiddenNumbers");
-    if (storedNumbers) {
-      setIsPriceShown(storedNumbers);
-    }
-
     // Check if users device is smaller than 768px and enable Phone layout
     const isPhone = window.matchMedia("(max-width: 992px)").matches;
 
@@ -90,20 +54,10 @@ export const Store: FC<Props> = props => {
       value={
         {
           isPhone: isPhoneMemo,
-
-          theme: theme,
-          setTheme,
-          toggleTheme,
-
-          isPriceShown,
-          setIsPriceShown,
-          toggleIsPriceShown,
         } as AppContext
       }
     >
-      <ThemeProvider theme={Theme[theme as Theme]}>
-        {props.children}
-      </ThemeProvider>
+      <ThemeProvider theme={Theme["light"]}>{props.children}</ThemeProvider>
     </StoreContext.Provider>
   );
 };

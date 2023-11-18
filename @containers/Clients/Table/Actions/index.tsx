@@ -8,14 +8,13 @@ import useTranslation from "next-translate/useTranslation";
 // SVG
 import MoreVertOutlinedIcon from "@mui/icons-material/MoreVertOutlined";
 
-// Store context
-import { StoreContext } from "@context";
-
 // GLobal types
 import { Client } from "@types";
 
 // Client utils
 import { useDropdown } from "@utils/client";
+
+// Grid context
 import { GridContext } from "@components/MainTable";
 
 const Actions = styled.div`

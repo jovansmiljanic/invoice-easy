@@ -12,7 +12,7 @@ import styled, { css } from "styled-components";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 // Dashboard component
-import { Search, Filters } from "@components/Dashboard";
+import { Search, Filters, ItemsPerPage } from "@components/Dashboard";
 import { Button } from "@components";
 import useTranslation from "next-translate/useTranslation";
 import { objectToQuery } from "@utils/shared";
@@ -38,9 +38,9 @@ const Col1 = styled.div`
 
   ${({ theme: { breakpoints, colors } }) => css`
 
-  a{
-color ${colors.textColor};
-  }
+    a{
+      color ${colors.textColor};
+    }
 
     @media (max-width: ${breakpoints.md}px) {
       width: 100%;
@@ -62,31 +62,6 @@ const Col2 = styled.div`
       flex-wrap: wrap;
       margin: 0 10px;
       margin-bottom: 10px;
-    }
-  `}
-`;
-
-const CustomSelect = styled(Select)`
-  ${({ theme: { colors } }) => css`
-    #react-select-newClient-placeholder {
-      z-index: 1;
-    }
-
-    * > input {
-      padding: 5px 0 !important;
-    }
-
-    * {
-      font-size: 14px;
-      border-radius: 5px !important;
-      border-color: ${colors.lightGray} !important;
-      color: ${colors.textColor} !important;
-      background-color: ${colors.background} !important;
-    }
-
-    .css-1dimb5e-singleValue {
-      color: ${colors.textColor} !important;
-      z-index: 10;
     }
   `}
 `;
@@ -115,28 +90,10 @@ const index: FC<Actions> = ({
   // Grid context
   const { searchQuery, limit, queryUrl, searchUrl } = useContext(GridContext);
 
-  // Handle types
-  const handleChangeType = (selected: any) => {
-    push(`/?&page=${0}&limit=${selected.value}`);
-  };
-
   return (
     <Wrapper>
       <Col1>
-        <CustomSelect
-          instanceId="newClient"
-          options={[
-            {
-              options: [
-                { value: "10", label: "10" },
-                { value: "20", label: "20" },
-                { value: "30", label: "30" },
-              ],
-            },
-          ]}
-          placeholder={limit}
-          onChange={selected => handleChangeType(selected)}
-        />
+        <ItemsPerPage limit={limit} path="/" />
 
         <Button
           size="small"

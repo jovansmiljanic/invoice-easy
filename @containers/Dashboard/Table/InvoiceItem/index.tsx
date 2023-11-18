@@ -67,8 +67,6 @@ const index: FC<Item> = ({ updatedItems, currentUser }) => {
   // Translation
   const { t } = useTranslation();
 
-  const { isPriceShown } = useContext(StoreContext);
-
   let status;
 
   switch (updatedItems.status) {
@@ -95,7 +93,7 @@ const index: FC<Item> = ({ updatedItems, currentUser }) => {
       <TableCell>
         {daysLeft(updatedItems.paymentDeadline, updatedItems.issuedDate)}
       </TableCell>
-      <TableCell isPriceShown={isPriceShown}>
+      <TableCell>
         {totalPrice}
         {t("invoice:currency")}
       </TableCell>

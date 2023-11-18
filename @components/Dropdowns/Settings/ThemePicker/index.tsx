@@ -12,11 +12,9 @@ import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 
 const index: FC = () => {
-  const { theme, toggleTheme } = useContext(StoreContext);
-
   return (
-    <ToggleDiv onClick={toggleTheme}>
-      {theme === "light" ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />}
+    <ToggleDiv>
+      <LightModeOutlinedIcon />
     </ToggleDiv>
   );
 };

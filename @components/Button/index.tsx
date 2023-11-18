@@ -71,7 +71,7 @@ ${({ theme: { defaults, breakpoints } }) => css`
     padding: ${defaults.gutter / 1.2}rem ${defaults.gutter * 2}rem;
   }
 `}
-  ${(p) =>
+  ${p =>
     p.size === "small" &&
     css`
       ${({ theme: { defaults, breakpoints } }) => css`
@@ -82,7 +82,7 @@ ${({ theme: { defaults, breakpoints } }) => css`
         }
       `}
     `}
-  ${(p) =>
+  ${p =>
     p.size === "medium" &&
     css`
       ${({ theme: { defaults, breakpoints } }) => css`
@@ -92,7 +92,7 @@ ${({ theme: { defaults, breakpoints } }) => css`
         }
       `}
     `}
-  ${(p) =>
+  ${p =>
     p.size === "large" &&
     css`
       ${({ theme: { defaults, breakpoints } }) => css`
@@ -103,18 +103,18 @@ ${({ theme: { defaults, breakpoints } }) => css`
         }
       `}
     `}
-  ${(p) =>
+  ${p =>
     p.variant &&
     css`
       ${({ theme: { colors, font } }) => css`
         background-color: ${colors[p.variant as Colors]};
         border-color: ${colors[p.variant as Colors]};
-        color: ${colors.textColor};
         font-weight: ${font.weight.semiBold};
+        color: ${colors.white};
       `}
     `}
   &:hover {
-    ${(p) =>
+    ${p =>
       !p.isLoading &&
       !p.disabled &&
       !p.isCompleted &&
@@ -126,7 +126,7 @@ ${({ theme: { defaults, breakpoints } }) => css`
       `}
   }
   &:focus {
-    ${(p) =>
+    ${p =>
       !p.isLoading &&
       !p.disabled &&
       !p.isCompleted &&
@@ -139,7 +139,7 @@ ${({ theme: { defaults, breakpoints } }) => css`
       `}
   }
   &:active {
-    ${(p) =>
+    ${p =>
       !p.isLoading &&
       !p.disabled &&
       !p.isCompleted &&
@@ -154,13 +154,13 @@ ${({ theme: { defaults, breakpoints } }) => css`
     cursor: not-allowed;
     background-color: rgb(229, 229, 229);
   }
-  ${(p) =>
+  ${p =>
     p.isLoading &&
     css`
       cursor: wait;
       ${LoadingButton}
     `}
-  ${(p) =>
+  ${p =>
     p.isCompleted &&
     css`
       ${({ theme: { colors } }) => `
@@ -168,7 +168,7 @@ ${({ theme: { defaults, breakpoints } }) => css`
       `}
     `}
     // Dynamic Margin
-    ${(p) =>
+    ${p =>
       p.margin &&
       Object.entries(p.margin).map(
         ([key, val]) =>

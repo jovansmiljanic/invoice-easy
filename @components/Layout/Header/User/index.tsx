@@ -34,7 +34,7 @@ const index: FC<User> = ({ session }) => {
     <UserModal ref={ref}>
       <Wrapper onClick={() => setIsOpen(!isOpen)}>
         <User>
-          <Heading as="h6" weight="medium" color="textColor">
+          <Heading as="h6" weight="medium" color="white">
             {session.user.firstName.substring(0, 1)}
             {session.user.lastName.substring(0, 1)}
           </Heading>

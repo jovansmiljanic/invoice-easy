@@ -1,26 +1,17 @@
 // Core types
-import { type FC, useContext } from "react";
+import { type FC } from "react";
 
 // Vendors
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 // Icon
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
-// Store context
-import { StoreContext } from "@context";
-
 const index: FC = () => {
-  const { isPriceShown, toggleIsPriceShown } = useContext(StoreContext);
-
   return (
-    <ToggleDiv onClick={toggleIsPriceShown}>
-      {isPriceShown === "true" ? (
-        <VisibilityOutlinedIcon />
-      ) : (
-        <VisibilityOffOutlinedIcon />
-      )}
+    <ToggleDiv>
+      <VisibilityOutlinedIcon />
     </ToggleDiv>
   );
 };

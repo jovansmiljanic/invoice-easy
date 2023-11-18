@@ -64,7 +64,7 @@ const Heading = styled.h1<Heading>`
   
     ${weight && `font-weight: ${font.weight[weight]};`}
     
-    ${color && `color: ${colors.textColor};`}
+    ${color && `color: ${colors[color]};`}
   `}
 `;
 

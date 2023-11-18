@@ -30,8 +30,6 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
   // Translation
   const { t } = useTranslation();
 
-  const { isPriceShown } = useContext(StoreContext);
-
   // Calculate the total sum of prices
   const totalInvoiced = items?.reduce((sum: number, invoice: Invoice) => {
     const items = invoice.items;
@@ -100,7 +98,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
         </Heading>
       </Box>
 
-      <Box isPriceShown={isPriceShown} isLoading={isLoading}>
+      <Box isLoading={isLoading}>
         <BoxWrap>
           <ReceiptOutlinedIcon />
 
@@ -125,7 +123,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
         </Heading>
       </Box>
 
-      <Box isPriceShown={isPriceShown} isLoading={isLoading}>
+      <Box isLoading={isLoading}>
         <BoxWrap>
           <RequestPageOutlinedIcon />
 
@@ -150,7 +148,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
         </Heading>
       </Box>
 
-      <Box isPriceShown={isPriceShown} isLoading={isLoading}>
+      <Box isLoading={isLoading}>
         <BoxWrap>
           <PaidOutlinedIcon />
 

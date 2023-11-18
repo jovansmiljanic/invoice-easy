@@ -2,11 +2,12 @@
 import { type FC, useContext, useEffect, useState } from "react";
 
 // Vendors
-import styled, { css } from "styled-components";
 import useTranslation from "next-translate/useTranslation";
 
 // Local components
+import { Actions } from "./Actions";
 import { NotFound } from "../NotFound";
+import { DashboardFilters } from "../ClientFilters";
 
 // Global types
 import { Client } from "@types";
@@ -14,14 +15,20 @@ import { Client } from "@types";
 // Grid context
 import { StoreContext } from "@context";
 
-// Grid context from Client
-import { Placeholder } from "@components/Dashboard/Placeholder";
-import { Table } from "@styles/Table";
-import { GridContext } from "@components/MainTable";
-import { copyText } from "@utils/shared";
-import { Actions } from "./Actions";
-import { DashboardFilters } from "../ClientFilters";
+// Dashboard component
+import { Placeholder } from "@components/Dashboard";
+
+// Global ccoponents
 import { AddClientModal } from "@components";
+
+// Global stypes
+import { Table } from "@styles/Table";
+
+// Grid context
+import { GridContext } from "@components/MainTable";
+
+// Shared utils
+import { copyText } from "@utils/shared";
 
 interface ClientTable {
   setSearchQuery: any;
