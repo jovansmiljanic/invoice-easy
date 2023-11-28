@@ -90,8 +90,8 @@ const index: FC = () => {
   // Router
   const router = useRouter();
 
-  const { isModalOpen, setIsModalOpen, modalData, setModalData } =
-    useContext(GridContext);
+  const { isModalOpen, setIsModalOpen } = useContext(GridContext);
+  const { isModalData, setIsModalData } = useContext(StoreContext);
 
   // Hide dropdown when clicked outside it's Ref
   const modalPopupRef = useRef<HTMLDivElement>(null);
@@ -123,8 +123,8 @@ const index: FC = () => {
   };
 
   const editInitialValues = {
-    name: modalData?.name,
-    price: modalData?.price,
+    name: isModalData?.name,
+    price: isModalData?.price,
   };
 
   const addOnSubmit = (data: FormikValues) => {
@@ -142,7 +142,7 @@ const index: FC = () => {
       method: "PUT",
       url: "/api/products",
       data: {
-        _id: modalData?._id,
+        _id: isModalData?._id,
         ...data,
       },
     };
@@ -153,14 +153,14 @@ const index: FC = () => {
       <Modal ref={modalPopupRef}>
         <Formik
           autoComplete="off"
-          initialValues={modalData ? editInitialValues : addInitialValues}
+          initialValues={isModalData ? editInitialValues : addInitialValues}
           validationSchema={AddProductSchema}
           onSubmit={async (data: { name: string; price: string }) => {
-            await axios(modalData ? editOnSubmit(data) : addOnSubmit(data))
+            await axios(isModalData ? editOnSubmit(data) : addOnSubmit(data))
               .then(res => {
                 setIsModalOpen(false);
 
-                setModalData(res.data);
+                setIsModalData(res.data);
 
                 router.push("/products");
               })
@@ -187,7 +187,7 @@ const index: FC = () => {
                   md: { bottom: 4 },
                 }}
               >
-                {modalData
+                {isModalData
                   ? t("product:editProduct")
                   : t("product:addNewProduct")}
               </Heading>

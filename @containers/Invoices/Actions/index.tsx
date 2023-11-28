@@ -20,6 +20,7 @@ import { Invoice, MyAccount } from "@types";
 // Client utils
 import { invoicePaid } from "@utils/client";
 import { GridContext } from "@components/MainTable";
+import { StoreContext } from "@context";
 
 const Actions = styled.div`
   display: flex;
@@ -114,8 +115,9 @@ const index: FC<Actions> = ({ updatedItems, currentUser }) => {
 
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
 
-  const { setModalData, isConfirmModalOpen, setIsConfirmModalOpen } =
-    useContext(GridContext);
+  const { isConfirmModalOpen, setIsConfirmModalOpen } = useContext(GridContext);
+
+  const { setIsModalData } = useContext(StoreContext);
 
   if (!currentUser) return <>Loading...</>;
 
@@ -164,7 +166,7 @@ const index: FC<Actions> = ({ updatedItems, currentUser }) => {
             <ModalItem
               onClick={() => {
                 // Edit client
-                setModalData(updatedItems);
+                setIsModalData(updatedItems);
 
                 setIsConfirmModalOpen(!isConfirmModalOpen);
               }}

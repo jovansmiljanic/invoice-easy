@@ -93,8 +93,8 @@ const index: FC = ({}) => {
   const router = useRouter();
 
   // Global context from store
-  const { modalData, setModalData, isModalOpen, setIsModalOpen } =
-    useContext(GridContext);
+  const { isModalOpen, setIsModalOpen } = useContext(GridContext);
+  const { isModalData, setIsModalData } = useContext(StoreContext);
 
   // Hide dropdown when clicked outside it's Ref
   const modalPopupRef = useRef<HTMLDivElement>(null);
@@ -138,13 +138,13 @@ const index: FC = ({}) => {
   };
 
   const editInitialValues = {
-    clientName: modalData?.clientName,
-    clientAddress: modalData?.clientAddress,
-    city: modalData?.city,
-    country: modalData?.country,
-    zipCode: modalData?.zipCode,
-    taxNumber: modalData?.taxNumber,
-    registrationNumber: modalData?.registrationNumber,
+    clientName: isModalData?.clientName,
+    clientAddress: isModalData?.clientAddress,
+    city: isModalData?.city,
+    country: isModalData?.country,
+    zipCode: isModalData?.zipCode,
+    taxNumber: isModalData?.taxNumber,
+    registrationNumber: isModalData?.registrationNumber,
   };
 
   const addOnSubmit = (data: FormikValues) => {
@@ -162,7 +162,7 @@ const index: FC = ({}) => {
       method: "PUT",
       url: "/api/client",
       data: {
-        _id: modalData?._id,
+        _id: isModalData?._id,
         ...data,
       },
     };
@@ -173,14 +173,14 @@ const index: FC = ({}) => {
       <Modal ref={modalPopupRef}>
         <Formik
           autoComplete="off"
-          initialValues={modalData ? editInitialValues : addInitialValues}
+          initialValues={isModalData ? editInitialValues : addInitialValues}
           validationSchema={AddClientSchema}
           onSubmit={async (data: IClientFormValues) => {
-            await axios(modalData ? editOnSubmit(data) : addOnSubmit(data))
+            await axios(isModalData ? editOnSubmit(data) : addOnSubmit(data))
               .then(res => {
                 setIsModalOpen(false);
 
-                setModalData(res.data);
+                setIsModalData(res.data);
                 router.asPath === "/invoice/add" ? "" : router.push("/clients");
               })
               .catch(err => {
@@ -206,7 +206,7 @@ const index: FC = ({}) => {
                   md: { bottom: 4 },
                 }}
               >
-                {modalData
+                {isModalData
                   ? t("invoice:editClient")
                   : t("invoice:addNewClient")}
               </Heading>

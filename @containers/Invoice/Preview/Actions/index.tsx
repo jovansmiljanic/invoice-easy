@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 // Global types
 import { Invoice, MyAccount } from "@types";
 import { GridContext } from "@components/MainTable";
+import { StoreContext } from "@context";
 
 interface Actions {
   invoice: Invoice;
@@ -30,8 +31,9 @@ const index: FC<Actions> = ({ invoice, userData }) => {
   // Router
   const { locale } = useRouter();
 
-  const { setModalData, isConfirmModalOpen, setIsConfirmModalOpen } =
-    useContext(GridContext);
+  const { isConfirmModalOpen, setIsConfirmModalOpen } = useContext(GridContext);
+
+  const { setIsModalData } = useContext(StoreContext);
 
   return (
     <Actions>
@@ -62,7 +64,7 @@ const index: FC<Actions> = ({ invoice, userData }) => {
           md: { bottom: 1 },
         }}
         onClick={() => {
-          setIsConfirmModalOpen(!isConfirmModalOpen), setModalData(invoice);
+          setIsConfirmModalOpen(!isConfirmModalOpen), setIsModalData(invoice);
         }}
       >
         {t("invoice:deleteCta")}

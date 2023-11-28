@@ -64,7 +64,8 @@ const index: FC = () => {
   // Router
   const router = useRouter();
 
-  const { modalData, setIsConfirmModalOpen } = useContext(GridContext);
+  const { setIsConfirmModalOpen } = useContext(GridContext);
+  const { isModalData } = useContext(StoreContext);
 
   // Hide dropdown when clicked outside it's Ref
   const modalPopupRef = useRef<HTMLDivElement>(null);
@@ -123,7 +124,7 @@ const index: FC = () => {
             variant="danger"
             onClick={() => (
               deleteItem({
-                id: modalData._id,
+                id: isModalData._id,
                 router,
                 path,
               }),

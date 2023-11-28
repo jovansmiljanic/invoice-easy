@@ -25,11 +25,15 @@ type HiddenNumbers = "true" | "false";
 interface AppContext {
   isPhone?: boolean;
   isTablet?: boolean;
+  isModalData: any;
+  setIsModalData: any;
 }
 
 export const Store: FC<Props> = props => {
   const [isPhone, setIsPhone] = useState<boolean>();
   const isPhoneMemo = useMemo(() => isPhone, [isPhone]);
+
+  const [isModalData, setIsModalData] = useState<any>();
 
   useEffect(() => {
     // Check if users device is smaller than 768px and enable Phone layout
@@ -54,6 +58,8 @@ export const Store: FC<Props> = props => {
       value={
         {
           isPhone: isPhoneMemo,
+          isModalData,
+          setIsModalData,
         } as AppContext
       }
     >

@@ -16,6 +16,7 @@ import { useDropdown } from "@utils/client";
 
 // Grid context
 import { GridContext } from "@components/MainTable";
+import { StoreContext } from "@context";
 
 const Actions = styled.div`
   display: flex;
@@ -108,12 +109,13 @@ const index: FC<Actions> = ({ updatedItems }) => {
   const { isOpen, ref, setIsOpen } = useDropdown();
 
   const {
-    setModalData,
     isModalOpen,
     setIsModalOpen,
     isConfirmModalOpen,
     setIsConfirmModalOpen,
   } = useContext(GridContext);
+
+  const { setIsModalData } = useContext(StoreContext);
 
   return (
     <>
@@ -129,7 +131,7 @@ const index: FC<Actions> = ({ updatedItems }) => {
               <ModalItem
                 onClick={() => {
                   // Edit client
-                  setModalData(updatedItems);
+                  setIsModalData(updatedItems);
 
                   setIsModalOpen(!isModalOpen);
                 }}
@@ -140,7 +142,7 @@ const index: FC<Actions> = ({ updatedItems }) => {
               <ModalItem
                 onClick={() => {
                   // Delete client
-                  setModalData(updatedItems);
+                  setIsModalData(updatedItems);
 
                   setIsConfirmModalOpen(!isConfirmModalOpen);
                 }}

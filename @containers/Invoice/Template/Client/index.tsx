@@ -20,12 +20,10 @@ import { Field } from "@styles/Form";
 // Client utils
 import { formatDate } from "@utils/client";
 
-// Store context
-import { StoreContext } from "@context";
-
 // Icons
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { GridContext } from "@components/MainTable";
+import { StoreContext } from "@context";
 
 const Client = styled.div`
   display: flex;
@@ -146,6 +144,11 @@ interface Client {
   invoice?: InvoiceTypes;
 }
 
+interface ISelect {
+  value: ClientTypes;
+  label: string;
+}
+
 const index: FC<Client> = ({
   startDate,
   endDate,
@@ -160,8 +163,8 @@ const index: FC<Client> = ({
   // Translation
   const { t } = useTranslation();
 
-  const { isModalOpen, setIsModalOpen, modalData, setModalData } =
-    useContext(GridContext);
+  const { isModalOpen, setIsModalOpen } = useContext(GridContext);
+  const { isModalData, setIsModalData } = useContext(StoreContext);
 
   const { handleBlur, handleChange, values } = useFormikContext<FormikValues>();
 
@@ -171,27 +174,28 @@ const index: FC<Client> = ({
 
   // Handle types
   const handleChangeType = (selected: any) => {
-    setModalData(selected.value);
+    console.log(selected.value);
+    setIsModalData(selected.value);
   };
 
   return (
     <Client>
       <div>
-        {modalData ? (
+        {isModalData ? (
           <>
             <Heading as="h6" weight="bold">
-              {modalData.clientName}
+              {isModalData.clientName}
             </Heading>
-            <Heading as="p">{modalData.clientAddress}</Heading>
+            <Heading as="p">{isModalData.clientAddress}</Heading>
             <Heading as="p">
-              {modalData.zipCode}, {modalData.city}, {modalData.country}
+              {isModalData.zipCode}, {isModalData.city}, {isModalData.country}
             </Heading>
             <Heading as="p">
-              {t("form:taxNumber")}: {modalData.taxNumber}
+              {t("form:taxNumber")}: {isModalData.taxNumber}
             </Heading>
-            {modalData.registrationNumber && (
+            {isModalData.registrationNumber && (
               <Heading as="p">
-                {t("form:registrationNumber")}: {modalData.registrationNumber}
+                {t("form:registrationNumber")}: {isModalData.registrationNumber}
               </Heading>
             )}
           </>

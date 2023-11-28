@@ -47,6 +47,7 @@ interface IGridContext {
   length: number;
   searchUrl: string;
   updatedItems: Invoice[] | Client[] | Product[];
+
   isLoading: boolean;
   setIsLoading: (isLoading: boolean) => void;
 
@@ -55,9 +56,6 @@ interface IGridContext {
 
   isConfirmModalOpen: boolean;
   setIsConfirmModalOpen: (isConfirmModalOpen: boolean) => void;
-
-  modalData: any;
-  setModalData: any;
 }
 
 export const GridContext = createContext({} as IGridContext);
@@ -107,7 +105,6 @@ const index: FC<Dashboard> = ({ path, boxes, currentUser }) => {
 
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [modalData, setModalData] = useState<any>();
 
   // Fetch items
   interface IFetch {
@@ -215,8 +212,6 @@ const index: FC<Dashboard> = ({ path, boxes, currentUser }) => {
         setIsModalOpen,
         isConfirmModalOpen,
         setIsConfirmModalOpen,
-        modalData,
-        setModalData,
       }}
     >
       {boxes && (
