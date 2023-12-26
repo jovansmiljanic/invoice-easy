@@ -1,30 +1,64 @@
+"use client";
+
 // Vendors
 import styled, { css } from "styled-components";
 
 // Global types
-import { Spaces as Spacestype } from "@types";
-import { Breakpoints as Breakpointstype } from "@types";
-import { Colors as Colorstype } from "@types";
-import { FontWeights as FontWeightstype } from "@types";
-import { TextAlign as TextAligntype } from "@types";
-import { PaddingTypes } from "@types";
+import {
+  PaddingTypes,
+  FontWeights,
+  Colors,
+  TextAlign,
+  Breakpoints,
+  Spaces,
+} from "@types";
 
-interface TextAlign {
-  xs?: TextAligntype;
-  sm?: TextAligntype;
-  md?: TextAligntype;
-  lg?: TextAligntype;
-  xl?: TextAligntype;
-}
-
-interface Heading {
-  weight?: FontWeightstype;
+interface HeadingProps {
+  weight?: FontWeights;
   padding?: PaddingTypes;
-  textAlign?: TextAlign;
-  color?: Colorstype;
+  textAlign?: Partial<Record<Breakpoints, TextAlign>>;
+  color?: Colors;
 }
 
-const Heading = styled.h1<Heading>`
+const generatePaddingStyles = (
+  padding: PaddingTypes,
+  breakpoints: Record<Breakpoints, number>,
+  spaces: Record<Spaces, number>
+) => {
+  return Object.entries(padding).map(([breakpoint, spaceTypes]) => {
+    const breakpointSize = breakpoints[breakpoint as Breakpoints];
+    return css`
+      @media (${breakpoint === "sm"
+          ? "max"
+          : "min"}-width: ${breakpointSize}px) {
+        ${Object.entries(spaceTypes)
+          .map(
+            ([direction, space]) =>
+              `padding-${direction}: ${spaces[space as Spaces]}px;`
+          )
+          .join(" ")}
+      }
+    `;
+  });
+};
+
+const generateTextAlignStyles = (
+  textAlign: Partial<Record<Breakpoints, TextAlign>>,
+  breakpoints: Record<Breakpoints, number>
+) => {
+  return Object.entries(textAlign).map(([breakpoint, align]) => {
+    const breakpointSize = breakpoints[breakpoint as Breakpoints];
+    return css`
+      @media (${breakpoint === "sm"
+          ? "max"
+          : "min"}-width: ${breakpointSize}px) {
+        text-align: ${align};
+      }
+    `;
+  });
+};
+
+const Heading = styled.h1<HeadingProps>`
   ${({
     weight,
     color,
@@ -32,38 +66,9 @@ const Heading = styled.h1<Heading>`
     padding,
     theme: { font, colors, spaces, breakpoints },
   }) => css`
-    // Dynamic padding
-    ${padding &&
-    Object.entries(padding).map(
-      ([key, val]) =>
-        `
-        @media (${key === "sm" ? "max" : "min"}-width: ${
-          breakpoints[key as Breakpointstype]
-        }px) {
-          ${Object.entries(val).reduce((p, [key, val]) => {
-            return p
-              ? `${p}; padding-${key}: ${spaces[val as Spacestype]}px;`
-              : `padding-${key}: ${spaces[val as Spacestype]}px`;
-          }, "")}
-        }
-            `
-    )}
-
-    // Dynamic text
-    ${textAlign &&
-    Object.entries(textAlign).map(
-      ([key, val]: [string, TextAlign]) =>
-        `
-        @media (${key === "sm" ? "max" : "min"}-width: ${
-          breakpoints[key as Breakpointstype]
-        }px) {
-          text-align: ${val};
-        }
-      `
-    )}
-  
+    ${padding && generatePaddingStyles(padding, breakpoints, spaces)}
+    ${textAlign && generateTextAlignStyles(textAlign, breakpoints)}
     ${weight && `font-weight: ${font.weight[weight]};`}
-    
     ${color && `color: ${colors[color]};`}
   `}
 `;
