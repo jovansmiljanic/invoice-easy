@@ -14,8 +14,8 @@ module.exports = {
   ...nextTranslate(),
 
   i18n: {
-    locales: ["sr", "si", "en"],
-    defaultLocale: "sr",
+    locales: ["default", "sr", "si", "en"],
+    defaultLocale: "default",
     localeDetection: false,
   },
 };

@@ -1,6 +1,6 @@
 {
-  "locales": ["si", "sr", "en"],
-  "defaultLocale": "sr",
+  "locales": ["default", "si", "sr", "en"],
+  "defaultLocale": "default",
   "pages": {
     "*": [
       "home",
