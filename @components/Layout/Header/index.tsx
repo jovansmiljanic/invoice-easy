@@ -18,7 +18,6 @@ import { Notification } from "./Notification";
 
 // Global components
 import { Heading, Logo } from "@components";
-import { StoreContext } from "@context";
 
 interface Header {
   session?: Session;
@@ -26,16 +25,16 @@ interface Header {
 }
 
 const index: FC<Header> = ({ session, title }) => {
-  const { isPhone } = useContext(StoreContext);
-
   return (
     <Header>
-      {isPhone ? (
-        <Link href="/">
-          <Logo $width="100" $height="60" $color="secondary" />
-        </Link>
+      {session ? (
+        <Heading as="h4" weight="medium" color="textColor">
+          {title}
+        </Heading>
       ) : (
-        title && <Heading as="h4">{title}</Heading>
+        <Link href="/">
+          <Logo $width="100" $height="40" $color="secondary" />
+        </Link>
       )}
 
       <Wrap>
@@ -60,6 +59,10 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  max-width: 1340px;
+  width: 100%;
+  margin: auto;
 `;
 
 const Wrap = styled.div`

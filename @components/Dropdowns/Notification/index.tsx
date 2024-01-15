@@ -21,7 +21,11 @@ const index: FC = () => {
       <DropdownItem borderBottom>
         <NotificationsNoneOutlinedIcon />
 
-        <Heading as="p" weight="bold" textAlign={{ xs: "left", sm: "left", md: "left" }}>
+        <Heading
+          as="p"
+          weight="bold"
+          textAlign={{ xs: "left", sm: "left", md: "left" }}
+        >
           {t("home:notificationTitle")}
         </Heading>
       </DropdownItem>
