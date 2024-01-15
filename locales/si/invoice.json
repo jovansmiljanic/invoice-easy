@@ -28,7 +28,7 @@
   "addNewClient": "Dodaj novega stranko",
   "editClient": "Uredi stranko",
   "chooseClient": "Izberite obstoječega",
-  "currency": "",
+  "currency": "€",
 
   "notFoundTitle": "Računi niso najdeni!",
   "notFoundDescription": "Kliknite na 'USTVARI RAČUN', da dodate račun ali spremenite filtre."

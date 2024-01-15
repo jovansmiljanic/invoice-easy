@@ -28,7 +28,7 @@
   "addNewClient": "Add new client",
   "editClient": "Edit client",
   "chooseClient": "Choose existing",
-  "currency": "",
+  "currency": "€",
 
   "notFoundTitle": "Invoices Not Found!",
   "notFoundDescription": "Please click on 'CREATE INVOICE' to add an invoice or change filters."
