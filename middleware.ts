@@ -14,11 +14,15 @@ export async function middleware(req: NextRequest) {
 
   // Read the cookie named 'userLanguage'
   const userLanguage = req.cookies.get("lang");
-  console.log(userLanguage);
 
   if (req.nextUrl.locale === "default") {
     return NextResponse.redirect(
-      new URL(`/${userLanguage?.value}${req.nextUrl.pathname}`, req.url)
+      new URL(
+        `/${userLanguage?.value ? userLanguage?.value : "en"}${
+          req.nextUrl.pathname
+        }`,
+        req.url
+      )
     );
   }
 }
