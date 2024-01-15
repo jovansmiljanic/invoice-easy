@@ -1,15 +1,17 @@
 // Core types
 import { type FC } from "react";
 
-// Icons
-// import { English, Serbia, Slovenia } from "public/svg";
-import LanguageIcon from "@mui/icons-material/Language";
-
 // Vendors
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styled, { css } from "styled-components";
+import LanguageIcon from "@mui/icons-material/Language";
+
+// Client utils
 import { useDropdown } from "@utils/client";
+
+// Shared utils
+import { useSetCookie } from "@utils/shared";
 
 const index: FC = () => {
   // Handle router
@@ -25,18 +27,49 @@ const index: FC = () => {
 
       {isOpen && (
         <Dropdown onClick={() => setIsOpen(!isOpen)}>
-          <Link href={router.asPath} locale="sr">
+          <Link
+            href={router.asPath}
+            locale="sr"
+            onClick={() =>
+              useSetCookie({
+                name: "lang",
+                value: "sr",
+                days: 100,
+              })
+            }
+          >
             <DropdownItem>
               <span>Serbian</span>
             </DropdownItem>
           </Link>
 
-          <Link href={router.asPath} locale="si">
+          <Link
+            href={router.asPath}
+            locale="si"
+            onClick={() =>
+              useSetCookie({
+                name: "lang",
+                value: "si",
+                days: 100,
+              })
+            }
+          >
             <DropdownItem>
               <span>Slovenian</span>
             </DropdownItem>
           </Link>
-          <Link href={router.asPath} locale="en">
+
+          <Link
+            href={router.asPath}
+            locale="en"
+            onClick={() =>
+              useSetCookie({
+                name: "lang",
+                value: "en",
+                days: 100,
+              })
+            }
+          >
             <DropdownItem>
               <span>English</span>
             </DropdownItem>

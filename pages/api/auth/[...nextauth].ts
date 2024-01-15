@@ -10,6 +10,7 @@ import type { NextAuthOptions } from "next-auth";
 import { database } from "@utils/server";
 
 // Database models
+
 import { User } from "@models";
 
 // Types
