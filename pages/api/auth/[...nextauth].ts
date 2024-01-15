@@ -13,6 +13,7 @@ import { database } from "@utils/server";
 import { User } from "@models";
 
 // Types
+
 import type { NextApiRequest, NextApiResponse } from "next";
 
 // Global types
