@@ -1,5 +1,5 @@
 // Core
-import { type FC, useState, useEffect, useRef } from "react";
+import { type FC, useState, useEffect } from "react";
 
 // Styles
 import { Filter, Label } from "@styles/Filter";
@@ -11,6 +11,8 @@ import useTranslation from "next-translate/useTranslation";
 // SVG
 import ExpandLessOutlinedIcon from "@mui/icons-material/ExpandLessOutlined";
 import ExpandMoreOutlinedIcon from "@mui/icons-material/ExpandMoreOutlined";
+
+// Client utils
 import { useDropdown } from "@utils/client";
 
 // Dropdown container
@@ -18,13 +20,14 @@ const Container = styled.div`
   width: 240px;
   padding: 10px 0;
   position: absolute;
-  top: 100%;
+  top: 115%;
+  border-radius: 5px;
   box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45),
     rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
   z-index: 50;
 
   ${({ theme: { colors } }) => css`
-    background-color: ${colors.background};
+    background-color: ${colors.white};
   `};
 `;
 

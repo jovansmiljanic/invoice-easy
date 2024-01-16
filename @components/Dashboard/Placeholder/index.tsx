@@ -15,8 +15,9 @@ const animate = keyframes`
 `;
 
 export const Animation = styled.div`
-  background: #f6f7f8;
-  background: linear-gradient(to right, #cccccc 20%, #aaaaaa 30%, #888888 95%);
+  background: #f8f8f8; /* Intermediate solid color fallback */
+  background: linear-gradient(to right, #e8e8e8 20%, #d8d8d8 30%, #c8c8c8 95%);
+
   background-size: 1200px 104px;
   position: relative;
   animation-timing-function: linear;

@@ -12,8 +12,12 @@ import { useDropdown } from "@utils/client";
 
 // Shared utils
 import { useSetCookie } from "@utils/shared";
+import useTranslation from "next-translate/useTranslation";
 
 const index: FC = () => {
+  // Translation
+  const { t } = useTranslation();
+
   // Handle router
   const router = useRouter();
 
@@ -23,6 +27,8 @@ const index: FC = () => {
     <ToggleDiv ref={ref}>
       <CurrentFlag onClick={() => setIsOpen(!isOpen)}>
         <LanguageIcon />
+
+        {t("home:language")}
       </CurrentFlag>
 
       {isOpen && (
@@ -82,60 +88,38 @@ const index: FC = () => {
 
 export { index as LanguagePicker };
 
-const ToggleDiv = styled.div`
-  position: relative;
-
-  svg {
-    width: 30px;
-    height: auto;
-  }
-`;
+const ToggleDiv = styled.div``;
 
 const CurrentFlag = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  margin-right: 15px;
+
   cursor: pointer;
 
   svg {
-    width: 25px;
+    width: 22px;
     height: auto;
   }
 `;
 
 const Dropdown = styled.div`
-  position: absolute;
-  top: 30px;
-  right: 0;
-  z-index: 100;
-  border-radius: 5px;
-  min-width: 120px;
-  box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
-
-  ${({ theme: { colors } }) => css`
-    background-color: ${colors.background};
-  `}
+  width: 100%;
+  margin-top: 10px;
 `;
 
 const DropdownItem = styled.div`
-  padding: 10px;
+  width: 100%;
 
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-
-  span {
-    margin-left: 8px;
-    font-size: 14px;
-  }
+  padding: 10px 0;
+  font-size: 14px;
 
   ${({ theme: { colors } }) => css`
     color: ${colors.textColor};
     border-bottom: 1px solid ${colors.lightGray};
 
     &:hover {
-      background-color: ${colors.hoverGray};
+      background-color: ${colors.lighterGray};
     }
   `}
 `;

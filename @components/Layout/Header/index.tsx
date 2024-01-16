@@ -9,7 +9,7 @@ import type { Session } from "next-auth";
 import Link from "next/link";
 
 // Vendors
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 // Local components
 import { User } from "./User";
@@ -26,7 +26,7 @@ interface Header {
 
 const index: FC<Header> = ({ session, title }) => {
   return (
-    <Header>
+    <Header session={session}>
       {session ? (
         <Heading as="h4" weight="medium" color="textColor">
           {title}
@@ -50,7 +50,7 @@ const index: FC<Header> = ({ session, title }) => {
 
 export { index as Header };
 
-const Header = styled.div`
+const Header = styled.div<{ session?: Session }>`
   grid-column: 2 / 3;
   grid-row: 1;
 
@@ -60,9 +60,15 @@ const Header = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  max-width: 1340px;
   width: 100%;
-  margin: auto;
+
+  ${({ session }) => css`
+    ${!session &&
+    css`
+      max-width: 1340px;
+      margin: auto;
+    `}
+  `}
 `;
 
 const Wrap = styled.div`

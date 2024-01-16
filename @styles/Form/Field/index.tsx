@@ -81,7 +81,6 @@ export const Field = styled.input<Field>`
       font-weight: ${font.weight.medium};
       padding: ${defaults.gutter * 10}px ${defaults.gutter * 20}px;
       color: ${colors.textColor};
-      background-color: ${colors.background};
 
       &[type="checkbox"] {
         &:checked {

@@ -19,16 +19,20 @@ import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+
+// Next Translate
 import useTranslation from "next-translate/useTranslation";
 
 const Sidebar = styled.div`
   grid-column: 1 / 2;
   grid-row: 1 / 4;
 
-  position: sticky;
+  position: fixed;
   top: 0;
   overflow-y: auto;
   height: 100vh;
+  min-height: 100%;
+  width: 250px;
 
   padding: 20px;
   display: flex;

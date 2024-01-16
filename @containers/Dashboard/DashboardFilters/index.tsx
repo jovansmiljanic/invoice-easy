@@ -5,18 +5,25 @@ import { useContext, type FC } from "react";
 import { useRouter } from "next/router";
 
 // Vendors
-import Select from "react-select";
 import styled, { css } from "styled-components";
+import useTranslation from "next-translate/useTranslation";
 
 // Icons
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-
+import FileDownloadOutlinedIcon from "@mui/icons-material/FileDownloadOutlined";
 // Dashboard component
 import { Search, Filters, ItemsPerPage } from "@components/Dashboard";
+
+// Global components
 import { Button } from "@components";
-import useTranslation from "next-translate/useTranslation";
+
+// Shared utils
 import { objectToQuery } from "@utils/shared";
+
+// Main table
 import { GridContext } from "@components/MainTable";
+import { DownloadInvoiceMultiple } from "@components/DownloadInvoice/multiple";
+import { Invoice, MyAccount } from "@types";
 
 const Wrapper = styled.div`
   padding: 15px;
@@ -26,6 +33,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
   ${({ theme: { colors } }) => css`
     background-color: ${colors.white};
@@ -36,12 +44,7 @@ const Col1 = styled.div`
   display: flex;
   align-items: center;
 
-  ${({ theme: { breakpoints, colors } }) => css`
-
-    a{
-      color ${colors.textColor};
-    }
-
+  ${({ theme: { breakpoints } }) => css`
     @media (max-width: ${breakpoints.md}px) {
       width: 100%;
 
@@ -70,6 +73,8 @@ interface Actions {
   filterOptions: any;
   statusSelected: any;
   setSearchQuery: any;
+  invoice: Invoice[];
+  userData?: MyAccount | null;
 }
 
 interface Checkbox {
@@ -81,6 +86,8 @@ const index: FC<Actions> = ({
   filterOptions,
   statusSelected,
   setSearchQuery,
+  invoice,
+  userData,
 }) => {
   // Translation
   const { t } = useTranslation();
@@ -99,8 +106,8 @@ const index: FC<Actions> = ({
           size="small"
           variant="secondary"
           margin={{
-            xs: { right: 1, left: 1, top: 1, bottom: 1 },
-            sm: { right: 1, left: 1, top: 1, bottom: 1 },
+            xs: { right: 1, left: 1 },
+            sm: { right: 1, left: 1 },
             md: { left: 1 },
           }}
           as="a"
@@ -109,6 +116,18 @@ const index: FC<Actions> = ({
           <AddOutlinedIcon />
           {t("table:createInvoiceCta")}
         </Button>
+
+        {invoice.length > 0 && (
+          <DownloadInvoiceMultiple
+            invoice={invoice}
+            userData={userData}
+            type="button"
+            button={{
+              variant: "success",
+              icon: <FileDownloadOutlinedIcon />,
+            }}
+          />
+        )}
       </Col1>
 
       <Col2>

@@ -31,7 +31,9 @@ const index: FC = () => {
       </DropdownItem>
 
       <DropdownItem>
-        <Heading as="p">{t("home:notificationContent")}</Heading>
+        <Heading as="p" color="textColorSecondary" weight="regular">
+          {t("home:notificationContent")}
+        </Heading>
       </DropdownItem>
     </Dropdown>
   );
@@ -44,6 +46,7 @@ const DropdownItem = styled.div<{
 }>`
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 15px 25px;
 
   ${({ borderBottom, theme: { colors } }) => css`

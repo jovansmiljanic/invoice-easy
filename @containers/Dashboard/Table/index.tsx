@@ -1,3 +1,5 @@
+"use client";
+
 // Core types
 import { type FC, useContext, useState, useEffect } from "react";
 
@@ -42,8 +44,47 @@ const index: FC<Table> = ({ statusSelected, setSearchQuery, currentUser }) => {
   // Store context
   const { isPhone } = useContext(StoreContext);
 
+  // State for tracking the header checkbox
+  const [isAllSelected, setIsAllSelected] = useState(false);
+  const [selectedInvoices, setSelectedInvoices] = useState<Invoice[]>([]);
+
+  // Handle the change for the header checkbox
+  const handleSelectAllInvoices = (isSelected: boolean) => {
+    setIsAllSelected(isSelected);
+    if (isSelected) {
+      // Select all invoices
+      setSelectedInvoices(updatedItems as Invoice[]);
+    } else {
+      // Deselect all invoices
+      setSelectedInvoices([]);
+    }
+  };
+
+  // Update individual invoice selection
+  const handleSelectInvoice = (
+    selectedInvoice: Invoice,
+    isSelected: boolean
+  ) => {
+    if (isSelected) {
+      setSelectedInvoices([...selectedInvoices, selectedInvoice]);
+    } else {
+      setSelectedInvoices(
+        selectedInvoices.filter(invoice => invoice._id !== selectedInvoice._id)
+      );
+    }
+  };
+
+  // Update the isAllSelected state when invoices update
+  useEffect(() => {
+    setIsAllSelected(selectedInvoices.length === updatedItems.length);
+  }, [selectedInvoices, updatedItems]);
+
   const tableHeader = [
-    t("table:id"),
+    <input
+      type="checkbox"
+      checked={isAllSelected}
+      onChange={e => handleSelectAllInvoices(e.target.checked)}
+    />,
     t("table:client"),
     t("table:status"),
     t("table:date"),
@@ -81,6 +122,8 @@ const index: FC<Table> = ({ statusSelected, setSearchQuery, currentUser }) => {
         filterOptions={filterOptions}
         statusSelected={statusSelected}
         setSearchQuery={setSearchQuery}
+        invoice={selectedInvoices}
+        userData={currentUser}
       />
 
       {isLoading ? <Placeholder /> : showNotFound && <NotFound />}
@@ -103,6 +146,12 @@ const index: FC<Table> = ({ statusSelected, setSearchQuery, currentUser }) => {
                 <InvoiceItem
                   updatedItems={item as Invoice}
                   currentUser={currentUser}
+                  onSelect={isSelected =>
+                    handleSelectInvoice(item as Invoice, isSelected as any)
+                  }
+                  isSelected={selectedInvoices.some(
+                    invoice => invoice._id === item._id
+                  )}
                 />
               </tr>
             ))}
