@@ -1,4 +1,4 @@
-import type { Theme as ThemeType, ThemeContext } from "@types";
+import type { Theme as ThemeType } from "@types";
 
 // Common settings for all themes
 const commonSettings = {
@@ -48,18 +48,23 @@ const defaultTheme: ThemeType = {
   colors: {
     white: "#FFFFFF",
     black: "#000000",
+
     primary: "#208DD0",
     secondary: "#7A7DFF",
     success: "#37C864",
     danger: "#E04A5A",
     warning: "#FFA726",
+
+    background: "#f2f4fc",
+
     textColor: "#222222",
+    textColorSecondary: "#8E989F",
+
+    gray: "#64748B",
     lightGray: "#BDBDBD",
     lighterGray: "#E0E0E0",
     darkGray: "#404040",
     hoverGray: "#4359710A",
-    background: "#f2f4fc",
-    gray: "#64748B",
   },
 };
 
@@ -70,18 +75,23 @@ const darkTheme: ThemeType = {
   colors: {
     white: "#1E1E1E",
     black: "#FFFFFF",
+
     primary: "#4BA3D9",
     secondary: "#7A7DFF",
     success: "#37C864",
     danger: "#E04A5A",
     warning: "#FFA726",
+
     textColor: "#FFFFFF",
+    textColorSecondary: "#8E989F",
+
+    background: "#2D2D2D",
+
+    gray: "#64748B",
     lightGray: "#A1A1A1",
     lighterGray: "#BDBDBD",
     darkGray: "#303030",
     hoverGray: "#4359710A",
-    background: "#2D2D2D",
-    gray: "#64748B",
   },
 };
 

@@ -133,20 +133,26 @@ const index: FC<Total> = ({ invoice, companyName }) => {
         </TotalRow>
       </Total>
 
-      <Note>
-        <Heading as="p">{t("invoice:ddvParagraphOne")}</Heading>
+      {invoice?.customText ? (
+        <Note>
+          <Heading as="p">{invoice?.customText}</Heading>
+        </Note>
+      ) : (
+        <Note>
+          <Heading as="p">{t("invoice:ddvParagraphOne")}</Heading>
 
-        <Heading
-          as="p"
-          padding={{
-            xs: { bottom: 3 },
-            sm: { bottom: 3 },
-            md: { bottom: 3 },
-          }}
-        >
-          {t("invoice:ddvParagraphTwo")}
-        </Heading>
-      </Note>
+          <Heading
+            as="p"
+            padding={{
+              xs: { bottom: 3 },
+              sm: { bottom: 3 },
+              md: { bottom: 3 },
+            }}
+          >
+            {t("invoice:ddvParagraphTwo")}
+          </Heading>
+        </Note>
+      )}
 
       <Footer>
         <p>{companyName}.</p>

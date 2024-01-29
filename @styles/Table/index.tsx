@@ -8,10 +8,9 @@ export const Table = styled.table`
 
   ${({ theme: { colors, breakpoints } }) => css`
     thead {
-      background-color: white;
+      border-radius: 5px;
       color: ${colors.textColor};
       background-color: ${colors.white};
-      border-radius: 5px;
       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 
       tr {
@@ -23,6 +22,7 @@ export const Table = styled.table`
           &:last-child {
             text-align: right;
           }
+
           @media (max-width: ${breakpoints.md}px) {
             &:last-child {
               text-align: left;
@@ -44,6 +44,7 @@ export const Table = styled.table`
         td {
           padding: 15px;
           text-align: left;
+
           &:last-child {
             text-align: right;
           }

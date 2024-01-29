@@ -19,7 +19,7 @@ const index: FC = () => {
 
   return (
     <Dropdown>
-      <DropdownItem borderBottom>
+      {/* <DropdownItem borderBottom>
         {t("home:theme")}
 
         <ThemePicker />
@@ -29,11 +29,9 @@ const index: FC = () => {
         {t("home:visibility")}
 
         <VisibilityPicker />
-      </DropdownItem>
+      </DropdownItem> */}
 
       <DropdownItem>
-        {t("home:language")}
-
         <LanguagePicker />
       </DropdownItem>
     </Dropdown>
@@ -47,10 +45,8 @@ const DropdownItem = styled.div<{
   borderBottom?: boolean;
 }>`
   padding: 15px 25px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  border-radius: 5px;
 
   ${({ borderTop, borderBottom, theme: { colors } }) => css`
     color: ${colors.textColor};
@@ -64,9 +60,5 @@ const DropdownItem = styled.div<{
     `
       border-bottom: 1px solid ${colors.lightGray};
     `}
-
-    &:hover {
-      background-color: ${colors.hoverGray};
-    }
   `}
 `;

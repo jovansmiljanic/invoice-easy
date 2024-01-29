@@ -6,13 +6,14 @@ export type Colors =
   | "success"
   | "danger"
   | "warning"
+  | "background"
   | "textColor"
+  | "textColorSecondary"
+  | "gray"
   | "lightGray"
   | "lighterGray"
   | "darkGray"
-  | "hoverGray"
-  | "background"
-  | "gray";
+  | "hoverGray";
 
 export type FontWeights = "light" | "regular" | "medium" | "semiBold" | "bold";
 

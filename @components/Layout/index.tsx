@@ -20,6 +20,7 @@ import styled, { css } from "styled-components";
 
 // Local components
 import { Sidebar } from "./Sidebar";
+import { useRouter } from "next/router";
 
 interface Props {
   title?: string;
@@ -27,8 +28,8 @@ interface Props {
   session?: Session;
 }
 
-const Layout = styled.div<{ session?: Session }>`
-  ${({ session, theme: { breakpoints } }) => css`
+const Layout = styled.div<{ session?: Session; isSignPage?: boolean }>`
+  ${({ isSignPage, session, theme: { breakpoints } }) => css`
     ${session
       ? `grid-template-columns: 250px 1fr;`
       : `grid-template-columns: 0 1fr;`}
@@ -37,9 +38,12 @@ const Layout = styled.div<{ session?: Session }>`
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
 
-    @media (max-width: ${breakpoints.md}px) {
-      grid-template-columns: 1fr;
-    }
+    ${!isSignPage &&
+    css`
+      @media (max-width: ${breakpoints.md}px) {
+        grid-template-columns: 1fr;
+      }
+    `}
   `}
 `;
 
@@ -59,8 +63,13 @@ const Main = styled.div`
 export const index: FC<Props> = ({ title, children, session }) => {
   const { isPhone } = useContext(StoreContext);
 
+  const { asPath } = useRouter();
+
   return (
-    <Layout session={session}>
+    <Layout
+      session={session}
+      isSignPage={asPath === "/signin" || asPath === "/signup"}
+    >
       <Head>
         <title>{`${title ? title + " - " : ""}Invoice easy`}</title>
       </Head>

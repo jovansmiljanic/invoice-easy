@@ -100,7 +100,7 @@ const Dropdown = styled.div`
   border-radius: 5px;
   min-width: 200px;
   text-align: center;
-  box-shadow: 0 0.25rem 1rem rgba(161, 172, 184, 0.45);
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
   ${({ theme: { colors } }) => css`
     background-color: ${colors.background};

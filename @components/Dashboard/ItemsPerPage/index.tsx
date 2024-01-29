@@ -30,6 +30,7 @@ const index: FC<ItemsPerPage> = ({ limit, path }) => {
             { value: "10", label: "10" },
             { value: "20", label: "20" },
             { value: "30", label: "30" },
+            { value: "50", label: "50" },
           ],
         },
       ]}
@@ -48,7 +49,7 @@ const CustomSelect = styled(Select)`
     }
 
     * > input {
-      padding: 5px 0 !important;
+      padding: 2px 0 !important;
     }
 
     * {
@@ -56,7 +57,7 @@ const CustomSelect = styled(Select)`
       border-radius: 5px !important;
       border-color: ${colors.lightGray} !important;
       color: ${colors.textColor} !important;
-      background-color: ${colors.background} !important;
+      background-color: ${colors.white} !important;
     }
 
     .css-1dimb5e-singleValue {

@@ -22,48 +22,6 @@ import { Field, Label } from "@styles/Form";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
-const Wrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 40px;
-`;
-
-const Group = styled.div`
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  padding-bottom: 20px;
-`;
-
-const ButtonWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  button {
-    width: 100%;
-  }
-`;
-
-const PassWrap = styled.div`
-  position: relative;
-`;
-
-const EyeWrap = styled.div`
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translate(0, -50%);
-`;
-
 type Formvalues = {
   email: string;
   password: string;
@@ -102,6 +60,8 @@ const index: FC = () => {
 
         <Heading
           as="h6"
+          weight="regular"
+          color="textColorSecondary"
           padding={{
             xs: { top: 1, bottom: 4 },
             sm: { top: 1, bottom: 4 },
@@ -224,6 +184,8 @@ const index: FC = () => {
 
         <Heading
           as="h6"
+          weight="regular"
+          color="textColorSecondary"
           textAlign={{ xs: "center", sm: "center", md: "center" }}
           padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
         >
@@ -246,22 +208,65 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  flex: 0 0 40%;
+  flex: 0 0 30%;
 
   border-radius: 5px;
   padding: 40px 20px;
   box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
     rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
 
-  ${({ theme: { colors, breakpoints } }) => css`
+  ${({ theme: { colors, breakpoints, font } }) => css`
     background-color: ${colors.white};
 
     a {
       color: ${colors.secondary};
+      font-weight: ${font.weight.medium};
     }
 
     @media (max-width: ${breakpoints.md}px) {
       flex: 0 0 100%;
     }
   `}
+`;
+
+const Wrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+`;
+
+const Group = styled.div`
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 20px;
+`;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    width: 100%;
+  }
+`;
+
+const PassWrap = styled.div`
+  position: relative;
+`;
+
+const EyeWrap = styled.div`
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translate(0, -50%);
 `;

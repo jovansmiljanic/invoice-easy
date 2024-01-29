@@ -1,5 +1,5 @@
 // Core types
-import { type FC, useContext } from "react";
+import { type FC } from "react";
 
 // Vendors
 import styled, { css } from "styled-components";
@@ -16,9 +16,6 @@ import { Heading } from "@components";
 
 // Global types
 import { Invoice } from "@types";
-
-// Global context
-import { StoreContext } from "@context";
 
 interface Boxes {
   items?: Invoice[];
@@ -79,6 +76,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
 
           <Heading
             as="h6"
+            weight="regular"
             padding={{
               xs: { left: 1 },
               sm: { left: 1 },
@@ -104,6 +102,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
 
           <Heading
             as="h6"
+            weight="regular"
             padding={{
               xs: { left: 1 },
               sm: { left: 1 },
@@ -129,6 +128,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
 
           <Heading
             as="h6"
+            weight="regular"
             padding={{
               xs: { left: 1 },
               sm: { left: 1 },
@@ -154,6 +154,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
 
           <Heading
             as="h6"
+            weight="regular"
             padding={{
               xs: { left: 1 },
               sm: { left: 1 },
@@ -192,6 +193,7 @@ const Box = styled.div<{ isPriceShown?: string; isLoading?: boolean }>`
   padding: 20px;
   flex: 0 0 24%;
   border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
   ${({ isPriceShown, isLoading, theme: { colors, breakpoints } }) => css`
     background-color: ${colors.white};

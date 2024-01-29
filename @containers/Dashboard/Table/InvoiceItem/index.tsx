@@ -18,6 +18,7 @@ import useTranslation from "next-translate/useTranslation";
 // Table component
 import { StoreContext } from "@context";
 import { ActionItems } from "./Actions";
+import { DownloadInvoice } from "@components";
 
 const Status = styled.div<{ status: "danger" | "success" }>`
   width: fit-content;
@@ -36,16 +37,13 @@ const Status = styled.div<{ status: "danger" | "success" }>`
 
 const TableCell = styled.td<{ isPriceShown?: string }>`
   padding: 8px;
+  border-radius: 5px;
 
   ${({ isPriceShown, theme: { colors, breakpoints } }) => css`
     ${isPriceShown === "false" &&
-    `
-    
+    css`
       filter: blur(10px);
-    
-  `}
-
-    border-bottom: 1px solid ${colors.lightGray};
+    `}
 
     &:first-child {
       cursor: pointer;
@@ -61,9 +59,17 @@ const TableCell = styled.td<{ isPriceShown?: string }>`
 interface Item {
   updatedItems: Invoice;
   currentUser: MyAccount | null;
+
+  onSelect: (invoiceId: string, isSelected: boolean) => void; // Function to update selection
+  isSelected: boolean; // Indicates if the item is selected
 }
 
-const index: FC<Item> = ({ updatedItems, currentUser }) => {
+const index: FC<Item> = ({
+  updatedItems,
+  currentUser,
+  onSelect,
+  isSelected,
+}) => {
   // Translation
   const { t } = useTranslation();
 
@@ -84,8 +90,12 @@ const index: FC<Item> = ({ updatedItems, currentUser }) => {
 
   return (
     <>
-      <TableCell onClick={() => copyText(updatedItems._id.toString())}>
-        #{updatedItems._id.toString().slice(19)}
+      <TableCell>
+        <input
+          type="checkbox"
+          checked={isSelected}
+          onChange={e => onSelect(e.target.checked as any, isSelected)}
+        />
       </TableCell>
       <TableCell>{updatedItems.client.clientName}</TableCell>
       <TableCell>{status}</TableCell>

@@ -22,74 +22,6 @@ import { Field, Label } from "@styles/Form";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 
-const Container = styled.div`
-  height: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Wrapper = styled.div`
-  flex: 0 0 40%;
-  
-  padding: 40px 20px;
-  border-radius: 5px;
-  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
-    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-
-  ${({ theme: { colors, breakpoints } }) => css`
-    background-color: ${colors.white};
-
-    @media (max-width: ${breakpoints.md}px) {
-      padding: 40px 10px;
-    }
-
-    a {
-      color: ${colors.secondary};
-    }
-  `}
-`;
-
-const Wrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 40px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Group = styled.div`
-  width: 100%;
-  position: relative;
-  padding-bottom: 10px;
-`;
-
-const EyeWrap = styled.div`
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translate(0, -10%);
-  cursor: pointer;
-`;
-
-const ButtonWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-
-  button {
-    width: 100%;
-  }
-`;
-
 interface Formvalues {
   fullName: string;
   email: string;
@@ -136,6 +68,8 @@ const index: FC = () => {
 
         <Heading
           as="h6"
+          weight="regular"
+          color="textColorSecondary"
           padding={{
             xs: { top: 1, bottom: 4 },
             sm: { top: 1, bottom: 4 },
@@ -262,6 +196,8 @@ const index: FC = () => {
 
         <Heading
           as="h6"
+          weight="regular"
+          color="textColorSecondary"
           textAlign={{ xs: "center", sm: "center", md: "center" }}
           padding={{ xs: { top: 2 }, sm: { top: 2 }, md: { top: 2 } }}
         >
@@ -274,3 +210,76 @@ const index: FC = () => {
 };
 
 export { index as SignUp };
+
+const Container = styled.div`
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Wrapper = styled.div`
+  flex: 0 0 30%;
+
+  padding: 40px 20px;
+  border-radius: 5px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
+  ${({ theme: { colors, breakpoints, font } }) => css`
+    background-color: ${colors.white};
+
+    @media (max-width: ${breakpoints.md}px) {
+      padding: 40px 10px;
+    }
+
+    a {
+      color: ${colors.secondary};
+      font-weight: ${font.weight.medium};
+    }
+
+    @media (max-width: ${breakpoints.md}px) {
+      flex: 0 0 100%;
+    }
+  `}
+`;
+
+const Wrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Group = styled.div`
+  width: 100%;
+  position: relative;
+  padding-bottom: 10px;
+`;
+
+const EyeWrap = styled.div`
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translate(0, -10%);
+  cursor: pointer;
+`;
+
+const ButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  button {
+    width: 100%;
+  }
+`;

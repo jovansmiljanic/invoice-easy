@@ -9,7 +9,7 @@ import type { Session } from "next-auth";
 import Link from "next/link";
 
 // Vendors
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 // Local components
 import { User } from "./User";
@@ -18,7 +18,6 @@ import { Notification } from "./Notification";
 
 // Global components
 import { Heading, Logo } from "@components";
-import { StoreContext } from "@context";
 
 interface Header {
   session?: Session;
@@ -26,16 +25,16 @@ interface Header {
 }
 
 const index: FC<Header> = ({ session, title }) => {
-  const { isPhone } = useContext(StoreContext);
-
   return (
-    <Header>
-      {isPhone ? (
-        <Link href="/">
-          <Logo $width="100" $height="60" $color="secondary" />
-        </Link>
+    <Header session={session}>
+      {session ? (
+        <Heading as="h4" weight="medium" color="textColor">
+          {title}
+        </Heading>
       ) : (
-        title && <Heading as="h4">{title}</Heading>
+        <Link href="/">
+          <Logo $width="100" $height="40" $color="secondary" />
+        </Link>
       )}
 
       <Wrap>
@@ -51,7 +50,7 @@ const index: FC<Header> = ({ session, title }) => {
 
 export { index as Header };
 
-const Header = styled.div`
+const Header = styled.div<{ session?: Session }>`
   grid-column: 2 / 3;
   grid-row: 1;
 
@@ -60,6 +59,16 @@ const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  width: 100%;
+
+  ${({ session }) => css`
+    ${!session &&
+    css`
+      max-width: 1340px;
+      margin: auto;
+    `}
+  `}
 `;
 
 const Wrap = styled.div`

@@ -13,6 +13,7 @@ const Schema = new mongoose.Schema(
     invoiceNumber: { type: Number, required: true },
     tax: { type: Number, default: 0 },
     registrationNumber: { type: Number, default: 0 },
+    customText: { type: String },
     status: { type: String, default: "2" },
     year: { type: String },
   },
