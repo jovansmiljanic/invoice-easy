@@ -419,23 +419,31 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
           </Text>
         </View>
 
-        <View style={styles.note}>
-          <Text>{content?.ddvParagraphOne}</Text>
-          <Text>{content?.ddvParagraphTwo}</Text>
-        </View>
-
         {myAccount?.signInvoice ? (
-          <View style={styles.details}>
-            <View style={styles.colSign}>
-              <Text style={styles.border} />
-              <Text>Fakturu izdao</Text>
-            </View>
+          <>
+            {content?.customText ? (
+              <View style={styles.note}>
+                <Text>{content?.customText}</Text>
+              </View>
+            ) : (
+              <View style={styles.note}>
+                <Text>{content?.ddvParagraphOne}</Text>
+                <Text>{content?.ddvParagraphTwo}</Text>
+              </View>
+            )}
 
-            <View style={styles.colSign}>
-              <Text style={styles.border} />
-              <Text>Fakturu primio</Text>
+            <View style={styles.details}>
+              <View style={styles.colSign}>
+                <Text style={styles.border} />
+                <Text>Fakturu izdao</Text>
+              </View>
+
+              <View style={styles.colSign}>
+                <Text style={styles.border} />
+                <Text>Fakturu primio</Text>
+              </View>
             </View>
-          </View>
+          </>
         ) : (
           <></>
         )}

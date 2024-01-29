@@ -69,4 +69,5 @@ export interface IContentValues {
   ddvParagraphTwo: string;
   currency: string;
   no: string;
+  customText?: string;
 }
