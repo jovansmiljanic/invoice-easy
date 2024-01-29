@@ -34,6 +34,10 @@ const GlobalStyle = createGlobalStyle<{ theme?: ThemeType }>`
     scroll-behavior: smooth;
   }
 
+  *{
+    white-space: pre-line;
+  }
+
   button {
     -webkit-appearance: none;
     background-color: transparent;

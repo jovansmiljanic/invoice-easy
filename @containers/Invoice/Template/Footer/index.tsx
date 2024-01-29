@@ -10,6 +10,7 @@ import useTranslation from "next-translate/useTranslation";
 
 // Global types
 import { MyAccount } from "@types";
+import { FormikValues, useFormikContext } from "formik";
 
 const Note = styled.div`
   width: 60%;
@@ -47,6 +48,9 @@ interface Template {
   currentUser: MyAccount;
 }
 const index: FC<Template> = ({ currentUser }) => {
+  const { handleBlur, handleChange, values, errors, touched } =
+    useFormikContext<FormikValues>();
+
   // Translation
   const { t } = useTranslation();
 
@@ -57,6 +61,13 @@ const index: FC<Template> = ({ currentUser }) => {
       <Note>
         <Heading as="p">{t("invoice:ddvParagraphOne")}</Heading>
         <Heading as="p">{t("invoice:ddvParagraphTwo")}</Heading>
+
+        <textarea
+          name="customText"
+          rows={10}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
       </Note>
 
       <Footer>

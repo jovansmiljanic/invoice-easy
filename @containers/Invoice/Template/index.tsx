@@ -55,6 +55,7 @@ const InvoiceSchema = Yup.object().shape({
   endDate: Yup.date(),
   tax: Yup.number(),
   invoiceNumber: Yup.number(),
+  customText: Yup.string(),
 });
 
 const index: FC<NewInvoice> = ({
@@ -99,6 +100,7 @@ const index: FC<NewInvoice> = ({
     invoiceNumber: invoiceNumber,
     paymentDeadline: new Date(),
     issuedDate: new Date(),
+    customText: "",
   };
 
   const editInitialValues = {
@@ -109,6 +111,7 @@ const index: FC<NewInvoice> = ({
     tax: invoice?.tax ? invoice.tax : 0,
     invoiceNumber: invoice?.invoiceNumber,
     paymentDeadline: invoice?.paymentDeadline,
+    customText: invoice?.customText,
     issuedDate: invoice?.createdAt,
   };
 
@@ -121,6 +124,7 @@ const index: FC<NewInvoice> = ({
         startDate: startDate,
         endDate: endDate,
         issuedDate: new Date(),
+        customText: data.customText,
         paymentDeadline: deadlineDate,
         client: isModalData,
         tax: data.tax,
@@ -140,6 +144,7 @@ const index: FC<NewInvoice> = ({
         endDate: endDate,
         issuedDate: new Date(),
         paymentDeadline: deadlineDate,
+        customText: data.customText,
         client: isModalData,
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
