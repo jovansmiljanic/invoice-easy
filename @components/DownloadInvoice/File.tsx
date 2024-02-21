@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-end",
     paddingHorizontal: 30,
-    paddingVertical: 15,
+    paddingVertical: 3,
     borderBottom: "1px solid black",
   },
 
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
 
   itemsHeader: {
     paddingHorizontal: 30,
-    paddingVertical: 10,
+    paddingVertical: 3,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     borderBottom: "1px solid grey",
+    fontSize: "8px",
   },
 
   itemName: {
@@ -110,11 +111,11 @@ const styles = StyleSheet.create({
   },
 
   itemCost: {
-    flex: "0 0 15%",
+    flex: "0 0 5%",
   },
 
   itemQty: {
-    flex: "0 0 12.5%",
+    flex: "0 0 5%",
     textAlign: "center",
   },
 
@@ -124,13 +125,13 @@ const styles = StyleSheet.create({
   },
 
   itemPrice: {
-    flex: "0 0 15%",
+    flex: "0 0 12%",
     paddingLeft: 10,
   },
 
   total: {
     paddingHorizontal: 50,
-    paddingVertical: 30,
+    paddingVertical: 15,
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "flex-end",
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
   note: {
     width: "80%",
     margin: "auto",
-    fontSize: "9px",
+    fontSize: "8px",
   },
 
   bankInfo: {
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
   },
 
   footer: {
-    fontSize: "10px",
+    fontSize: "8px",
     textAlign: "center",
   },
 
@@ -163,7 +164,7 @@ const styles = StyleSheet.create({
     display: "flex",
     margin: 10,
     flexGrow: 1,
-    fontSize: "10px",
+    fontSize: "8px",
   },
 
   colSign: {
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
     margin: 10,
     flexGrow: 1,
-    fontSize: "10px",
+    fontSize: "8px",
   },
 
   border: {

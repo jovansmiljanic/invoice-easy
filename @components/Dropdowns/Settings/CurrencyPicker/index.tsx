@@ -8,17 +8,44 @@ import useTranslation from "next-translate/useTranslation";
 
 // Icon
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
-import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
-
+import CurrencyExchangeOutlinedIcon from "@mui/icons-material/CurrencyExchangeOutlined";
 // Client utils
 import { useDropdown } from "@utils/client";
+import { useSetCookie } from "@utils/shared";
 
 const index: FC = () => {
   const { t } = useTranslation();
 
+  const router = useRouter();
+
   const { isOpen, setIsOpen, ref } = useDropdown();
 
   const closeDropdown = useCallback(() => setIsOpen(false), [setIsOpen]);
+
+  const currency = useMemo(
+    () => ({
+      euro: "Euro",
+      rds: "RSD",
+      dolar: "Dolar",
+      none: "none",
+    }),
+    [t]
+  );
+
+  const changeCurrency = useCallback(
+    (curr: string) => {
+      useSetCookie({
+        name: "currency",
+        value: curr,
+        days: 100,
+      });
+
+      closeDropdown();
+      router.reload();
+    },
+
+    [closeDropdown]
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -33,22 +60,24 @@ const index: FC = () => {
   return (
     <ToggleDiv ref={ref}>
       <CurrentFlag aria-expanded={isOpen} onClick={() => setIsOpen(!isOpen)}>
-        <VisibilityOffOutlinedIcon />
-        {t("home:visibility")}
+        <CurrencyExchangeOutlinedIcon />
+        {t("home:currency")}
       </CurrentFlag>
 
       {isOpen && (
         <Dropdown>
-          <DropdownItem>Show numbers</DropdownItem>
-
-          <DropdownItem>Hide numbers</DropdownItem>
+          {Object.entries(currency).map(([curr, name]) => (
+            <DropdownItem key={curr} onClick={() => changeCurrency(curr)}>
+              <span>{name}</span>
+            </DropdownItem>
+          ))}
         </Dropdown>
       )}
     </ToggleDiv>
   );
 };
 
-export { index as VisibilityPicker };
+export { index as CurrencyPicker };
 
 const ToggleDiv = styled.div``;
 

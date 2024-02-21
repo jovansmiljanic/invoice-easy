@@ -8,7 +8,7 @@ import { Invoice, MyAccount } from "@types";
 import { daysLeft, formatDate, useTotalPrice } from "@utils/client";
 
 // Shared utils
-import { copyText } from "@utils/shared";
+import { copyText, useGetCookie } from "@utils/shared";
 
 // Vendors
 import { lighten } from "polished";
@@ -88,6 +88,24 @@ const index: FC<Item> = ({
 
   const totalPrice = useTotalPrice(updatedItems.items, updatedItems?.tax);
 
+  const curr = useGetCookie("currency");
+
+  let a;
+
+  switch (curr) {
+    case "euro":
+      a = "€";
+      break;
+    case "dolar":
+      a = "$";
+      break;
+    case "rsd":
+      a = "din";
+      break;
+    default:
+      a = "";
+  }
+
   return (
     <>
       <TableCell>
@@ -104,8 +122,7 @@ const index: FC<Item> = ({
         {daysLeft(updatedItems.paymentDeadline, updatedItems.issuedDate)}
       </TableCell>
       <TableCell>
-        {totalPrice}
-        {t("invoice:currency")}
+        {totalPrice} {a}
       </TableCell>
       <TableCell>
         <ActionItems updatedItems={updatedItems} currentUser={currentUser} />

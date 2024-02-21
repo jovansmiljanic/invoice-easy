@@ -16,6 +16,7 @@ import { Heading } from "@components";
 
 // Global types
 import { Invoice } from "@types";
+import { useGetCookie } from "@utils/shared";
 
 interface Boxes {
   items?: Invoice[];
@@ -68,6 +69,24 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
 
   const totalInvoicedThisYear = getTotalInvoicedPriceThisYear(items);
 
+  const curr = useGetCookie("currency");
+
+  let a;
+
+  switch (curr) {
+    case "euro":
+      a = "€";
+      break;
+    case "dolar":
+      a = "$";
+      break;
+    case "rsd":
+      a = "din";
+      break;
+    default:
+      a = "";
+  }
+
   return (
     <BoxWrapper>
       <Box isLoading={isLoading}>
@@ -118,7 +137,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
           weight="semiBold"
           padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
         >
-          {totalInvoiced?.toLocaleString()}
+          {totalInvoiced?.toLocaleString()} {a}
         </Heading>
       </Box>
 
@@ -144,7 +163,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
           weight="semiBold"
           padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
         >
-          {totalInvoicedThisYear.toLocaleString()}
+          {totalInvoicedThisYear.toLocaleString()} {a}
         </Heading>
       </Box>
 
@@ -170,7 +189,7 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
           weight="semiBold"
           padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
         >
-          {totalPaidInvoices?.toLocaleString()}
+          {totalPaidInvoices?.toLocaleString()} {a}
         </Heading>
       </Box>
     </BoxWrapper>

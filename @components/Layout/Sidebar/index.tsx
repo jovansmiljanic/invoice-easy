@@ -13,12 +13,14 @@ import { signOut } from "next-auth/react";
 import { Logo } from "@components";
 
 // Icons
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import DashboardCustomizeOutlinedIcon from "@mui/icons-material/DashboardCustomizeOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import FileCopyOutlinedIcon from "@mui/icons-material/FileCopyOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import GroupsOutlinedIcon from "@mui/icons-material/GroupsOutlined";
 
 // Next Translate
 import useTranslation from "next-translate/useTranslation";
@@ -103,17 +105,17 @@ const index: FC = () => {
     {
       label: t("home:home"),
       href: "/",
-      icon: <HomeOutlinedIcon />,
+      icon: <DashboardCustomizeOutlinedIcon />,
     },
     {
       label: t("home:invoices"),
       href: "/invoice",
-      icon: <FileCopyOutlinedIcon />,
+      icon: <ReceiptLongOutlinedIcon />,
     },
     {
       label: t("home:clients"),
       href: "/clients",
-      icon: <PeopleAltOutlinedIcon />,
+      icon: <GroupsOutlinedIcon />,
     },
     {
       label: t("home:products"),
