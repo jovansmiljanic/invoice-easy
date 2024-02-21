@@ -11,9 +11,13 @@
   "notificationTitle": "Notifications",
   "notificationContent": "You currently have no notifications!",
 
-  "theme": "Theme:",
-  "visibility": "Visibility:",
-  "language": "Language:",
+  "theme": "Choose theme",
+  "visibility": "Visibility",
+  "language": "Choose language",
+  "currency": "Choose currency",
+  "languagesSr": "Serbian",
+  "languagesEn": "English",
+  "languagesSi": "Slovenian",
 
   "boxInvoices": "Invoices",
   "boxClients": "Clients",

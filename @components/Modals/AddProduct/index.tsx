@@ -160,7 +160,7 @@ const index: FC = () => {
               .then(res => {
                 setIsModalOpen(false);
 
-                setIsModalData(res.data);
+                setIsModalData("");
 
                 router.push("/products");
               })

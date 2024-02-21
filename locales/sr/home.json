@@ -11,9 +11,13 @@
   "notificationTitle": "Obaveštenja",
   "notificationContent": "Trenutno nemate ni jedno obaveštenje!",
 
-  "theme": "Tema:",
-  "visibility": "Vidljivost:",
-  "language": "Jezik:",
+  "theme": "Izaberite temu",
+  "visibility": "Vidljivost",
+  "language": "Izaberite jezik",
+  "currency": "Choose currency",
+  "languagesSr": "Serbian",
+  "languagesEn": "English",
+  "languagesSi": "Slovenian",
 
   "boxInvoices": "Računi",
   "boxClients": "Klijenti",

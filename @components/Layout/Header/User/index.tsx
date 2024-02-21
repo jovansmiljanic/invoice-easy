@@ -40,14 +40,6 @@ const index: FC<User> = ({ session }) => {
           </Heading>
         </User>
 
-        {!isPhone && (
-          <Wrap>
-            <Heading as="h6">
-              {t("home:greeting")}, {session.user.firstName}
-            </Heading>
-          </Wrap>
-        )}
-
         <KeyboardArrowDownOutlinedIcon />
       </Wrapper>
 
