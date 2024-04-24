@@ -247,7 +247,8 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
                 <Text style={styles.name}>{invoice.client.clientName}</Text>
                 <Text>{invoice.client.clientAddress}</Text>
                 <Text>
-                  {myAccount?.zipCode}, {myAccount?.city}, {myAccount?.country}
+                  {invoice.client?.zipCode}, {invoice.client?.city},{" "}
+                  {invoice.client?.country}
                 </Text>
                 <Text>
                   {content?.taxNumber}: {invoice.client.taxNumber}

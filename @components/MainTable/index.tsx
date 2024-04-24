@@ -24,6 +24,7 @@ import { ClientTable } from "@containers/Clients/Table";
 import { ProductTable } from "@containers/Products/Table";
 import { Boxes } from "@containers/Dashboard/Boxes";
 import { ConfirmDeleteModal } from "@components/Modals/ConfirmDelete";
+// import { LineChart } from "@components/Charts";
 
 interface Checkbox {
   label: string;
@@ -221,6 +222,7 @@ const index: FC<Dashboard> = ({ path, boxes, currentUser }) => {
           isLoading={isLoading}
         />
       )}
+      {/* <LineChart invoices={totalInvoices} /> */}
 
       {path === "invoice" ? (
         <DashboardTable
