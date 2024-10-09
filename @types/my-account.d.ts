@@ -70,4 +70,6 @@ export interface IContentValues {
   currency: string;
   no: string;
   customText?: string;
+  issuedAt?: string;
+  discount?: string;
 }

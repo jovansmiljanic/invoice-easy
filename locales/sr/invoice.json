@@ -9,6 +9,7 @@
   "dateFrom": "Mesto i datum izdavanja računa",
   "dateTo": "Datum prometa dobara i usluga",
   "paymentDeadline": "Valuta dospeća",
+  "issuedAt": "Datum izdaje",
 
   "no": "Br.",
   "item": "Naziv dobra/usluge",
@@ -20,6 +21,7 @@
   "subtotal": "Vrednost",
   "tax": "Porez",
   "total": "Ukupno",
+  "discount": "Popust",
 
   "ddvParagraphOne": "Napomena o poreskom oslobođenju:",
   "ddvParagraphTwo": "Oslobođeno plaćanja poreza na dodatu vrednost po članu 33. zakona o PDV-u",

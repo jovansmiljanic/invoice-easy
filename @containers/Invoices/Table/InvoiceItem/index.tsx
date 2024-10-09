@@ -65,7 +65,11 @@ const index: FC<Item> = ({ updatedItems, currentUser }) => {
       status = <></>;
   }
 
-  const totalPrice = useTotalPrice(updatedItems.items, updatedItems?.tax);
+  const totalPrice = useTotalPrice(
+    updatedItems.items,
+    updatedItems?.tax,
+    updatedItems?.discount
+  );
 
   return (
     <>

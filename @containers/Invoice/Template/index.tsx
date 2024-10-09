@@ -101,6 +101,7 @@ const index: FC<NewInvoice> = ({
     paymentDeadline: new Date(),
     issuedDate: new Date(),
     customText: "",
+    discount: 0,
   };
 
   const editInitialValues = {
@@ -113,6 +114,7 @@ const index: FC<NewInvoice> = ({
     paymentDeadline: invoice?.paymentDeadline,
     customText: invoice?.customText,
     issuedDate: invoice?.createdAt,
+    discount: invoice?.discount,
   };
 
   const addOnSubmit = (data: FormikValues) => {
@@ -129,6 +131,7 @@ const index: FC<NewInvoice> = ({
         client: isModalData,
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
+        discount: data.discount,
       },
     };
   };
@@ -148,6 +151,7 @@ const index: FC<NewInvoice> = ({
         client: isModalData,
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
+        discount: data.discount,
       },
     };
   };

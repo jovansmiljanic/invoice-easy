@@ -1,5 +1,3 @@
-"use client";
-
 // Core types
 import type { FC } from "react";
 

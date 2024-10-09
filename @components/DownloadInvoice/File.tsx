@@ -190,7 +190,11 @@ interface File {
 }
 
 const index: FC<File> = ({ myAccount, invoice, content }) => {
-  const totalPrice = useTotalPrice(invoice.items, invoice.tax);
+  const totalPrice = useTotalPrice(
+    invoice.items,
+    invoice.tax,
+    invoice.discount
+  );
   const subTotalPrice = useSubTotalPrice(invoice.items);
 
   return (
@@ -350,13 +354,20 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
                 <Text style={styles.invoiceName}>
                   {content?.invoice}: #{invoice.invoiceNumber}
                 </Text>
+
+                <Text>
+                  {content?.issuedAt}: {formatDate(invoice.issuedDate)}.
+                </Text>
+
                 <Text>
                   {content?.dateFrom}: {myAccount?.city},{" "}
                   {formatDate(invoice.startDate)}.
                 </Text>
+
                 <Text>
                   {content?.dateTo}: {formatDate(invoice.endDate)}.
                 </Text>
+
                 <Text>
                   {content?.paymentDeadline}:{" "}
                   {formatDate(invoice.paymentDeadline)}.
@@ -384,11 +395,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
                 <Text style={styles.itemCost}>
                   {isNaN(Number(item.cost))
                     ? "Invalid cost"
-                    : Number(item.cost).toLocaleString("en-US", {
-                        style: "decimal",
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2,
-                      })}
+                    : Number(item.cost)}
                 </Text>
                 <Text style={styles.itemQty}>{item.qty}</Text>
                 <Text style={styles.itemQty}>Kom</Text>
@@ -409,6 +416,12 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
             {content?.subTotal}: {subTotalPrice} {content?.currency}
           </Text>
 
+          {content?.discount && (
+            <Text>
+              {content?.discount}: {invoice.discount}%
+            </Text>
+          )}
+
           {invoice.tax ? (
             <Text>
               {content?.tax}: {invoice.tax}%
@@ -422,6 +435,11 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
           </Text>
         </View>
 
+        <View style={styles.note}>
+          <Text>{content?.ddvParagraphOne}</Text>
+          <Text>{content?.ddvParagraphTwo}</Text>
+        </View>
+
         {myAccount?.signInvoice ? (
           <>
             {content?.customText ? (
@@ -429,10 +447,7 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
                 <Text>{content?.customText}</Text>
               </View>
             ) : (
-              <View style={styles.note}>
-                <Text>{content?.ddvParagraphOne}</Text>
-                <Text>{content?.ddvParagraphTwo}</Text>
-              </View>
+              <></>
             )}
 
             <View style={styles.details}>

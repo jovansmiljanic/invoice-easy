@@ -6,9 +6,10 @@
   "editCta": "Uredi",
   "invoice": "Račun",
 
-  "dateFrom": "Kraj in datum izdaje računa",
-  "dateTo": "Datum transakcije blaga in storitev",
+  "dateFrom": "Kraj in datum začetka storitve",
+  "dateTo": "Datum zaključka storitve",
   "paymentDeadline": "Rok plačila",
+  "issuedAt": "Datum izdaje računa",
 
   "no": "Št.",
   "item": "Opis blaga/storitev",
@@ -20,9 +21,10 @@
   "subtotal": "Vrednost",
   "tax": "Davek",
   "total": "Skupaj",
+  "discount": "Popust",
 
   "ddvParagraphOne": "Opomba o davčni oprostitvi:",
-  "ddvParagraphTwo": "Oproščeno plačila davka na dodano vrednost po 33. členu zakona o DDV",
+  "ddvParagraphTwo": "Oproščeno plačila davka na dodano vrednost po 34. členu zakona o DDV",
 
   "addNewCta": "Dodaj novo postavko",
   "addNewClient": "Dodaj novega stranko",

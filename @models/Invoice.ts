@@ -16,6 +16,7 @@ const Schema = new mongoose.Schema(
     customText: { type: String },
     status: { type: String, default: "2" },
     year: { type: String },
+    discount: { type: Number },
   },
   { collection: "Invoice", timestamps: true }
 );
