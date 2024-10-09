@@ -1,5 +1,5 @@
 // Core
-import { FC } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 
 // Vendors
 import { PDFDownloadLink } from "@react-pdf/renderer";
@@ -160,17 +160,29 @@ const index: FC<Download> = ({ invoice, type, userData }) => {
     currency: t("invoice:currency"),
     no: t("invoice:no"),
     customText: invoice.customText,
+    issuedAt: t("invoice:issuedAt"),
+    discount: t("invoice:discount"),
   };
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
-    <PDFDownloadLink
-      document={
-        <File myAccount={userData} invoice={invoice} content={content} />
-      }
-      fileName={fileName}
-    >
-      {renderedContent}
-    </PDFDownloadLink>
+    <Fragment>
+      {isClient && (
+        <PDFDownloadLink
+          document={
+            <File myAccount={userData} invoice={invoice} content={content} />
+          }
+          fileName={fileName}
+        >
+          {renderedContent}
+        </PDFDownloadLink>
+      )}
+    </Fragment>
   );
 };
 

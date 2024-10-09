@@ -6,9 +6,10 @@
   "editCta": "Edit",
   "invoice": "Invoice",
 
-  "dateFrom": "Place and date of invoice issue",
-  "dateTo": "Date of goods and services transaction",
+  "dateFrom": "Place and service Start Date",
+  "dateTo": "Service End Date",
   "paymentDeadline": "Due date",
+  "issuedAt": "Invoice Date",
 
   "no": "No.",
   "item": "Description of goods/services",
@@ -20,6 +21,7 @@
   "subtotal": "Value",
   "tax": "Tax",
   "total": "Total",
+  "discount": "Discount",
 
   "ddvParagraphOne": "Note on tax exemption:",
   "ddvParagraphTwo": "Exempt from VAT as per Article 33 of the VAT Act",

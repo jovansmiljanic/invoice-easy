@@ -33,6 +33,7 @@ export interface Invoice extends Document {
   invoiceNumber: number;
   customText?: string;
   createdAt?: number;
+  discount?: number;
   updatedAt?: number;
   invoice?: Types.PopulatedDoc<Invoice & Document>;
 }

@@ -86,7 +86,11 @@ const index: FC<Item> = ({
       status = <></>;
   }
 
-  const totalPrice = useTotalPrice(updatedItems.items, updatedItems?.tax);
+  const totalPrice = useTotalPrice(
+    updatedItems.items,
+    updatedItems?.tax,
+    updatedItems?.discount
+  );
 
   const curr = useGetCookie("currency");
 

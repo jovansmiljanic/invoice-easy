@@ -1,7 +1,5 @@
-"use client";
-
 // Core
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 const PDFDownloadLink = dynamic(
@@ -164,16 +162,24 @@ const index: FC<Download> = ({ invoice, type, userData, button }) => {
     no: t("invoice:no"),
   };
 
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <>
-      <PDFDownloadLink
-        document={
-          <File myAccount={userData} invoices={invoice} content={content} />
-        }
-        fileName={fileName}
-      >
-        {renderedContent}
-      </PDFDownloadLink>
+      {isClient && (
+        <PDFDownloadLink
+          document={
+            <File myAccount={userData} invoices={invoice} content={content} />
+          }
+          fileName={fileName}
+        >
+          {renderedContent}
+        </PDFDownloadLink>
+      )}
     </>
   );
 };

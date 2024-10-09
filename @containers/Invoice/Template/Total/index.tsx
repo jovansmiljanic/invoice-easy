@@ -60,7 +60,7 @@ const index: FC<Total> = ({ tableData }) => {
 
   const { handleBlur, handleChange, values } = useFormikContext<FormikValues>();
 
-  const totalPrice = useTotalPrice(tableData, values.tax);
+  const totalPrice = useTotalPrice(tableData, values.tax, values.discount);
   const subTotalPrice = useSubTotalPrice(tableData);
 
   return (
@@ -83,7 +83,6 @@ const index: FC<Total> = ({ tableData }) => {
         >
           {t("invoice:tax")}:
         </Heading>
-
         <Field
           type="number"
           name="tax"
@@ -92,6 +91,25 @@ const index: FC<Total> = ({ tableData }) => {
           onBlur={handleBlur}
           value={values.tax}
         />
+        %
+      </TotalRow>
+
+      <TotalRow>
+        <Heading
+          as="p"
+          padding={{ xs: { right: 2 }, sm: { right: 2 }, md: { right: 4 } }}
+        >
+          {t("invoice:discount")}:
+        </Heading>
+        <Field
+          type="number"
+          name="discount"
+          placeholder="0.0"
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values.discount}
+        />{" "}
+        %
       </TotalRow>
 
       <TotalRow>

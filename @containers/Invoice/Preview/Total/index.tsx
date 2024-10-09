@@ -79,7 +79,11 @@ const index: FC<Total> = ({ invoice, companyName }) => {
   // Translation
   const { t } = useTranslation();
 
-  const totalPrice = useTotalPrice(invoice.items, invoice.tax);
+  const totalPrice = useTotalPrice(
+    invoice.items,
+    invoice.tax,
+    invoice.discount
+  );
   const subTotalPrice = useSubTotalPrice(invoice.items);
 
   return (
@@ -114,6 +118,23 @@ const index: FC<Total> = ({ invoice, companyName }) => {
             </Heading>
 
             <Heading as="p">{invoice.tax}%</Heading>
+          </TotalRow>
+        )}
+
+        {invoice.discount && (
+          <TotalRow>
+            <Heading
+              as="p"
+              padding={{
+                xs: { right: 1 },
+                sm: { right: 1 },
+                md: { right: 2 },
+              }}
+            >
+              {t("invoice:discount")}:
+            </Heading>
+
+            <Heading as="p">{invoice.discount}%</Heading>
           </TotalRow>
         )}
 
