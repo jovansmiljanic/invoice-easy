@@ -10,7 +10,7 @@ export interface Client {
   city: string;
   country: string;
   taxNumber: string;
-  registrationNumber: string;
+  registrationNumber?: string;
   client?: Types.PopulatedDoc<Client & Document>;
 }
 
