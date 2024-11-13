@@ -122,9 +122,7 @@ const index: FC = ({}) => {
     city: Yup.string().required(t("form:cityError")),
     country: Yup.string().required(t("form:countryError")),
     taxNumber: Yup.string().required(t("form:taxNumberError")),
-    registrationNumber: Yup.string().required(
-      t("form:registrationNumberError")
-    ),
+    registrationNumber: Yup.string(),
   });
 
   const addInitialValues = {
