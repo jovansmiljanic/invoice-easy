@@ -51,21 +51,21 @@ const index: FC = () => {
         try {
           const data = { locale }; // Assuming you want to update the user's locale
 
-          await axios({
-            method: "PUT",
-            url: `/api/registration`,
-            data: {
-              _id: session?.user._id,
-              ...data,
-            },
-          });
+          // await axios({
+          //   method: "PUT",
+          //   url: `/api/registration`,
+          //   data: {
+          //     _id: session?.user._id,
+          //     ...data,
+          //   },
+          // });
 
-          // If the API call succeeds, proceed with setting the cookie and updating the route
-          useSetCookie({
-            name: "lang",
-            value: locale,
-            days: 100,
-          });
+          // // If the API call succeeds, proceed with setting the cookie and updating the route
+          // useSetCookie({
+          //   name: "lang",
+          //   value: locale,
+          //   days: 100,
+          // });
 
           // Push the current path with the new locale
           router.push(router.asPath, router.asPath, { locale });
