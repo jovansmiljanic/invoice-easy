@@ -132,6 +132,7 @@ const index: FC<NewInvoice> = ({
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
         discount: data.discount,
+        year: startDate?.getFullYear() === 2025 ? new Date().getFullYear() : "",
       },
     };
   };
@@ -152,6 +153,7 @@ const index: FC<NewInvoice> = ({
         tax: data.tax,
         invoiceNumber: data.invoiceNumber,
         discount: data.discount,
+        year: new Date().getFullYear(),
       },
     };
   };
@@ -164,7 +166,6 @@ const index: FC<NewInvoice> = ({
       onSubmit={async (data: FormikValues) => {
         await axios(invoice ? editOnSubmit(data) : addOnSubmit(data))
           .then(res => {
-            console.log(res);
             router.push("/");
           })
           .catch(err => {

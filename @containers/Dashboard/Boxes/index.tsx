@@ -67,7 +67,27 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
     );
   };
 
+  const getTotalInvoicedPriceLastYear = (
+    invoices: Invoice[] | undefined
+  ): number => {
+    const currentYear = new Date().getFullYear() - 1;
+
+    return (
+      invoices?.reduce((sum, invoice) => {
+        const startDate = new Date(invoice.startDate);
+        if (startDate.getFullYear() === currentYear) {
+          const items = invoice.items;
+          const prices = items.map(item => parseInt(item.price.toString()));
+          const total = prices.reduce((subtotal, price) => subtotal + price, 0);
+          return sum + total;
+        }
+        return sum;
+      }, 0) ?? 0
+    );
+  };
+
   const totalInvoicedThisYear = getTotalInvoicedPriceThisYear(items);
+  const totalInvoicedLastYear = getTotalInvoicedPriceLastYear(items);
 
   const curr = useGetCookie("currency");
 
@@ -169,6 +189,32 @@ const index: FC<Boxes> = ({ items, invoicesLength, isLoading }) => {
 
       <Box isLoading={isLoading}>
         <BoxWrap>
+          <RequestPageOutlinedIcon />
+
+          <Heading
+            as="h6"
+            weight="regular"
+            padding={{
+              xs: { left: 1 },
+              sm: { left: 1 },
+              md: { left: 1 },
+            }}
+          >
+            {t("home:boxInvoicedLastYear")}{" "}
+          </Heading>
+        </BoxWrap>
+
+        <Heading
+          as="h3"
+          weight="semiBold"
+          padding={{ xs: { top: 1 }, sm: { top: 1 }, md: { top: 1 } }}
+        >
+          {totalInvoicedLastYear.toLocaleString()} {a}
+        </Heading>
+      </Box>
+
+      <Box isLoading={isLoading}>
+        <BoxWrap>
           <PaidOutlinedIcon />
 
           <Heading
@@ -204,13 +250,14 @@ const BoxWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  gap: 10px;
 
   margin-bottom: 20px;
 `;
 
 const Box = styled.div<{ isPriceShown?: string; isLoading?: boolean }>`
-  padding: 20px;
-  flex: 0 0 24%;
+  padding: 20px 10px;
+  flex: 1;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 

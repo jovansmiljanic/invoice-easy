@@ -24,6 +24,7 @@
   "boxInvoiced": "Invoiced",
   "boxPaid": "Paid",
   "boxInvoicedThisYear": "Invoiced This Year",
+  "boxInvoicedLastYear": "Invoiced Last Year",
 
   "homeTitle": "Home Page",
   "clientsTitle": "Clients",
