@@ -174,7 +174,6 @@ const index: FC<Client> = ({
 
   // Handle types
   const handleChangeType = (selected: any) => {
-    console.log(selected.value);
     setIsModalData(selected.value);
   };
 

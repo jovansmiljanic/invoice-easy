@@ -270,7 +270,9 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
 
               <View style={styles.col2}>
                 <Text style={styles.invoiceName}>
-                  {content?.invoice}: #{invoice.invoiceNumber}
+                  {content?.invoice}: #
+                  {invoice.year ? `${invoice.year} - ` : ""}
+                  {invoice.invoiceNumber}
                 </Text>
                 <Text>
                   {content?.dateFrom}: {formatDate(invoice.startDate)}
@@ -352,7 +354,9 @@ const index: FC<File> = ({ myAccount, invoice, content }) => {
 
               <View style={styles.col2}>
                 <Text style={styles.invoiceName}>
-                  {content?.invoice}: #{invoice.invoiceNumber}
+                  {content?.invoice}: #
+                  {invoice.year ? `${invoice.year} - ` : ""}
+                  {invoice.invoiceNumber}
                 </Text>
 
                 <Text>

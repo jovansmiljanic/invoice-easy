@@ -66,7 +66,8 @@ const index: FC<ClientData> = ({ invoice, city }) => {
             md: { bottom: 1 },
           }}
         >
-          {t("invoice:invoice")} #{invoice.invoiceNumber}
+          {t("invoice:invoice")} #{invoice.year ? `${invoice.year} - ` : ""}
+          {invoice.invoiceNumber}
         </Heading>
 
         <Heading as="p">

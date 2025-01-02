@@ -135,8 +135,6 @@ const api = async (req: NextApiRequest, res: NextApiResponse) => {
 
     const { body } = req;
 
-    console.log(body);
-
     // Grab current user
     await Product.deleteOne({ _id: body });
   }
